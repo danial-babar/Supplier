@@ -16,7 +16,9 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily:{
-        sans:['var(--font-bhaji)']
+        rbBold:['var(--font-rb-bold)'],
+        rbLight:['var(--font-rb-light)'],
+        rbRegular:['var(--font-rb-reg)'],
       }
     },
   },

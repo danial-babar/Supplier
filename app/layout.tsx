@@ -6,14 +6,35 @@ import localFont from 'next/font/local';
 
 const inter = Inter({ subsets: ["latin"] });
 
-const bhaji = localFont({
+const rbBold = localFont({
   src:[
     {
-      path:'../public/fonts/Bahij TheSansArabic Bold.ttf',
+      path:'../public/fonts/RB Bold.ttf',
       weight:'800'
-    }
+    },
+
   ],
-  variable:'--font-bhaji'
+  variable:'--font-rb-bold'
+})
+const rbLight = localFont({
+  src:[
+    {
+      path:'../public/fonts/RB Light.ttf',
+      // weight:'800'
+    },
+
+  ],
+  variable:'--font-rb-light'
+})
+const rbRegular = localFont({
+  src:[
+    {
+      path:'../public/fonts/RB Regular.ttf',
+      // weight:'800'
+    },
+
+  ],
+  variable:'--font-rb-reg'
 })
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${bhaji.variable} font-sans`}>
+    <html lang="en" className={`${rbBold.variable} ${rbRegular.variable} ${rbLight.variable} font-sans`}>
       <body className={inter.className}>
         <Provider>{children}</Provider>
       </body>
