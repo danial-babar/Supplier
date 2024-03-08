@@ -12,7 +12,7 @@ const Banner = (props: Props) => {
           بات التوريد
         </span>
       </h1>
-      <h4 className="text-black font-rb sm:text-xl md:text-[18px] mt-10 text-center font-[400]">
+      <h4 className="text-black font-rb sm:text-xl md:text-[18px] mt-10 text-center font-rbLight">
         تتيح منصة مــوّرد الإلكتروني فرصة مشاركة طلب وعرض سعر الإلكترونية من
         مختلف مناطق المملكة
       </h4>
