@@ -38,10 +38,10 @@ const Header = ({ activeItem }: Props) => {
   };
   return (
     <div
-      className={`w-full p-5 border-b border-b-[#ffffff32] min-h-[60px] transition-opacity ${
+      className={`w-full py-5 border-b border-b-[#F84F39] min-h-[60px] transition-opacity false ${
         active && "fixed top-0 left-0 bg-[#000000] z-[9999]"
       }`}
-    >
+>
       <div className="hidden md:w-[90%] mx-auto md:flex items-center justify-between">
         <div>
           <Link href={"/"}>
@@ -49,11 +49,10 @@ const Header = ({ activeItem }: Props) => {
           </Link>
         </div>
         <Navigation activeItem={activeItem} />
-        <div className="flex items-center p-2 bg-[#F84F39] rounded-full px-5">
-          <h4 className="text-white text-[20px]">تسجيل دخول</h4>
+        <div className="text-center px-3 py-2  bg-[#F84F39] rounded-full" >
+          <h4 className="text-white cursor-pointer w-[120px] text-[16px] font-[600]">تسجيل دخول</h4>
         </div>
       </div>
-
       <div className="w-full md:hidden flex items-center justify-between">
         <div>
           <Link href={"/"}>
