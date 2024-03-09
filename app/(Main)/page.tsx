@@ -11,18 +11,11 @@ const page = (props: Props) => {
   return (
     <div dir="rtl" className="">
       <Header activeItem={0} />
-      <Banner/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <Footer/>
-=======
-      
-      <RequestCard/>
->>>>>>> 1e28c9ba7102fae562c300c12401b201d36be12f
-=======
-      
-      <RequestCard/>
->>>>>>> 1e28c9ba7102fae562c300c12401b201d36be12f
+      <Banner />
+
+      <Footer />
+
+      <RequestCard />
     </div>
   );
 };
