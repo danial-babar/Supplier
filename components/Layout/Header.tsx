@@ -39,16 +39,16 @@ const Header = ({ activeItem }: Props) => {
   return (
     <div
       className={`w-full py-5 border-b border-b-[#F84F39] min-h-[60px] transition-opacity false ${
-        active && "fixed top-0 left-0 bg-[#000000] z-[9999]"
+        active && "fixed top-0 left-0 bg-[#272737] z-[9999]"
       }`}
 >
       <div className="hidden md:w-[90%] mx-auto md:flex items-center justify-between">
         <div>
           <Link href={"/"}>
-            <Image src={"/logo.png"} width={150} height={150} alt="Logo" />
+            <Image src={active?"/logo-white.png":"/logo.png" } width={150} height={150} alt="Logo" />
           </Link>
         </div>
-        <Navigation activeItem={activeItem} />
+        <Navigation activeItem={activeItem} active={active}/>
         <div className="text-center px-3 py-2  bg-[#F84F39] rounded-full" >
           <h4 className="text-white cursor-pointer w-[120px] text-[16px] font-[600]">تسجيل دخول</h4>
         </div>
@@ -70,7 +70,7 @@ const Header = ({ activeItem }: Props) => {
           >
             <div className="fixed bg-[#000] w-[60%] h-screen top-0 right-0 z-[999]">
               <div className="mt-20 p-5">
-                <Navigation activeItem={activeItem} />
+                <Navigation activeItem={activeItem} active={active}/>
               </div>
             </div>
           </div>
