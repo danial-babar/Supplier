@@ -17,7 +17,7 @@ const Footer = () => {
               alt="Logo"
             />
           </Link>
-          <p className="text-[#fff] text-[18px] font-rbRegular md:w-3/5 mt-3 leading-7">
+          <p className="text-[#fff] text-[12px] lg:text-[16px] md-text-[18px] xl:text-[20px] font-rbRegular md:w-3/5 mt-3 leading-7">
             تتيح منصة مـوّرد الإلكتروني فرصة مشاركة المزايدين في المزادات
             الإلكترونية من مختلف مناطق المملكة
           </p>
@@ -58,7 +58,7 @@ const Footer = () => {
               <p className="text-[#fff] text-[24px] md:text-[30px] 2xl:text-[40px] font-rbBold">
                 النشرة الإخبارية
               </p>
-              <p className="text-[#fff] text-[18px] font-rbRegular md:w-full mt-3 leading-7 md-text-[20px] 2xl:text-[20px]">
+              <p className="text-[#fff] text-[12px] lg:text-[16px] md-text-[18px] xl:text-[20px] font-rbRegular md:w-full mt-3 leading-7 md-text-[20px] 2xl:text-[20px]">
                 انضم إلى قائمتنا البريدية للبقاء على اطلاع دائم بآخر الأخبار
                 والأحداث والمزادات التي تقدمها منصة مــوّرد .
               </p>
