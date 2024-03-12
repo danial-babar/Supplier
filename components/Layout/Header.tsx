@@ -18,7 +18,7 @@ const Header = ({ activeItem }: Props) => {
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 70) {
+      if (window.scrollY > 80) {
         setActive(true);
       } else setActive(false);
     });
@@ -42,7 +42,7 @@ const Header = ({ activeItem }: Props) => {
         active && "fixed top-0 left-0 bg-[#272737] z-[9999]"
       }`}
 >
-      <div className="hidden md:w-[90%] mx-auto md:flex items-center justify-between">
+      <div className="hidden w-[95%] mx-auto md:flex items-center justify-between">
         <div>
           <Link href={"/"}>
             <Image src={active?"/logo-white.png":"/logo.png" } width={150} height={150} alt="Logo" />
