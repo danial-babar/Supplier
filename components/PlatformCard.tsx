@@ -16,7 +16,9 @@ const PlatformCard = ({ icon, title, description }: Props) => {
       <h4 className="text-black text-[16px] sm:text-[12px] md:text-[18px] lg:text-[20px] xl:text-[22pxpx] text-center w-[60%] mt-3 font-rbBold">
         {title}
       </h4>
-      <p className="text-black text-[16px] sm:text-[12px] md:text-[18px] lg:text-[20px] xl:text-[22pxpx] text-center w-[60%] mt-3 font-rbRegular">{description}</p>
+      <p className="text-black text-[16px] sm:text-[12px] md:text-[18px] lg:text-[20px] xl:text-[22pxpx] text-center w-[60%] mt-3 font-rbRegular">
+        {description}
+      </p>
     </div>
   );
 };
