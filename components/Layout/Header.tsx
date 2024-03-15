@@ -1,14 +1,14 @@
 import Navigation from "@/components/Layout/Navigation";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { FaBars } from "react-icons/fa";
 // import DropDown from "./DropDown";
 import { RxCross1 } from "react-icons/rx";
 type Props = {
-  activeItem: number;
+  activeItem?: number;
 };
 
 const Header = ({ activeItem }: Props) => {
@@ -36,16 +36,26 @@ const Header = ({ activeItem }: Props) => {
   const handleProfile = () => {
     setActiveProfile(!activeProfile);
   };
+  
+  useEffect(() => {
+    const body = document.querySelector("body");
+    if (open) {
+      body?.classList.add("overflow-hidden");
+    } else {
+      body?.classList.remove("overflow-hidden");
+    }
+  }, [open]);
+
   return (
     <div
-      className={`w-full py-5 border-b border-b-[#F84F39] min-h-[60px] transition-opacity false ${
-        active && "fixed top-0 left-0 bg-[#272737] z-[9999]"
+      className={`w-full py-5 border-b border-b-[#F84F39] px-3 min-h-[60px] transition-opacity false ${
+        active && "fixed top-0 left-0 bg-[#fff] z-[9999] sm:px-0 px-3 "
       }`}
 >
       <div className="hidden w-[95%] mx-auto md:flex items-center justify-between">
         <div>
           <Link href={"/"}>
-            <Image src={active?"/logo-white.png":"/logo.png" } width={150} height={150} alt="Logo" />
+            <Image src={active?"/logo.png":"/logo.png" } width={150} height={150} alt="Logo" />
           </Link>
         </div>
         <Navigation activeItem={activeItem} active={active}/>
@@ -69,7 +79,7 @@ const Header = ({ activeItem }: Props) => {
             id="screen"
           >
             <div className="fixed bg-[#000] w-[60%] h-screen top-0 right-0 z-[999]">
-              <div className="mt-20 p-5">
+              <div className="mt-8 px-5">
                 <Navigation activeItem={activeItem} active={active}/>
               </div>
             </div>

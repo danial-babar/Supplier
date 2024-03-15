@@ -2,7 +2,7 @@ import { NavItems } from "@/constants/NavbarItems";
 import React from "react";
 
 type Props = {
-  activeItem: number;
+  activeItem?: number;
   active: boolean;
 };
 
@@ -13,12 +13,8 @@ const Navigation = ({ activeItem, active }: Props) => {
         return (
           <div key={item.title}>
             <p
-              className={`inline-block cursor-pointer  md:px-2 text-[15px] sm-text-[8px] xl:px-5 py-5 md:py-0 font-[600] font-Inter ${
-                activeItem === index
-                  ? "text-[#F84F39]"
-                  : active
-                  ? "text-white"
-                  : "text-black"
+              className={`inline-block cursor-pointer md:px-3 text-[15px] sm-text-[16px] lg:px-5 py-5 md:py-0 ${
+                activeItem === index ? "text-[#F84F39] font-rbBold":"md:text-black text-white font-rbRegular"
               }`}
             >
               {item.title}
