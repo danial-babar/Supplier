@@ -66,7 +66,7 @@ const page = (props: Props) => {
       <div className="w-[95%] mx-auto sm:p-5 p-2 sm:mt-20 md:mt-32 mt-8">
         <div className="lg:text-[45px] md:text-[36px] sm:text-[28] text-[18px] text-black font-rbBold text-center">
           <span className="">لماذا منصة مـ</span>
-          <span className="rounded-3xl bg-[#F84F39] pe-3 md:pe-8">
+          <span className="rounded-3xl bg-[#BDFFA5] pe-3 md:pe-8">
             وّرد الإلكتروني
           </span>
         </div>
