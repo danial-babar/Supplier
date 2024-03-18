@@ -42,51 +42,74 @@ const page = (props: Props) => {
           </button>
         </div>
       </div>
-      <RequestCard />
+      <div
+        className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5"
+        style={{ direction: "rtl" }}
+      >
+        <RequestCard
+          bgColor="bg-[#FAFAFF]"
+          contentBg="bg-[#6c66da4d]"
+          contentColor="#6B66DA"
+        />
+        <RequestCard
+          bgColor="bg-[#D6FAEE]"
+          contentBg="bg-[#34e5a755]"
+          contentColor="#34E5A8"
+          textColor="#000000"
+        />
+        <RequestCard
+          bgColor="bg-[#FEDCD7]"
+          contentBg="bg-[#f84f3948]"
+          contentColor="#F84F39"
+        />
+      </div>
       <div className="w-[95%] mx-auto sm:p-5 p-2 sm:mt-20 md:mt-32 mt-8">
-  <div className="lg:text-[45px] md:text-[36px] sm:text-[28] text-[18px] text-black font-rbBold text-center">
-    <span className="">
-    لماذا منصة مـ
-    </span>
-      <span className="rounded-3xl bg-[#BDFFA5] pe-3 md:pe-8">
-      وّرد الإلكتروني
-  </span>
-  </div>
-  <h3 className="text-[#475467] text-center text-[14px] md:text-[18px] font-rbRegular mt-8">
-    تتيح لك منصة <span className="font-bold">مــوّرد</span> الإلكتروني
-    المشاركة في طلبات التوريد المطروحة في أي وقت ومن أي مكان بكل سهولة
-  </h3>
-  <div className="md:flex mx-auto w-full justify-between items-center mt-6">
-    <div className="md:w-1/3">
-      <PlatformCard
-        icon={"/Icon1.png"}
-        title="المشاركة عن بعد"
-        description="بإمكانك المزايدة بشكل إلكتروني في أي وقت ومن أي مكان"
-      />
-      <PlatformCard
-        icon={"/Icon2.png"}
-        title="تقديم طلب سعر على أكثر من طلب توريد في نفس الوقت"
-        description="يمكنك تقديم عرض سعر على عدة طلب توريد مختلف عبر المنصة في نفس الوقت"
-      />
-    </div>
-    <div className="md:w-1/3 sm:mt-0 mt-8">
-      <Image src={"/mobile.png"} alt="" width={500} height={700} className="object-contain mx-auto" />
-    </div>
-    <div className="md:w-1/3">
-      <PlatformCard
-        icon={"/Icon3.png"}
-        title="وسائل دفع إلكترونية"
-        description="توفر المنصة وسائل دفع إلكترونية آمنه يمكنك من خلالها شحن محفظتك واسترجاع المبلغ بكل أمان"
-      />
-      <PlatformCard
-        icon={"/Icon4.png"}
-        title="الامان والخصوصية"
-        description="نحافظ على خصوصية معلوماتك الشخصية وأمانها وسلامتها."
-      />
-    </div>
-  </div>
-</div>
-
+        <div className="lg:text-[45px] md:text-[36px] sm:text-[28] text-[18px] text-black font-rbBold text-center">
+          <span className="">لماذا منصة مـ</span>
+          <span className="rounded-3xl bg-[#BDFFA5] pe-3 md:pe-8">
+            وّرد الإلكتروني
+          </span>
+        </div>
+        <h3 className="text-[#475467] text-center text-[14px] md:text-[18px] font-rbRegular mt-8">
+          تتيح لك منصة <span className="font-bold">مــوّرد</span> الإلكتروني
+          المشاركة في طلبات التوريد المطروحة في أي وقت ومن أي مكان بكل سهولة
+        </h3>
+        <div className="md:flex mx-auto w-full justify-between items-center mt-6">
+          <div className="md:w-1/3">
+            <PlatformCard
+              icon={"/Icon1.png"}
+              title="المشاركة عن بعد"
+              description="بإمكانك المزايدة بشكل إلكتروني في أي وقت ومن أي مكان"
+            />
+            <PlatformCard
+              icon={"/Icon2.png"}
+              title="تقديم طلب سعر على أكثر من طلب توريد في نفس الوقت"
+              description="يمكنك تقديم عرض سعر على عدة طلب توريد مختلف عبر المنصة في نفس الوقت"
+            />
+          </div>
+          <div className="md:w-1/3 sm:mt-0 mt-8">
+            <Image
+              src={"/mobile.png"}
+              alt=""
+              width={500}
+              height={700}
+              className="object-contain mx-auto"
+            />
+          </div>
+          <div className="md:w-1/3">
+            <PlatformCard
+              icon={"/Icon3.png"}
+              title="وسائل دفع إلكترونية"
+              description="توفر المنصة وسائل دفع إلكترونية آمنه يمكنك من خلالها شحن محفظتك واسترجاع المبلغ بكل أمان"
+            />
+            <PlatformCard
+              icon={"/Icon4.png"}
+              title="الامان والخصوصية"
+              description="نحافظ على خصوصية معلوماتك الشخصية وأمانها وسلامتها."
+            />
+          </div>
+        </div>
+      </div>
       <DownloadAppBanner />
       <SupplierPlatform />
       <Partners />
