@@ -9,6 +9,9 @@ const page = (props: Props) => {
   return (
     <div dir='rtl'>
         <Header/>
+        <div className="">
+          something
+        </div>
         <Footer/>
     </div>
   )
