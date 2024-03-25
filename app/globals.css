@@ -67,7 +67,12 @@ body {
   overflow: hidden;
   z-index: 1;
 }
-
+.map_img{
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background-position: center;
+}
 .parent> :last-child{
   margin-right: auto;
 }
