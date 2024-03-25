@@ -17,7 +17,7 @@ export const NavItems = [
     },
     {
       title: "الأسئلة الشائعة",
-      href: "/Questions",
+      href: "/questions",
     },
     {
       title: "تواصل معنا",
