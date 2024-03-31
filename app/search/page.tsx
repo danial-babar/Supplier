@@ -12,7 +12,7 @@ const page = (props: Props) => {
     <div dir="rtl">
       <Header />
       <Banner />
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center bg-gradient-radial from-gray-100 via-gray-50">
         <h1 className="text-black text-[18px] sm:text-[20px] lg:text-[24px] xl:text-[30px] font-rbBold">نتائج البحث</h1>
         <p className="text-black text-[16px] sm:text-[18px] md:text-[20px] font-rbLight sm:font-rbRegular">
             عدد النتائج <span className="text-[#F84F39]">9</span > <span className="text-[#F84F39]">طلبات توريد إعادة البحث</span>

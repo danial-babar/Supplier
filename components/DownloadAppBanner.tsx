@@ -6,7 +6,7 @@ type Props = {};
 const DownloadAppBanner = (props: Props) => {
   return (
     <div className="w-[95%] grid lg:grid-cols-3 gap-5 md:grid-cols-2 mx-auto md:justify-between justify-center md:my-16 mt-8">
-      <div className="bg-[#66e6b950] xl:px-5 px-3 pt-8 xl:pt-12 rounded-[20px]">
+      <div className="bg-[#66e6b950] xl:px-5 px-3 pt-8 xl:pt-12 pb-5 rounded-[20px]">
         <p className="text-black opacity-80 text-[16px] sm:text-[18px] md:text-[20px] xl:text-[22px] font-rbBold">
           المنتجات الأكثر طلبا للتوريد
         </p>
@@ -123,7 +123,7 @@ const DownloadAppBanner = (props: Props) => {
           </p>
         </div>
       </div>
-      <div className="bg-[#a7a3e94d] xl:px-5 px-3 pb-5 pt-8 lg:pt-12 rounded-[20px]">
+      <div className="bg-[#a7a3e94d] flex flex-col justify-between xl:px-5 px-3 pb-5 pt-8 lg:pt-12 rounded-[20px]">
         <div className="">
           <p className="text-black opacity-80 text-[16px] sm:text-[18px] md:text-[20px] xl:text-[22px] font-rbBold">
             ابدأ طلب توريداتك بكل سهولة

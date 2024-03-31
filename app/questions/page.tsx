@@ -21,7 +21,7 @@ const page = (props: Props) => {
             <span className="rounded-3xl bg-[#BDFFA5] pe-4 h-6 py-0">
               لة الشائعة
             </span>
-            <div className="text-[16px] sm:text-[18px] font-rbLight sm:font-rbRegular text-gray-700 sm:mt-8 mt-4">
+            <div className="text-[16px] sm:text-[18px] font-rbLight sm:font-rbRegular text-gray-700 sm:mt-8 mt-5 mb-5">
               <p>
                 مجموعة من الاسئلة الشائعة عن منصة <strong className="sm:font-rbBold font-rbRegular">مــوّرد</strong>{" "}
               </p>
