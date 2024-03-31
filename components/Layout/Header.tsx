@@ -55,12 +55,12 @@ const Header = ({ activeItem }: Props) => {
       <div className="hidden w-[95%] mx-auto md:flex items-center justify-between">
         <div>
           <Link href={"/"}>
-            <Image src={active?"/logo.png":"/logo.png" } width={150} height={150} alt="Logo" />
+            <Image src={active?"/logo.png":"/logo.png" } width={150} height={150} className="lg:w-[150px] w-[120px]" alt="Logo" />
           </Link>
         </div>
         <Navigation activeItem={activeItem} active={active}/>
-        <div className="text-center px-3 py-2  bg-[#F84F39] rounded-full" >
-          <h4 className="text-white cursor-pointer w-[120px] text-[16px] font-[600]">تسجيل دخول</h4>
+        <div className="text-center md:px-3 px-2 xl:py-3 py-2 bg-[#F84F39] rounded-full" >
+          <h4 className="text-white cursor-pointer lg:w-[120px] w-[90px] text-[14px] lg:text-[16px] font-rbRegular">تسجيل دخول</h4>
         </div>
       </div>
       <div className="w-full md:hidden flex items-center justify-between">

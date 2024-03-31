@@ -11,16 +11,16 @@ const page = (props: Props) => {
     <div dir="rtl">
       <Header activeItem={5} />
       <div className="w-[95%] grid grid-cols-1 md:grid-cols-2 md:mt-3 mt-6 gap-4 mx-auto items-center">
-        <div className=" text-[#0A102F] lg:text-[45px] md:text-[34px] sm:text-[22px] text-[14px] relative font-rbBold">
+        <div className=" text-[#0A102F] text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold relative">
           تواص
           <span className="rounded-3xl bg-[#BDFFA5] md:pe-24 pe-4 py-0">
             ل معنا
           </span>
-          <div className="text-[14px] md:text-[18px] text-gray-700 sm:mt-8 mt-4 font-rbRegular">
+          <div className="text-[16px] sm:text-[18px] text-gray-700 sm:mt-8 mt-4 font-rbLight sm:font-rbRegular">
             <p>لا تتردد في الاتصال بنا مع أي أسئلة أو تعليقات</p>
             <p>
-              او التواصل علي البريد الاكتروني{" "}
-              <strong className="text-[#F84F39] uppercase">
+              او التواصل علي البريد الاكتروني
+              <strong className="text-[#F84F39] sm:font-rbBold font-rbRegular uppercase">
                 info@mowarrd.sa
               </strong>
             </p>
@@ -48,34 +48,34 @@ const page = (props: Props) => {
                 className="object-contain rounded-lg bg-[#F84F39] bg-opacity-20 p-3 mx-auto"
               />
             </div>
-            <p className="font-rbRegular my-3">البريد الإلكتروني</p>
-            <small>info@mowarrd.sa</small>
+            <p className="sm:font-rbBold text-[#000] text-opacity-80 font-rbRegular my-3">رقم الهاتف</p>
+            <small className="sm:font-rbBold font-rbRegular text-[#000] text-opacity-80">+1-202-555-0177</small>
           </div>
           <div className="max-w-sm p-6 text-center bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
             <div className="">
               <Image
-                src="/call.png"
+                src="/telephone.png"
                 height={50}
                 width={50}
                 alt=""
                 className="object-contain rounded-lg bg-[#F84F39] bg-opacity-20 p-3 mx-auto"
               />
             </div>
-            <p className="font-rbRegular my-3">البريد الإلكتروني</p>
-            <small>info@mowarrd.sa</small>
+            <p className="sm:font-rbBold text-[#000] text-opacity-80 font-rbRegular my-3">الفاكس</p>
+            <small className="sm:font-rbBold font-rbRegular text-[#000] text-opacity-80">+1-202-555-0177</small>
           </div>
           <div className="max-w-sm p-6 text-center bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
             <div className="">
               <Image
-                src="/call.png"
+                src="/mail.png"
                 height={50}
                 width={50}
                 alt=""
                 className="object-contain rounded-lg bg-[#F84F39] bg-opacity-20 p-3 mx-auto"
               />
             </div>
-            <p className="font-rbRegular my-3">البريد الإلكتروني</p>
-            <small>info@mowarrd.sa</small>
+            <p className="sm:font-rbBold text-[#000] text-opacity-80 font-rbRegular my-3">البريد الإلكتروني</p>
+            <small className="font-rbRegular text-[#000] text-opacity-80">info@mowarrd.sa</small>
           </div>
         </div>
       </div>
@@ -90,14 +90,14 @@ const page = (props: Props) => {
       </div>
       <div className="bg-gradient-radial from-blue-100 to-pink-50 via-gray-100">
         <div className="text-center md:pt-20 pt-8">
-          <div className=" text-[#0A102F] lg:text-[45px] md:text-[34px] sm:text-[22px] text-[14px] relative font-rbBold">
+          <div className=" text-[#0A102F] text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold relative">
             <span> نموذج </span>
             <span className="rounded-3xl bg-[#BDFFA5] md:pe-24 pe-4 py-0">
               التواصل
             </span>
-            <div className="text-[14px] md:text-[18px] text-gray-700 sm:mt-8 mt-4 font-rbRegular">
+            <div className="text-[16px] sm:text-[18px] text-gray-700 sm:mt-8 mt-4 font-rbLight sm:font-rbRegular">
               <p>
-                تتيح لك منصة <strong>مــوّرد</strong> الإلكتروني المشاركة في
+                تتيح لك منصة <strong className="sm:font-rbBold font-rbRegular">مــوّرد</strong> الإلكتروني المشاركة في
                 طلبات التوريد المطروحة في أي وقت ومن أي مكان بكل سهولة
               </p>
             </div>

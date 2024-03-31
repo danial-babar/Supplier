@@ -55,8 +55,8 @@ const supplierPlatform = (props: Props) => {
           شــ<span className="pe-10 bg-[#BDFFA5] rounded-3xl">ــركــاؤنا</span>
         </h3>
        <div className="my-5">
-       <p className="font-rbBold text-[12px] sm:text-[16px] mb-3 text-[#475467]">موثوق به من قبل أكثر من 10,000 جهة داخل المملكة</p>
-        <p className="text-[14px] sm:text-[22px]">نفخر بالتعاون مع شركاء منصة مــوّرد الإلكتروني</p>
+       <p className="sm:font-rbBold font-rbRegular text-[16px] sm:text-[18px] mb-3 text-[#475467]">موثوق به من قبل أكثر من 10,000 جهة داخل المملكة</p>
+        <p className="text-[16px] sm:text-[20px] md:text-[22px] text-black text-opacity-50 sm:font-rbRegular font-rbLight">نفخر بالتعاون مع شركاء منصة مــوّرد الإلكتروني</p>
        </div>
       </div>
     </div>

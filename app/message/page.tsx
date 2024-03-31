@@ -13,10 +13,10 @@ const page = (props: Props) => {
       <Header />
       <div className="bg-gradient-radial from-blue-100 to-blue-50 via-gray-50">
         <div className="grid w-[95%] grid-cols-1 md:grid-cols-2 gap-4 mx-auto items-center">
-          <div className="text-[#0A102F] lg:text-[45px] md:text-[34px] sm:text-[22px] text-[14px] relative font-rbBold">
+          <div className="text-[#0A102F] text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold relative">
             رسالة
             <span className="rounded-3xl bg-[#BDFFA5] pe-4 h-6 py-0">جديد</span>
-            <div className="text-[14px] md:text-[18px] text-gray-700 sm:mt-8 mt-4 font-rbRegular">
+            <div className="text-[16px] sm:text-[18px] text-gray-700 sm:mt-8 mt-4 font-rbLight sm:font-rbRegular">
               <p>يمكنك الان استقبال الرسائل حول عرض التوريد الخاص بك</p>
             </div>
           </div>
@@ -47,7 +47,7 @@ const page = (props: Props) => {
               <div className="font-rbRegular md:font-rbBold md:text-lg sm:text-base">
                 رسالة جديدة
               </div>
-              <div className="font-rbRegular text-gray-600 md:text-lg sm:text-xs sm:text-xs">
+              <div className="font-rbRegular text-gray-600 md:text-lg sm:text-xs">
                 لقد حصلت علي رساله جديدة
               </div>
               <div className="lg:font-rbRegular sm:text-[16px] xl:text-[18px] text-[14px]">

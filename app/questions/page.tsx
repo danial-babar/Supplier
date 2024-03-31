@@ -16,14 +16,14 @@ const page = (props: Props) => {
       <Header activeItem={4} />
       <div>
         <div className="w-[95%] grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto items-center">
-          <div className="w-[95%] text-[#0A102F] lg:text-[45px] md:text-[34px] sm:text-[22px] text-[14px] relative font-rbBold">
+          <div className="w-[95%] text-[#0A102F] text-[18px] sm:text-[20px] md:text-[25px] md:mt-0 sm:text-start text-center mt-8 lg:text-[50px] font-rbBold relative">
             الأسئ
             <span className="rounded-3xl bg-[#BDFFA5] pe-4 h-6 py-0">
               لة الشائعة
             </span>
-            <div className="text-[14px] md:text-[18px] text-gray-700 sm:mt-8 mt-4 font-rbRegular">
+            <div className="text-[16px] sm:text-[18px] font-rbLight sm:font-rbRegular text-gray-700 sm:mt-8 mt-4">
               <p>
-                مجموعة من الاسئلة الشائعة عن منصة <strong>مــوّرد</strong>{" "}
+                مجموعة من الاسئلة الشائعة عن منصة <strong className="sm:font-rbBold font-rbRegular">مــوّرد</strong>{" "}
               </p>
               <p>
                 اعرف وافهم اكثر عن المنصة ومعرفه خطوات عرض سعر او طلب توريد .
@@ -73,7 +73,7 @@ const page = (props: Props) => {
                     </div>
                   </div>
                   {open && (
-                    <p className="text-black md:text-[18px] text-[14px] font-rbLight sm:font-rbRegular w-[83%] sm:mt-6 mt-4 md:mt-8 mx-auto">
+                    <p className="text-black sm:text-[18px] text-[16px] font-rbLight sm:font-rbRegular w-[83%] sm:mt-6 mt-4 md:mt-8 mx-auto">
                       {item?.A}
                     </p>
                   )}
@@ -82,8 +82,8 @@ const page = (props: Props) => {
             );
           })}
         </div>
-        <div className="w-[95%] mx-auto sm:p-5 p-2 sm:mt-20 md:mt-32 mt-8">
-        <div className="lg:text-[45px] md:text-[36px] sm:text-[28] text-[18px] text-black font-rbBold text-center">
+        <div className="w-[95%] mx-auto sm:mt-20 md:mt-32 mt-8">
+        <div className="text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] text-black font-rbBold text-center">
           <span className="">لماذا منصة مـ</span>
           <span className="rounded-3xl bg-[#BDFFA5] pe-3 md:pe-8">
             وّرد الإلكتروني
