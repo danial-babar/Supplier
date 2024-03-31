@@ -1,6 +1,7 @@
 "use client";
-import Footer from "@/components/Layout/Footer";
 import Header from "@/components/Layout/Header";
+import CommonButton from "@/components/commonButton";
+import InputWithIcon from "@/components/inputWithIcon";
 import Link from "next/link";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
@@ -12,7 +13,7 @@ const page = (props: Props) => {
   return (
     <div dir="rtl">
       <Header />
-      <div className="bg-gradient-radial from-blue-100 to-pink-50 via-gray-100">
+      <div className="bg-gradient-radial md:pb-28 pb-16 lg:pb-40 from-blue-100 to-pink-50 via-gray-100">
         <div className="text-center w-[95%] mx-auto md:pt-20 pt-8">
           <div className=" text-[#0A102F] lg:text-[45px] md:text-[34px] sm:text-[22px] text-[14px] relative font-rbBold">
             <span> تـسجيل </span>
@@ -33,31 +34,16 @@ const page = (props: Props) => {
                 تـسجيل الـدخول
               </h1>
               <form>
-                <div className="relative mt-4">
-                  <div className="absolute inset-y-0 right-0 flex items-center ps-2 pointer-events-none">
-                    <GoPeople className="h-3 w-3 text-[#F84F39]" />
-                  </div>
-                  <input
-                    type="text"
-                    id="email"
-                    name="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2.5 ps-8 placeholder-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="أسم المستخدم"
-                  />
-                </div>
-
-                <div className="relative mt-4">
-                  <div className="absolute inset-y-0 right-0 flex items-center ps-2 pointer-events-none">
-                    <BsThreeDots className="h-3 w-3 text-[#F84F39]" />
-                  </div>
-                  <input
-                    type="password"
-                    id="email"
-                    name="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2.5 ps-8 placeholder-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="أسم المستخدم"
-                  />
-                </div>
+                <InputWithIcon
+                  type="text"
+                  placeholder="أسم المستخدم"
+                  icon={<GoPeople className="h-3 w-3 text-[#F84F39]" />}
+                />
+                <InputWithIcon
+                  type="text"
+                  placeholder="كلمة المرور"
+                  icon={<BsThreeDots className="h-3 w-3 text-[#F84F39]" />}
+                />
                 <div className="mt-4 flex items-center justify-end">
                   <Link
                     href="#"
@@ -66,24 +52,18 @@ const page = (props: Props) => {
                     هل نسيت كلمة المرور؟
                   </Link>
                 </div>
-                <button
-                  type="submit"
-                  className="mt-4 w-full bg-[#F84F39] hover:bg-opacity-70 focus:ring-4 focus:outline-none focus:ring-primary-300 sm:font-rbRegular font-rbLight text-white hover:text-black rounded-lg sm:rounded-3xl px-5 py-2 sm:py-3"
-                >
-                  دخول
-                </button>
-                <div className="flex items-center  mt-4 justify-center">
-                  <hr className="w-full border-t border-red-300 before:w-1/4 before:border-t before:border-r before:border-gray-300 after:w-1/4 after:border-t after:border-l after:border-gray-300 border-dotted" />
-                  <div className="mx-2">او</div>
-                  <hr className="w-full border-t border-red-300 before:w-1/4 before:border-t before:border-l before:border-gray-300 after:w-1/4 after:border-t after:border-r after:border-gray-300 border-dotted" />
+                <div>
+                  <CommonButton text="دخول" bgColor="#F84F39" />
+                  <div className="flex items-center  mt-4 justify-center">
+                    <hr className="w-full border-t border-red-300 before:w-1/4 before:border-t before:border-r before:border-gray-300 after:w-1/4 after:border-t after:border-l after:border-gray-300 border-dotted" />
+                    <div className="mx-2">او</div>
+                    <hr className="w-full border-t border-red-300 before:w-1/4 before:border-t before:border-l before:border-gray-300 after:w-1/4 after:border-t after:border-r after:border-gray-300 border-dotted" />
+                  </div>
+                  <CommonButton
+                    text="الدخول عبر بوابة نفاذ"
+                    bgColor="#11998E"
+                  />
                 </div>
-
-                <button
-                  type="submit"
-                  className="mt-4 w-full bg-[#11998E] hover:bg-opacity-70 focus:ring-4 focus:outline-none focus:ring-primary-300 sm:font-rbRegular font-rbLight text-white hover:text-black rounded-lg sm:rounded-3xl px-5 py-2 sm:py-3"
-                >
-                  الدخول عبر بوابة نفاذ
-                </button>
 
                 <div className="text-center mt-4">
                   <Link
@@ -98,7 +78,6 @@ const page = (props: Props) => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

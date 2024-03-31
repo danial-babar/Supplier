@@ -21,14 +21,14 @@ const page = (props: Props) => {
       <Header activeItem={0} />
       <Banner />
       <div className="md:my-24 sm:my-10 mt-10 w-[95%] mx-auto sm:flex justify-between items-center ">
-        <h1 className="text-black lg:text-[43px] md:text-[34px] sm:text-[22px] text-[14px] relative font-rbBold">
+        <h1 className="text-black text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] relative font-rbBold">
           طلبات{" "}
           <span className="rounded-3xl bg-[#BDFFA5] sm:pe-16 md:pe-20 pe-4 ps-2 h-6 py-0">
             التوريد
           </span>
-          <p className="text-[14px] md:text-[16px] sm:mt-4 mt-2 font-rbRegular">
-            انضم إلينا اليوم واستكشف عالم التوريدات الشيق والمثير.{" "}
-            <span className="text-[#F84F39] underline font-rbBold">
+          <p className="text-[16px] sm:text-[18px] font-rbLight sm:font-rbRegular sm:mt-5 mt-3">
+            انضم إلينا اليوم واستكشف عالم التوريدات الشيق والمثير.
+            <span className="text-[#F84F39] underline font-rbLight sm:font-rbBold">
               كل طلبات التوريد
             </span>
           </p>
@@ -63,14 +63,14 @@ const page = (props: Props) => {
           contentColor="#F84F39"
         />
       </div>
-      <div className="w-[95%] mx-auto sm:p-5 p-2 sm:mt-20 md:mt-32 mt-8">
-        <div className="lg:text-[45px] md:text-[36px] sm:text-[28] text-[18px] text-black font-rbBold text-center">
+      <div className="w-[95%] mx-auto sm:mt-20 md:mt-32 mt-8">
+        <div className="text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold text-black text-center">
           <span className="">لماذا منصة مـ</span>
           <span className="rounded-3xl bg-[#BDFFA5] pe-3 md:pe-8">
             وّرد الإلكتروني
           </span>
         </div>
-        <h3 className="text-[#475467] text-center text-[14px] md:text-[18px] font-rbRegular mt-8">
+        <h3 className="text-[#475467] text-center text-[16px] sm:text-[18px] font-rbLight sm:font-rbRegular mt-8">
           تتيح لك منصة <span className="font-bold">مــوّرد</span> الإلكتروني
           المشاركة في طلبات التوريد المطروحة في أي وقت ومن أي مكان بكل سهولة
         </h3>

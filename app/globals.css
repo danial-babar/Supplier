@@ -99,3 +99,9 @@ body {
     height: 300px;
   }
 }
+@media screen and(max-width: 576px) {
+  .footer_img{
+    width: 70px;
+    height: 70px;
+  }
+}

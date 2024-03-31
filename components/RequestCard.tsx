@@ -20,9 +20,8 @@ const RequestCard = ({ bgColor, contentColor, contentBg ,textColor}: Props) => {
       >
         <div className="flex gap-2 justify-around items-center">
           <div
-            className={`${contentBg} bg-opacity-20 px-5 py-2 rounded-full flex items-center`}
+            className={`${contentBg} bg-opacity-20 xl:px-5 px-3 py-2 rounded-full flex items-center`}
           >
-            {/* <Image src="/heart.png" alt="" width={16} height={16}/> */}
             <BsTagFill color={contentColor} size={20} />
             <p
               className={`ms-2 font-rbRegular sm:font-rbBold text-[12px] text-[${textColor || contentColor}]`}
@@ -42,16 +41,16 @@ const RequestCard = ({ bgColor, contentColor, contentBg ,textColor}: Props) => {
             </p>
           </div>
         </div>
-        <h1 className="font-rbBold md:text-[20px] text-[#061C3D] text-center my-6">
+        <h1 className="font-rbBold text-[18px] md:text-[20px] text-[#061C3D] text-center my-6">
           لابتوب ماك بوك اير 2020 من ابل
         </h1>
-        <p className="font-rbRegular tracking-wide  text-[14px] text-[#42526B]">
+        <p className="sm:font-rbRegular sm:text-start text-center font-rbLight tracking-wide text-[16px] text-[#42526B]">
           شريحة ابل M1 وشاشة ريتينا 13 انش، ذاكرة RAM سعة 8GB، تخزين SSD سعة
           256GB، كيبورد باضاءة خلفية، خاصية Facetime وكاميرا HD وتاتش اي دي.
           يعمل مع ايفون وايباد؛ سبيس جراي
         </p>
-        <p className="font-rbBold text-[14px] text-center mt-6 mb-3">
-          تم انتهاء الطلب{" "}
+        <p className="font-rbBold text-[16px] text-center mt-6 mb-3">
+          تم انتهاء الطلب
         </p>
         <div
           className={`${contentBg} text-[${textColor||contentColor}] font-rbBold mx-auto w-[220px] rounded-xl py-2 text-center bg-opacity-20`}
@@ -63,7 +62,7 @@ const RequestCard = ({ bgColor, contentColor, contentBg ,textColor}: Props) => {
           </div>
           <p className="text-[7px]">ريال سعودي</p>
         </div>
-        <div className="flex justify-between items-center border-b-1 mb-3 mt-6 border-[#cbd6ec]  border-dotted">
+        <div className="flex justify-between items-center mb-3 mt-6">
           <div className="flex items-center">
             <FaCircle
               className={`text-[${contentColor}] me-3 text-opacity-30 text-[10px]`}
@@ -72,7 +71,8 @@ const RequestCard = ({ bgColor, contentColor, contentBg ,textColor}: Props) => {
           </div>
           <span className="text-[#42526B]  font-rbRegular">عدد ١٢ عبوة</span>
         </div>
-        <div className="flex justify-between mb-3 items-center border-b-1 border-[#cbd6ec]  border-dotted">
+        <hr className="mb-3"/>
+        <div className="flex justify-between mb-3 items-center">
           <div className="flex items-center">
             <FaCircle
               className={`text-[${contentColor}] me-3 text-opacity-30 text-[10px]`}
@@ -81,7 +81,8 @@ const RequestCard = ({ bgColor, contentColor, contentBg ,textColor}: Props) => {
           </div>
           <span className="text-[#42526B] ">12/03/2024</span>
         </div>
-        <div className="flex justify-between mb-3 items-center border-b-1 border-[#cbd6ec]  border-dotted">
+        <hr className="mb-3"/>
+        <div className="flex justify-between mb-3 items-center">
           <div className="flex items-center">
             <FaCircle
               className={`text-[${contentColor}] me-3 text-opacity-30 text-[10px]`}
@@ -90,7 +91,8 @@ const RequestCard = ({ bgColor, contentColor, contentBg ,textColor}: Props) => {
           </div>
           <span className="text-[#42526B]  font-rbRegular">منتهي</span>
         </div>
-        <div className="flex mx-auto my-4 text-[12px] w-full justify-end items-center">
+        <hr className="mb-3"/>
+        <div className="flex mx-auto text-[#42526B] my-4 text-[12px] w-full justify-end items-center">
           <button className="font-rbBold">المزيد من التفاصيل</button>
           <IoAdd
             className={`text-[16px] bg-white rounded-full ms-2`}
