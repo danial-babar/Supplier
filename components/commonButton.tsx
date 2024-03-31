@@ -1,3 +1,4 @@
+import { Button } from "@nextui-org/react";
 import React from "react";
 
 type Props = {
@@ -7,12 +8,12 @@ type Props = {
 
 const CommonButton = ({ text, bgColor}:Props) => {
   return (
-    <button
+    <Button
       type="submit"
-      className={`mt-4 w-full bg-[${bgColor}] hover:bg-opacity-70 focus:outline-none focus:ring-primary-300 sm:font-rbRegular font-rbLight text-white hover:text-black rounded-lg sm:rounded-3xl px-5 py-2 sm:py-3`}
+      className={`mt-4 w-full bg-[${bgColor}] sm:font-rbRegular font-rbLight text-white rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6`}
     >
       {text}
-    </button>
+    </Button>
   );
 };
 

@@ -5,6 +5,7 @@ import Header from "@/components/Layout/Header";
 import { GoPeople } from "react-icons/go";
 import Link from "next/link";
 import { FaCalculator, FaRegIdCard } from "react-icons/fa";
+import { Button } from "@nextui-org/react";
 type Props = {};
 const page = (props: Props) => {
   return (
@@ -31,9 +32,12 @@ const page = (props: Props) => {
                 إنشاء حساب جديد
               </h1>
               <div className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1">
-              <GoPeople className="h-5 w-5 text-[#F84F39]" />
+                <GoPeople className="h-5 w-5 text-[#F84F39]" />
                 <div className="sm:px-3 px-2">
-                  <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold"> التسجيل كفرد</p>
+                  <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
+                    {" "}
+                    التسجيل كفرد
+                  </p>
                   <button
                     className="text-[16px] text-gray-400 text-start sm:font-rbLight"
                     type="submit"
@@ -43,44 +47,52 @@ const page = (props: Props) => {
                 </div>
               </div>
               <div className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1">
-              <FaCalculator className="h-5 w-5 text-[#F84F39]" />
+                <FaCalculator className="h-5 w-5 text-[#F84F39]" />
                 <div className="sm:px-3 px-2">
-                  <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold"> التسجيل كممثل منشأة</p>
+                  <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
+                    {" "}
+                    التسجيل كممثل منشأة
+                  </p>
                   <button
                     className="text-[16px] text-gray-400 sm text-start:sm:font-rbLight"
                     type="submit"
                   >
-                 يمكنك التسجيل وتقديم وطلب عرض سعر بالنيابة عن المنشأة
+                    يمكنك التسجيل وتقديم وطلب عرض سعر بالنيابة عن المنشأة
                   </button>
                 </div>
               </div>
               <div className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1">
-              <FaRegIdCard className="h-5 w-5 text-[#F84F39]" />
+                <FaRegIdCard className="h-5 w-5 text-[#F84F39]" />
                 <div className="sm:px-3 px-2">
-                  <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">  التسجيل كوكيل بيع</p>
+                  <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
+                    {" "}
+                    التسجيل كوكيل بيع
+                  </p>
                   <button
                     className="text-[16px] text-gray-400 text-start sm:font-rbLight"
                     type="submit"
                   >
-                  يمكنك التسجيل كوكيل بيع لإدارة وطرح الاسعار الإلكترونية بكل سهولة
+                    يمكنك التسجيل كوكيل بيع لإدارة وطرح الاسعار الإلكترونية بكل
+                    سهولة
                   </button>
                 </div>
               </div>
-              <button
-                  type="submit"
-                  className="mt-4 w-full bg-[#F84F39] hover:bg-opacity-70 focus:ring-4 focus:outline-none focus:ring-primary-300 sm:font-rbRegular font-rbLight text-white hover:text-black rounded-lg sm:rounded-3xl px-5 py-2 sm:py-3"
-                >
-              إنشاء حساب
-                </button>
+              <Button
+                type="submit"
+                className="mt-4 w-full bg-[#F84F39] focus:ring-0 sm:font-rbRegular font-rbLight text-white rounded-lg sm:rounded-3xl px-5 py-2 sm:py-3"
+                variant="solid"
+              >
+                إنشاء حساب
+              </Button>
 
-                <div className="text-center mt-4">
-                  <Link
-                    href="#"
-                    className="font-rbRegular text-[#F84F39] underline hover:no-underline"
-                  >
-                تسجيل دخول
-                  </Link>
-                </div>
+              <div className="text-center mt-4">
+                <Link
+                  href="#"
+                  className="font-rbRegular text-[#F84F39] underline hover:no-underline"
+                >
+                  تسجيل دخول
+                </Link>
+              </div>
             </div>
           </div>
         </div>
