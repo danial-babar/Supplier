@@ -36,7 +36,7 @@ const Header = ({ activeItem }: Props) => {
   const handleProfile = () => {
     setActiveProfile(!activeProfile);
   };
-  
+
   useEffect(() => {
     const body = document.querySelector("body");
     if (open) {
@@ -51,17 +51,27 @@ const Header = ({ activeItem }: Props) => {
       className={`w-full py-5 border-b border-b-[#F84F39] px-3 min-h-[60px] transition-opacity false ${
         active && "fixed top-0 left-0 bg-[#fff] z-[9999] sm:px-0 px-3 "
       }`}
->
+    >
       <div className="hidden w-[95%] mx-auto md:flex items-center justify-between">
         <div>
           <Link href={"/"}>
-            <Image src={active?"/logo.png":"/logo.png" } width={150} height={150} className="lg:w-[150px] w-[120px]" alt="Logo" />
+            <Image
+              src={active ? "/logo.png" : "/logo.png"}
+              width={150}
+              height={150}
+              className="lg:w-[150px] w-[120px]"
+              alt="Logo"
+            />
           </Link>
         </div>
-        <Navigation activeItem={activeItem} active={active}/>
-        <div className="text-center md:px-3 px-2 xl:py-3 py-2 bg-[#F84F39] rounded-full" >
-          <h4 className="text-white cursor-pointer lg:w-[120px] w-[90px] text-[14px] lg:text-[16px] font-rbRegular">تسجيل دخول</h4>
-        </div>
+        <Navigation activeItem={activeItem} active={active} />
+        <Link href={'/login'}>
+          <div className="text-center md:px-3 px-2 xl:py-3 py-2 bg-[#F84F39] rounded-full">
+            <h4 className="text-white cursor-pointer lg:w-[120px] w-[90px] text-[14px] lg:text-[16px] font-rbRegular">
+              تسجيل دخول
+            </h4>
+          </div>
+        </Link>
       </div>
       <div className="w-full md:hidden flex items-center justify-between">
         <div>
@@ -80,7 +90,7 @@ const Header = ({ activeItem }: Props) => {
           >
             <div className="fixed bg-[#000] w-[60%] h-screen top-0 right-0 z-[999]">
               <div className="mt-8 px-5">
-                <Navigation activeItem={activeItem} active={active}/>
+                <Navigation activeItem={activeItem} active={active} />
               </div>
             </div>
           </div>

@@ -8,14 +8,25 @@ import RequestCard from "@/components/RequestCard";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import DownloadAppBanner from "@/components/DownloadAppBanner";
 import SupplierPlatform from "@/components/SupplierPlatform";
 import Partners from "@/components/Partners";
+import { getCategories } from "@/api/Users";
 
 type Props = {};
 
 const page = (props: Props) => {
+
+  useEffect(()=>{
+   getCategories().then((res)=>{
+    console.log('res while getting categories', res);
+   }).catch((err)=>{
+    console.log('err while getting categories', err);
+    
+   })
+    
+  },[])
   return (
     <div dir="rtl" className="">
       <Header activeItem={0} />

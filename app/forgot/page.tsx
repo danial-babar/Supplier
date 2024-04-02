@@ -23,8 +23,8 @@ const page = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center w-[95%] py-8 mx-auto lg:py-0">
-          <div className="w-full bg-white rounded-lg dark:border mx-auto md:mt-0 md:w-[45%] sm:w-[70%] shadow md:shadow-2xl xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div className="flex flex-col items-center justify-center w-[95%] py-5 sm:py-8 mx-auto lg:py-0">
+          <div className="w-full bg-white rounded-lg dark:border mx-auto md:mt-0 md:w-[60%] xl:w-[45%] sm:w-[70%] shadow md:shadow-2xl xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-4 space-y-4 md:space-y-6 sm:p-6">
               <h1 className="text-xl relative flex items-center justify-start font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 <span className="bg-[#F84F39] bg-opacity-20 md:p-3 p-2 absolute rounded-full"></span>
