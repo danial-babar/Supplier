@@ -5,9 +5,10 @@ type Props = {
   text: string;
   bgColor: string;
   onPress?: () => void;
+  color:string
 };
 
-const CommonButton = ({ text, bgColor,onPress }: Props) => {
+const CommonButton = ({ color,text, bgColor,onPress }: Props) => {
   return (
     <Button
       type="submit"

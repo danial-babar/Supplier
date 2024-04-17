@@ -39,7 +39,7 @@ const Banner = (props: Props) => {
         الإلكتروني فرصة مشاركة طلب وعرض سعر الإلكترونية من مختلف مناطق المملكة
       </h4>
 
-      <div className="lg:w-[85%] w-[95%]">
+      <div className="lg:w-[80%] w-[95%]">
         <div className="md:flex lg:px-5 md:gap-0 gap-5 px-3 items-center parent bg-white shadow-small md:shadow-2xl shadow-[grey] lg:py-2 py-5 rounded-medium lg:rounded-full md:mt-10 sm:mt-8 mt-6 lg:mt-14 text-[12px] font-rbRegular">
           <div className="flex items-center md:mb-0 mb-6 md:w-1/5 lg:w-1/4">
             <Image src="/filter1.png" width={20} height={20} alt="" />
