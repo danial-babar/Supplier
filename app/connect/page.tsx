@@ -83,9 +83,9 @@ const page = (props: Props) => {
         <Image
           src="/map.png"
           width={1000}
-          height={1000}
+          height={200}
           alt=""
-          className="object-contain map_img mx-auto"
+          className="object-cover h-56 w-full mx-auto"
         />
       </div>
       <div className="bg-gradient-radial from-blue-100 to-pink-50 via-gray-100">
@@ -129,29 +129,7 @@ const page = (props: Props) => {
                   required
                 />
               </div>
-              <div className="mb-5">
-                <label className="block mb-2 text-sm font-rbRegular text-gray-900 dark:text-white">
-                  التصنيف<span className="text-red-500 ps-2">*</span>
-                </label>
-                <input
-                  type="password"
-                  id="repeat-password"
-                  className="lg:shadow-2xl shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-small focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                  required
-                />
-              </div>
-              <div className="mb-5">
-                <label className="block mb-2 text-sm font-rbRegular text-gray-900 dark:text-white">
-                  تاريخ الميلاد<span className="text-red-500 ps-2">*</span>
-                </label>
-                <input
-                  type="password"
-                  id="repeat-password"
-                  className="lg:shadow-2xl shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-small focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                  required
-                />
-              </div>
-              <div className="mb-5">
+               <div className="mb-5">
                 <label className="block mb-2 text-sm font-rbRegular text-gray-900 dark:text-white">
                   رقم الجوال<span className="text-red-500 ps-2">*</span>
                 </label>
@@ -162,9 +140,33 @@ const page = (props: Props) => {
                   required
                 />
               </div>
+            
+              {/* <div className="mb-5">
+                <label className="block mb-2 text-sm font-rbRegular text-gray-900 dark:text-white">
+                  تاريخ الميلاد<span className="text-red-500 ps-2">*</span>
+                </label>
+                <input
+                  type="password"
+                  id="repeat-password"
+                  className="lg:shadow-2xl shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-small focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                  required
+                />
+              </div> */}
+             
               <div className="mb-5">
                 <label className="block mb-2 text-sm font-rbRegular text-gray-900 dark:text-white">
                   البريد الإلكتروني<span className="text-red-500 ps-2">*</span>
+                </label>
+                <input
+                  type="password"
+                  id="repeat-password"
+                  className="lg:shadow-2xl shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-small focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                  required
+                />
+              </div>
+              <div className="mb-5">
+                <label className="block mb-2 text-sm font-rbRegular text-gray-900 dark:text-white">
+                  التصنيف<span className="text-red-500 ps-2">*</span>
                 </label>
                 <input
                   type="password"
