@@ -61,22 +61,22 @@ const page = (props: Props) => {
                   </button>
                 </div>
               </div>
-              <div className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1">
-                <FaRegIdCard className="h-5 w-5 text-[#F84F39]" />
-                <div className="sm:px-3 px-2">
-                  <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
-                    {" "}
-                    التسجيل كوكيل بيع
-                  </p>
-                  <button
-                    className="text-[16px] text-gray-400 text-start sm:font-rbLight"
-                    type="submit"
-                  >
-                    يمكنك التسجيل كوكيل بيع لإدارة وطرح الاسعار الإلكترونية بكل
-                    سهولة
-                  </button>
-                </div>
-              </div>
+                {/* <div className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1">
+                  <FaRegIdCard className="h-5 w-5 text-[#F84F39]" />
+                  <div className="sm:px-3 px-2">
+                    <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
+                      {" "}
+                      التسجيل كوكيل بيع
+                    </p>
+                    <button
+                      className="text-[16px] text-gray-400 text-start sm:font-rbLight"
+                      type="submit"
+                    >
+                      يمكنك التسجيل كوكيل بيع لإدارة وطرح الاسعار الإلكترونية بكل
+                      سهولة
+                    </button>
+                  </div>
+                </div> */}
               <Button
                 type="submit"
                 className="mt-4 w-full bg-[#F84F39] focus:ring-0 sm:font-rbRegular font-rbLight text-white rounded-lg sm:rounded-3xl px-5 py-2 sm:py-3"
