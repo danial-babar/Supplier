@@ -9,10 +9,15 @@ type Props = {
   bgColor: string;
   contentColor: string;
   contentBg: string;
-  textColor?:string
+  textColor?: string;
 };
 
-const RequestCard = ({ bgColor, contentColor, contentBg ,textColor}: Props) => {
+const RequestCard = ({
+  bgColor,
+  contentColor,
+  contentBg,
+  textColor,
+}: Props) => {
   return (
     <div>
       <div
@@ -24,7 +29,9 @@ const RequestCard = ({ bgColor, contentColor, contentBg ,textColor}: Props) => {
           >
             <BsTagFill color={contentColor} size={20} />
             <p
-              className={`ms-2 font-rbRegular sm:font-rbBold text-[12px] text-[${textColor || contentColor}]`}
+              className={`ms-2 font-rbRegular sm:font-rbBold text-[12px] text-[${
+                textColor || contentColor
+              }]`}
             >
               المأكولات والمشروبات{" "}
             </p>
@@ -35,7 +42,9 @@ const RequestCard = ({ bgColor, contentColor, contentBg ,textColor}: Props) => {
             {/* <Image src="/location.png" alt="" width={16} height={16} /> */}
             <TiLocationOutline color={contentColor} size={20} />
             <p
-              className={`ms-2 text-[12px] font-rbRegular sm:font-rbBold text-[${textColor||contentColor}]`}
+              className={`ms-2 text-[12px] font-rbRegular sm:font-rbBold text-[${
+                textColor || contentColor
+              }]`}
             >
               جده{" "}
             </p>
@@ -44,16 +53,18 @@ const RequestCard = ({ bgColor, contentColor, contentBg ,textColor}: Props) => {
         <h1 className="font-rbBold text-[18px] md:text-[20px] text-[#061C3D] text-center my-6">
           لابتوب ماك بوك اير 2020 من ابل
         </h1>
-        <p className="sm:font-rbRegular sm:text-start text-center font-rbLight tracking-wide text-[16px] text-[#42526B]">
+        {/* <p className="sm:font-rbRegular sm:text-start text-center font-rbLight tracking-wide text-[16px] text-[#42526B]">
           شريحة ابل M1 وشاشة ريتينا 13 انش، ذاكرة RAM سعة 8GB، تخزين SSD سعة
           256GB، كيبورد باضاءة خلفية، خاصية Facetime وكاميرا HD وتاتش اي دي.
           يعمل مع ايفون وايباد؛ سبيس جراي
-        </p>
+        </p> */}
         <p className="font-rbBold text-[16px] text-center mt-6 mb-3">
           تم انتهاء الطلب
         </p>
         <div
-          className={`${contentBg} text-[${textColor||contentColor}] font-rbBold mx-auto w-[220px] rounded-xl py-2 text-center bg-opacity-20`}
+          className={`${contentBg} text-[${
+            textColor || contentColor
+          }] font-rbBold mx-auto w-[220px] rounded-xl py-2 text-center bg-opacity-20`}
         >
           <div className="justify-center text-[20px] flex items-center">
             <span>00</span>
@@ -71,7 +82,7 @@ const RequestCard = ({ bgColor, contentColor, contentBg ,textColor}: Props) => {
           </div>
           <span className="text-[#42526B]  font-rbRegular">عدد ١٢ عبوة</span>
         </div>
-        <hr className="mb-3"/>
+        <hr className="mb-3" />
         <div className="flex justify-between mb-3 items-center">
           <div className="flex items-center">
             <FaCircle
@@ -81,7 +92,17 @@ const RequestCard = ({ bgColor, contentColor, contentBg ,textColor}: Props) => {
           </div>
           <span className="text-[#42526B] ">12/03/2024</span>
         </div>
-        <hr className="mb-3"/>
+        <hr className="mb-3" />
+        <div className="flex justify-between mb-3 items-center">
+          <div className="flex items-center">
+            <FaCircle
+              className={`text-[${contentColor}] me-3 text-opacity-30 text-[10px]`}
+            />
+            <span className="text-[#42526B] font-rbLight"> رقم الطلب</span>
+          </div>
+          <span className={`text-[${contentColor}] font-rbBold`}>991999</span>
+        </div>
+        <hr className="mb-3" />
         <div className="flex justify-between mb-3 items-center">
           <div className="flex items-center">
             <FaCircle
@@ -89,9 +110,10 @@ const RequestCard = ({ bgColor, contentColor, contentBg ,textColor}: Props) => {
             />
             <span className="text-[#42526B] font-rbLight">حالة الطلب</span>
           </div>
-          <span className="text-[#42526B]  font-rbRegular">منتهي</span>
+          <span className={`text-[${contentColor}]  font-rbBold`}>منتهي</span>
         </div>
-        <hr className="mb-3"/>
+        <hr className="mb-3" />
+
         <div className="flex mx-auto text-[#42526B] my-4 text-[12px] w-full justify-end items-center">
           <button className="font-rbBold">المزيد من التفاصيل</button>
           <IoAdd
