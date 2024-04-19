@@ -51,6 +51,7 @@ const Header = ({ activeItem }: Props) => {
       className={`w-full py-5 border-b border-b-[#F84F39] px-3 min-h-[60px] transition-opacity false ${
         active && "fixed top-0 left-0 bg-[#fff] z-[9999] sm:px-0 px-3 "
       }`}
+      dir="rtl"
     >
       <div className="hidden w-[95%] mx-auto md:flex items-center justify-between">
         <div>
