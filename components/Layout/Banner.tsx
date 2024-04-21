@@ -1,4 +1,4 @@
-import { getCategories } from "@/api/Users";
+import { getCategories, getCities } from "@/api/Users";
 import {
   Button,
   Dropdown,
@@ -15,18 +15,27 @@ type Props = {};
 
 const Banner = (props: Props) => {
   const [categories, setCategories] = useState([{ title: "" }]);
-  const [dropdownData, setDropdownData] = useState({ category: { title: "" } });
+  const [cities, setCities] = useState([{ id: '', city_name: "" }]);
+  const [dropdownData, setDropdownData] = useState({ category: { title: "" }, city: { city_name: "" } });
   useEffect(() => {
     getCategories()
       .then((res) => {
-        console.log("res while getting categories", res);
-        setCategories(res?.data);
+        // console.log("res while getting categories", res);
+        setCategories(res?.data)
       })
       .catch((err) => {
         console.log("err while getting categories", err);
-      });
+      })
+    getCities()
+      .then((res) => {
+        console.log("res while getting cities", res);
+        setCities(res?.data)
+      })
+      .catch((err) => {
+        console.log("err while getting cities", err);
+      })
   }, []);
-  console.log("selected dropdownData", dropdownData);
+
 
   return (
     <div className="w-[95] flex flex-col items-center justify-between py-8 sm:py-10 md:py-14 lg:py-28 bg-gradient-radial from-gray-100 via-gray-50">
@@ -43,69 +52,31 @@ const Banner = (props: Props) => {
         <div className="md:flex lg:px-5 md:gap-0 gap-5 px-3 items-center parent bg-white shadow-small md:shadow-2xl shadow-[grey] lg:py-2 py-5 rounded-medium lg:rounded-full md:mt-10 sm:mt-8 mt-6 lg:mt-14 text-[12px] font-rbRegular">
           <div className="flex items-center md:mb-0 mb-6 md:w-1/5 lg:w-1/4">
             <Image src="/filter1.png" width={20} height={20} alt="" />
-            <div>
-              <p className="text-gray-400 px-2">التصنيف </p>
-              <Dropdown>
-                <DropdownTrigger>
-                  <Button variant="light" className=" max-w-[150px]">
-                    {dropdownData?.category?.title || "اختر التصنيف"}
-                  </Button>
-                </DropdownTrigger>
-                <DropdownMenu
-                  aria-label="Action event example"
-                  className="max-h-[200px] overflow-auto"
-                >
-                  {categories?.map((item, index) => {
-                    return (
-                      <DropdownItem
-                        key={index}
-                        onClick={() =>
-                          setDropdownData({ ...dropdownData, category: item })
-                        }
-                      >
-                        {item?.title}
-                      </DropdownItem>
-                    );
-                  })}
-                </DropdownMenu>
-              </Dropdown>
-            </div>
-            {/* <div>
-            <p className="text-gray-400 px-2">التصنيف </p>
-            <select
-              id="categories"
-              className="text-gray-900 text-[16px] focus:ring-blue-500 appearance-none focus:border-none px-2 border-none bg-transparent dark:text-white"
-            >
-              <option selected>اختر التصنيف</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
-            </select>
-          </div> */}
+            <DropDownComp
+              title={"اختر التصنيف"}
+              data={categories}
+              getItemTitle={(item) => item.title}
+              onClick={(item) => setDropdownData({ ...dropdownData, category: item })}
+              selectedItem={dropdownData?.category?.title || 'التصنيف'}
+            />
+
           </div>
 
           <div className="flex items-center md:mb-0 mb-6 md:w-1/5 lg:w-1/4">
-            <Image src="/filter2.png" width={20} height={20} alt="" />
-            <div>
-              <p className="text-gray-400 px-2"> المدينة</p>
-              <select
-                id="countries"
-                className="text-gray-900 text-[16px] focus:ring-blue-500 appearance-none focus:border-none px-2 border-none bg-transparent dark:text-white"
-              >
-                <option selected>اختر المدينة</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
-              </select>
-            </div>
+            <Image src="/location.png" width={20} height={20} alt="" />
+            <DropDownComp
+              title={"المدينة"}
+              data={cities}
+              getItemTitle={(item) => item.city_name}
+              onClick={(item) => setDropdownData({ ...dropdownData, city: item })}
+              selectedItem={dropdownData?.city?.city_name || 'اختر المدينة'}
+            />
           </div>
 
           <div className="flex items-center md:mb-0 mb-6 md:w-1/3 lg:w-1/4">
-            <Image src="/location.png" width={20} height={20} alt="" />
+            <Image src="/filter2.png" width={20} height={20} alt="" />
             <div>
-              <p className="text-gray-400 px-2"> ترتيب</p>
+              <p className="text-gray-400 px-2">ترتيب</p>
               <p className="text-[16px] px-1">اختر من الاحدث الي الاقدم</p>
             </div>
           </div>
@@ -139,4 +110,39 @@ const Banner = (props: Props) => {
   );
 };
 
+interface DropDownProps<T> {
+  title: string;
+  selectedItem: string;
+  data: T[];
+  getItemTitle: (item: T) => string;
+  onClick?: (item: T) => void;
+}
+
+const DropDownComp = <T,>({
+  title,
+  data,
+  getItemTitle,
+  onClick,
+  selectedItem
+}: DropDownProps<T>) => {
+  return (
+    <div>
+      <p className="text-gray-400 px-2">{title}</p>
+      <Dropdown>
+        <DropdownTrigger>
+          <Button variant="light" className="max-w-[150px] justify-start">
+            {selectedItem}
+          </Button>
+        </DropdownTrigger>
+        <DropdownMenu aria-label="Action event example" className="max-h-[200px] overflow-auto">
+          {data?.map((item, index) => (
+            <DropdownItem key={index} onClick={() => onClick?.(item)}>
+              {getItemTitle(item)}
+            </DropdownItem>
+          ))}
+        </DropdownMenu>
+      </Dropdown>
+    </div>
+  );
+};
 export default Banner;

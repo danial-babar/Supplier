@@ -19,5 +19,14 @@ export const getCategories = async () => {
     throw error;
   }
 };
+export const getCities = async () => {
+  try {
+    const response = await api.get(`/get_cities`)
+    return response.data;
+  } catch (error) {
+    console.error("Error while getting cities:", error);
+    throw error;
+  }
+};
 
 export default api;
