@@ -47,7 +47,7 @@ const ImageCarousel = (props: Props) => {
                   src="/slider1.png"
                   width={500}
                   height={500}
-                  className="absolute block w-full lg:w-[500px] h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                  className="absolute block w-full lg:w-[800px] h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                   alt="Slide 0"
                 />
               </div>
