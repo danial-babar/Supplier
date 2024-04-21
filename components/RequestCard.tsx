@@ -5,11 +5,14 @@ import { CiCirclePlus } from "react-icons/ci";
 import { IoAdd, IoPricetagSharp } from "react-icons/io5";
 import { BsTagFill } from "react-icons/bs";
 import { TiLocationOutline } from "react-icons/ti";
+import { useRouter } from "next/navigation";
 type Props = {
   bgColor: string;
   contentColor: string;
   contentBg: string;
   textColor?: string;
+  onClick?:()=>void
+  
 };
 
 const RequestCard = ({
@@ -17,11 +20,14 @@ const RequestCard = ({
   contentColor,
   contentBg,
   textColor,
+  onClick
 }: Props) => {
+
   return (
     <div>
       <div
         className={`px-5 p-6 ${bgColor} border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
+      onClick={onClick}
       >
         <div className="flex gap-2 justify-around items-center">
           <div

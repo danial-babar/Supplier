@@ -13,11 +13,12 @@ import DownloadAppBanner from "@/components/DownloadAppBanner";
 import SupplierPlatform from "@/components/SupplierPlatform";
 import Partners from "@/components/Partners";
 import { getCategories } from "@/api/Users";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
 const page = (props: Props) => {
-
+  const router = useRouter();
   useEffect(()=>{
    getCategories().then((res)=>{
     console.log('res while getting categories', res);
@@ -27,6 +28,11 @@ const page = (props: Props) => {
    })
     
   },[])
+  
+
+  const handleClick = () => {
+    router.push('/management')
+  };
   return (
     <div dir="rtl" className="">
       <Header activeItem={0} />
@@ -61,17 +67,21 @@ const page = (props: Props) => {
           bgColor="bg-[#FAFAFF]"
           contentBg="bg-[#6c66da4d]"
           contentColor="#6B66DA"
+          onClick={handleClick}
+          
         />
         <RequestCard
           bgColor="bg-[#D6FAEE]"
           contentBg="bg-[#34e5a755]"
           contentColor="#34E5A8"
           textColor="#000000"
+          onClick={handleClick}
         />
         <RequestCard
           bgColor="bg-[#FEDCD7]"
           contentBg="bg-[#f84f3948]"
           contentColor="#F84F39"
+          onClick={handleClick}
         />
       </div>
       <div className="w-[95%] mx-auto sm:mt-20 md:mt-32 mt-8">
