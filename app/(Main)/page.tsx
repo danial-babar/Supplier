@@ -8,30 +8,45 @@ import RequestCard from "@/components/RequestCard";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DownloadAppBanner from "@/components/DownloadAppBanner";
 import SupplierPlatform from "@/components/SupplierPlatform";
 import Partners from "@/components/Partners";
-import { getCategories } from "@/api/Users";
+import { getAllLeads, getCategories } from "@/api/Users";
 import { useRouter } from "next/navigation";
 
 type Props = {};
 
 const page = (props: Props) => {
+  const [leadsData, setLeadsData] = useState([]);
   const router = useRouter();
-  useEffect(()=>{
-   getCategories().then((res)=>{
-    console.log('res while getting categories', res);
-   }).catch((err)=>{
-    console.log('err while getting categories', err);
-    
-   })
-    
-  },[])
-  
+  useEffect(() => {
+    getCategoriesList();
+    getLeads();
+  }, []);
 
-  const handleClick = () => {
-    router.push('/management')
+  const getCategoriesList = () => {
+    getCategories()
+      .then((res) => {
+        console.log("res while getting categories", res);
+      })
+      .catch((err) => {
+        console.log("err while getting categories", err);
+      });
+  };
+  const getLeads = () => {
+    getAllLeads()
+      .then((res) => {
+        console.log("res while getting leads", res);
+        setLeadsData(res);
+      })
+      .catch((err) => {
+        console.log("err while getting leads", err);
+      });
+  };
+
+  const handleClick = (id:string) => {
+    router.push(`/management?id=${id}`)
   };
   return (
     <div dir="rtl" className="">
@@ -63,14 +78,18 @@ const page = (props: Props) => {
         className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5"
         style={{ direction: "rtl" }}
       >
-        <RequestCard
-          bgColor="bg-[#FAFAFF]"
-          contentBg="bg-[#6c66da4d]"
-          contentColor="#6B66DA"
-          onClick={handleClick}
-          
-        />
-        <RequestCard
+        {leadsData?.map((item:{id:''}, index) => {
+          return (
+            <RequestCard
+              bgColor="bg-[#FAFAFF]"
+              contentBg="bg-[#6c66da4d]"
+              contentColor="#6B66DA"
+              onClick={()=>handleClick(item?.id)}
+            />
+          );
+        })}
+
+        {/* <RequestCard
           bgColor="bg-[#D6FAEE]"
           contentBg="bg-[#34e5a755]"
           contentColor="#34E5A8"
@@ -82,7 +101,7 @@ const page = (props: Props) => {
           contentBg="bg-[#f84f3948]"
           contentColor="#F84F39"
           onClick={handleClick}
-        />
+        /> */}
       </div>
       <div className="w-[95%] mx-auto sm:mt-20 md:mt-32 mt-8">
         <div className="text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold text-black text-center">
