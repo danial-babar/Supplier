@@ -10,32 +10,35 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import DropDownComp from "../DropDownComp";
 
 type Props = {};
 
 const Banner = (props: Props) => {
   const [categories, setCategories] = useState([{ title: "" }]);
-  const [cities, setCities] = useState([{ id: '', city_name: "" }]);
-  const [dropdownData, setDropdownData] = useState({ category: { title: "" }, city: { city_name: "" } });
+  const [cities, setCities] = useState([{ id: "", city_name: "" }]);
+  const [dropdownData, setDropdownData] = useState({
+    category: { title: "" },
+    city: { city_name: "" },
+  });
   useEffect(() => {
     getCategories()
       .then((res) => {
         // console.log("res while getting categories", res);
-        setCategories(res?.data)
+        setCategories(res?.data);
       })
       .catch((err) => {
         console.log("err while getting categories", err);
-      })
+      });
     getCities()
       .then((res) => {
         console.log("res while getting cities", res);
-        setCities(res?.data)
+        setCities(res?.data);
       })
       .catch((err) => {
         console.log("err while getting cities", err);
-      })
+      });
   }, []);
-
 
   return (
     <div className="w-[95] flex flex-col items-center justify-between py-8 sm:py-10 md:py-14 lg:py-28 bg-gradient-radial from-gray-100 via-gray-50">
@@ -56,10 +59,12 @@ const Banner = (props: Props) => {
               title={"اختر التصنيف"}
               data={categories}
               getItemTitle={(item) => item.title}
-              onClick={(item) => setDropdownData({ ...dropdownData, category: item })}
-              selectedItem={dropdownData?.category?.title || 'التصنيف'}
+              onClick={(item) =>
+                setDropdownData({ ...dropdownData, category: item })
+              }
+              selectedItem={dropdownData?.category?.title || "التصنيف"}
+              dropdownBtnClass={`max-w-[220px] justify-start`}
             />
-
           </div>
 
           <div className="flex items-center md:mb-0 mb-6 md:w-1/5 lg:w-1/4">
@@ -68,8 +73,11 @@ const Banner = (props: Props) => {
               title={"المدينة"}
               data={cities}
               getItemTitle={(item) => item.city_name}
-              onClick={(item) => setDropdownData({ ...dropdownData, city: item })}
-              selectedItem={dropdownData?.city?.city_name || 'اختر المدينة'}
+              onClick={(item) =>
+                setDropdownData({ ...dropdownData, city: item })
+              }
+              selectedItem={dropdownData?.city?.city_name || "اختر المدينة"}
+              dropdownBtnClass={`max-w-[220px] justify-start`}
             />
           </div>
 
@@ -110,39 +118,4 @@ const Banner = (props: Props) => {
   );
 };
 
-interface DropDownProps<T> {
-  title: string;
-  selectedItem: string;
-  data: T[];
-  getItemTitle: (item: T) => string;
-  onClick?: (item: T) => void;
-}
-
-const DropDownComp = <T,>({
-  title,
-  data,
-  getItemTitle,
-  onClick,
-  selectedItem
-}: DropDownProps<T>) => {
-  return (
-    <div>
-      <p className="text-gray-400 px-2">{title}</p>
-      <Dropdown>
-        <DropdownTrigger>
-          <Button variant="light" className="max-w-[150px] justify-start">
-            {selectedItem}
-          </Button>
-        </DropdownTrigger>
-        <DropdownMenu aria-label="Action event example" className="max-h-[200px] overflow-auto">
-          {data?.map((item, index) => (
-            <DropdownItem key={index} onClick={() => onClick?.(item)}>
-              {getItemTitle(item)}
-            </DropdownItem>
-          ))}
-        </DropdownMenu>
-      </Dropdown>
-    </div>
-  );
-};
 export default Banner;

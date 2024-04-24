@@ -1,5 +1,6 @@
 "use client";
 import { userFlow } from "@/api/Users";
+import DropDownComp from "@/components/DropDownComp";
 import Header from "@/components/Layout/Header";
 import InputForm from "@/components/inputForm";
 import { Button } from "@nextui-org/react";
@@ -17,7 +18,7 @@ const page = (props: Props) => {
     password: "1234",
     confirmPassword: "1234",
     characteristics: "ABC",
-    user_role_key: "buyer",
+    user_role_key: { id: "", title: "" },
   });
 
   const CreateAccount = () => {
@@ -31,7 +32,7 @@ const page = (props: Props) => {
     data.append("negotiatorName", formData.negotiatorName);
     data.append("negotiatorId", formData.negotiatorId);
     data.append("characteristics", formData.characteristics);
-    data.append("user_role_key", formData.user_role_key);
+    data.append("user_role_key", formData.user_role_key?.title);
     data.append("password", formData.password);
     userFlow
       .createAccount(data)
@@ -152,6 +153,22 @@ const page = (props: Props) => {
                         confirmPassword: e.target.value,
                       })
                     }
+                  />
+                  <DropDownComp
+                    title={"اختر التصنيف"}
+                    data={[
+                      { id: "1", title: "بائع" },
+                      { id: "2", title: "مشتر" },
+                    ]}
+                    getItemTitle={(item) => item.title}
+                    onClick={(item) =>
+                      setFormData({ ...formData, user_role_key: item })
+                    }
+                    selectedItem={formData?.user_role_key?.title || "التصنيف"}
+                    hideTitle={true}
+                    dropdownBtnClass="flex justify-between items-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[100%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    containerClass='w-[100%] bg-lime-500'
+                    dropdownMenuClass={'w-full bg-green-500'}
                   />
                 </div>
                 <div>
