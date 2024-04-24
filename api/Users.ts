@@ -5,7 +5,7 @@ const BASE_URL = "http://projects.microrage.com/moward/api";
 const api = axios.create({
   baseURL: BASE_URL,
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "multipart/form-data",
   },
 });
 
@@ -45,6 +45,7 @@ export const singleLeadById = async (id: string) => {
     throw error;
   }
 };
+
 
 export const userFlow = {
   createAccount: async (data: any) => {

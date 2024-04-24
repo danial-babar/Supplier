@@ -3,6 +3,7 @@ import Header from "@/components/Layout/Header";
 import CommonButton from "@/components/commonButton";
 import InputWithIcon from "@/components/inputWithIcon";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { GoPeople } from "react-icons/go";
@@ -10,6 +11,11 @@ import { MdLogin, MdPeopleAlt } from "react-icons/md";
 type Props = {};
 
 const page = (props: Props) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/create-account`);
+  };
   return (
     <div dir="rtl">
       <Header />
@@ -62,17 +68,16 @@ const page = (props: Props) => {
                   <CommonButton
                     text="الدخول عبر بوابة نفاذ"
                     bgColor="#11998E"
-                    
                   />
                 </div>
 
                 <div className="text-center mt-4">
-                  <Link
-                    href="#"
-                    className="font-rbRegular text-[#F84F39] underline hover:no-underline"
+                  <div
+                    onClick={handleClick}
+                    className="font-rbRegular text-[#F84F39] underline hover:no-underline cursor-pointer"
                   >
                     انشاء حساب جديد
-                  </Link>
+                  </div>
                 </div>
               </form>
             </div>

@@ -45,8 +45,8 @@ const page = (props: Props) => {
       });
   };
 
-  const handleClick = (id:string) => {
-    router.push(`/management?id=${id}`)
+  const handleClick = (id: string) => {
+    router.push(`/management?id=${id}`);
   };
   return (
     <div dir="rtl" className="">
@@ -78,13 +78,13 @@ const page = (props: Props) => {
         className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5"
         style={{ direction: "rtl" }}
       >
-        {leadsData?.map((item:{id:''}, index) => {
+        {leadsData?.map((item: { id: "" }, index) => {
           return (
             <RequestCard
               bgColor="bg-[#FAFAFF]"
               contentBg="bg-[#6c66da4d]"
               contentColor="#6B66DA"
-              onClick={()=>handleClick(item?.id)}
+              onClick={() => handleClick(item?.id)}
             />
           );
         })}

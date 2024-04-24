@@ -18,7 +18,7 @@ const Header = ({ activeItem }: Props) => {
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 80) {
+      if (window.scrollY > 120) {
         setActive(true);
       } else setActive(false);
     });

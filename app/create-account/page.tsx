@@ -2,28 +2,44 @@
 import { userFlow } from "@/api/Users";
 import Header from "@/components/Layout/Header";
 import InputForm from "@/components/inputForm";
+import { Button } from "@nextui-org/react";
 import React, { useState } from "react";
 import { LuPenLine } from "react-icons/lu";
 type Props = {};
 const page = (props: Props) => {
   const [formData, setFormData] = useState({
-    commercial: "",
-    facilityName: "",
-    mobile: "",
-    email: "",
-    idNumber: "",
-    negotiatorName: "",
-    password: "",
-    confirmPassword: "",
+    commercial: "7689",
+    facilityName: "دانيال",
+    phone: "03457232962",
+    email: "danial1@gmail.com",
+    negotiatorId: "565789",
+    negotiatorName: "Babar",
+    password: "1234",
+    confirmPassword: "1234",
+    characteristics: "ABC",
+    user_role_key: "buyer",
   });
 
   const CreateAccount = () => {
+    console.log("entered in Create Account");
+
     const data = new FormData();
     data.append("commercial", formData.commercial);
+    data.append("facilityName", formData.facilityName);
+    data.append("email", formData.email);
+    data.append("phone", formData.phone);
+    data.append("negotiatorName", formData.negotiatorName);
+    data.append("negotiatorId", formData.negotiatorId);
+    data.append("characteristics", formData.characteristics);
+    data.append("user_role_key", formData.user_role_key);
+    data.append("password", formData.password);
     userFlow
       .createAccount(data)
       .then((response) => {
         console.log("response while creating account", response);
+        if (response?.code == "1") {
+          localStorage.setItem("user", response?.data);
+        }
       })
       .then((error) => {
         console.log("error while creating account", error);
@@ -75,9 +91,9 @@ const page = (props: Props) => {
                   <InputForm
                     placeholder="رقم الجوال"
                     type="text"
-                    value={formData?.mobile || ""}
+                    value={formData?.phone || ""}
                     onchange={(e: any) =>
-                      setFormData({ ...formData, mobile: e.target.value })
+                      setFormData({ ...formData, phone: e.target.value })
                     }
                   />
                   <InputForm
@@ -91,9 +107,9 @@ const page = (props: Props) => {
                   <InputForm
                     placeholder="رقم هوية المفاوض"
                     type="text"
-                    value={formData?.idNumber || ""}
+                    value={formData?.negotiatorId || ""}
                     onchange={(e: any) =>
-                      setFormData({ ...formData, idNumber: e.target.value })
+                      setFormData({ ...formData, negotiatorId: e.target.value })
                     }
                   />
                   <InputForm
@@ -126,16 +142,37 @@ const page = (props: Props) => {
                       })
                     }
                   />
+                  <InputForm
+                    placeholder="تاكيد كلمة المرور"
+                    type="text"
+                    value={formData?.confirmPassword || ""}
+                    onchange={(e: any) =>
+                      setFormData({
+                        ...formData,
+                        confirmPassword: e.target.value,
+                      })
+                    }
+                  />
                 </div>
                 <div>
-                  <InputForm placeholder="صفة المفاوض" type="text" />
+                  <InputForm
+                    placeholder="تاكيد كلمة المرور"
+                    type="text"
+                    value={formData?.characteristics || ""}
+                    onchange={(e: any) =>
+                      setFormData({
+                        ...formData,
+                        characteristics: e.target.value,
+                      })
+                    }
+                  />
                 </div>
-                <button
-                  type="submit"
-                  className="mt-4 w-full bg-[#F84F39] hover:bg-opacity-70 focus:ring-4 focus:outline-none focus:ring-primary-300 sm:font-rbRegular font-rbLight text-white hover:text-black rounded-lg sm:rounded-3xl px-5 py-2 sm:py-3"
+                <Button
+                  className="mt-4 w-full bg-[#F84F39] focus:ring-4 focus:outline-none focus:ring-primary-300 sm:font-rbRegular font-rbLight text-white hover:text-black rounded-lg sm:rounded-3xl px-5 py-2 sm:py-3"
+                  onPress={CreateAccount}
                 >
                   تسجيل جديد
-                </button>
+                </Button>
               </div>
             </form>
           </div>

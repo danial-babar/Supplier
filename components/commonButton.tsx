@@ -5,7 +5,7 @@ type Props = {
   text: string;
   bgColor: string;
   onPress?: () => void;
-  color:string
+  color?:string
 };
 
 const CommonButton = ({ color,text, bgColor,onPress }: Props) => {
