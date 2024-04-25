@@ -84,7 +84,8 @@ const page = (props: Props) => {
               bgColor="bg-[#FAFAFF]"
               contentBg="bg-[#6c66da4d]"
               contentColor="#6B66DA"
-              onClick={() => handleClick(item?.id)}
+              // onClick={() => handleClick(item?.id)}
+              href={{ pathname: "/management", query: { id: item?.id } }}
             />
           );
         })}
