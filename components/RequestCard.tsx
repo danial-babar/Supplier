@@ -14,6 +14,7 @@ type Props = {
   textColor?: string;
   onClick?:()=>void,
   href?:any;
+  data?:any
   
 };
 
@@ -23,7 +24,8 @@ const RequestCard = ({
   contentBg,
   textColor,
   onClick,
-  href
+  href,
+  data
 }: Props) => {
 
   return (
@@ -62,7 +64,7 @@ const RequestCard = ({
           </div>
         </div>
         <h1 className="font-rbBold text-[18px] md:text-[20px] text-[#061C3D] text-center my-6">
-          لابتوب ماك بوك اير 2020 من ابل
+          {data?.title}
         </h1>
         {/* <p className="sm:font-rbRegular sm:text-start text-center font-rbLight tracking-wide text-[16px] text-[#42526B]">
           شريحة ابل M1 وشاشة ريتينا 13 انش، ذاكرة RAM سعة 8GB، تخزين SSD سعة
@@ -91,7 +93,7 @@ const RequestCard = ({
             />
             <span className="text-[#42526B] font-rbLight">الكمية</span>
           </div>
-          <span className="text-[#42526B]  font-rbRegular">عدد ١٢ عبوة</span>
+          <span className="text-[#42526B]  font-rbRegular">عدد {data?.quantity} عبوة</span>
         </div>
         <hr className="mb-3" />
         <div className="flex justify-between mb-3 items-center">
@@ -101,7 +103,7 @@ const RequestCard = ({
             />
             <span className="text-[#42526B] font-rbLight">تاريخ التسليم</span>
           </div>
-          <span className="text-[#42526B] ">12/03/2024</span>
+          <span className="text-[#42526B] ">{data?.date_delivery}</span>
         </div>
         <hr className="mb-3" />
         <div className="flex justify-between mb-3 items-center">
@@ -111,7 +113,7 @@ const RequestCard = ({
             />
             <span className="text-[#42526B] font-rbLight"> رقم الطلب</span>
           </div>
-          <span className={`text-[${contentColor}] font-rbBold`}>991999</span>
+          <span className={`text-[${contentColor}] font-rbBold`}>{data?.order_no}</span>
         </div>
         <hr className="mb-3" />
         <div className="flex justify-between mb-3 items-center">
