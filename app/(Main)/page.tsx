@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 import DownloadAppBanner from "@/components/DownloadAppBanner";
 import SupplierPlatform from "@/components/SupplierPlatform";
 import Partners from "@/components/Partners";
-import { getAllLeads, getCategories } from "@/api/Users";
+import { filterLeads, getAllLeads, getCategories } from "@/api/Users";
 import { useRouter } from "next/navigation";
 
 type Props = {};
@@ -45,13 +45,21 @@ const page = (props: Props) => {
       });
   };
 
-  const handleClick = (id: string) => {
-    router.push(`/management?id=${id}`);
+  const handleSearchClick = (data: any) => {
+    console.log("data filtered", data);
+    filterLeads(data)
+      .then((response) => {
+        console.log("response while filtering", response);
+        setLeadsData(response);
+      })
+      .catch((error) => {
+        console.log("error while filtering", error);
+      });
   };
   return (
     <div dir="rtl" className="">
       <Header activeItem={0} />
-      <Banner />
+      <Banner onClick={handleSearchClick} />
       <div className="md:my-24 sm:my-10 mt-10 w-[95%] mx-auto sm:flex justify-between items-center ">
         <h1 className="text-black text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] relative font-rbBold">
           طلبات{" "}
@@ -77,16 +85,35 @@ const page = (props: Props) => {
       <div
         className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5"
         style={{ direction: "rtl" }}
-      >
-        {leadsData?.map((item: { id: "" }, index) => {
+      > 
+        {leadsData?.map((item: { id: string; status: string }, index) => {
           return (
             <RequestCard
-              bgColor="bg-[#FAFAFF]"
-              contentBg="bg-[#6c66da4d]"
-              contentColor="#6B66DA"
+              bgColor={
+                item?.status == "7"
+                  ? "bg-[#FEDCD7]"
+                  : item.status == "6"
+                  ? "bg-[#D6FAEE]"
+                  : "bg-[#FAFAFF]"
+              }
+              contentBg={
+                item?.status == "7"
+                  ? "bg-[#f84f3948]"
+                  : item.status == "6"
+                  ? "bg-[#34e5a755]"
+                  : "bg-[#6c66da4d]"
+              }
+              contentColor={
+                item?.status == "7"
+                  ? "#F84F39"
+                  : item.status == "6"
+                  ? "#34E5A8"
+                  : "#6B66DA"
+              }
               // onClick={() => handleClick(item?.id)}
               href={{ pathname: "/management", query: { id: item?.id } }}
               data={item}
+              textColor={item?.status == "2" ? "#000000" : ""}
             />
           );
         })}

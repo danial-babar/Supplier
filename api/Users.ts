@@ -27,12 +27,32 @@ export const getCities = async () => {
     throw error;
   }
 };
+export const getStatus = async () => {
+  try {
+    const response = await api.get(`/get_status`);
+    return response.data;
+  } catch (error) {
+    console.error("Error while getting status:", error);
+    throw error;
+  }
+};
 export const getAllLeads = async () => {
   try {
     const response = await api.get(`/get_leads`);
     return response.data;
   } catch (error) {
     console.error("Error while getting all leads:", error);
+    throw error;
+  }
+};
+export const filterLeads = async (data: any) => {
+  try {
+    const response = await api.get(
+      `/get_leads_filter?category=${data.category}&city=${data?.city}&order_status=${data?.status}&sort_by=${data?.sort_by}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error while getting filter leads:", error);
     throw error;
   }
 };
@@ -45,7 +65,6 @@ export const singleLeadById = async (id: string) => {
     throw error;
   }
 };
-
 
 export const userFlow = {
   createAccount: async (data: any) => {

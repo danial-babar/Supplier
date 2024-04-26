@@ -1,4 +1,4 @@
-import { getCategories, getCities } from "@/api/Users";
+import { getCategories, getCities, getStatus } from "@/api/Users";
 import {
   Button,
   Dropdown,
@@ -12,15 +12,30 @@ import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import DropDownComp from "../DropDownComp";
 
-type Props = {};
+type Props = {
+  onClick: (data: any) => void;
+};
 
-const Banner = (props: Props) => {
-  const [categories, setCategories] = useState([{ title: "" }]);
-  const [cities, setCities] = useState([{ id: "", city_name: "" }]);
+const Banner = ({ onClick }: Props) => {
+  const [categories, setCategories] = useState([{ id: 0, title: "" }]);
+  const [cities, setCities] = useState([{ id: 0, city_name: "" }]);
+  const [sortBy, setSortBy] = useState([{ id: 0, name: "" }]);
+  const [status, setstatus] = useState([{ id: 0, name: "" }]);
   const [dropdownData, setDropdownData] = useState({
-    category: { title: "" },
-    city: { city_name: "" },
+    category: { id: 0, title: "" },
+    city: { id: 0, city_name: "" },
+    sortBy: { id: 0, name: "" },
+    status: { id: 0, name: "" },
   });
+  const onSearchPress = () => {
+    const data = {
+      category: dropdownData?.category?.id,
+      city: dropdownData?.city?.id,
+      sortBy: dropdownData?.sortBy?.id,
+      status: dropdownData?.status?.id,
+    };
+    onClick(data);
+  };
   useEffect(() => {
     getCategories()
       .then((res) => {
@@ -37,6 +52,14 @@ const Banner = (props: Props) => {
       })
       .catch((err) => {
         console.log("err while getting cities", err);
+      });
+    getStatus()
+      .then((res) => {
+        console.log("res while getting status", res);
+        setstatus(res?.data);
+      })
+      .catch((err) => {
+        console.log("err while getting status", err);
       });
   }, []);
 
@@ -83,14 +106,39 @@ const Banner = (props: Props) => {
 
           <div className="flex items-center md:mb-0 mb-6 md:w-1/3 lg:w-1/4">
             <Image src="/filter2.png" width={20} height={20} alt="" />
-            <div>
+            <DropDownComp
+              title={"ترتيب"}
+              data={[
+                { id: 1, name: "الأحدث إلى الأقدم" },
+                { id: 2, name: "من الأقدم إلى الأحدث"},
+              ]}
+              getItemTitle={(item) => item.name}
+              onClick={(item) =>
+                setDropdownData({ ...dropdownData, sortBy: item })
+              }
+              selectedItem={
+                dropdownData?.sortBy?.name || "اختر من الاحدث الي الاقدم"
+              }
+              dropdownBtnClass={`max-w-[220px] justify-start`}
+            />
+            {/* <div>
               <p className="text-gray-400 px-2">ترتيب</p>
               <p className="text-[16px] px-1">اختر من الاحدث الي الاقدم</p>
-            </div>
+            </div> */}
           </div>
           <div className="flex items-center md:mb-0 mb-6 md:w-1/6">
             <Image src="/flag.png" width={20} height={20} alt="" />
-            <div>
+            <DropDownComp
+              title={"حالة الطلب"}
+              data={status}
+              getItemTitle={(item) => item.name}
+              onClick={(item) =>
+                setDropdownData({ ...dropdownData, status: item })
+              }
+              selectedItem={dropdownData?.status?.name || "اختر حالة الطلب"}
+              dropdownBtnClass={`max-w-[220px] justify-start`}
+            />
+            {/* <div>
               <p className="text-gray-400 px-2"> حالة الطلب</p>
               <select
                 id="order_status"
@@ -102,15 +150,18 @@ const Banner = (props: Props) => {
                 <option value="FR">France</option>
                 <option value="DE">Germany</option>
               </select>
-            </div>
+            </div> */}
           </div>
 
           <div className="md:w-auto sm:w-1/2 w-full md:text-start text-end">
-            <Link href="/search">
-              <div className="bg-[#F84F39] md:p-3 w-full p-2 lg:p-4 rounded-full text-white">
-                <CiSearch className="text-[25px]" />
-              </div>
-            </Link>
+            {/* <Link href="/search"> */}
+            <div
+              className="bg-[#F84F39] md:p-3 w-full p-2 lg:p-4 rounded-full text-white"
+              onClick={onSearchPress}
+            >
+              <CiSearch className="text-[25px]" />
+            </div>
+            {/* </Link> */}
           </div>
         </div>
       </div>
