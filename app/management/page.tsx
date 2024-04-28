@@ -5,7 +5,16 @@ import CommonButton from "@/components/commonButton";
 import ImageCarousel from "@/components/slider";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { Button, ButtonGroup } from "@nextui-org/react";
+import {
+  Button,
+  ButtonGroup,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@nextui-org/react";
 import { LuArrowUpToLine } from "react-icons/lu";
 import { FaCircle } from "react-icons/fa";
 
@@ -13,12 +22,20 @@ import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 
 import { TiLocationOutline } from "react-icons/ti";
 import { BsTagFill } from "react-icons/bs";
-import { singleLeadById } from "@/api/Users";
+import { bidsFLow, singleLeadById } from "@/api/Users";
 import { RxDotFilled } from "react-icons/rx";
+import { IoCloseCircle } from "react-icons/io5";
 type Props = {
   searchParams: any;
 };
 const page = ({ searchParams }: Props) => {
+  const user = JSON.parse(localStorage.getItem("user"))
+console.log('user', user);
+const [isBidSuccess, setIsBidSuccess] = useState(false);
+const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [reqPrice, setReqPrice] = useState("");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [remainingTime, setRemainingTime] = useState({
     days: 0,
@@ -40,7 +57,7 @@ const page = ({ searchParams }: Props) => {
   useEffect(() => {
     singleLeadById(searchParams?.id)
       .then((response) => {
-        // console.log('response while getting single lead', response);
+        console.log("response while getting single lead", response);
         setLeadData(response);
         calculateRemainingTime(response?.date_expire);
       })
@@ -49,9 +66,6 @@ const page = ({ searchParams }: Props) => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   calculateRemainingTime(leadData?.date_expire);
-  // }, [leadData]);
   const calculateRemainingTime = (expireDate: any) => {
     const [day, month, year] = expireDate?.split("/")?.map(Number);
 
@@ -77,6 +91,31 @@ const page = ({ searchParams }: Props) => {
     });
   };
 
+  const add_bid = () => {
+    const data =  new FormData()
+    data.append('lead_id', leadData?.id)
+    data.append('user_id', leadData?.id)
+    data.append('amount', reqPrice)
+    data.append('created_by', leadData?.created_by)
+    bidsFLow
+      .addBid(data)
+      .then((reponse) => {
+        console.log("response while adding bid", reponse);
+        setIsBidSuccess(true); // Set bid success state to true
+        onOpenChange(); // Close the modal
+      })
+      .catch((error) => {
+        console.log("error while adding bid",error);
+      });
+  };
+  useEffect(() => {
+    if (isBidSuccess) {
+      // Show alert to the user
+      alert("Bid successfully added!");
+      // Reset bid success state after showing alert
+      setIsBidSuccess(false);
+    }
+  }, [isBidSuccess]);
   return (
     <div className="">
       <div dir="rtl">
@@ -112,8 +151,7 @@ const page = ({ searchParams }: Props) => {
                   </div>
                 ))}
               </div>
-              {/* Buttons for switching between slides */}
-              {/* Previous button */}
+            
               <button
                 type="button"
                 className="absolute bottom-[50%] start-0 z-30 flex items-center justify-center px-4 cursor-pointer group focus:outline-none"
@@ -123,7 +161,7 @@ const page = ({ searchParams }: Props) => {
                 <GrLinkPrevious className="text-[30px] text-[#6c66da4d] border-1 border-[#6c66da4d] p-2 rounded-full hover:bg-[#6c66da4d] hover:text-white" />
                 <span className="sr-only">Previous</span>
               </button>
-              {/* Next button */}
+         
               <button
                 type="button"
                 className="absolute bottom-[50%] end-0 z-30 flex items-center justify-center px-4 cursor-pointer group focus:outline-none"
@@ -133,32 +171,16 @@ const page = ({ searchParams }: Props) => {
                 <GrLinkNext className="text-[30px] text-[#6c66da4d] border-1 border-[#6c66da4d] p-2 rounded-full hover:bg-[#6c66da4d] hover:text-white" />
                 <span className="sr-only">Next</span>
               </button>
+              <div className="my-5">
+                <Button
+                  onClick={onOpen}
+                  className="sm:font-rbRegular bg-[#F84F39] w-full font-rbLight text-white rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6"
+                >
+                  تقديم طلب سعر
+                </Button>
+              </div>
             </div>
-            {/* <button
-              type="button"
-              className="absolute bottom-[55%] start-0 z-30 flex items-center justify-center px-4 cursor-pointer group focus:outline-none"
-              data-carousel-prev
-              onClick={handlePrevSlide}
-            >
-              <GrLinkPrevious className="text-[30px] text-white border-1 border-[#fff] p-2 rounded-full hover:bg-white hover:text-black" />
-              <span className="sr-only">Previous</span>
-            </button>
-            <button
-              type="button"
-              className="absolute bottom-[55%] end-0 z-30 flex items-center justify-center px-4 cursor-pointer group focus:outline-none"
-              data-carousel-next
-              onClick={handleNextSlide}
-            >
-              <GrLinkNext className="text-[30px] text-white border-1 border-[#fff] p-2 rounded-full hover:bg-white hover:text-black" />
-              <span className="sr-only">Next</span>
-            </button> */}
-
-            <div className="my-5">
-              <Button className="sm:font-rbRegular bg-[#F84F39] w-full font-rbLight text-white rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6">
-                تقديم طلب سعر
-              </Button>
-            </div>
-
+           
             <div className="lg:w-3/4 lg:mt-auto mt-8 w-full">
               <div className="" dir="rtl">
                 <div className="sm:flex sm:space-y-0 space-y-5 justify-between items-center">
@@ -466,6 +488,58 @@ const page = ({ searchParams }: Props) => {
           </tbody>
         </table>
       </div>
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        hideCloseButton
+        className="pb-4"
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader
+                className="flex justify-between items-center gap-1"
+                dir="rtl"
+              >
+                <div className="flex items-center">
+                  <Image src="/okay-icon.png" width={40} height={40} alt="" />
+                  اضافة عرض سعر
+                </div>
+                <IoCloseCircle
+                  color="#F84F39"
+                  size={25}
+                  onClick={onClose}
+                  className="cursor-pointer"
+                />
+              </ModalHeader>
+              <ModalBody>
+                <input
+                  type="text"
+                  placeholder="اضافة سعر"
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 mb-4"
+                  dir="rtl"
+                  value={reqPrice}
+                  onChange={(e) => setReqPrice(e.target.value)}
+                />
+                <CommonButton
+                  text="ارسال"
+                  bgColor="#F84F39"
+                  onPress={add_bid}
+                />
+                <CommonButton
+                  text="الغاء"
+                  bgColor="#FEDCD7"
+                  onPress={onClose}
+                  textColor="#000"
+                />
+              </ModalBody>
+              {/* <ModalFooter> */}
+
+              {/* </ModalFooter> */}
+            </>
+          )}
+        </ModalContent>
+      </Modal>
       <div dir="rtl">
         <Footer />
       </div>

@@ -16,13 +16,57 @@ import { filterLeads, getAllLeads, getCategories } from "@/api/Users";
 import { useRouter } from "next/navigation";
 
 type Props = {};
-
+interface Lead {
+  id: string;
+  status: string;
+  // Add other properties if needed
+}
 const page = (props: Props) => {
-  const [leadsData, setLeadsData] = useState([]);
+  const [leadsData, setLeadsData] = useState<Array<any>>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const leadsPerPage = 6;
   const router = useRouter();
   useEffect(() => {
     getCategoriesList();
-    getLeads();
+  }, []);
+  useEffect(() => {
+    getLeads(currentPage, leadsPerPage);
+  }, [currentPage]);
+
+  const indexOfLastLead = currentPage * leadsPerPage;
+  const indexOfFirstLead = indexOfLastLead - leadsPerPage;
+  const currentLeads = leadsData.slice(indexOfFirstLead, indexOfLastLead);
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const getLeads = (page: any, leadsPerPage: any) => {
+    getAllLeads()
+      .then((res: Lead[]) => {
+        console.log("res while getting leads", res);
+        if (page === 1) {
+          setLeadsData(res);
+        } else {
+          setLeadsData((prevLeads: Lead[]) => [...prevLeads, ...res]);
+        }
+        setLeadsData(res);
+      })
+      .catch((err) => {
+        console.log("err while getting leads", err);
+      });
+  };
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      console.log("user", user);
+    }
   }, []);
 
   const getCategoriesList = () => {
@@ -34,17 +78,6 @@ const page = (props: Props) => {
         console.log("err while getting categories", err);
       });
   };
-  const getLeads = () => {
-    getAllLeads()
-      .then((res) => {
-        console.log("res while getting leads", res);
-        setLeadsData(res);
-      })
-      .catch((err) => {
-        console.log("err while getting leads", err);
-      });
-  };
-
   const handleSearchClick = (data: any) => {
     console.log("data filtered", data);
     filterLeads(data)
@@ -74,10 +107,20 @@ const page = (props: Props) => {
           </p>
         </h1>
         <div className="flex items-center sm:mb-auto mb-4 sm:justify-start justify-end sm:mt-auto mt-4">
-          <button className="bg-[#6B66DA] border-[2px] border-[#6B66DA] text-white rounded-full sm:p-3 p-1">
+          <button
+            className="bg-[#6B66DA] border-[2px] border-[#6B66DA] text-white rounded-full sm:p-3 p-1"
+            onClick={handleNextPage}
+            disabled={
+              currentPage === Math.ceil(leadsData.length / leadsPerPage)
+            }
+          >
             <MdKeyboardArrowRight className="text-xl md:text-2xl" />
           </button>
-          <button className="text-[#6B66DA] ms-3 border-[2px] border-[#6B66DA] rounded-full sm:p-3 p-1">
+          <button
+            className="text-[#6B66DA] ms-3 border-[2px] border-[#6B66DA] rounded-full sm:p-3 p-1"
+            onClick={handlePrevPage}
+            disabled={currentPage === 1}
+          >
             <MdOutlineKeyboardArrowLeft className="text-xl md:text-2xl" />
           </button>
         </div>
@@ -85,8 +128,8 @@ const page = (props: Props) => {
       <div
         className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5"
         style={{ direction: "rtl" }}
-      > 
-        {leadsData?.map((item: { id: string; status: string }, index) => {
+      >
+        {currentLeads.map((item: { id: string; status: string }, index) => {
           return (
             <RequestCard
               bgColor={

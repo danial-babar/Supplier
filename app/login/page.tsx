@@ -1,20 +1,47 @@
 "use client";
+import { userFlow } from "@/api/Users";
 import Header from "@/components/Layout/Header";
 import CommonButton from "@/components/commonButton";
+import InputForm from "@/components/inputForm";
 import InputWithIcon from "@/components/inputWithIcon";
+import { localstorageService } from "@/utils/LocalStorage.service";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
-import { BsThreeDots } from "react-icons/bs";
+import React, { useState } from "react";
 import { GoPeople } from "react-icons/go";
+
 import { MdLogin, MdPeopleAlt } from "react-icons/md";
 type Props = {};
 
 const page = (props: Props) => {
   const router = useRouter();
+  const [email, setEmail] = useState("danial1@gmail.com");
+  const [password, setPassword] = useState("1234");
 
   const handleClick = () => {
     router.push(`/create-account`);
+  };
+
+  
+  const Login = () => {
+        const data = new FormData();
+    data.append("email", email);
+    data.append("password", password);
+
+    userFlow
+      .login(data)
+      .then((response) => {
+        console.log("response while login account", response);
+        if (response?.code == "1") {
+          router.push(`/`);
+          localStorage.setItem("user", JSON.stringify(response?.data));
+          localstorageService.setToken(response?.data?.token)
+          
+        }
+      })
+      .catch((error) => {
+        console.log("error while login account", error);
+      });
   };
   return (
     <div dir="rtl">
@@ -39,17 +66,22 @@ const page = (props: Props) => {
                 <MdLogin className="pe-3 ms-2 text-[30px] md:text-[40px] text-[#F84F39]" />{" "}
                 تـسجيل الـدخول
               </h1>
-              <form>
+              <div>
                 <InputWithIcon
                   type="text"
                   placeholder="أسم المستخدم"
                   icon={<GoPeople className="h-3 w-3 text-[#F84F39]" />}
+                  value={email || ""}
+                  onchange={(e: any) => setEmail(e.target.value)}
                 />
                 <InputWithIcon
-                  type="text"
-                  placeholder="كلمة المرور"
-                  icon={<BsThreeDots className="h-3 w-3 text-[#F84F39]" />}
+                  type="password"
+                  placeholder="أسم المستخدم"
+                  icon={<GoPeople className="h-3 w-3 text-[#F84F39]" />}
+                  value={password || ""}
+                  onchange={(e: any) => setPassword(e.target.value)}
                 />
+
                 <div className="mt-4 flex items-center justify-end">
                   <Link
                     href="#"
@@ -59,7 +91,7 @@ const page = (props: Props) => {
                   </Link>
                 </div>
                 <div>
-                  <CommonButton text="دخول" bgColor="#F84F39" />
+                  <CommonButton text="دخول" bgColor="#F84F39" onPress={Login} />
                   <div className="flex items-center  mt-4 justify-center">
                     <hr className="w-full border-t border-red-300 before:w-1/4 before:border-t before:border-r before:border-gray-300 after:w-1/4 after:border-t after:border-l after:border-gray-300 border-dotted" />
                     <div className="mx-2">او</div>
@@ -79,7 +111,7 @@ const page = (props: Props) => {
                     انشاء حساب جديد
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>

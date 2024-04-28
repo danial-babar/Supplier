@@ -76,6 +76,27 @@ export const userFlow = {
       throw error;
     }
   },
+  login: async (data: any) => {
+    try {
+      const response = await api.post(`/login`, data);
+      return response.data;
+    } catch (error) {
+      console.error("Error login user:", error);
+      throw error;
+    }
+  },
+};
+export const bidsFLow = {
+  addBid: async (data: any) => {
+    try {
+      const response = await api.post(`/add_bid`, data);
+      return response.data;
+    } catch (error) {
+      console.error("Error while adding bid:", error);
+      throw error;
+    }
+  },
+ 
 };
 
 export default api;
