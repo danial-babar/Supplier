@@ -70,12 +70,27 @@ body {
 .map_img{
   width: 100%;
   height: auto;
-  /* object-fit: contain; */
+  object-fit: contain;
   background-position: center;
 }
 .parent> :last-child{
   margin-right: auto;
 }
+
+.selectboxForRTL {
+  span {
+    text-align: right;
+  }
+  svg{
+  position: unset !important;
+  }
+}
+/* .text-left {
+  text-align: left;
+}
+.right-3 {
+  right: 0.75rem;
+} */
 @media screen and (max-width:1024px) {
   .download_app{
     width: 30px;
