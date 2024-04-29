@@ -4,6 +4,7 @@ const protectedRoutes = [
   "management",
   "requests",
   "requestDetail",
+  "addRequest",
   // Add more protected routes here if needed
 ];
 export default function middleware(req: NextRequest) {

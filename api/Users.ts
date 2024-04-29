@@ -36,6 +36,15 @@ export const getStatus = async () => {
     throw error;
   }
 };
+export const getUnits = async () => {
+  try {
+    const response = await api.get(`/get_units`);
+    return response.data;
+  } catch (error) {
+    console.error("Error while getting units:", error);
+    throw error;
+  }
+};
 export const getAllLeads = async () => {
   try {
     const response = await api.get(`/get_leads`);
@@ -93,6 +102,18 @@ export const bidsFLow = {
       return response.data;
     } catch (error) {
       console.error("Error while adding bid:", error);
+      throw error;
+    }
+  },
+ 
+};
+export const leadsFLow = {
+  addLead: async (data: any) => {
+    try {
+      const response = await api.post(`/add_lead`, data);
+      return response.data;
+    } catch (error) {
+      console.error("Error while adding lead:", error);
       throw error;
     }
   },

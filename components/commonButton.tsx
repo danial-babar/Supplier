@@ -7,13 +7,14 @@ type Props = {
   onPress?: (e: any) => void;
   color?: string;
   textColor?: string;
+  className?: string;
 };
 
-const CommonButton = ({ color, text, bgColor, onPress, textColor }: Props) => {
+const CommonButton = ({ color, text, bgColor, onPress, textColor, className }: Props) => {
   return (
     <Button
       type="submit"
-      className={`mt-4 w-full text-[${
+      className={className || `mt-4 w-full text-[${
         textColor || "#fff"
       }] bg-[${bgColor}] sm:font-rbRegular font-rbLight rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6`}
       onPress={onPress}
