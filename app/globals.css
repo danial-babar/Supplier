@@ -84,6 +84,20 @@ body {
   svg{
   position: unset !important;
   }
+  .bg-default-100 {
+    --tw-bg-opacity: 1;
+    background-color: white;
+    border-radius: 0px;
+    border: 1px solid #D1D5DB;
+}
+.bg-default-100:hover{
+  background-color: rgb(233, 232, 232);
+  border: 1px ;
+  border-color: );
+}
+.datepicker_w{
+  width: 100% !important;
+}
 }
 /* .text-left {
   text-align: left;

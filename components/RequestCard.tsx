@@ -37,8 +37,7 @@ const RequestCard = ({
     calculateRemainingTime(data?.date_expire);
   }, [data]);
   const calculateRemainingTime = (expireDate: any) => {
-    console.log('date expired', expireDate);
-    
+      
     const [day, month, year] = expireDate.split("/").map(Number);
 
     // Month is 0-based in JavaScript Date objects, so subtract 1 from the month
@@ -55,11 +54,7 @@ const RequestCard = ({
     const remainingMinutes = Math.floor(
       (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
     );
-    console.log('time remaining',{
-      days: remainingDays,
-      hours: remainingHours,
-      minutes: remainingMinutes,
-    });
+   
     setRemainingTime({
       days: remainingDays,
       hours: remainingHours,
@@ -102,7 +97,7 @@ const RequestCard = ({
               </p>
             </div>
           </div>
-          <h1 className="font-rbBold text-[18px] md:text-[20px] text-[#061C3D] text-center my-6 overflow-hidden whitespace-nowrap">
+          <h1 className="font-rbBold text-[18px] md:text-[20px] text-[#061C3D] text-center my-6 overflow-hidden whitespace-nowrap line-clamp-1">
             {data?.title}
           </h1>
 

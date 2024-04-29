@@ -3,6 +3,7 @@ import { userFlow } from "@/api/Users";
 import DropDownComp from "@/components/DropDownComp";
 import Header from "@/components/Layout/Header";
 import InputForm from "@/components/inputForm";
+import { localstorageService } from "@/utils/LocalStorage.service";
 import { Button } from "@nextui-org/react";
 import React, { useState } from "react";
 import { LuPenLine } from "react-icons/lu";
@@ -39,10 +40,12 @@ const page = (props: Props) => {
       .then((response) => {
         console.log("response while creating account", response);
         if (response?.code == "1") {
-          localStorage.setItem("user", response?.data);
+          localStorage.setItem("user", JSON.stringify(response?.data));
+          localstorageService.setToken(response?.data?.token)
+
         }
       })
-      .then((error) => {
+      .catch((error) => {
         console.log("error while creating account", error);
       });
   };
@@ -126,7 +129,7 @@ const page = (props: Props) => {
                   />
                   <InputForm
                     placeholder="كلمة المرور"
-                    type="text"
+                    type="password"
                     value={formData?.password || ""}
                     onchange={(e: any) =>
                       setFormData({ ...formData, password: e.target.value })
@@ -134,7 +137,7 @@ const page = (props: Props) => {
                   />
                   <InputForm
                     placeholder="تاكيد كلمة المرور"
-                    type="text"
+                    type="password"
                     value={formData?.confirmPassword || ""}
                     onchange={(e: any) =>
                       setFormData({
