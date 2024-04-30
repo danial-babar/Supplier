@@ -40,6 +40,7 @@ const page = (props: Props) => {
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
+  console.log("current leads", currentLeads);
 
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
@@ -129,51 +130,41 @@ const page = (props: Props) => {
         className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5"
         style={{ direction: "rtl" }}
       >
-        {currentLeads.map((item: { id: string; status: string }, index) => {
-          return (
-            <RequestCard
-              bgColor={
-                item?.status == "7"
-                  ? "bg-[#FEDCD7]"
-                  : item.status == "6"
-                  ? "bg-[#D6FAEE]"
-                  : "bg-[#FAFAFF]"
-              }
-              contentBg={
-                item?.status == "7"
-                  ? "bg-[#f84f3948]"
-                  : item.status == "6"
-                  ? "bg-[#34e5a755]"
-                  : "bg-[#6c66da4d]"
-              }
-              contentColor={
-                item?.status == "7"
-                  ? "#F84F39"
-                  : item.status == "6"
-                  ? "#34E5A8"
-                  : "#6B66DA"
-              }
-              // onClick={() => handleClick(item?.id)}
-              href={{ pathname: "/management", query: { id: item?.id } }}
-              data={item}
-              textColor={item?.status == "2" ? "#000000" : ""}
-            />
-          );
-        })}
-
-        {/* <RequestCard
-          bgColor="bg-[#D6FAEE]"
-          contentBg="bg-[#34e5a755]"
-          contentColor="#34E5A8"
-          textColor="#000000"
-          onClick={handleClick}
-        />
-        <RequestCard
-          bgColor="bg-[#FEDCD7]"
-          contentBg="bg-[#f84f3948]"
-          contentColor="#F84F39"
-          onClick={handleClick}
-        /> */}
+        {Array.isArray(currentLeads) && currentLeads.length > 0 ? (
+          currentLeads.map((item: { id: string; status: string }, index) => {
+            return (
+              <RequestCard
+                key={item.id} // don't forget to add a unique key when mapping over arrays in React
+                bgColor={
+                  item?.status == "7"
+                    ? "bg-[#FEDCD7]"
+                    : item.status == "6"
+                    ? "bg-[#D6FAEE]"
+                    : "bg-[#FAFAFF]"
+                }
+                contentBg={
+                  item?.status == "7"
+                    ? "bg-[#f84f3948]"
+                    : item.status == "6"
+                    ? "bg-[#34e5a755]"
+                    : "bg-[#6c66da4d]"
+                }
+                contentColor={
+                  item?.status == "7"
+                    ? "#F84F39"
+                    : item.status == "6"
+                    ? "#34E5A8"
+                    : "#6B66DA"
+                }
+                href={{ pathname: "/management", query: { id: item?.id } }}
+                data={item}
+                textColor={item?.status == "2" ? "#000000" : ""}
+              />
+            );
+          })
+        ) : (
+          <p>No leads available.</p>
+        )}
       </div>
       <div className="w-[95%] mx-auto sm:mt-20 md:mt-32 mt-8">
         <div className="text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold text-black text-center">

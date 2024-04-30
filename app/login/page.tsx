@@ -17,14 +17,21 @@ const page = (props: Props) => {
   const router = useRouter();
   const [email, setEmail] = useState("danial1@gmail.com");
   const [password, setPassword] = useState("1234");
+  const [loading, setLoading] = useState(false);
 
   const handleClick = () => {
     router.push(`/create-account`);
   };
 
-  
   const Login = () => {
-        const data = new FormData();
+    if (!email) {
+      return alert("Please enter your email");
+    }
+    if (!password) {
+      return alert("Please enter your password");
+    }
+    setLoading(true);
+    const data = new FormData();
     data.append("email", email);
     data.append("password", password);
 
@@ -35,13 +42,13 @@ const page = (props: Props) => {
         if (response?.code == "1") {
           router.push(`/`);
           localStorage.setItem("user", JSON.stringify(response?.data));
-          localstorageService.setToken(response?.data?.token)
-          
+          localstorageService.setToken(response?.data?.token);
         }
       })
       .catch((error) => {
         console.log("error while login account", error);
-      });
+      })
+      .finally(() => setLoading(false));
   };
   return (
     <div dir="rtl">
@@ -91,7 +98,12 @@ const page = (props: Props) => {
                   </Link>
                 </div>
                 <div>
-                  <CommonButton text="دخول" bgColor="#F84F39" onPress={Login} />
+                  <CommonButton
+                    text="دخول"
+                    bgColor="#F84F39"
+                    onPress={Login}
+                    loading={loading}
+                  />
                   <div className="flex items-center  mt-4 justify-center">
                     <hr className="w-full border-t border-red-300 before:w-1/4 before:border-t before:border-r before:border-gray-300 after:w-1/4 after:border-t after:border-l after:border-gray-300 border-dotted" />
                     <div className="mx-2">او</div>

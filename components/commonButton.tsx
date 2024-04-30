@@ -1,5 +1,6 @@
-import { Button } from "@nextui-org/react";
+import { Button, Spinner } from "@nextui-org/react";
 import React from "react";
+// import { Loading } from "@nextui-org/react";
 
 type Props = {
   text: string;
@@ -8,18 +9,38 @@ type Props = {
   color?: string;
   textColor?: string;
   className?: string;
+  spinnerSize?: any;
+  spinnerColor?: any;
+  loading?: boolean;
 };
 
-const CommonButton = ({ color, text, bgColor, onPress, textColor, className }: Props) => {
+const CommonButton = ({
+  color,
+  text,
+  bgColor,
+  onPress,
+  textColor,
+  className,
+  loading,
+  spinnerSize,
+  spinnerColor,
+}: Props) => {
   return (
     <Button
       type="submit"
-      className={className || `mt-4 w-full text-[${
-        textColor || "#fff"
-      }] bg-[${bgColor}] sm:font-rbRegular font-rbLight rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6`}
+      className={
+        className ||
+        `mt-4 w-full text-[${
+          textColor || "#fff"
+        }] bg-[${bgColor}] sm:font-rbRegular font-rbLight rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6`
+      }
       onPress={onPress}
     >
-      {text}
+      {loading ? (
+        <Spinner color={spinnerColor || "white"} size={spinnerSize || "sm"} />
+      ) : (
+        text
+      )}
     </Button>
   );
 };
