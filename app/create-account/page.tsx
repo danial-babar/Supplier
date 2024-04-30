@@ -4,11 +4,14 @@ import DropDownComp from "@/components/DropDownComp";
 import Header from "@/components/Layout/Header";
 import InputForm from "@/components/inputForm";
 import { localstorageService } from "@/utils/LocalStorage.service";
-import { Button } from "@nextui-org/react";
+import { Button, Radio, RadioGroup } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { LuPenLine } from "react-icons/lu";
 type Props = {};
 const page = (props: Props) => {
+  const router = useRouter();
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     commercial: "7689",
     facilityName: "دانيال",
@@ -19,36 +22,79 @@ const page = (props: Props) => {
     password: "1234",
     confirmPassword: "1234",
     characteristics: "ABC",
-    user_role_key: { id: "", title: "" },
+    user_role_key: "buyer",
   });
 
-  const CreateAccount = () => {
-    console.log("entered in Create Account");
-
-    const data = new FormData();
-    data.append("commercial", formData.commercial);
-    data.append("facilityName", formData.facilityName);
-    data.append("email", formData.email);
-    data.append("phone", formData.phone);
-    data.append("negotiatorName", formData.negotiatorName);
-    data.append("negotiatorId", formData.negotiatorId);
-    data.append("characteristics", formData.characteristics);
-    data.append("user_role_key", formData.user_role_key?.title);
-    data.append("password", formData.password);
-    userFlow
-      .createAccount(data)
-      .then((response) => {
-        console.log("response while creating account", response);
-        if (response?.code == "1") {
-          localStorage.setItem("user", JSON.stringify(response?.data));
-          localstorageService.setToken(response?.data?.token)
-
-        }
-      })
-      .catch((error) => {
-        console.log("error while creating account", error);
-      });
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.email) {
+      errors.email = "يرجى إدخال البريد الإلكتروني";
+    }
+    if (!formData.phone) {
+      errors.phone = "يرجى إدخال رقم الجوال";
+    }
+    if (!formData.password) {
+      errors.password = "يرجى إدخال كلمة المرور";
+    }
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
   };
+
+  const CreateAccount = () => {
+    if (validateForm()) {
+      if (formData?.password !== formData?.confirmPassword) {
+        return alert("Password and confirm password are not same");
+      }
+      const data = new FormData();
+      data.append("commercial", formData.commercial);
+      data.append("facilityName", formData.facilityName);
+      data.append("email", formData.email);
+      data.append("phone", formData.phone);
+      data.append("negotiatorName", formData.negotiatorName);
+      data.append("negotiatorId", formData.negotiatorId);
+      data.append("characteristics", formData.characteristics);
+      data.append("user_role_key", formData.user_role_key);
+      data.append("password", formData.password);
+      userFlow
+        .createAccount(data)
+        .then((response) => {
+          console.log("response while creating account", response);
+          if (response?.code === "1") {
+            router.push("/login");
+          }
+        })
+        .catch((error) => {
+          console.log("error while creating account", error);
+        });
+    }
+  };
+  // const CreateAccount = () => {
+  //   const data = new FormData();
+  //   data.append("commercial", formData.commercial);
+  //   data.append("facilityName", formData.facilityName);
+  //   data.append("email", formData.email);
+  //   data.append("phone", formData.phone);
+  //   data.append("negotiatorName", formData.negotiatorName);
+  //   data.append("negotiatorId", formData.negotiatorId);
+  //   data.append("characteristics", formData.characteristics);
+  //   data.append("user_role_key", formData.user_role_key);
+  //   data.append("password", formData.password);
+  //   userFlow
+  //     .createAccount(data)
+  //     .then((response) => {
+  //       console.log("response while creating account", response);
+  //       if (response?.code == "1") {
+  //         // localStorage.setItem("user", JSON.stringify(response?.data));
+  //         // localstorageService.setToken(response?.data?.token);
+  //         router.push("/login");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log("error while creating account", error);
+  //     });
+  // };
+  console.log("user key role", formData?.user_role_key);
+
   return (
     <div dir="rtl">
       <Header />
@@ -73,7 +119,27 @@ const page = (props: Props) => {
                 التسجيل كممثل منشأة
               </h1>
             </div>
-            <form>
+            <div className="px-3 mb-4">
+              <RadioGroup label="دور المستخدم" orientation="horizontal" dir="rtl">
+                <Radio
+                  value="vendor"
+                  onClick={() =>
+                    setFormData({ ...formData, user_role_key: "vendor" })
+                  }
+                >
+                  بائع{' '}
+                </Radio>
+                <Radio
+                  value="buyer"
+                  onClick={() =>
+                    setFormData({ ...formData, user_role_key: "buyer" })
+                  }
+                >
+                  {' '}مشتر
+                </Radio>
+              </RadioGroup>
+            </div>
+            <form onSubmit={CreateAccount}>
               <div className="px-3 pb-6">
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
                   <InputForm
@@ -92,22 +158,38 @@ const page = (props: Props) => {
                       setFormData({ ...formData, facilityName: e.target.value })
                     }
                   />
-                  <InputForm
-                    placeholder="رقم الجوال"
-                    type="text"
-                    value={formData?.phone || ""}
-                    onchange={(e: any) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
-                  />
-                  <InputForm
-                    placeholder="البريد الالكتروني"
-                    type="text"
-                    value={formData?.email || ""}
-                    onchange={(e: any) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                  />
+                  <div className="">
+                    <InputForm
+                      placeholder="رقم الجوال"
+                      type="text"
+                      value={formData?.phone || ""}
+                      onchange={(e: any) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
+                      required
+                    />
+                    {errors.phone && (
+                      <div className="text-red-500 text-[12px]">
+                        {errors.phone}
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <InputForm
+                      placeholder="البريد الالكتروني"
+                      type="text"
+                      value={formData?.email || ""}
+                      onchange={(e: any) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      required
+                    />
+                    {errors.email && (
+                      <div className="text-red-500 text-[12px]">
+                        {errors.email}
+                      </div>
+                    )}
+                  </div>
                   <InputForm
                     placeholder="رقم هوية المفاوض"
                     type="text"
@@ -127,14 +209,22 @@ const page = (props: Props) => {
                       })
                     }
                   />
-                  <InputForm
-                    placeholder="كلمة المرور"
-                    type="password"
-                    value={formData?.password || ""}
-                    onchange={(e: any) =>
-                      setFormData({ ...formData, password: e.target.value })
-                    }
-                  />
+                  <div className="">
+                    <InputForm
+                      placeholder="كلمة المرور"
+                      type="password"
+                      value={formData?.password || ""}
+                      onchange={(e: any) =>
+                        setFormData({ ...formData, password: e.target.value })
+                      }
+                      required
+                    />
+                    {errors.password && (
+                      <div className="text-red-500 text-[12px]">
+                        {errors.password}
+                      </div>
+                    )}
+                  </div>
                   <InputForm
                     placeholder="تاكيد كلمة المرور"
                     type="password"
@@ -145,6 +235,7 @@ const page = (props: Props) => {
                         confirmPassword: e.target.value,
                       })
                     }
+                    required
                   />
                   <InputForm
                     placeholder="تاكيد كلمة المرور"
@@ -156,22 +247,6 @@ const page = (props: Props) => {
                         confirmPassword: e.target.value,
                       })
                     }
-                  />
-                  <DropDownComp
-                    title={"اختر التصنيف"}
-                    data={[
-                      { id: "1", title: "بائع" },
-                      { id: "2", title: "مشتر" },
-                    ]}
-                    getItemTitle={(item) => item.title}
-                    onClick={(item) =>
-                      setFormData({ ...formData, user_role_key: item })
-                    }
-                    selectedItem={formData?.user_role_key?.title || "التصنيف"}
-                    hideTitle={true}
-                    dropdownBtnClass="flex justify-between items-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[100%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    containerClass='w-[100%] bg-lime-500'
-                    dropdownMenuClass={'w-full bg-green-500'}
                   />
                 </div>
                 <div>
