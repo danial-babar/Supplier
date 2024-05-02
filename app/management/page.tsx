@@ -49,7 +49,6 @@ const Page = ({ searchParams }: Props) => {
 
   const [leadData, setLeadData] = useState({ images: [] });
   const [allBids, setAllBids] = useState([]);
-  
 
   const handlePrevSlide = () => {
     setCurrentSlide((prevSlide) => (prevSlide > 0 ? prevSlide - 1 : 0));
@@ -70,7 +69,8 @@ const Page = ({ searchParams }: Props) => {
         .catch((error) => {
           console.log("error while getting single lead", error);
         });
-      bidsFLow.bidsOnLead(searchParams.id)
+      bidsFLow
+        .bidsOnLead(searchParams.id)
         .then((response) => {
           console.log("response while getting single lead", response);
           setAllBids(response);
@@ -188,14 +188,16 @@ const Page = ({ searchParams }: Props) => {
                 <GrLinkNext className="text-[30px] text-[#6c66da4d] border-1 border-[#6c66da4d] p-2 rounded-full hover:bg-[#6c66da4d] hover:text-white" />
                 <span className="sr-only">Next</span>
               </button>
-              <div className="my-5">
-                <Button
-                  onClick={onOpen}
-                  className="sm:font-rbRegular bg-[#F84F39] w-full font-rbLight text-white rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6"
-                >
-                  تقديم طلب سعر
-                </Button>
-              </div>
+              {user?.id != leadData?.created_by && (
+                <div className="my-5">
+                  <Button
+                    onClick={onOpen}
+                    className="sm:font-rbRegular bg-[#F84F39] w-full font-rbLight text-white rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6"
+                  >
+                    تقديم طلب سعر
+                  </Button>
+                </div>
+              )}
             </div>
 
             <div className="lg:w-3/4 lg:mt-auto mt-8 w-full">
@@ -309,7 +311,7 @@ const Page = ({ searchParams }: Props) => {
       {user?.id == leadData?.created_by ? (
         <UserDemandMng />
       ) : (
-        <LeadDetails text=""/>
+        <LeadDetails text="" />
       )}
       <Modal
         isOpen={isOpen}
