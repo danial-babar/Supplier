@@ -10,7 +10,8 @@ import { IoMdClose } from "react-icons/io";
 
 type Props = {};
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
+  const [open, setOpen] = useState(false);
   return (
     <div dir="rtl">
       <Header activeItem={4} />
@@ -42,7 +43,7 @@ const page = (props: Props) => {
         </div>
         <div className="mt-12">
           {Questions?.map((item, index) => {
-            const [open, setOpen] = useState(false);
+            
             return (
               <div key={index}>
                 <div
@@ -135,4 +136,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

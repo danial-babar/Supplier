@@ -105,6 +105,24 @@ export const bidsFLow = {
       throw error;
     }
   },
+  userBids: async (id: string) => {
+    try {
+      const response = await api.post(`/user_bids/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error while getting user bids:", error);
+      throw error;
+    }
+  },
+  bidsOnLead: async (id: string) => {
+    try {
+      const response = await api.post(`/view_bids/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error while getting bids on a lead:", error);
+      throw error;
+    }
+  },
  
 };
 export const leadsFLow = {
@@ -114,6 +132,15 @@ export const leadsFLow = {
       return response.data;
     } catch (error) {
       console.error("Error while adding lead:", error);
+      throw error;
+    }
+  },
+  userLeads: async (id:'') => {
+    try {
+      const response = await api.get(`/leads_user/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error while getting user leads:", error);
       throw error;
     }
   },

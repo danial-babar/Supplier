@@ -7,7 +7,7 @@ import { FaPlus } from "react-icons/fa";
 
 type Props = {};
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
   return (
     <div dir="rtl">
       <Header />
@@ -167,4 +167,4 @@ const page = (props: Props) => {
     </div>
   );
 };
-export default page;
+export default Page;

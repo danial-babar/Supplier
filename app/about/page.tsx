@@ -9,7 +9,7 @@ import Partners from "@/components/Partners";
 
 type Props = {};
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
   return (
     <div dir="rtl">
       <Header activeItem={1} />
@@ -164,4 +164,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

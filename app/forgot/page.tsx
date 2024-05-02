@@ -6,7 +6,7 @@ import React from "react";
 import Image from "next/image";
 import { GoPeople } from "react-icons/go";
 type Props = {};
-const page = (props: Props) => {
+const Page = (props: Props) => {
   return (
     <div dir="rtl">
       <Header />
@@ -61,4 +61,4 @@ const page = (props: Props) => {
     </div>
   );
 };
-export default page;
+export default Page;

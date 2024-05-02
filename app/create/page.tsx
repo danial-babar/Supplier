@@ -7,7 +7,7 @@ import Link from "next/link";
 import { FaCalculator, FaRegIdCard } from "react-icons/fa";
 import { Button } from "@nextui-org/react";
 type Props = {};
-const page = (props: Props) => {
+const Page = (props: Props) => {
   return (
     <div dir="rtl">
       <Header />
@@ -32,36 +32,44 @@ const page = (props: Props) => {
                 إنشاء حساب جديد
               </h1>
               <div className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1">
-                <GoPeople className="h-5 w-5 text-[#F84F39]" />
-                <div className="sm:px-3 px-2">
-                  <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
-                    {" "}
-                    التسجيل كفرد
-                  </p>
-                  <button
-                    className="text-[16px] text-gray-400 text-start sm:font-rbLight"
-                    type="submit"
-                  >
-                    يمكنك التسجيل كفرد و تقديم وطلب عرض اسعار
-                  </button>
-                </div>
+                <Link
+                 href={{ pathname: "/create-account", query: { accountType: 1 } }}
+                >
+                  <GoPeople className="h-5 w-5 text-[#F84F39]" />
+                  <div className="sm:px-3 px-2">
+                    <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
+                      {" "}
+                      التسجيل كفرد
+                    </p>
+                    <button
+                      className="text-[16px] text-gray-400 text-start sm:font-rbLight"
+                      type="submit"
+                    >
+                      يمكنك التسجيل كفرد و تقديم وطلب عرض اسعار
+                    </button>
+                  </div>
+                </Link>
               </div>
               <div className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1">
-                <FaCalculator className="h-5 w-5 text-[#F84F39]" />
-                <div className="sm:px-3 px-2">
-                  <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
-                    {" "}
-                    التسجيل كممثل منشأة
-                  </p>
-                  <button
-                    className="text-[16px] text-gray-400 sm text-start:sm:font-rbLight"
-                    type="submit"
-                  >
-                    يمكنك التسجيل وتقديم وطلب عرض سعر بالنيابة عن المنشأة
-                  </button>
-                </div>
+                <Link
+                 href={{ pathname: "/create-account", query: { accountType: 2 } }}
+                >
+                  <FaCalculator className="h-5 w-5 text-[#F84F39]" />
+                  <div className="sm:px-3 px-2">
+                    <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
+                      {" "}
+                      التسجيل كممثل منشأة
+                    </p>
+                    <button
+                      className="text-[16px] text-gray-400 sm text-start:sm:font-rbLight"
+                      type="submit"
+                    >
+                      يمكنك التسجيل وتقديم وطلب عرض سعر بالنيابة عن المنشأة
+                    </button>
+                  </div>
+                </Link>
               </div>
-                {/* <div className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1">
+              {/* <div className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1">
                   <FaRegIdCard className="h-5 w-5 text-[#F84F39]" />
                   <div className="sm:px-3 px-2">
                     <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
@@ -100,4 +108,4 @@ const page = (props: Props) => {
     </div>
   );
 };
-export default page;
+export default Page;

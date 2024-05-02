@@ -25,8 +25,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { IoIosCalendar, IoMdAddCircleOutline } from "react-icons/io";
 import Image from "next/image";
 import CommonButton from "@/components/commonButton";
-const page = (props: Props) => {
-  const user = JSON.parse(localStorage.getItem("user"));
+import { useSelector } from "react-redux";
+const Page = (props: Props) => {
+  const {user} = useSelector((state:any)=>state.user)
   const [categories, setCategories] = useState([{ id: 0, title: "" }]);
   const [cities, setCities] = useState([{ id: 0, city_name: "" }]);
   const [status, setStatus] = useState([{ id: 0, name: "" }]);
@@ -112,6 +113,8 @@ const page = (props: Props) => {
     data.append("created_by", user?.id);
     data.append("default_image", defaultImage);
     data.append("status", inputData?.status?.id);
+    data.append("price_min", inputData?.minPrice);
+    data.append("price_max", inputData?.maxPrice);
     if (images?.length > 0) {
       images.forEach((item) => data.append("other_images[]", item));
     }
@@ -292,6 +295,42 @@ const page = (props: Props) => {
                 </SelectItem>
               ))}
             </Select>
+          </div>
+          <div className="">
+            <label
+              className="text-[#000] font-rbRegular text-[18px]"
+              htmlFor="title"
+            >
+              اقل سعر
+            </label>
+
+            <InputForm
+              placeholder={"اقل سعر"}
+              type={"text"}
+              className="border border-gray-300 text-sm block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 bg:hover-gray-500"
+              value={inputData?.minPrice}
+              onchange={(e) =>
+                setInputData({ ...inputData, minPrice: e.target.value })
+              }
+            />
+          </div>
+          <div className="">
+            <label
+              className="text-[#000] font-rbRegular text-[18px]"
+              htmlFor="title"
+            >
+              اعلي سعر
+            </label>
+
+            <InputForm
+              placeholder={"اعلي سعر"}
+              type={"text"}
+              className="border border-gray-300 text-sm block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 bg:hover-gray-500"
+              value={inputData?.maxPrice}
+              onchange={(e) =>
+                setInputData({ ...inputData, maxPrice: e.target.value })
+              }
+            />
           </div>
           <div className="w-full">
             <label
@@ -502,4 +541,4 @@ const page = (props: Props) => {
     </div>
   );
 };
-export default page;
+export default Page;

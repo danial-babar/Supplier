@@ -6,25 +6,34 @@ import InputForm from "@/components/inputForm";
 import { localstorageService } from "@/utils/LocalStorage.service";
 import { Button, Radio, RadioGroup } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LuPenLine } from "react-icons/lu";
-type Props = {};
-const page = (props: Props) => {
+type Props = {
+  searchParams: any;
+};
+const Page = ({ searchParams }: Props) => {
+  console.log("searchParams", searchParams);
+
   const router = useRouter();
+  const [accountType, setAccountType] = useState(1);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
-    commercial: "7689",
-    facilityName: "دانيال",
-    phone: "03457232962",
-    email: "danial1@gmail.com",
-    negotiatorId: "565789",
-    negotiatorName: "Babar",
-    password: "1234",
-    confirmPassword: "1234",
-    characteristics: "ABC",
-    user_role_key: "buyer",
+    commercial: "",
+    facilityName: "",
+    phone: "",
+    email: "",
+    negotiatorId: "",
+    negotiatorName: "",
+    password: "",
+    confirmPassword: "",
+    characteristics: "",
+    user_role_key: "",
   });
-
+  useEffect(() => {
+    if (searchParams?.accountType == 2) {
+      setAccountType(2);
+    }
+  }, [searchParams?.accountType]);
   const validateForm = () => {
     const errors = {};
     if (!formData.email) {
@@ -120,14 +129,20 @@ const page = (props: Props) => {
               </h1>
             </div>
             <div className="px-3 mb-4">
-              <RadioGroup label="دور المستخدم" orientation="horizontal" dir="rtl">
+              <RadioGroup
+                label="دور المستخدم"
+                orientation="horizontal"
+                dir="rtl"
+              >
                 <Radio
                   value="vendor"
                   onClick={() =>
                     setFormData({ ...formData, user_role_key: "vendor" })
                   }
                 >
-                  بائع{' '}
+                  <label className="font-rbRegular text-[14px] text-[#000] mr-3">
+                    بائع
+                  </label>
                 </Radio>
                 <Radio
                   value="buyer"
@@ -135,29 +150,41 @@ const page = (props: Props) => {
                     setFormData({ ...formData, user_role_key: "buyer" })
                   }
                 >
-                  {' '}مشتر
+                  <label className="font-rbRegular text-[14px] text-[#000] mr-3">
+                    مشتر
+                  </label>
                 </Radio>
               </RadioGroup>
             </div>
             <form onSubmit={CreateAccount}>
               <div className="px-3 pb-6">
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
-                  <InputForm
-                    placeholder="السجل التجاري"
-                    type="text"
-                    value={formData?.commercial || ""}
-                    onchange={(e: any) =>
-                      setFormData({ ...formData, commercial: e.target.value })
-                    }
-                  />
-                  <InputForm
-                    placeholder="اسم المنشأة"
-                    type="text"
-                    value={formData?.facilityName || ""}
-                    onchange={(e: any) =>
-                      setFormData({ ...formData, facilityName: e.target.value })
-                    }
-                  />
+                  {accountType == 2 && (
+                    <>
+                      <InputForm
+                        placeholder="السجل التجاري"
+                        type="text"
+                        value={formData?.commercial || ""}
+                        onchange={(e: any) =>
+                          setFormData({
+                            ...formData,
+                            commercial: e.target.value,
+                          })
+                        }
+                      />
+                      <InputForm
+                        placeholder="اسم المنشأة"
+                        type="text"
+                        value={formData?.facilityName || ""}
+                        onchange={(e: any) =>
+                          setFormData({
+                            ...formData,
+                            facilityName: e.target.value,
+                          })
+                        }
+                      />
+                    </>
+                  )}
                   <div className="">
                     <InputForm
                       placeholder="رقم الجوال"
@@ -276,4 +303,4 @@ const page = (props: Props) => {
     </div>
   );
 };
-export default page;
+export default Page;

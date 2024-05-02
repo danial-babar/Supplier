@@ -4,12 +4,12 @@ import Header from "@/components/Layout/Header";
 import React from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
-import CategoriesSupply from "@/components/categoriesSupply";
+import CategoriesSupply from "@/components/CategoriesSupply";
 // import Image from "next/image";
 
 type Props = {};
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
   return (
     <div dir="rtl">
       <Header activeItem={2} />
@@ -72,4 +72,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

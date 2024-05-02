@@ -26,12 +26,15 @@ import { bidsFLow, singleLeadById } from "@/api/Users";
 import { RxDotFilled } from "react-icons/rx";
 import { IoCloseCircle } from "react-icons/io5";
 import UserDemandMng from "@/components/UserDemandMng";
+import CategoriesSupply from "@/components/CategoriesSupply";
+import LeadDetails from "@/components/LeadDetails";
+import { useSelector } from "react-redux";
 type Props = {
   searchParams: any;
 };
-const page = ({ searchParams }: Props) => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  console.log("user", user);
+const Page = ({ searchParams }: Props) => {
+  const { user } = useSelector((state: any) => state.user);
+  // console.log("user", user);
   const [isBidSuccess, setIsBidSuccess] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,7 +48,8 @@ const page = ({ searchParams }: Props) => {
   });
 
   const [leadData, setLeadData] = useState({ images: [] });
-  console.log("idddddddddd", searchParams);
+  const [allBids, setAllBids] = useState([]);
+  
 
   const handlePrevSlide = () => {
     setCurrentSlide((prevSlide) => (prevSlide > 0 ? prevSlide - 1 : 0));
@@ -56,16 +60,26 @@ const page = ({ searchParams }: Props) => {
     setCurrentSlide((prevSlide) => (prevSlide < 1 ? prevSlide + 1 : 1));
   };
   useEffect(() => {
-    singleLeadById(searchParams?.id)
-      .then((response) => {
-        console.log("response while getting single lead", response);
-        setLeadData(response);
-        calculateRemainingTime(response?.date_expire);
-      })
-      .catch((error) => {
-        console.log("error while getting single lead", error);
-      });
-  }, []);
+    if (searchParams?.id) {
+      singleLeadById(searchParams.id)
+        .then((response) => {
+          console.log("response while getting single lead", response);
+          setLeadData(response);
+          calculateRemainingTime(response?.date_expire);
+        })
+        .catch((error) => {
+          console.log("error while getting single lead", error);
+        });
+      bidsFLow.bidsOnLead(searchParams.id)
+        .then((response) => {
+          console.log("response while getting single lead", response);
+          setAllBids(response);
+        })
+        .catch((error) => {
+          console.log("error while getting single lead", error);
+        });
+    }
+  }, [searchParams, user]);
 
   const calculateRemainingTime = (expireDate: any) => {
     const [day, month, year] = expireDate?.split("/")?.map(Number);
@@ -292,7 +306,11 @@ const page = ({ searchParams }: Props) => {
           </div>
         </div>
       </div>
-      {user?.id == leadData?.created_by && <UserDemandMng />}
+      {user?.id == leadData?.created_by ? (
+        <UserDemandMng />
+      ) : (
+        <LeadDetails text=""/>
+      )}
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -351,4 +369,4 @@ const page = ({ searchParams }: Props) => {
     </div>
   );
 };
-export default page;
+export default Page;

@@ -47,7 +47,7 @@ const Footer = () => {
               <div className="text-[#fff] mt-4 md:mt-0 ">
                 <p className="text-[18px] tracking-wide md:text-[30px] xl:text-[45px] font-rbRegular sm:font-rbBold">
                   النشرة الإخبارية
-                </p> 
+                </p>
                 <p className="text-[14px] md-text-[18px] tracking-wide font-rbLight sm:font-rbRegular mt-3 leading-7">
                   انضم إلى قائمتنا البريدية للبقاء على اطلاع دائم بآخر الأخبار
                   والأحداث والمزادات التي تقدمها منصة مــوّرد .
@@ -73,58 +73,36 @@ const Footer = () => {
                   base: "bg-transparent",
                   inputWrapper: "bg-transparent",
                   innerWrapper: "bg-transparent",
-                  input: ["bg-transparent", "placeholder:text-[#999999]","sm:text-[18px], text-[16px]"]
+                  input: [
+                    "bg-transparent",
+                    "placeholder:text-[#999999]",
+                    "sm:text-[18px], text-[16px]",
+                  ],
                 }}
               />
               <div className="lg:p-4 md:p-3 sm:p-2 p-2 lg:px-10 md:px-6 px-5 bg-[#F84F39] text-white text-[16px] font-rbRegular rounded-full ">
                 اشتركالان
               </div>
             </div>
-            <div className="flex gap-8 items-center sm:justify-start justify-center md:my-10 my-8 px-2" dir="ltr">
-              <Image
-                src={"/Facebook.png"}
-                alt=""
-                width={10}
-                height={10}
-              />
-              <Image
-                src={"/twitter.png"}
-                alt=""
-                width={16}
-                height={16}
-              />
-              <Image
-                src={"/Instagram.png"}
-                alt=""
-                width={16}
-                height={16}
-              />
-              <Image
-                src={"/linkedin.png"}
-                alt=""
-                width={16}
-                height={16}
-              />
-              <Image
-                src={"/youtube.png"}
-                alt=""
-                width={16}
-                height={16}
-              />
+            <div
+              className="flex gap-8 items-center sm:justify-start justify-center md:my-10 my-8 px-2"
+              dir="ltr"
+            >
+              <Image src={"/Facebook.png"} alt="" width={10} height={10} />
+              <Image src={"/twitter.png"} alt="" width={16} height={16} />
+              <Image src={"/Instagram.png"} alt="" width={16} height={16} />
+              <Image src={"/linkedin.png"} alt="" width={16} height={16} />
+              <Image src={"/youtube.png"} alt="" width={16} height={16} />
             </div>
           </div>
         </div>
-        <hr className="border-[#858080] border-[1px]"/>
+        <hr className="border-[#858080] border-[1px]" />
         <div className="sm:flex sm:text-start text-center items-center justify-between mt-5 my-5">
           <div className="text-white text-[14px]  tracking-wide font-rbLight sm:font-rbRegular">
-            <p className="sm:whitespace-pre">
-            الشروط والأحكام     سياسة الخصوصية
-            </p>
+            <p className="sm:whitespace-pre">الشروط والأحكام سياسة الخصوصية</p>
           </div>
           <div className="text-white text-[14px] tracking-wide sm:font-rbBold">
-            <p>
-            جميع الحقوق محفوظة - مــوّرد
-            </p>
+            <p>جميع الحقوق محفوظة - مــوّرد</p>
           </div>
         </div>
       </div>
