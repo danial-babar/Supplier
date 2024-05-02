@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 type Props = {};
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
   return (
     <div dir="rtl">
       <Header activeItem={5} />
@@ -203,4 +203,4 @@ const page = (props: Props) => {
     </div>
   );
 };
-export default page;
+export default Page;

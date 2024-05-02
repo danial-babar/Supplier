@@ -21,7 +21,7 @@ interface Lead {
   status: string;
   // Add other properties if needed
 }
-const page = (props: Props) => {
+const Page = (props: Props) => {
   const [leadsData, setLeadsData] = useState<Array<any>>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const leadsPerPage = 6;
@@ -62,13 +62,7 @@ const page = (props: Props) => {
       });
   };
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      console.log("user", user);
-    }
-  }, []);
+  
 
   const getCategoriesList = () => {
     getCategories()
@@ -221,4 +215,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

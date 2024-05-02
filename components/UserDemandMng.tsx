@@ -4,9 +4,11 @@ import React from "react";
 import { FaCircle } from "react-icons/fa";
 import { LuArrowUpToLine } from "react-icons/lu";
 
-type Props = {};
+type Props = {
+  bidsData?:[]
+};
 
-const UserDemandMng = (props: Props) => {
+const UserDemandMng = ({bidsData}: Props) => {
   return (
     <div>
       <div

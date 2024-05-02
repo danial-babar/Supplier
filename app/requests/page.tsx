@@ -9,7 +9,7 @@ import { getAllLeads } from "@/api/Users";
 
 type Props = {};
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
   const [leadsData, setLeadsData] = useState<Array<any>>([]);
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const page = (props: Props) => {
       {leadsData.map((item: { id: string; status: string }, index) => {
           return (
             <RequestCard
+            key={index}
               bgColor={
                 item?.status == "7"
                   ? "bg-[#FEDCD7]"
@@ -80,4 +81,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

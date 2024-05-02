@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const protectedRoutes = [
-  "management",
-  "requests",
-  "requestDetail",
-  "addRequest",
+  // "management",
+  // "requests",
+  // "requestDetail",
+  // "addRequest",
   // Add more protected routes here if needed
 ];
+
+const protectedRoutePaths = protectedRoutes.map((route) => `/${route}/:path*`);
+
 export default function middleware(req: NextRequest) {
   const token = req.cookies.get("token");
   console.log('token',token);
@@ -34,7 +37,11 @@ export default function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/login/:path*",
-    ...protectedRoutes.map((route) => `/${route}/:path*`), // Dynamic generation of protected route paths
+    // "/login/:path*",
+    // "/management/:path*", // Example of a protected route path
+    // "/requests/:path*", // Example of a protected route path
+    // "/requestDetail/:path*", // Example of a protected route path
+    // "/addRequest/:path*", // Example of a protected route path
+    // Add more protected route paths here if needed
   ],
 };

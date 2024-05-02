@@ -11,16 +11,17 @@ import React, { useState } from "react";
 import { GoPeople } from "react-icons/go";
 
 import { MdLogin, MdPeopleAlt } from "react-icons/md";
+import { useDispatch } from "react-redux";
 type Props = {};
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
   const router = useRouter();
   const [email, setEmail] = useState("danial1@gmail.com");
   const [password, setPassword] = useState("1234");
   const [loading, setLoading] = useState(false);
-
+  const dispatch = useDispatch();
   const handleClick = () => {
-    router.push(`/create-account`);
+    router.push(`/create`);
   };
 
   const Login = () => {
@@ -41,8 +42,12 @@ const page = (props: Props) => {
         console.log("response while login account", response);
         if (response?.code == "1") {
           router.push(`/`);
-          localStorage.setItem("user", JSON.stringify(response?.data));
+          
           localstorageService.setToken(response?.data?.token);
+          dispatch({
+            type: "saveUser",
+            payload: response?.data,
+          });
         }
       })
       .catch((error) => {
@@ -131,4 +136,4 @@ const page = (props: Props) => {
     </div>
   );
 };
-export default page;
+export default Page;

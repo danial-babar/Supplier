@@ -7,7 +7,7 @@ import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
 import { IoMdLock } from "react-icons/io";
 type Props = {};
-const page = (props: Props) => {
+const Page = (props: Props) => {
   return (
     <div dir="rtl">
       <Header />
@@ -83,4 +83,4 @@ const page = (props: Props) => {
     </div>
   );
 };
-export default page;
+export default Page;

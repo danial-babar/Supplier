@@ -7,7 +7,7 @@ import { GoPeople } from "react-icons/go";
 import { MdLogin, } from "react-icons/md";
 type Props = {};
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
   return (
     <div dir="rtl">
       <Header />
@@ -57,4 +57,4 @@ const page = (props: Props) => {
     </div>
   );
 };
-export default page;
+export default Page;
