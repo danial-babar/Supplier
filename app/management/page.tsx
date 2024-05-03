@@ -109,7 +109,7 @@ const Page = ({ searchParams }: Props) => {
   const add_bid = () => {
     const data = new FormData();
     data.append("lead_id", leadData?.id);
-    data.append("user_id", leadData?.id);
+    data.append("user_id", user?.id);
     data.append("amount", reqPrice);
     data.append("created_by", leadData?.created_by);
     bidsFLow
