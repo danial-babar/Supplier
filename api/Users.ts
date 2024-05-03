@@ -116,7 +116,7 @@ export const bidsFLow = {
   },
   bidsOnLead: async (id: string) => {
     try {
-      const response = await api.post(`/view_bids/${id}`);
+      const response = await api.get(`/view_bids/${id}`);
       return response.data;
     } catch (error) {
       console.error("Error while getting bids on a lead:", error);

@@ -5,10 +5,10 @@ import { FaCircle } from "react-icons/fa";
 import { LuArrowUpToLine } from "react-icons/lu";
 
 type Props = {
-  bidsData?:[]
+  bidsData?: [];
 };
 
-const UserDemandMng = ({bidsData}: Props) => {
+const UserDemandMng = ({ bidsData }: Props) => {
   return (
     <div>
       <div
@@ -145,14 +145,14 @@ const UserDemandMng = ({bidsData}: Props) => {
               سينم عرض الاسعار من اقل سعرا الي الاعلي سعرا
             </p>
           </h1>
-          <div className="flex flex-col sm:flex-row items-center gap-5 sm:mb-auto mb-4 sm:justify-start justify-end md:mt-auto mt-5">
+          {/* <div className="flex flex-col sm:flex-row items-center gap-5 sm:mb-auto mb-4 sm:justify-start justify-end md:mt-auto mt-5">
             <Button className="border-[#F84F39] bg-white sm:w-auto w-full px-8 sm:px-14 border-1 rounded-full text-[#F84F39]">
               ايقاف الطلب
             </Button>
             <Button className="text-[#fff] sm:w-auto w-full rounded-full px-8 sm:px-14 bg-[#F84F39]">
               الغاء الطلب
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div
@@ -179,35 +179,39 @@ const UserDemandMng = ({bidsData}: Props) => {
               </th>
             </tr>
           </thead>
-          <tbody className="text-[#000]">
-            <tr className="bg-white border-b text-nowrap dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                <div className="flex items-center text-[#34E5A8] font-rbRegular md:font-rbBold gap-1">
-                  <LuArrowUpToLine /> 123.00.00 ريال سعودي
-                </div>
-              </th>
-              <td className="px-6 py-4 font-rbRegular md:font-rbBold ">
-                المورد الاول
-              </td>
-              <td className="px-6 py-4">12/03/2024 - 3:00pm</td>
-              <td className="px-6 py-4">
-                <div className="flex items-center md:font-rbBold font-rbRegular">
-                  <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-                  أفضل سعر
-                </div>
-              </td>
-              <td className="px-6 py-4">
-                <div className="text-[#6B66DA] lg:px-4 px-3 bg-[#6B66DA] bg-opacity-20 py-2 rounded-full text-center">
-                  <p className="text-[12px] font-rbRegular md:font-rbBold">
-                    اتمام الصفقة
-                  </p>
-                </div>
-              </td>
-            </tr>
-          </tbody>
+          {bidsData?.map((bid,index) => {
+            return (
+              <tbody className="text-[#000]" key={index}>
+                <tr className="bg-white border-b text-nowrap dark:bg-gray-800 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    <div className="flex items-center text-[#34E5A8] font-rbRegular md:font-rbBold gap-1">
+                      <LuArrowUpToLine /> {bid?.amount} ريال سعودي
+                    </div>
+                  </th>
+                  <td className="px-6 py- 4 font-rbRegular md:font-rbBold ">
+                    المورد الاول
+                  </td>
+                  <td className="px-6 py-4">{bid?.created_date}</td>
+                  <td className="px-6 py-4">
+                    <div className="flex items-center md:font-rbBold font-rbRegular">
+                      <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
+                      أفضل سعر
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="text-[#6B66DA] lg:px-4 px-3 bg-[#6B66DA] bg-opacity-20 py-2 rounded-full text-center">
+                      <p className="text-[12px] font-rbRegular md:font-rbBold">
+                        اتمام الصفقة
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            );
+          })}
         </table>
       </div>
     </div>

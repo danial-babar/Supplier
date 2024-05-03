@@ -17,6 +17,7 @@ const Page = ({ searchParams }: Props) => {
   const router = useRouter();
   const [accountType, setAccountType] = useState(1);
   const [errors, setErrors] = useState({});
+  const [resError, setResError] = useState("");
   const [formData, setFormData] = useState({
     commercial: "",
     facilityName: "",
@@ -39,6 +40,9 @@ const Page = ({ searchParams }: Props) => {
     if (!formData.email) {
       errors.email = "يرجى إدخال البريد الإلكتروني";
     }
+    if (!formData.user_role_key) {
+      errors.role = "الرجاء تحديد الدور أولاً";
+    }
     if (!formData.phone) {
       errors.phone = "يرجى إدخال رقم الجوال";
     }
@@ -50,6 +54,7 @@ const Page = ({ searchParams }: Props) => {
   };
 
   const CreateAccount = () => {
+    setResError("");
     if (validateForm()) {
       if (formData?.password !== formData?.confirmPassword) {
         return alert("Password and confirm password are not same");
@@ -70,7 +75,7 @@ const Page = ({ searchParams }: Props) => {
           console.log("response while creating account", response);
           if (response?.code === "1") {
             router.push("/login");
-          }
+          } else setResError(response?.message);
         })
         .catch((error) => {
           console.log("error while creating account", error);
@@ -155,6 +160,9 @@ const Page = ({ searchParams }: Props) => {
                   </label>
                 </Radio>
               </RadioGroup>
+              {errors.role && !formData?.user_role_key && (
+                <div className="text-red-500 text-[12px]">{errors.role}</div>
+              )}
             </div>
             <form onSubmit={CreateAccount}>
               <div className="px-3 pb-6">
@@ -195,7 +203,7 @@ const Page = ({ searchParams }: Props) => {
                       }
                       required
                     />
-                    {errors.phone && (
+                    {errors.phone && !formData?.phone  && (
                       <div className="text-red-500 text-[12px]">
                         {errors.phone}
                       </div>
@@ -211,7 +219,7 @@ const Page = ({ searchParams }: Props) => {
                       }
                       required
                     />
-                    {errors.email && (
+                    {errors.email && !formData?.email && (
                       <div className="text-red-500 text-[12px]">
                         {errors.email}
                       </div>
@@ -246,7 +254,7 @@ const Page = ({ searchParams }: Props) => {
                       }
                       required
                     />
-                    {errors.password && (
+                    {errors.password && !formData?.password  && (
                       <div className="text-red-500 text-[12px]">
                         {errors.password}
                       </div>
@@ -264,7 +272,7 @@ const Page = ({ searchParams }: Props) => {
                     }
                     required
                   />
-                  <InputForm
+                  {/* <InputForm
                     placeholder="تاكيد كلمة المرور"
                     type="text"
                     value={formData?.confirmPassword || ""}
@@ -274,11 +282,11 @@ const Page = ({ searchParams }: Props) => {
                         confirmPassword: e.target.value,
                       })
                     }
-                  />
+                  /> */}
                 </div>
                 <div>
                   <InputForm
-                    placeholder="تاكيد كلمة المرور"
+                    placeholder="صفة المفاوض"
                     type="text"
                     value={formData?.characteristics || ""}
                     onchange={(e: any) =>
@@ -289,6 +297,11 @@ const Page = ({ searchParams }: Props) => {
                     }
                   />
                 </div>
+                {resError && (
+                  <label className="text-[#F84F39] text-[12px]">
+                    {resError}
+                  </label>
+                )}
                 <Button
                   className="mt-4 w-full bg-[#F84F39] focus:ring-4 focus:outline-none focus:ring-primary-300 sm:font-rbRegular font-rbLight text-white hover:text-black rounded-lg sm:rounded-3xl px-5 py-2 sm:py-3"
                   onPress={CreateAccount}

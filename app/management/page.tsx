@@ -34,7 +34,7 @@ type Props = {
 };
 const Page = ({ searchParams }: Props) => {
   const { user } = useSelector((state: any) => state.user);
-  // console.log("user", user);
+  console.log("user", user);
   const [isBidSuccess, setIsBidSuccess] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -72,14 +72,14 @@ const Page = ({ searchParams }: Props) => {
       bidsFLow
         .bidsOnLead(searchParams.id)
         .then((response) => {
-          console.log("response while getting single lead", response);
+          console.log("response while getting bids on a lead", response);
           setAllBids(response);
         })
         .catch((error) => {
-          console.log("error while getting single lead", error);
+          console.log("error while getting bids on a lead", error);
         });
     }
-  }, [searchParams, user]);
+  }, [searchParams?.id]);
 
   const calculateRemainingTime = (expireDate: any) => {
     const [day, month, year] = expireDate?.split("/")?.map(Number);
@@ -191,7 +191,11 @@ const Page = ({ searchParams }: Props) => {
               {user?.id != leadData?.created_by && (
                 <div className="my-5">
                   <Button
-                    onClick={onOpen}
+                    onClick={() => {
+                      if (user?.user_role_key == "buyer") {
+                        alert("الرجاء تسجيل الدخول كمورد لتقديم العطاءات");
+                      } else onOpen();
+                    }}
                     className="sm:font-rbRegular bg-[#F84F39] w-full font-rbLight text-white rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6"
                   >
                     تقديم طلب سعر
@@ -309,7 +313,7 @@ const Page = ({ searchParams }: Props) => {
         </div>
       </div>
       {user?.id == leadData?.created_by ? (
-        <UserDemandMng />
+        <UserDemandMng bidsData={allBids} />
       ) : (
         <LeadDetails text="" />
       )}
