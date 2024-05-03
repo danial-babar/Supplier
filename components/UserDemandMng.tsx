@@ -1,3 +1,4 @@
+import { arabicNumbers } from "@/constants/DummyData";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import React from "react";
@@ -156,7 +157,7 @@ const UserDemandMng = ({ bidsData }: Props) => {
         </div>
       </div>
       <div
-        className="w-[95%] mx-auto relative overflow-x-auto shadow-md sm:rounded-lg"
+        className="w-[95%] mx-auto relative overflow-x-auto shadow-md sm:rounded-lg mb-5"
         dir="rtl"
       >
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -192,7 +193,7 @@ const UserDemandMng = ({ bidsData }: Props) => {
                     </div>
                   </th>
                   <td className="px-6 py- 4 font-rbRegular md:font-rbBold ">
-                    المورد الاول
+                  المورد {arabicNumbers[index]} 
                   </td>
                   <td className="px-6 py-4">{bid?.created_date}</td>
                   <td className="px-6 py-4">
