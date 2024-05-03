@@ -17,6 +17,7 @@
     "framer-motion": "^11.0.8",
     "js-cookie": "^3.0.5",
     "next": "14.1.2",
+    "next-redux-wrapper": "^8.1.0",
     "react": "^18",
     "react-datepicker": "^6.9.0",
     "react-dom": "^18",
@@ -26,6 +27,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-simple-image-slider": "^2.4.1",
     "redux": "^5.0.1",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^3.1.0",
     "thunk": "^0.0.1"
   },

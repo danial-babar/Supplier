@@ -116,7 +116,7 @@ const Header = ({ activeItem }: Props) => {
                   </p>
                   <div className="flex items-center">
                     <p className="text-[#161414] text-[14px] font-rbBold">
-                      {user?.facilityName}
+                      {user?.facilityName || user?.negotiatorName}
                     </p>
                     <IoMdArrowDropdown color="#161414" size={18} />
                   </div>
