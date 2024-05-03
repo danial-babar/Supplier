@@ -27,7 +27,7 @@ import Image from "next/image";
 import CommonButton from "@/components/commonButton";
 import { useSelector } from "react-redux";
 const Page = (props: Props) => {
-  const {user} = useSelector((state:any)=>state.user)
+  const { user } = useSelector((state: any) => state.user);
   const [categories, setCategories] = useState([{ id: 0, title: "" }]);
   const [cities, setCities] = useState([{ id: 0, city_name: "" }]);
   const [status, setStatus] = useState([{ id: 0, name: "" }]);
@@ -343,29 +343,36 @@ const Page = (props: Props) => {
                 *
               </span>
             </label>
-            <div className="relative">
-              <DatePicker
-                selected={selectedDate?.postedDate}
-                onChange={(date: any) => {
-                  const selectedDateTime = new Date(date);
-                  // Clear the time part
-                  selectedDateTime.setHours(0, 0, 0, 0);
-                  setSelectedDate({
-                    ...selectedDate,
-                    postedDate: selectedDateTime,
-                  });
-                  const formattedDate = formatDate(date);
-                  setInputData({ ...inputData, postedDate: formattedDate });
-                }}
-                dateFormat="dd-MM-yyyy" // Update date format here
-                placeholderText="dd/mm/yyyy"
-                className="w-[540px] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
-              />
+            {/* <div className="relative"> */}
+            <DatePicker
+              wrapperClassName={"w-[100%]"}
+              showIcon
+              icon={
+                <span className="absolute inset-y-0 left-2 flex items-center">
+                  <IoIosCalendar />
+                </span>
+              }
+              selected={selectedDate?.postedDate}
+              onChange={(date: any) => {
+                const selectedDateTime = new Date(date);
+                // Clear the time part
+                selectedDateTime.setHours(0, 0, 0, 0);
+                setSelectedDate({
+                  ...selectedDate,
+                  postedDate: selectedDateTime,
+                });
+                const formattedDate = formatDate(date);
+                setInputData({ ...inputData, postedDate: formattedDate });
+              }}
+              dateFormat="dd-MM-yyyy" // Update date format here
+              placeholderText="dd/mm/yyyy"
+              className="w-[100%] border border-gray-300  p-2 focus:outline-none focus:border-blue-500"
+            />
 
-              <span className="absolute inset-y-0 left-2 flex items-center pr-3">
+            {/* <span className="absolute inset-y-0 left-2 flex items-center pr-3">
                 <IoIosCalendar />
-              </span>
-            </div>
+              </span> 
+            </div>*/}
           </div>
           <div className="w-full">
             <label
@@ -378,22 +385,27 @@ const Page = (props: Props) => {
                 *
               </span>
             </label>
-            <div className="relative">
-              <DatePicker
-                selected={selectedDate?.deliveryDate}
-                onChange={(date: any) => {
-                  setSelectedDate({ ...selectedDate, deliveryDate: date });
-                  const formattedDate = formatDate(date);
-                  setInputData({ ...inputData, deliveryDate: formattedDate });
-                }}
-                dateFormat="dd/MM/yyyy"
-                placeholderText="dd/mm/yyyy"
-                className="w-[540px] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
-              />
-              <span className="absolute inset-y-0 left-2 flex items-center pr-3">
-                <IoIosCalendar />
-              </span>
-            </div>
+            <DatePicker
+              wrapperClassName={"w-[100%]"}
+              showIcon
+              icon={
+                <span className="absolute inset-y-0 left-2 flex items-center">
+                  <IoIosCalendar />
+                </span>
+              }
+              selected={selectedDate?.deliveryDate}
+              onChange={(date: any) => {
+                setSelectedDate({ ...selectedDate, deliveryDate: date });
+                const formattedDate = formatDate(date);
+                setInputData({ ...inputData, deliveryDate: formattedDate });
+              }}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="dd/mm/yyyy"
+              className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
+            />
+            <span className="absolute inset-y-0 left-2 flex items-center pr-3">
+              <IoIosCalendar />
+            </span>
           </div>
           <div className="w-full">
             <label
@@ -406,22 +418,27 @@ const Page = (props: Props) => {
                 *
               </span>
             </label>
-            <div className="relative">
-              <DatePicker
-                selected={selectedDate?.expiryDate}
-                onChange={(date: any) => {
-                  setSelectedDate({ ...selectedDate, expiryDate: date });
-                  const formattedDate = formatDate(date);
-                  setInputData({ ...inputData, expiryDate: formattedDate });
-                }}
-                dateFormat="dd/MM/yyyy"
-                placeholderText="dd/mm/yyyy"
-                className="w-[540px] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
-              />
-              <span className="absolute inset-y-0 left-2 flex items-center pr-3">
-                <IoIosCalendar />
-              </span>
-            </div>
+            <DatePicker
+              wrapperClassName={"w-[100%]"}
+              showIcon
+              icon={
+                <span className="absolute inset-y-0 left-2 flex items-center">
+                  <IoIosCalendar />
+                </span>
+              }
+              selected={selectedDate?.expiryDate}
+              onChange={(date: any) => {
+                setSelectedDate({ ...selectedDate, expiryDate: date });
+                const formattedDate = formatDate(date);
+                setInputData({ ...inputData, expiryDate: formattedDate });
+              }}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="dd/mm/yyyy"
+              className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
+            />
+            <span className="absolute inset-y-0 left-2 flex items-center pr-3">
+              <IoIosCalendar />
+            </span>
           </div>
           <div className="w-full">
             <label
@@ -434,22 +451,27 @@ const Page = (props: Props) => {
                 *
               </span>
             </label>
-            <div className="relative">
-              <DatePicker
-                selected={selectedDate?.startDate}
-                onChange={(date: any) => {
-                  setSelectedDate({ ...selectedDate, startDate: date });
-                  const formattedDate = formatDate(date);
-                  setInputData({ ...inputData, startDate: formattedDate });
-                }}
-                dateFormat="dd/MM/yyyy"
-                placeholderText="dd/mm/yyyy"
-                className="w-[540px] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
-              />
-              <span className="absolute inset-y-0 left-2 flex items-center pr-3">
-                <IoIosCalendar />
-              </span>
-            </div>
+            <DatePicker
+              wrapperClassName={"w-[100%]"}
+              showIcon
+              icon={
+                <span className="absolute inset-y-0 left-2 flex items-center">
+                  <IoIosCalendar className="h-auto"/>
+                </span>
+              }
+              selected={selectedDate?.startDate}
+              onChange={(date: any) => {
+                setSelectedDate({ ...selectedDate, startDate: date });
+                const formattedDate = formatDate(date);
+                setInputData({ ...inputData, startDate: formattedDate });
+              }}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="dd/mm/yyyy"
+              className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
+            />
+            <span className="absolute inset-y-0 left-2 flex items-center pr-3">
+              <IoIosCalendar />
+            </span>
           </div>
         </div>
         <div className="">
