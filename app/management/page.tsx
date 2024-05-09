@@ -33,9 +33,8 @@ type Props = {
   searchParams: any;
 };
 const Page = ({ searchParams }: Props) => {
-  const { leadId } = useSelector((state: any) => state.user);
   const { user } = useSelector((state: any) => state.user);
-  console.log("leadId", leadId);
+  console.log("user", user);
   const [isBidSuccess, setIsBidSuccess] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -60,8 +59,8 @@ const Page = ({ searchParams }: Props) => {
     setCurrentSlide((prevSlide) => (prevSlide < 1 ? prevSlide + 1 : 1));
   };
   useEffect(() => {
-    if (leadId) {
-      singleLeadById(leadId)
+    if (searchParams?.id) {
+      singleLeadById(searchParams.id)
         .then((response) => {
           console.log("response while getting single lead", response);
           const sortedBids = response?.bids.sort((a, b) => {
@@ -78,17 +77,17 @@ const Page = ({ searchParams }: Props) => {
         .catch((error) => {
           console.log("error while getting single lead", error);
         });
-      bidsFLow
-        .bidsOnLead(leadId)
-        .then((response) => {
-          console.log("response while getting bids on a lead", response);
-          setAllBids(response);
-        })
-        .catch((error) => {
-          console.log("error while getting bids on a lead", error);
-        });
+      // bidsFLow
+      //   .bidsOnLead(searchParams.id)
+      //   .then((response) => {
+      //     console.log("response while getting bids on a lead", response);
+      //     setAllBids(response);
+      //   })
+      //   .catch((error) => {
+      //     console.log("error while getting bids on a lead", error);
+      //   });
     }
-  }, [searchParams?.id,leadId]);
+  }, [searchParams?.id]);
 
   const calculateRemainingTime = (expireDate: any) => {
     const [day, month, year] = expireDate?.split("/")?.map(Number);

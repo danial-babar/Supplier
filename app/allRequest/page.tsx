@@ -6,16 +6,13 @@ import Image from "next/image";
 import { FaPlus } from "react-icons/fa";
 import { leadsFLow } from "@/api/Users";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 type Props = {};
 
 const Page = (props: Props) => {
   const [myLeads, setMyLeads] = useState([]);
   const {user} = useSelector((state:any)=>state.user)
-  const router = useRouter();
-  const dispatch = useDispatch()
   useEffect(() => {
     leadsFLow
       .userLeads(user?.id)
@@ -27,14 +24,6 @@ const Page = (props: Props) => {
         console.log("error while getting user leads", error);
       });
   }, [user]);
-
-  const onLeadCLick = (id: any) => {
-    dispatch({
-     type:'saveLeadId',
-     payload:id
-    })
-    router.push('/management')
-   };
   return (
     <div dir="rtl">
       <Header />
@@ -62,10 +51,8 @@ const Page = (props: Props) => {
       </div>
       {myLeads?.map((item: any, index: any) => {
         return (
-          <div className="bg-gradient-radial from-blue-100 to-pink-50 via-gray-100" key={index} 
-          onClick={()=>onLeadCLick(item?.id)}
-          >
-            {/* <Link href={{ pathname: "/management", query: { id: item?.id } }}> */}
+          <div className="bg-gradient-radial from-blue-100 to-pink-50 via-gray-100" key={index}>
+            <Link href={{ pathname: "/management", query: { id: item?.id } }}>
               <div className="w-[95%] mx-auto ">
                 <div className="lg:flex mb-8 lg:justify-between justify-center items-center p-6 bg-white rounded-xl shadow-lg hover:bg-gray-100">
                   <div className="flex flex-wrap lg:justify-start justify-evenly gap-4 lg:gap-20 md:gap-12 items-center">
@@ -97,7 +84,7 @@ const Page = (props: Props) => {
                   </div>{" "}
                 </div>
               </div>
-            {/* </Link> */}
+            </Link>
           </div>
         );
       })}
