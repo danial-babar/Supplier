@@ -33,8 +33,9 @@ type Props = {
   searchParams: any;
 };
 const Page = ({ searchParams }: Props) => {
+  const { leadId } = useSelector((state: any) => state.user);
   const { user } = useSelector((state: any) => state.user);
-  console.log("user", user);
+  console.log("leadId", leadId);
   const [isBidSuccess, setIsBidSuccess] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -59,8 +60,8 @@ const Page = ({ searchParams }: Props) => {
     setCurrentSlide((prevSlide) => (prevSlide < 1 ? prevSlide + 1 : 1));
   };
   useEffect(() => {
-    if (searchParams?.id) {
-      singleLeadById(searchParams.id)
+    if (leadId) {
+      singleLeadById(leadId)
         .then((response) => {
           console.log("response while getting single lead", response);
           setLeadData(response);
@@ -70,7 +71,7 @@ const Page = ({ searchParams }: Props) => {
           console.log("error while getting single lead", error);
         });
       bidsFLow
-        .bidsOnLead(searchParams.id)
+        .bidsOnLead(leadId)
         .then((response) => {
           console.log("response while getting bids on a lead", response);
           setAllBids(response);
@@ -79,7 +80,7 @@ const Page = ({ searchParams }: Props) => {
           console.log("error while getting bids on a lead", error);
         });
     }
-  }, [searchParams?.id]);
+  }, [searchParams?.id,leadId]);
 
   const calculateRemainingTime = (expireDate: any) => {
     const [day, month, year] = expireDate?.split("/")?.map(Number);

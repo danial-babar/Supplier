@@ -179,39 +179,40 @@ const UserDemandMng = ({ bidsData }: Props) => {
               </th>
             </tr>
           </thead>
-          {bidsData?.map((bid,index) => {
-            return (
-              <tbody className="text-[#000]" key={index}>
-                <tr className="bg-white border-b text-nowrap dark:bg-gray-800 dark:border-gray-700">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    <div className="flex items-center text-[#34E5A8] font-rbRegular md:font-rbBold gap-1">
-                      <LuArrowUpToLine /> {bid?.amount} ريال سعودي
-                    </div>
-                  </th>
-                  <td className="px-6 py- 4 font-rbRegular md:font-rbBold ">
-                    المورد الاول
-                  </td>
-                  <td className="px-6 py-4">{bid?.created_date}</td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center md:font-rbBold font-rbRegular">
-                      <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-                      أفضل سعر
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="text-[#6B66DA] lg:px-4 px-3 bg-[#6B66DA] bg-opacity-20 py-2 rounded-full text-center">
-                      <p className="text-[12px] font-rbRegular md:font-rbBold">
-                        اتمام الصفقة
-                      </p>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            );
-          })}
+          {bidsData?.length > 0 &&
+            bidsData?.map((bid, index) => {
+              return (
+                <tbody className="text-[#000]" key={index}>
+                  <tr className="bg-white border-b text-nowrap dark:bg-gray-800 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      <div className="flex items-center text-[#34E5A8] font-rbRegular md:font-rbBold gap-1">
+                        <LuArrowUpToLine /> {bid?.amount} ريال سعودي
+                      </div>
+                    </th>
+                    <td className="px-6 py- 4 font-rbRegular md:font-rbBold ">
+                      المورد الاول
+                    </td>
+                    <td className="px-6 py-4">{bid?.created_date}</td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center md:font-rbBold font-rbRegular">
+                        <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
+                        أفضل سعر
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="text-[#6B66DA] lg:px-4 px-3 bg-[#6B66DA] bg-opacity-20 py-2 rounded-full text-center">
+                        <p className="text-[12px] font-rbRegular md:font-rbBold">
+                          اتمام الصفقة
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              );
+            })}
         </table>
       </div>
     </div>

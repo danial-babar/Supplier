@@ -11,7 +11,6 @@ import { IoMdClose } from "react-icons/io";
 type Props = {};
 
 const Page = (props: Props) => {
-  const [open, setOpen] = useState(false);
   return (
     <div dir="rtl">
       <Header activeItem={4} />
@@ -24,7 +23,10 @@ const Page = (props: Props) => {
             </span>
             <div className="text-[16px] sm:text-[18px] font-rbLight sm:font-rbRegular text-gray-700 sm:mt-8 mt-5 mb-5">
               <p>
-                مجموعة من الاسئلة الشائعة عن منصة <strong className="sm:font-rbBold font-rbRegular">مــوّرد</strong>{" "}
+                مجموعة من الاسئلة الشائعة عن منصة{" "}
+                <strong className="sm:font-rbBold font-rbRegular">
+                  مــوّرد
+                </strong>{" "}
               </p>
               <p>
                 اعرف وافهم اكثر عن المنصة ومعرفه خطوات عرض سعر او طلب توريد .
@@ -43,97 +45,104 @@ const Page = (props: Props) => {
         </div>
         <div className="mt-12">
           {Questions?.map((item, index) => {
-            
-            return (
-              <div key={index}>
-                <div
-                  className={`w-[95%] mx-auto ${
-                    open ? "bg-[#FAFAFF]" : "bg-[#ffff]"
-                  } border-b border-b-[#DDDCF8] py-4 sm:py-8`}
-                >
-                  <div className="flex w-[95%] mx-auto items-center justify-between">
-                    <div className="flex items-center text-[18px] text-black justify-between">
-                      <p className="font-rbBold text-[#F84F39] md:me-10 sm:me-6 me-3 text-[20px] sm:text-[24px] md:text-[30px]">
-                        {index < 10 ? `0${index + 1}` : index + 1}{" "}
-                      </p>
-                      <p className="font-rbRegular md:text-[20px] text-[16px] md:font-rbBold">
-                        {item?.Q}
-                      </p>
-                    </div>
-                    <div
-                      className={`sm:p-3 p-1 rounded-full items-center justify-center flex cursor-pointer ${
-                        open ? "bg-[#F84F39]" : "border border-[#F84F39]"
-                      }`}
-                      onClick={() => setOpen(!open)}
-                    >
-                      {open ? (
-                        <IoMdClose className="text-[#fff] text-[16px] sm:text-[20px]" />
-                      ) : (
-                        <FaPlus className="text-[#F84F39] text-[12px] sm:text-[20px]" />
-                      )}
-                    </div>
-                  </div>
-                  {open && (
-                    <p className="text-black sm:text-[18px] text-[16px] font-rbLight sm:font-rbRegular w-[83%] sm:mt-6 mt-4 md:mt-8 mx-auto">
-                      {item?.A}
-                    </p>
-                  )}
-                </div>
-              </div>
-            );
+            return <QuestionAnswer item={item} index={index} key={index} />;
           })}
         </div>
         <div className="w-[95%] mx-auto sm:mt-20 md:mt-32 mt-8">
-        <div className="text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] text-black font-rbBold text-center">
-          <span className="">لماذا منصة مـ</span>
-          <span className="rounded-3xl bg-[#BDFFA5] pe-3 md:pe-8">
-            وّرد الإلكتروني
-          </span>
+          <div className="text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] text-black font-rbBold text-center">
+            <span className="">لماذا منصة مـ</span>
+            <span className="rounded-3xl bg-[#BDFFA5] pe-3 md:pe-8">
+              وّرد الإلكتروني
+            </span>
+          </div>
+          <h3 className="text-[#475467] text-center text-[14px] md:text-[18px] font-rbRegular mt-8">
+            تتيح لك منصة <span className="font-bold">مــوّرد</span> الإلكتروني
+            المشاركة في طلبات التوريد المطروحة في أي وقت ومن أي مكان بكل سهولة
+          </h3>
+          <div className="md:flex mx-auto w-full justify-between items-center mt-6">
+            <div className="md:w-1/3">
+              <PlatformCard
+                icon={"/Icon1.png"}
+                title="المشاركة عن بعد"
+                description="بإمكانك المزايدة بشكل إلكتروني في أي وقت ومن أي مكان"
+              />
+              <PlatformCard
+                icon={"/Icon2.png"}
+                title="تقديم طلب سعر على أكثر من طلب توريد في نفس الوقت"
+                description="يمكنك تقديم عرض سعر على عدة طلب توريد مختلف عبر المنصة في نفس الوقت"
+              />
+            </div>
+            <div className="md:w-1/3 sm:mt-0 mt-8">
+              <Image
+                src={"/mobile.png"}
+                alt=""
+                width={500}
+                height={700}
+                className="object-contain mx-auto"
+              />
+            </div>
+            <div className="md:w-1/3">
+              <PlatformCard
+                icon={"/Icon3.png"}
+                title="وسائل دفع إلكترونية"
+                description="توفر المنصة وسائل دفع إلكترونية آمنه يمكنك من خلالها شحن محفظتك واسترجاع المبلغ بكل أمان"
+              />
+              <PlatformCard
+                icon={"/Icon4.png"}
+                title="الامان والخصوصية"
+                description="نحافظ على خصوصية معلوماتك الشخصية وأمانها وسلامتها."
+              />
+            </div>
+          </div>
         </div>
-        <h3 className="text-[#475467] text-center text-[14px] md:text-[18px] font-rbRegular mt-8">
-          تتيح لك منصة <span className="font-bold">مــوّرد</span> الإلكتروني
-          المشاركة في طلبات التوريد المطروحة في أي وقت ومن أي مكان بكل سهولة
-        </h3>
-        <div className="md:flex mx-auto w-full justify-between items-center mt-6">
-          <div className="md:w-1/3">
-            <PlatformCard
-              icon={"/Icon1.png"}
-              title="المشاركة عن بعد"
-              description="بإمكانك المزايدة بشكل إلكتروني في أي وقت ومن أي مكان"
-            />
-            <PlatformCard
-              icon={"/Icon2.png"}
-              title="تقديم طلب سعر على أكثر من طلب توريد في نفس الوقت"
-              description="يمكنك تقديم عرض سعر على عدة طلب توريد مختلف عبر المنصة في نفس الوقت"
-            />
-          </div>
-          <div className="md:w-1/3 sm:mt-0 mt-8">
-            <Image
-              src={"/mobile.png"}
-              alt=""
-              width={500}
-              height={700}
-              className="object-contain mx-auto"
-            />
-          </div>
-          <div className="md:w-1/3">
-            <PlatformCard
-              icon={"/Icon3.png"}
-              title="وسائل دفع إلكترونية"
-              description="توفر المنصة وسائل دفع إلكترونية آمنه يمكنك من خلالها شحن محفظتك واسترجاع المبلغ بكل أمان"
-            />
-            <PlatformCard
-              icon={"/Icon4.png"}
-              title="الامان والخصوصية"
-              description="نحافظ على خصوصية معلوماتك الشخصية وأمانها وسلامتها."
-            />
-          </div>
-        </div>
-      </div>
       </div>
       <Footer />
     </div>
   );
 };
-
+interface QuestionProps {
+  item: any;
+  index: number;
+  key: number;
+}
+const QuestionAnswer = ({ item, index, key }: QuestionProps) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div key={key}>
+      <div
+        className={`w-[95%] mx-auto ${
+          open ? "bg-[#FAFAFF]" : "bg-[#ffff]"
+        } border-b border-b-[#DDDCF8] py-4 sm:py-8`}
+      >
+        <div className="flex w-[95%] mx-auto items-center justify-between">
+          <div className="flex items-center text-[18px] text-black justify-between">
+            <p className="font-rbBold text-[#F84F39] md:me-10 sm:me-6 me-3 text-[20px] sm:text-[24px] md:text-[30px]">
+              {index < 10 ? `0${index + 1}` : index + 1}{" "}
+            </p>
+            <p className="font-rbRegular md:text-[20px] text-[16px] md:font-rbBold">
+              {item?.Q}
+            </p>
+          </div>
+          <div
+            className={`sm:p-3 p-1 rounded-full items-center justify-center flex cursor-pointer ${
+              open ? "bg-[#F84F39]" : "border border-[#F84F39]"
+            }`}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? (
+              <IoMdClose className="text-[#fff] text-[16px] sm:text-[20px]" />
+            ) : (
+              <FaPlus className="text-[#F84F39] text-[12px] sm:text-[20px]" />
+            )}
+          </div>
+        </div>
+        {open && (
+          <p className="text-black sm:text-[18px] text-[16px] font-rbLight sm:font-rbRegular w-[83%] sm:mt-6 mt-4 md:mt-8 mx-auto">
+            {item?.A}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
 export default Page;
