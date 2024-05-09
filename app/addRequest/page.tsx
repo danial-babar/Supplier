@@ -14,6 +14,7 @@ import { fieldData } from "@/constants/DummyData";
 import {
   getCategories,
   getCities,
+  getProductsById,
   getStatus,
   getUnits,
   leadsFLow,
@@ -29,6 +30,7 @@ import { useSelector } from "react-redux";
 const Page = (props: Props) => {
   const { user } = useSelector((state: any) => state.user);
   const [categories, setCategories] = useState([{ id: 0, title: "" }]);
+  const [products, setProducts] = useState([{ id: 0, title: "" }]);
   const [cities, setCities] = useState([{ id: 0, city_name: "" }]);
   const [status, setStatus] = useState([{ id: 0, name: "" }]);
   const [units, setUnits] = useState([{ id: 0, title: "" }]);
@@ -97,12 +99,24 @@ const Page = (props: Props) => {
         console.log("err while getting units", err);
       });
   }, []);
+  const GetProducts = (id: any) => {
+    console.log("category ID", id);
 
+    getProductsById(id)
+      .then((res) => {
+        console.log("res while getting products", res);
+        setProducts(res?.data);
+      })
+      .catch((err) => {
+        console.log("err while getting products", err);
+      });
+  };
   const submitLead = () => {
     const data = new FormData();
     data.append("title", inputData.title);
     data.append("city_id", inputData.city?.id);
     data.append("category_id", inputData.category?.id);
+    data.append("product_id", inputData.product?.id);
     data.append("description", inputData?.description);
     data.append("quantity", inputData.quantity);
     data.append("unit", inputData.unit?.id);
@@ -185,7 +199,10 @@ const Page = (props: Props) => {
                 <SelectItem
                   key={item.id}
                   value={item.id}
-                  onClick={() => setInputData({ ...inputData, category: item })}
+                  onClick={() => {
+                    setInputData({ ...inputData, category: item });
+                    GetProducts(item.id);
+                  }}
                 >
                   {item.title}
                 </SelectItem>
@@ -215,6 +232,33 @@ const Page = (props: Props) => {
                   onClick={() => setInputData({ ...inputData, city: item })}
                 >
                   {item.city_name}
+                </SelectItem>
+              ))}
+            </Select>
+          </div>
+          <div className="">
+            <label
+              className="text-[#000] font-rbRegular text-[18px]"
+              htmlFor="city"
+            >
+              المنتج
+              <span className="text-[#F84F39] font-rbRegular text-[18px]">
+                {" "}
+                *
+              </span>
+            </label>
+            <Select
+              placeholder="إختر ...."
+              aria-label="إختر"
+              className="rounded-none selectboxForRTL"
+            >
+              {products?.map((item) => (
+                <SelectItem
+                  key={item.id}
+                  value={item.id}
+                  onClick={() => setInputData({ ...inputData, product: item })}
+                >
+                  {item.title}
                 </SelectItem>
               ))}
             </Select>
@@ -456,7 +500,7 @@ const Page = (props: Props) => {
               showIcon
               icon={
                 <span className="absolute inset-y-0 left-2 flex items-center">
-                  <IoIosCalendar className="h-auto"/>
+                  <IoIosCalendar className="h-auto" />
                 </span>
               }
               selected={selectedDate?.startDate}

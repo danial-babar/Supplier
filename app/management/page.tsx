@@ -63,21 +63,29 @@ const Page = ({ searchParams }: Props) => {
       singleLeadById(searchParams.id)
         .then((response) => {
           console.log("response while getting single lead", response);
+          const sortedBids = response?.bids.sort((a, b) => {
+            // Convert the amount strings to numbers for comparison
+            const amountA = parseInt(a?.amount);
+            const amountB = parseInt(b?.amount);
+            return amountA - amountB; // Ascending order
+            // For descending order: return amountB - amountA;
+          });
           setLeadData(response);
+          setAllBids(sortedBids);
           calculateRemainingTime(response?.date_expire);
         })
         .catch((error) => {
           console.log("error while getting single lead", error);
         });
-      bidsFLow
-        .bidsOnLead(searchParams.id)
-        .then((response) => {
-          console.log("response while getting bids on a lead", response);
-          setAllBids(response);
-        })
-        .catch((error) => {
-          console.log("error while getting bids on a lead", error);
-        });
+      // bidsFLow
+      //   .bidsOnLead(searchParams.id)
+      //   .then((response) => {
+      //     console.log("response while getting bids on a lead", response);
+      //     setAllBids(response);
+      //   })
+      //   .catch((error) => {
+      //     console.log("error while getting bids on a lead", error);
+      //   });
     }
   }, [searchParams?.id]);
 
@@ -109,7 +117,7 @@ const Page = ({ searchParams }: Props) => {
   const add_bid = () => {
     const data = new FormData();
     data.append("lead_id", leadData?.id);
-    data.append("user_id", leadData?.id);
+    data.append("user_id", user?.id);
     data.append("amount", reqPrice);
     data.append("created_by", leadData?.created_by);
     bidsFLow

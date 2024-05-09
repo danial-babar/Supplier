@@ -18,6 +18,15 @@ export const getCategories = async () => {
     throw error;
   }
 };
+export const getProductsById = async (id: any) => {
+  try {
+    const response = await api.get(`/get_products/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error while getting products agains category:", error);
+    throw error;
+  }
+};
 export const getCities = async () => {
   try {
     const response = await api.get(`/get_cities`);
@@ -123,7 +132,6 @@ export const bidsFLow = {
       throw error;
     }
   },
- 
 };
 export const leadsFLow = {
   addLead: async (data: any) => {
@@ -135,7 +143,7 @@ export const leadsFLow = {
       throw error;
     }
   },
-  userLeads: async (id:'') => {
+  userLeads: async (id: "") => {
     try {
       const response = await api.get(`/leads_user/${id}`);
       return response.data;
@@ -144,7 +152,6 @@ export const leadsFLow = {
       throw error;
     }
   },
- 
 };
 
 export default api;
