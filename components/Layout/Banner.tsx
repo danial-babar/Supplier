@@ -39,7 +39,7 @@ const Banner = ({ onClick }: Props) => {
   useEffect(() => {
     getCategories()
       .then((res) => {
-        // console.log("res while getting categories", res);
+        console.log("res while getting categories", res);
         setCategories(res?.data);
       })
       .catch((err) => {
@@ -131,11 +131,11 @@ const Banner = ({ onClick }: Props) => {
             <DropDownComp
               title={"حالة الطلب"}
               data={status}
-              getItemTitle={(item) => item.name}
+              getItemTitle={(item) => item.title}
               onClick={(item) =>
                 setDropdownData({ ...dropdownData, status: item })
               }
-              selectedItem={dropdownData?.status?.name || "اختر حالة الطلب"}
+              selectedItem={dropdownData?.status?.title || "اختر حالة الطلب"}
               dropdownBtnClass={`max-w-[220px] justify-start`}
             />
             {/* <div>

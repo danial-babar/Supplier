@@ -110,7 +110,7 @@ const Header = ({ activeItem }: Props) => {
         </div>
         <Navigation activeItem={activeItem} active={active} />
         {isUser && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 cursor-pointer">
             <div>
               <FaRegEnvelope className="text-[#F84F39] ml-4" />
             </div>
