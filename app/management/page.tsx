@@ -64,7 +64,15 @@ const Page = ({ searchParams }: Props) => {
       singleLeadById(leadId)
         .then((response) => {
           console.log("response while getting single lead", response);
+          const sortedBids = response?.bids.sort((a, b) => {
+            // Convert the amount strings to numbers for comparison
+            const amountA = parseInt(a?.amount);
+            const amountB = parseInt(b?.amount);
+            return amountA - amountB; // Ascending order
+            // For descending order: return amountB - amountA;
+          });
           setLeadData(response);
+          setAllBids(sortedBids);
           calculateRemainingTime(response?.date_expire);
         })
         .catch((error) => {
@@ -110,7 +118,7 @@ const Page = ({ searchParams }: Props) => {
   const add_bid = () => {
     const data = new FormData();
     data.append("lead_id", leadData?.id);
-    data.append("user_id", leadData?.id);
+    data.append("user_id", user?.id);
     data.append("amount", reqPrice);
     data.append("created_by", leadData?.created_by);
     bidsFLow

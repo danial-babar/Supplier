@@ -55,6 +55,15 @@ const Header = ({ activeItem }: Props) => {
   const handleProfile = () => {
     setActiveProfile(!activeProfile);
   };
+  const onLoginAddReqClicked = () => {
+    if (userToken && isUser) {
+      if (user?.user_role_key == "vendor")
+        alert("يرجى تسجيل الدخول كمشتري قبل إضافة طلب");
+      else router.push("/addRequest");
+    } else {
+      router.push("/login");
+    }
+  };
   const handleLogout = () => {
     console.log("handleLogoute clicked");
     dispatch({
@@ -143,15 +152,18 @@ const Header = ({ activeItem }: Props) => {
             </Dropdown>
           </div>
         )}
-        <Link
+        {/* <Link
           href={{ pathname: userToken && isUser ? "/addRequest" : "/login" }}
+        > */}
+        <div
+          className="text-center md:px-3 px-2 xl:py-3 py-2 bg-[#F84F39] rounded-full"
+          onClick={onLoginAddReqClicked}
         >
-          <div className="text-center md:px-3 px-2 xl:py-3 py-2 bg-[#F84F39] rounded-full">
-            <h4 className="text-white cursor-pointer lg:w-[120px] w-[90px] text-[14px] lg:text-[16px] font-rbRegular">
-              {userToken && isUser ? "طلب سعر" : "تسجيل دخول"}
-            </h4>
-          </div>
-        </Link>
+          <h4 className="text-white cursor-pointer lg:w-[120px] w-[90px] text-[14px] lg:text-[16px] font-rbRegular">
+            {userToken && isUser ? "طلب سعر" : "تسجيل دخول"}
+          </h4>
+        </div>
+        {/* </Link> */}
       </div>
       <div className="w-full md:hidden flex items-center justify-between">
         <div>
