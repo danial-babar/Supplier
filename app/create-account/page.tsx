@@ -17,9 +17,11 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { LuPenLine } from "react-icons/lu";
 import { useSelector } from "react-redux";
+
 type Props = {
   searchParams: any;
 };
+
 const Page = ({ searchParams }: Props) => {
   const { userType } = useSelector((state: any) => state.userAccount);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -40,15 +42,16 @@ const Page = ({ searchParams }: Props) => {
     characteristics: "",
     user_role_key: "",
   });
-  // useEffect(() => {
-  //   if (searchParams?.accountType == 2) {
-  //     setAccountType(2);
-  //   }
-  // }, [searchParams?.accountType]);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const validateForm = () => {
     const errors = {};
+    
+    console.log("email validation", emailRegex.test(formData?.email));
+    const emailValidation = emailRegex.test(formData.email);
     if (!formData.email) {
       errors.email = "يرجى إدخال البريد الإلكتروني";
+    } else if (!emailValidation) {
+      errors.emailValid = "البريد الإلكتروني غير صحيح";
     }
     if (!formData.user_role_key) {
       errors.role = "الرجاء تحديد الدور أولاً";
@@ -70,7 +73,10 @@ const Page = ({ searchParams }: Props) => {
     setResError("");
     if (validateForm()) {
       if (formData?.password !== formData?.confirmPassword) {
-        return alert("Password and confirm password are not same");
+        return setErrors({
+          ...errors,
+          confirmPasError: "كلمة المرور غير متطابقة",
+        });
       }
       setLoading(true);
       const data = new FormData();
@@ -104,7 +110,7 @@ const Page = ({ searchParams }: Props) => {
       <Header />
       <div className="bg-gradient-radial md:pb-28 pb-16 lg:pb-40 from-blue-100 to-pink-50 via-gray-100">
         <div className="text-center w-[95%] mx-auto md:pt-20 pt-8">
-          <div className=" text-[#0A102F] lg:text-[45px] md:text-[34px] sm:text-[22px] text-[14px] relative font-rbBold">
+          <div className="text-[#0A102F] lg:text-[45px] md:text-[34px] sm:text-[22px] text-[14px] relative font-rbBold">
             <span> إنشاء ح</span>
             <span className="rounded-3xl bg-[#BDFFA5] md:pe-24 pe-4 py-0">
               ساب جديد
@@ -186,7 +192,7 @@ const Page = ({ searchParams }: Props) => {
                   <div className="">
                     <InputForm
                       placeholder="رقم الجوال"
-                      type="text"
+                      type="number"
                       value={formData?.phone || ""}
                       onchange={(e: any) =>
                         setFormData({ ...formData, phone: e.target.value })
@@ -203,7 +209,7 @@ const Page = ({ searchParams }: Props) => {
                   <div>
                     <InputForm
                       placeholder="البريد الالكتروني"
-                      type="text"
+                      type="email"
                       value={formData?.email || ""}
                       onchange={(e: any) =>
                         setFormData({ ...formData, email: e.target.value })
@@ -216,11 +222,16 @@ const Page = ({ searchParams }: Props) => {
                         {errors.email}
                       </div>
                     )}
+                    {errors.emailValid && formData?.email && !emailRegex.test(formData?.email) && (
+                      <div className="text-red-500 text-[12px]">
+                        {errors.emailValid}
+                      </div>
+                    )}
                   </div>
                   <div>
                     <InputForm
                       placeholder="رقم هوية ممثل المنشأة"
-                      type="text"
+                      type="number"
                       value={formData?.negotiatorId || ""}
                       onchange={(e: any) =>
                         setFormData({
@@ -268,19 +279,27 @@ const Page = ({ searchParams }: Props) => {
                       </div>
                     )}
                   </div>
-                  <InputForm
-                    placeholder="تاكيد كلمة المرور"
-                    type="password"
-                    value={formData?.confirmPassword || ""}
-                    onchange={(e: any) =>
-                      setFormData({
-                        ...formData,
-                        confirmPassword: e.target.value,
-                      })
-                    }
-                    title="تاكيد كلمة المرور"
-                    required
-                  />
+                  <div className="">
+                    <InputForm
+                      placeholder="تاكيد كلمة المرور"
+                      type="password"
+                      value={formData?.confirmPassword || ""}
+                      onchange={(e: any) =>
+                        setFormData({
+                          ...formData,
+                          confirmPassword: e.target.value,
+                        })
+                      }
+                      title="تاكيد كلمة المرور"
+                      required
+                    />
+                    {errors.confirmPasError &&
+                      formData?.password !== formData?.confirmPassword && (
+                        <div className="text-red-500 text-[12px]">
+                          {errors.confirmPasError}
+                        </div>
+                      )}
+                  </div>
                 </div>
                 {accountType == 2 && (
                   <div>
@@ -308,7 +327,6 @@ const Page = ({ searchParams }: Props) => {
                   bgColor="#F84F39"
                   onPress={CreateAccount}
                   loading={loading}
-                  
                 />
               </div>
             </form>
@@ -326,4 +344,5 @@ const Page = ({ searchParams }: Props) => {
     </div>
   );
 };
+
 export default Page;

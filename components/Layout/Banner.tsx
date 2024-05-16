@@ -111,8 +111,8 @@ const Banner = ({ onClick, search, results }: Props) => {
             <DropDownComp
               title={"ترتيب"}
               data={[
-                { id: 1, name: "الأحدث إلى الأقدم" },
-                { id: 2, name: "من الأقدم إلى الأحدث" },
+                { id: 0, name: "الأحدث إلى الأقدم" },
+                { id: 1, name: "من الأقدم إلى الأحدث" },
               ]}
               getItemTitle={(item) => item.name}
               onClick={(item) =>
@@ -158,7 +158,7 @@ const Banner = ({ onClick, search, results }: Props) => {
           <div className="md:w-auto sm:w-1/2 w-full md:text-start text-end">
             {/* <Link href="/search"> */}
             <div
-              className="bg-[#F84F39] md:p-3 w-full p-2 lg:p-4 rounded-full text-white"
+              className="bg-[#F84F39] md:p-3 w-full p-2 lg:p-4 rounded-full text-white cursor-pointer"
               onClick={onSearchPress}
             >
               <CiSearch className="text-[25px]" />

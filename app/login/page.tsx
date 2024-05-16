@@ -5,9 +5,10 @@ import CommonButton from "@/components/commonButton";
 import InputForm from "@/components/inputForm";
 import InputWithIcon from "@/components/inputWithIcon";
 import { localstorageService } from "@/utils/LocalStorage.service";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GoPeople } from "react-icons/go";
 
 import { MdLogin, MdPeopleAlt } from "react-icons/md";
@@ -18,42 +19,58 @@ const Page = (props: Props) => {
   const router = useRouter();
   const [email, setEmail] = useState("danial1@gmail.com");
   const [password, setPassword] = useState("1234");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [errors, setErrors] = useState({ email: "", password: "" });
+  const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const handleClick = () => {
     router.push(`/create`);
   };
 
-  const Login = () => {
+  const validateForm = () => {
+    const errors: any = {};
+
     if (!email) {
-      return alert("Please enter your email");
+      errors.email = "الرجاء إدخال اسم المستخدم";
     }
     if (!password) {
-      return alert("Please enter your password");
+      errors.password = "يرجى إدخال كلمة المرور";
     }
-    setLoading(true);
-    const data = new FormData();
-    data.append("email", email);
-    data.append("password", password);
+    setErrors(errors);
+    console.log(Object.keys(errors).length === 0);
 
-    userFlow
-      .login(data)
-      .then((response) => {
-        console.log("response while login account", response);
-        if (response?.code == "1") {
-          router.push(`/`);
-          
-          localstorageService.setToken(response?.data?.token);
-          dispatch({
-            type: "saveUser",
-            payload: response?.data,
-          });
-        }
-      })
-      .catch((error) => {
-        console.log("error while login account", error);
-      })
-      .finally(() => setLoading(false));
+    return Object.keys(errors).length === 0;
+  };
+  const Login = () => {
+    if (validateForm()) {
+      setLoading(true);
+      const data = new FormData();
+      data.append("email", email);
+      data.append("password", password);
+
+      userFlow
+        .login(data)
+        .then((response) => {
+          console.log("response while login account", response);
+          if (response?.code == "1") {
+            router.push(`/`);
+
+            localstorageService.setToken(response?.data?.token);
+            dispatch({
+              type: "saveUser",
+              payload: response?.data,
+            });
+          } else {
+            setErrorMsg(response?.message);
+            setShowError(true);
+          }
+        })
+        .catch((error) => {
+          console.log("error while login account", error);
+        })
+        .finally(() => setLoading(false));
+    }
   };
   return (
     <div dir="rtl">
@@ -79,21 +96,43 @@ const Page = (props: Props) => {
                 تـسجيل الـدخول
               </h1>
               <div>
-                <InputWithIcon
-                  type="text"
-                  placeholder="أسم المستخدم"
-                  icon={<GoPeople className="h-3 w-3 text-[#F84F39]" />}
-                  value={email || ""}
-                  onchange={(e: any) => setEmail(e.target.value)}
-                />
-                <InputWithIcon
-                  type="password"
-                  placeholder="كلمة المرور"
-                  icon={<GoPeople className="h-3 w-3 text-[#F84F39]" />}
-                  value={password || ""}
-                  onchange={(e: any) => setPassword(e.target.value)}
-                />
-
+                <div>
+                  <InputWithIcon
+                    type="text"
+                    placeholder="أسم المستخدم"
+                    icon={<GoPeople className="h-4 w-4 text-[#F84F39]" />}
+                    value={email || ""}
+                    onchange={(e: any) => setEmail(e.target.value)}
+                  />
+                  {errors.email && !email && (
+                    <div className="text-red-500 text-[12px]">
+                      {errors.email}
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <InputWithIcon
+                    type="password"
+                    placeholder="كلمة المرور"
+                    icon={
+                      <Image src={"/stars.png"} width={20} height={20} alt="" />
+                    }
+                    value={password || ""}
+                    onchange={(e: any) => setPassword(e.target.value)}
+                  />
+                  {errors.password && !password && (
+                    <div className="text-red-500 text-[12px]">
+                      {errors.password}
+                    </div>
+                  )}
+                </div>
+                {showError && errorMsg && (
+                  <div>
+                    <label className="font-rbRegular hover:underline text-[#F84F39]">
+                      {errorMsg}
+                    </label>
+                  </div>
+                )}
                 <div className="mt-4 flex items-center justify-end">
                   <Link
                     href="#"

@@ -1,3 +1,4 @@
+import { Input } from "@nextui-org/react";
 import React from "react";
 
 type Props = {
@@ -42,6 +43,8 @@ const InputForm = ({
         required={required || false}
         value={value}
         onChange={onchange}
+        lang="ar"
+        dir="rtl"
       />
     </div>
   );
