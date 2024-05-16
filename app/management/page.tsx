@@ -30,6 +30,9 @@ import UserDemandMng from "@/components/UserDemandMng";
 import CategoriesSupply from "@/components/CategoriesSupply";
 import LeadDetails from "@/components/LeadDetails";
 import { useSelector } from "react-redux";
+import Loader from "@/components/Loader";
+import WarningModal from "@/common-modals/WarningModal";
+import SuccessModal from "@/common-modals/SuccessModal";
 type Props = {
   searchParams: any;
 };
@@ -41,6 +44,10 @@ const Page = ({ searchParams }: Props) => {
   const [loading, setLoading] = useState(true);
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [isBidWaringOpen, setIsBidWaringOpen] = useState(false);
+  const [successBid, setSuccessBid] = useState(false);
+  const [warningMsg, setWarningMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const [reqPrice, setReqPrice] = useState("");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [remainingTime, setRemainingTime] = useState({
@@ -120,28 +127,23 @@ const Page = ({ searchParams }: Props) => {
       .addBid(data)
       .then((reponse) => {
         console.log("response while adding bid", reponse);
-        setIsBidSuccess(true); // Set bid success state to true
-        onOpenChange(); // Close the modal
+        onBidSuccess();
+        onOpenChange();
       })
       .catch((error) => {
         console.log("error while adding bid", error);
       });
   };
-  useEffect(() => {
-    if (isBidSuccess) {
-      // Show alert to the user
-      alert("Bid successfully added!");
-      // Reset bid success state after showing alert
-      setIsBidSuccess(false);
-    }
-  }, [isBidSuccess]);
+  const onBidSuccess = () => {
+    setSuccessBid(true);
+  };
   return (
     <div className="">
       <div dir="rtl">
         <Header />
       </div>
       {loading ? (
-        <Spinner className="self-center w-full" />
+        <Loader />
       ) : (
         <>
           <div>
@@ -202,7 +204,11 @@ const Page = ({ searchParams }: Props) => {
                       <Button
                         onClick={() => {
                           if (user?.user_role_key == "buyer") {
-                            alert("الرجاء تسجيل الدخول كمورد لتقديم العطاءات");
+                            // alert("الرجاء تسجيل الدخول كمورد لتقديم العطاءات");
+                            setIsBidWaringOpen(true);
+                            setWarningMsg(
+                              "الرجاء تسجيل الدخول كمورد لتقديم العطاءات"
+                            );
                           } else onOpen();
                         }}
                         className="sm:font-rbRegular bg-[#F84F39] w-full font-rbLight text-white rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6"
@@ -397,6 +403,22 @@ const Page = ({ searchParams }: Props) => {
           </div>
         </>
       )}
+      <WarningModal
+        header="تحذير"
+        message={warningMsg}
+        buttonText="Okay"
+        isOpen={isBidWaringOpen}
+        onClose={() => setIsBidWaringOpen(false)}
+        onConfirm={() => setIsBidWaringOpen(false)}
+      />
+      <SuccessModal
+        header="تهانينا"
+        message={"تمت إضافة المزايدة بنجاح!"}
+        buttonText="Confirm"
+        isOpen={successBid}
+        onClose={() => setSuccessBid(false)}
+        onConfirm={() => setSuccessBid(false)}
+      />
     </div>
   );
 };

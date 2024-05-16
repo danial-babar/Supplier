@@ -8,6 +8,7 @@ import { filterLeads, getAllLeads } from "@/api/Users";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "@nextui-org/react";
+import Loader from "@/components/Loader";
 // import Image from "next/image";
 
 type Props = {};
@@ -64,7 +65,7 @@ const Page = (props: Props) => {
   return (
     <div dir="rtl">
       {loading ? (
-        <Spinner className="self-center w-full" />
+        <Loader/>
       ) : (
         <>
           <Header />
