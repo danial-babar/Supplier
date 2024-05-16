@@ -1,23 +1,33 @@
 "use client";
 import { userFlow } from "@/api/Users";
+import SuccessModal from "@/common-modals/SuccessModal";
 import DropDownComp from "@/components/DropDownComp";
 import Header from "@/components/Layout/Header";
+import CommonButton from "@/components/commonButton";
 import InputForm from "@/components/inputForm";
 import { localstorageService } from "@/utils/LocalStorage.service";
-import { Button, Radio, RadioGroup } from "@nextui-org/react";
+import {
+  Button,
+  Radio,
+  RadioGroup,
+  useDisclosure,
+  useModal,
+} from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { LuPenLine } from "react-icons/lu";
+import { useSelector } from "react-redux";
 type Props = {
   searchParams: any;
 };
 const Page = ({ searchParams }: Props) => {
-  console.log("searchParams", searchParams);
-
+  const { userType } = useSelector((state: any) => state.userAccount);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
-  const [accountType, setAccountType] = useState(1);
+  const [accountType, setAccountType] = useState(userType || 1);
   const [errors, setErrors] = useState({});
   const [resError, setResError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     commercial: "",
     facilityName: "",
@@ -30,11 +40,11 @@ const Page = ({ searchParams }: Props) => {
     characteristics: "",
     user_role_key: "",
   });
-  useEffect(() => {
-    if (searchParams?.accountType == 2) {
-      setAccountType(2);
-    }
-  }, [searchParams?.accountType]);
+  // useEffect(() => {
+  //   if (searchParams?.accountType == 2) {
+  //     setAccountType(2);
+  //   }
+  // }, [searchParams?.accountType]);
   const validateForm = () => {
     const errors = {};
     if (!formData.email) {
@@ -45,6 +55,9 @@ const Page = ({ searchParams }: Props) => {
     }
     if (!formData.phone) {
       errors.phone = "يرجى إدخال رقم الجوال";
+    }
+    if (!formData.negotiatorName) {
+      errors.negotiatorName = "الرجاء إدخال اسم المفاوض";
     }
     if (!formData.password) {
       errors.password = "يرجى إدخال كلمة المرور";
@@ -59,6 +72,7 @@ const Page = ({ searchParams }: Props) => {
       if (formData?.password !== formData?.confirmPassword) {
         return alert("Password and confirm password are not same");
       }
+      setLoading(true);
       const data = new FormData();
       data.append("commercial", formData.commercial);
       data.append("facilityName", formData.facilityName);
@@ -74,40 +88,16 @@ const Page = ({ searchParams }: Props) => {
         .then((response) => {
           console.log("response while creating account", response);
           if (response?.code === "1") {
+            onOpen();
             router.push("/login");
           } else setResError(response?.message);
         })
         .catch((error) => {
           console.log("error while creating account", error);
-        });
+        })
+        .finally(() => setLoading(false));
     }
   };
-  // const CreateAccount = () => {
-  //   const data = new FormData();
-  //   data.append("commercial", formData.commercial);
-  //   data.append("facilityName", formData.facilityName);
-  //   data.append("email", formData.email);
-  //   data.append("phone", formData.phone);
-  //   data.append("negotiatorName", formData.negotiatorName);
-  //   data.append("negotiatorId", formData.negotiatorId);
-  //   data.append("characteristics", formData.characteristics);
-  //   data.append("user_role_key", formData.user_role_key);
-  //   data.append("password", formData.password);
-  //   userFlow
-  //     .createAccount(data)
-  //     .then((response) => {
-  //       console.log("response while creating account", response);
-  //       if (response?.code == "1") {
-  //         // localStorage.setItem("user", JSON.stringify(response?.data));
-  //         // localstorageService.setToken(response?.data?.token);
-  //         router.push("/login");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log("error while creating account", error);
-  //     });
-  // };
-  console.log("user key role", formData?.user_role_key);
 
   return (
     <div dir="rtl">
@@ -130,7 +120,7 @@ const Page = ({ searchParams }: Props) => {
               <h1 className="text-xl relative flex items-center justify-start font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 <span className="bg-[#F84F39] bg-opacity-20 md:p-3 p-2 absolute rounded-full"></span>
                 <LuPenLine className="pe-3 ms-2 text-[30px] md:text-[40px] text-[#F84F39]" />
-                التسجيل كممثل منشأة
+                {accountType == 1 ? "سجل كفرد" : "التسجيل كممثل منشأة"}
               </h1>
             </div>
             <div className="px-3 mb-4">
@@ -144,20 +134,18 @@ const Page = ({ searchParams }: Props) => {
                   onClick={() =>
                     setFormData({ ...formData, user_role_key: "vendor" })
                   }
+                  className="font-rbRegular text-[14px] text-[#000]"
                 >
-                  <label className="font-rbRegular text-[14px] text-[#000] mr-3">
-                    بائع
-                  </label>
+                  <span className="mr-3">مورد</span>
                 </Radio>
                 <Radio
                   value="buyer"
                   onClick={() =>
                     setFormData({ ...formData, user_role_key: "buyer" })
                   }
+                  className="font-rbRegular text-[14px] text-[#000]"
                 >
-                  <label className="font-rbRegular text-[14px] text-[#000] mr-3">
-                    مشتر
-                  </label>
+                  <span className="mr-3">طالب السعر</span>
                 </Radio>
               </RadioGroup>
               {errors.role && !formData?.user_role_key && (
@@ -179,6 +167,7 @@ const Page = ({ searchParams }: Props) => {
                             commercial: e.target.value,
                           })
                         }
+                        title="السجل التجاري"
                       />
                       <InputForm
                         placeholder="اسم المنشأة"
@@ -190,6 +179,7 @@ const Page = ({ searchParams }: Props) => {
                             facilityName: e.target.value,
                           })
                         }
+                        title="اسم المنشأة"
                       />
                     </>
                   )}
@@ -201,9 +191,10 @@ const Page = ({ searchParams }: Props) => {
                       onchange={(e: any) =>
                         setFormData({ ...formData, phone: e.target.value })
                       }
+                      title="رقم الجوال"
                       required
                     />
-                    {errors.phone && !formData?.phone  && (
+                    {errors.phone && !formData?.phone && (
                       <div className="text-red-500 text-[12px]">
                         {errors.phone}
                       </div>
@@ -217,6 +208,7 @@ const Page = ({ searchParams }: Props) => {
                       onchange={(e: any) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
+                      title="البريد الالكتروني"
                       required
                     />
                     {errors.email && !formData?.email && (
@@ -225,25 +217,40 @@ const Page = ({ searchParams }: Props) => {
                       </div>
                     )}
                   </div>
-                  <InputForm
-                    placeholder="رقم هوية المفاوض"
-                    type="text"
-                    value={formData?.negotiatorId || ""}
-                    onchange={(e: any) =>
-                      setFormData({ ...formData, negotiatorId: e.target.value })
-                    }
-                  />
-                  <InputForm
-                    placeholder="اسم المفاوض"
-                    type="text"
-                    value={formData?.negotiatorName || ""}
-                    onchange={(e: any) =>
-                      setFormData({
-                        ...formData,
-                        negotiatorName: e.target.value,
-                      })
-                    }
-                  />
+                  <div>
+                    <InputForm
+                      placeholder="رقم هوية ممثل المنشأة"
+                      type="text"
+                      value={formData?.negotiatorId || ""}
+                      onchange={(e: any) =>
+                        setFormData({
+                          ...formData,
+                          negotiatorId: e.target.value,
+                        })
+                      }
+                      title="رقم هوية ممثل المنشأة"
+                    />
+                  </div>
+                  <div>
+                    <InputForm
+                      placeholder="اسم المفاوض"
+                      type="text"
+                      value={formData?.negotiatorName || ""}
+                      onchange={(e: any) =>
+                        setFormData({
+                          ...formData,
+                          negotiatorName: e.target.value,
+                        })
+                      }
+                      title="اسم المفاوض"
+                      required
+                    />
+                    {errors.negotiatorName && !formData?.negotiatorName && (
+                      <div className="text-red-500 text-[12px]">
+                        {errors.negotiatorName}
+                      </div>
+                    )}
+                  </div>
                   <div className="">
                     <InputForm
                       placeholder="كلمة المرور"
@@ -252,9 +259,10 @@ const Page = ({ searchParams }: Props) => {
                       onchange={(e: any) =>
                         setFormData({ ...formData, password: e.target.value })
                       }
+                      title="كلمة المرور"
                       required
                     />
-                    {errors.password && !formData?.password  && (
+                    {errors.password && !formData?.password && (
                       <div className="text-red-500 text-[12px]">
                         {errors.password}
                       </div>
@@ -270,49 +278,51 @@ const Page = ({ searchParams }: Props) => {
                         confirmPassword: e.target.value,
                       })
                     }
+                    title="تاكيد كلمة المرور"
                     required
                   />
-                  {/* <InputForm
-                    placeholder="تاكيد كلمة المرور"
-                    type="text"
-                    value={formData?.confirmPassword || ""}
-                    onchange={(e: any) =>
-                      setFormData({
-                        ...formData,
-                        confirmPassword: e.target.value,
-                      })
-                    }
-                  /> */}
                 </div>
-                <div>
-                  <InputForm
-                    placeholder="صفة المفاوض"
-                    type="text"
-                    value={formData?.characteristics || ""}
-                    onchange={(e: any) =>
-                      setFormData({
-                        ...formData,
-                        characteristics: e.target.value,
-                      })
-                    }
-                  />
-                </div>
+                {accountType == 2 && (
+                  <div>
+                    <InputForm
+                      placeholder="صفة المفاوض"
+                      type="text"
+                      value={formData?.characteristics || ""}
+                      onchange={(e: any) =>
+                        setFormData({
+                          ...formData,
+                          characteristics: e.target.value,
+                        })
+                      }
+                      title="صفة المفاوض"
+                    />
+                  </div>
+                )}
                 {resError && (
                   <label className="text-[#F84F39] text-[12px]">
                     {resError}
                   </label>
                 )}
-                <Button
-                  className="mt-4 w-full bg-[#F84F39] focus:ring-4 focus:outline-none focus:ring-primary-300 sm:font-rbRegular font-rbLight text-white hover:text-black rounded-lg sm:rounded-3xl px-5 py-2 sm:py-3"
+                <CommonButton
+                  text="تسجيل جديد"
+                  bgColor="#F84F39"
                   onPress={CreateAccount}
-                >
-                  تسجيل جديد
-                </Button>
+                  loading={loading}
+                  
+                />
               </div>
             </form>
           </div>
         </div>
       </div>
+      <SuccessModal
+        isOpen={isOpen}
+        onClose={() => {}}
+        onConfirm={() => router.push("/login")}
+        header="تم التسجيل بنجاح"
+        message="لقد تم إنشاء حسابك بنجاح"
+        buttonText={"اذهب لتسجيل الدخول"}
+      />
     </div>
   );
 };

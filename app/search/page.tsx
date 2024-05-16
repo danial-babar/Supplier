@@ -1,44 +1,137 @@
 "use client";
-import Banner from "@/components/Layout/Banner";
 import Footer from "@/components/Layout/Footer";
 import Header from "@/components/Layout/Header";
+import React, { useEffect, useState } from "react";
+import Banner from "@/components/Layout/Banner";
 import RequestCard from "@/components/RequestCard";
-import React from "react";
+import { filterLeads, getAllLeads } from "@/api/Users";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { Spinner } from "@nextui-org/react";
+// import Image from "next/image";
 
 type Props = {};
 
 const Page = (props: Props) => {
+  const { searchParams } = useSelector((state: any) => state.search);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [leadsData, setLeadsData] = useState<Array<any>>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // getLeads();
+    if (searchParams) handleSearchClick(searchParams);
+    else getLeads();
+    return () => {
+      dispatch({ type: "clearSearchParams" });
+    };
+  }, [dispatch, searchParams]);
+
+  const getLeads = () => {
+    getAllLeads()
+      .then((res) => {
+        console.log("res while getting leads", res);
+
+        setLeadsData(res);
+
+        // setLeadsData(res);
+      })
+      .catch((err) => {
+        console.log("err while getting leads", err);
+      })
+      .finally(() => setLoading(false));
+  };
+  const handleSearchClick = (data: any) => {
+    console.log("data filtered", data);
+    filterLeads(data)
+      .then((response) => {
+        console.log("response while filtering", response);
+        setLeadsData(response);
+      })
+      .catch((error) => {
+        console.log("error while filtering", error);
+      })
+      .finally(() => setLoading(false));
+  };
+  const onLeadCLick = (id: any) => {
+    dispatch({
+      type: "saveLeadId",
+      payload: id,
+    });
+    router.push("/management");
+  };
   return (
     <div dir="rtl">
-      <Header />
-      <Banner />
-      <div className="flex flex-col items-center bg-gradient-radial from-gray-100 via-gray-50">
-        <h1 className="text-black text-[18px] sm:text-[20px] lg:text-[24px] xl:text-[30px] font-rbBold">نتائج البحث</h1>
-        <p className="text-black text-[16px] sm:text-[18px] md:text-[20px] font-rbLight sm:font-rbRegular">
-            عدد النتائج <span className="text-[#F84F39]">9</span > <span className="text-[#F84F39]">طلبات توريد إعادة البحث</span>
-        </p>
-      </div>
-      <div
-        className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 my-5"
-        style={{ direction: "rtl" }}
-      >
-        <RequestCard
-          bgColor="bg-[#FAFAFF]"
-          contentBg="bg-[#6c66da4d]"
-          contentColor="#6B66DA"
-        />
-        <RequestCard
-          bgColor="bg-[#FAFAFF]"
-          contentBg="bg-[#6c66da4d]"
-          contentColor="#6B66DA"
-        />
-        <RequestCard
-          bgColor="bg-[#FAFAFF]"
-          contentBg="bg-[#6c66da4d]"
-          contentColor="#6B66DA"
-        />
-      </div>
-      <Footer />
+      {loading ? (
+        <Spinner className="self-center w-full" />
+      ) : (
+        <>
+          <Header />
+          <Banner
+            onClick={handleSearchClick}
+            search
+            results={leadsData?.length}
+          />
+          {leadsData?.length > 0 ? (
+            <div className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+              {leadsData.map((item: { id: string; status: string }, index) => {
+                return (
+                  <RequestCard
+                    key={index}
+                    bgColor={
+                      item?.status == "7"
+                        ? "bg-[#FEDCD7]"
+                        : item.status == "6"
+                        ? "bg-[#D6FAEE]"
+                        : "bg-[#FAFAFF]"
+                    }
+                    contentBg={
+                      item?.status == "7"
+                        ? "bg-[#f84f3948]"
+                        : item.status == "6"
+                        ? "bg-[#34e5a755]"
+                        : "bg-[#6c66da4d]"
+                    }
+                    contentColor={
+                      item?.status == "7"
+                        ? "#F84F39"
+                        : item.status == "6"
+                        ? "#34E5A8"
+                        : "#6B66DA"
+                    }
+                    onClick={() => onLeadCLick(item?.id)}
+                    // href={{ pathname: "/management", query: { id: item?.id } }}
+                    data={item}
+                    textColor={item?.status == "2" ? "#000000" : ""}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <div
+              className="w-[100%] mb-10 px-5 items-center flex justify-center"
+              dir="rtl"
+            >
+              <label className="text-[#656161] text-[16px] font-rbRegular">
+                لم يتم العثور على بيانات مرة أخرى لهذا البحث.
+              </label>
+            </div>
+          )}
+          {leadsData?.length > 0 && (
+            <div className="md:mt-20 text-center mt-8 mb-8">
+              <a
+                // href=""
+                className="bg-[#F84F39] px-4 py-2 rounded-medium md:rounded-full text-white font-rbRegular"
+              >
+                المزيد من التنصيفات...
+              </a>
+            </div>
+          )}
+
+          <Footer />
+        </>
+      )}
     </div>
   );
 };

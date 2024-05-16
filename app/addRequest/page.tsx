@@ -12,6 +12,7 @@ import { Button, Select, SelectItem, Textarea, image } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
 import { fieldData } from "@/constants/DummyData";
 import {
+  addLead,
   getCategories,
   getCities,
   getProductsById,
@@ -27,7 +28,22 @@ import { IoIosCalendar, IoMdAddCircleOutline } from "react-icons/io";
 import Image from "next/image";
 import CommonButton from "@/components/commonButton";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { registerLocale, setDefaultLocale } from "react-datepicker";
+import { ar } from "date-fns/locale/ar";
+registerLocale("ar", ar);
+
 const Page = (props: Props) => {
+  const BASE_URL = "http://projects.microrage.com/moward/api";
+
+  const api = axios.create({
+    baseURL: BASE_URL,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  const route = useRouter();
   const { user } = useSelector((state: any) => state.user);
   const [categories, setCategories] = useState([{ id: 0, title: "" }]);
   const [products, setProducts] = useState([{ id: 0, title: "" }]);
@@ -37,11 +53,13 @@ const Page = (props: Props) => {
   const [defaultImage, setDefaultImage] = useState();
   const [images, setImages] = useState([]);
   const [dragging, setDragging] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<Boolean>(false);
   const fileInputRef = useRef(null);
   const [inputData, setInputData] = useState({
     title: "",
     category: {},
     description: "",
+    status: {},
   });
   const [selectedDate, setSelectedDate] = useState({
     deliveryDate: null,
@@ -99,19 +117,27 @@ const Page = (props: Props) => {
         console.log("err while getting units", err);
       });
   }, []);
-  const GetProducts = (id: any) => {
+  const GetProducts = async (id: any) => {
     console.log("category ID", id);
-
-    getProductsById(id)
-      .then((res) => {
-        console.log("res while getting products", res);
-        setProducts(res?.data);
-      })
-      .catch((err) => {
-        console.log("err while getting products", err);
-      });
+    try {
+      await api
+        .get(`/get_products/${id}`)
+        .then((res) => {
+          console.log("res while getting products", res);
+          setProducts(res?.data?.data);
+        })
+        .catch((err) => {
+          console.log("err while getting products", err);
+        });
+    } catch (error) {
+      console.error("Error while getting products agains category:", error);
+      throw error;
+    }
   };
+  console.log("status", inputData?.status);
+
   const submitLead = () => {
+    setLoading(true);
     const data = new FormData();
     data.append("title", inputData.title);
     data.append("city_id", inputData.city?.id);
@@ -127,8 +153,8 @@ const Page = (props: Props) => {
     data.append("created_by", user?.id);
     data.append("default_image", defaultImage);
     data.append("status", inputData?.status?.id);
-    data.append("price_min", inputData?.minPrice);
-    data.append("price_max", inputData?.maxPrice);
+    data.append("min_price", inputData?.minPrice);
+    data.append("max_price", inputData?.maxPrice);
     if (images?.length > 0) {
       images.forEach((item) => data.append("other_images[]", item));
     }
@@ -140,11 +166,15 @@ const Page = (props: Props) => {
       .addLead(data)
       .then((res) => {
         console.log("res while submiting lead data", res);
-        setUnits(res?.data);
+        if (res?.code == "1") {
+          route.push("/allRequest");
+        }
+        // setUnits(res?.data);
       })
       .catch((err) => {
         console.log("err while submiting lead data", err);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -173,7 +203,7 @@ const Page = (props: Props) => {
             </label>
 
             <InputForm
-              placeholder={"إختر ...."}
+              placeholder={"أكتب هنا ...."}
               type={"text"}
               className="border border-gray-300 text-sm block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 bg:hover-gray-500"
               value={inputData?.title}
@@ -193,7 +223,8 @@ const Page = (props: Props) => {
             <Select
               placeholder="إختر ...."
               aria-label="إختر"
-              className="rounded-none selectboxForRTL"
+              className="rounded-none selectboxForRTL flex justify-start"
+              dir="rtl"
             >
               {categories?.map((item) => (
                 <SelectItem
@@ -203,6 +234,8 @@ const Page = (props: Props) => {
                     setInputData({ ...inputData, category: item });
                     GetProducts(item.id);
                   }}
+                  className="flex justify-start"
+                  dir="rtl"
                 >
                   {item.title}
                 </SelectItem>
@@ -276,7 +309,7 @@ const Page = (props: Props) => {
             </label>
 
             <InputForm
-              placeholder={"إختر ...."}
+              placeholder={"أكتب هنا ...."}
               type={"text"}
               className="border border-gray-300 text-sm block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 bg:hover-gray-500"
               value={inputData?.quantity}
@@ -313,33 +346,7 @@ const Page = (props: Props) => {
                 ))}
             </Select>
           </div>
-          <div className="">
-            <label
-              className="text-[#000] font-rbRegular text-[18px]"
-              htmlFor="status"
-            >
-              حالة
-              <span className="text-[#F84F39] font-rbRegular text-[18px]">
-                {" "}
-                *
-              </span>
-            </label>
-            <Select
-              placeholder="إختر ...."
-              aria-label="إختر"
-              className="rounded-none selectboxForRTL"
-            >
-              {status?.map((item) => (
-                <SelectItem
-                  key={item.id}
-                  value={item.id}
-                  onClick={() => setInputData({ ...inputData, status: item })}
-                >
-                  {item.name}
-                </SelectItem>
-              ))}
-            </Select>
-          </div>
+
           <div className="">
             <label
               className="text-[#000] font-rbRegular text-[18px]"
@@ -376,6 +383,7 @@ const Page = (props: Props) => {
               }
             />
           </div>
+
           <div className="w-full">
             <label
               className="text-[#000] block font-rbRegular text-[18px]"
@@ -411,12 +419,8 @@ const Page = (props: Props) => {
               dateFormat="dd-MM-yyyy" // Update date format here
               placeholderText="dd/mm/yyyy"
               className="w-[100%] border border-gray-300  p-2 focus:outline-none focus:border-blue-500"
+              locale="ar"
             />
-
-            {/* <span className="absolute inset-y-0 left-2 flex items-center pr-3">
-                <IoIosCalendar />
-              </span> 
-            </div>*/}
           </div>
           <div className="w-full">
             <label
@@ -446,10 +450,11 @@ const Page = (props: Props) => {
               dateFormat="dd/MM/yyyy"
               placeholderText="dd/mm/yyyy"
               className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
+              locale="ar"
             />
-            <span className="absolute inset-y-0 left-2 flex items-center pr-3">
+            {/* <span className="absolute inset-y-0 left-2 flex items-center pr-3">
               <IoIosCalendar />
-            </span>
+            </span> */}
           </div>
           <div className="w-full">
             <label
@@ -479,10 +484,11 @@ const Page = (props: Props) => {
               dateFormat="dd/MM/yyyy"
               placeholderText="dd/mm/yyyy"
               className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
+              locale="ar"
             />
-            <span className="absolute inset-y-0 left-2 flex items-center pr-3">
+            {/* <span className="absolute inset-y-0 left-2 flex items-center pr-3">
               <IoIosCalendar />
-            </span>
+            </span> */}
           </div>
           <div className="w-full">
             <label
@@ -512,10 +518,38 @@ const Page = (props: Props) => {
               dateFormat="dd/MM/yyyy"
               placeholderText="dd/mm/yyyy"
               className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
+              locale="ar"
             />
-            <span className="absolute inset-y-0 left-2 flex items-center pr-3">
+            {/* <span className="absolute inset-y-0 left-2 flex items-center pr-3">
               <IoIosCalendar />
-            </span>
+            </span> */}
+          </div>
+          <div className="">
+            <label
+              className="text-[#000] font-rbRegular text-[18px]"
+              htmlFor="status"
+            >
+              حالة
+              <span className="text-[#F84F39] font-rbRegular text-[18px]">
+                {" "}
+                *
+              </span>
+            </label>
+            <Select
+              placeholder="إختر ...."
+              aria-label="إختر"
+              className="rounded-none selectboxForRTL"
+            >
+              {status?.map((item) => (
+                <SelectItem
+                  key={item.id}
+                  value={item.id}
+                  onClick={() => setInputData({ ...inputData, status: item })}
+                >
+                  {item.title}
+                </SelectItem>
+              ))}
+            </Select>
           </div>
         </div>
         <div className="">
@@ -529,7 +563,6 @@ const Page = (props: Props) => {
               *
             </span>
           </label>
-
           <Textarea
             placeholder={"ادخل تفاصيل الطلب"}
             type={"text"}
@@ -600,6 +633,7 @@ const Page = (props: Props) => {
             onPress={submitLead}
             bgColor="#F84F39"
             className={`mt-4 w-[200px] text-[#fff] bg-[#F84F39] sm:font-rbRegular font-rbLight rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6`}
+            loading={loading}
           />
         </div>
       </div>

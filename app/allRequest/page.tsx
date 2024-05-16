@@ -6,13 +6,16 @@ import Image from "next/image";
 import { FaPlus } from "react-icons/fa";
 import { leadsFLow } from "@/api/Users";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
 const Page = (props: Props) => {
+  const route = useRouter();
+  const dispatch = useDispatch()
   const [myLeads, setMyLeads] = useState([]);
-  const {user} = useSelector((state:any)=>state.user)
+  const { user } = useSelector((state: any) => state.user);
   useEffect(() => {
     leadsFLow
       .userLeads(user?.id)
@@ -24,6 +27,13 @@ const Page = (props: Props) => {
         console.log("error while getting user leads", error);
       });
   }, [user]);
+  const onLeadCLick = (id: any) => {
+    dispatch({
+     type:'saveLeadId',
+     payload:id
+    })
+    route.push('/management')
+   };
   return (
     <div dir="rtl">
       <Header />
@@ -49,45 +59,64 @@ const Page = (props: Props) => {
           </div>
         </div>
       </div>
-      {myLeads?.map((item: any, index: any) => {
-        return (
-          <div className="bg-gradient-radial from-blue-100 to-pink-50 via-gray-100" key={index}>
-            <Link href={{ pathname: "/management", query: { id: item?.id } }}>
-              <div className="w-[95%] mx-auto ">
-                <div className="lg:flex mb-8 lg:justify-between justify-center items-center p-6 bg-white rounded-xl shadow-lg hover:bg-gray-100">
-                  <div className="flex flex-wrap lg:justify-start justify-evenly gap-4 lg:gap-20 md:gap-12 items-center">
-                    <div
-                      className="py-1 sm:px-3 px-5 text-[16px] border bg-[#F84F39] bg-opacity-20 rounded-full"
-                      dir="ltr"
-                    >
-                      <p className="text-[#F84F39] text-[12px] font-rbRegular">
-                        {item?.status_name}
-                      </p>
+      {myLeads?.length > 0 ? (
+        myLeads?.map((item: any, index: any) => {
+          return (
+            <div
+              className="bg-gradient-radial from-blue-100 to-pink-50 via-gray-100"
+              key={index}
+              onClick={()=>onLeadCLick(item?.id)}
+            >
+              {/* <Link href={{ pathname: "/management", query: { id: item?.id } }}> */}
+                <div className="w-[95%] mx-auto ">
+                  <div className="lg:flex mb-8 lg:justify-between justify-center items-center p-6 bg-white rounded-xl shadow-lg hover:bg-gray-100">
+                    <div className="flex flex-wrap lg:justify-start justify-evenly gap-4 lg:gap-20 md:gap-12 items-center">
+                      <div
+                        className="py-1 sm:px-3 px-5 text-[16px] border bg-[#F84F39] bg-opacity-20 rounded-full"
+                        dir="ltr"
+                      >
+                        <p className="text-[#F84F39] text-[12px] font-rbRegular">
+                          {item?.status_name}
+                        </p>
+                      </div>
+                      <div className="font-rbRegular md:font-rbBold sm:text-[20px] text-[16px] md:text-lg sm:text-base">
+                        {item?.title}
+                      </div>
+                      <div className="sm:font-rbBold font-rbRegular text-[12px]">
+                        رقم الطلب{" "}
+                        <span className="text-[#F84F39] lg:font-rbBold">
+                          {" " + item?.order_no}
+                        </span>{" "}
+                        تاريخ الانتهاء{" "}
+                        <span className="text-[#F84F39] lg:font-rbBold font-rbRegular">
+                          {" " + item?.date_delivery}
+                        </span>
+                      </div>
                     </div>
-                    <div className="font-rbRegular md:font-rbBold sm:text-[20px] text-[16px] md:text-lg sm:text-base">
-                      {item?.title}
-                    </div>
-                    <div className="sm:font-rbBold font-rbRegular text-[12px]">
-                      رقم الطلب{" "}
-                      <span className="text-[#F84F39] lg:font-rbBold">
-                        {" " + item?.order_no}
-                      </span>{" "}
-                      تاريخ الانتهاء{" "}
-                      <span className="text-[#F84F39] lg:font-rbBold font-rbRegular">
-                        {" " + item?.date_delivery}
-                      </span>
-                    </div>
+                    <div className="flex lg:justify-start justify-center items-center lg:mt-0 mt-4 gap-1">
+                      عرض التفاصيل الطلب{" "}
+                      <FaPlus className="text-[#F84F39] bg-[#F84F39] p-1 bg-opacity-20 rounded-full font-light text-[16px]" />
+                    </div>{" "}
                   </div>
-                  <div className="flex lg:justify-start justify-center items-center lg:mt-0 mt-4 gap-1">
-                    عرض التفاصيل الطلب{" "}
-                    <FaPlus className="text-[#F84F39] bg-[#F84F39] p-1 bg-opacity-20 rounded-full font-light text-[16px]" />
-                  </div>{" "}
                 </div>
-              </div>
-            </Link>
-          </div>
-        );
-      })}
+              {/* </Link> */}
+            </div>
+          );
+        })
+      ) : (
+        <div className="w-[100%] my-5 px-5 items-center flex justify-center">
+          <label className="text-black text-[16px] font-rbRegular">
+            لم تقم بنشر أي طلب حتى الآن-
+            <span
+              className="text-[#F84F39] underline cursor-pointer"
+              onClick={() => route.push("/addRequest")}
+            >
+              {" "}
+              يرجى إنشاء طلبك الأول هنا{" "}
+            </span>
+          </label>
+        </div>
+      )}
 
       <Footer />
     </div>

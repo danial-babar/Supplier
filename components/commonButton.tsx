@@ -27,7 +27,7 @@ const CommonButton = ({
 }: Props) => {
   return (
     <Button
-      type="submit"
+      type={"button"}
       className={
         className ||
         `mt-4 w-full text-[${

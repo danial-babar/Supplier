@@ -83,6 +83,15 @@ export const singleLeadById = async (id: string) => {
     throw error;
   }
 };
+export const addLead = async (data: any) => {
+  try {
+    const response = await api.post(`/add_lead`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Error while adding lead:", error);
+    throw error;
+  }
+};
 
 export const userFlow = {
   createAccount: async (data: any) => {
@@ -126,6 +135,7 @@ export const bidsFLow = {
   bidsOnLead: async (id: string) => {
     try {
       const response = await api.get(`/view_bids/${id}`);
+      console.log('bids on lead api',`/view_bids/${id}`)
       return response.data;
     } catch (error) {
       console.error("Error while getting bids on a lead:", error);
@@ -137,6 +147,8 @@ export const leadsFLow = {
   addLead: async (data: any) => {
     try {
       const response = await api.post(`/add_lead`, data);
+      console.log('response while add lead in api calling',response);
+      
       return response.data;
     } catch (error) {
       console.error("Error while adding lead:", error);

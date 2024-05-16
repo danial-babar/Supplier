@@ -6,8 +6,26 @@ import { GoPeople } from "react-icons/go";
 import Link from "next/link";
 import { FaCalculator, FaRegIdCard } from "react-icons/fa";
 import { Button } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 type Props = {};
 const Page = (props: Props) => {
+  const route = useRouter();
+  const dispatch = useDispatch();
+  const onFacility = () => {
+    dispatch({
+      type: "addUserType",
+      payload: 2,
+    });
+    route.push("/create-account");
+  };
+  const onIndividual = () => {
+    dispatch({
+      type: "addUserType",
+      payload: 1,
+    });
+    route.push("/create-account");
+  };
   return (
     <div dir="rtl">
       <Header />
@@ -31,43 +49,55 @@ const Page = (props: Props) => {
                 <MdLogin className="pe-3 ms-2 text-[30px] md:text-[40px] text-[#F84F39]" />
                 إنشاء حساب جديد
               </h1>
-              <div className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1">
-                <Link
-                 href={{ pathname: "/create-account", query: { accountType: 1 } }}
-                >
-                  <GoPeople className="h-5 w-5 text-[#F84F39]" />
-                  <div className="sm:px-3 px-2">
-                    <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
-                      {" "}
-                      التسجيل كفرد
-                    </p>
-                    <button
-                      className="text-[16px] text-gray-400 text-start sm:font-rbLight"
-                      type="submit"
-                    >
-                      يمكنك التسجيل كفرد و تقديم وطلب عرض اسعار
-                    </button>
-                  </div>
-                </Link>
+              <div
+                className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1"
+                onClick={onIndividual}
+              >
+                {/* <Link
+                  href={{
+                    pathname: "/create-account",
+                    query: { accountType: 1 },
+                  }}
+                > */}
+                <GoPeople className="h-5 w-5 text-[#F84F39]" />
+                <div className="sm:px-3 px-2">
+                  <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
+                    {" "}
+                    التسجيل كفرد
+                  </p>
+                  <button
+                    className="text-[16px] text-gray-400 text-start sm:font-rbLight"
+                    type="submit"
+                  >
+                    يمكنك التسجيل كفرد و تقديم وطلب عرض اسعار
+                  </button>
+                </div>
+                {/* </Link> */}
               </div>
-              <div className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1">
-                <Link
-                 href={{ pathname: "/create-account", query: { accountType: 2 } }}
-                >
-                  <FaCalculator className="h-5 w-5 text-[#F84F39]" />
-                  <div className="sm:px-3 px-2">
-                    <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
-                      {" "}
-                      التسجيل كممثل منشأة
-                    </p>
-                    <button
-                      className="text-[16px] text-gray-400 sm text-start:sm:font-rbLight"
-                      type="submit"
-                    >
-                      يمكنك التسجيل وتقديم وطلب عرض سعر بالنيابة عن المنشأة
-                    </button>
-                  </div>
-                </Link>
+              <div
+                className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1"
+                onClick={onFacility}
+              >
+                {/* <Link
+                  href={{
+                    pathname: "/create-account",
+                    query: { accountType: 2 },
+                  }}
+                > */}
+                <FaCalculator className="h-5 w-5 text-[#F84F39]" />
+                <div className="sm:px-3 px-2">
+                  <p className=" text-gray-900  hover:text-[#F84F39] font-rbBold">
+                    {" "}
+                    التسجيل كممثل منشأة
+                  </p>
+                  <button
+                    className="text-[16px] text-gray-400 sm text-start:sm:font-rbLight"
+                    type="submit"
+                  >
+                    يمكنك التسجيل وتقديم وطلب عرض سعر بالنيابة عن المنشأة
+                  </button>
+                </div>
+                {/* </Link> */}
               </div>
               {/* <div className="flex items-center border sm:p-3 p-2 rounded-lg hover:outline outline-[#F84F39] outline-1">
                   <FaRegIdCard className="h-5 w-5 text-[#F84F39]" />
@@ -95,7 +125,7 @@ const Page = (props: Props) => {
 
               <div className="text-center mt-4">
                 <Link
-                  href="#"
+                  href="/login"
                   className="font-rbRegular text-[#F84F39] underline hover:no-underline"
                 >
                   تسجيل دخول

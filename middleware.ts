@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { useSelector } from "react-redux";
+import { store } from "./redux/Store";
 
 const protectedRoutes = [
   "management",
@@ -10,6 +12,8 @@ const protectedRoutes = [
 const protectedRoutePaths = protectedRoutes.map((route) => `/${route}/:path*`);
 
 export default function middleware(req: NextRequest) {
+  const state = store.getState();
+  const user = state.user;
   const token = req.cookies.get("token");
   console.log("token", token);
 
@@ -18,7 +22,7 @@ export default function middleware(req: NextRequest) {
   );
 
   if (req.nextUrl.pathname.includes("/login")) {
-    if (token) {
+    if (token && user?.token) {
       return NextResponse.redirect(new URL("/", req.url));
     } else if (!token && isProtectedRoute) {
       return NextResponse.redirect(new URL("/login", req.url));

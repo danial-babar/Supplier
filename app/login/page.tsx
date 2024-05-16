@@ -88,7 +88,7 @@ const Page = (props: Props) => {
                 />
                 <InputWithIcon
                   type="password"
-                  placeholder="أسم المستخدم"
+                  placeholder="كلمة المرور"
                   icon={<GoPeople className="h-3 w-3 text-[#F84F39]" />}
                   value={password || ""}
                   onchange={(e: any) => setPassword(e.target.value)}

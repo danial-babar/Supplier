@@ -14,9 +14,11 @@ import DropDownComp from "../DropDownComp";
 
 type Props = {
   onClick: (data: any) => void;
+  search?: boolean;
+  results?: number;
 };
 
-const Banner = ({ onClick }: Props) => {
+const Banner = ({ onClick, search, results }: Props) => {
   const [categories, setCategories] = useState([{ id: 0, title: "" }]);
   const [cities, setCities] = useState([{ id: 0, city_name: "" }]);
   const [sortBy, setSortBy] = useState([{ id: 0, name: "" }]);
@@ -110,7 +112,7 @@ const Banner = ({ onClick }: Props) => {
               title={"ترتيب"}
               data={[
                 { id: 1, name: "الأحدث إلى الأقدم" },
-                { id: 2, name: "من الأقدم إلى الأحدث"},
+                { id: 2, name: "من الأقدم إلى الأحدث" },
               ]}
               getItemTitle={(item) => item.name}
               onClick={(item) =>
@@ -165,6 +167,21 @@ const Banner = ({ onClick }: Props) => {
           </div>
         </div>
       </div>
+      {search && results > 0 && (
+        <div className="items-center text-center mt-10">
+          <h1 className="text-[#000] text-[28px] font-rbBold">نتائج البحث</h1>
+          <p className="text-[#000] text-[20px] font-rbRegular">
+            عدد النتائج{" "}
+            <span className="text-[#F84F39] text-[20px] font-rbBold">
+              {results}{" "}
+            </span>
+            طلبات توريد{" "}
+            <span className="text-[#F84F39] text-[20px] font-rbBold underline">
+              إعادة البحث{" "}
+            </span>
+          </p>
+        </div>
+      )}
     </div>
   );
 };

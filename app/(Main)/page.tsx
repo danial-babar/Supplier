@@ -14,6 +14,7 @@ import SupplierPlatform from "@/components/SupplierPlatform";
 import Partners from "@/components/Partners";
 import { filterLeads, getAllLeads, getCategories } from "@/api/Users";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 
 type Props = {};
 interface Lead {
@@ -26,6 +27,8 @@ const Page = (props: Props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const leadsPerPage = 6;
   const router = useRouter();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     getCategoriesList();
   }, []);
@@ -62,8 +65,6 @@ const Page = (props: Props) => {
       });
   };
 
-  
-
   const getCategoriesList = () => {
     getCategories()
       .then((res) => {
@@ -75,14 +76,18 @@ const Page = (props: Props) => {
   };
   const handleSearchClick = (data: any) => {
     console.log("data filtered", data);
-    filterLeads(data)
-      .then((response) => {
-        console.log("response while filtering", response);
-        setLeadsData(response);
-      })
-      .catch((error) => {
-        console.log("error while filtering", error);
-      });
+    dispatch({
+      type: "addSearchParams",
+      payload: data,
+    });
+    router.push("/search");
+  };
+  const onLeadCLick = (id: any) => {
+    dispatch({
+      type: "saveLeadId",
+      payload: id,
+    });
+    router.push("/management");
   };
   return (
     <div dir="rtl" className="">
@@ -150,7 +155,8 @@ const Page = (props: Props) => {
                     ? "#34E5A8"
                     : "#6B66DA"
                 }
-                href={{ pathname: "/management", query: { id: item?.id } }}
+                // href={{ pathname: "/management", query: { id: item?.id } }}
+                onClick={() => onLeadCLick(item?.id)}
                 data={item}
                 textColor={item?.status == "2" ? "#000000" : ""}
               />
