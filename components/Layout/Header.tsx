@@ -28,7 +28,6 @@ const Header = ({ activeItem }: Props) => {
   const { user } = useSelector((state: any) => state.user);
   const userToken = localstorageService.getToken();
   const router = useRouter();
-  console.log("userToken", user);
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
@@ -109,7 +108,7 @@ const Header = ({ activeItem }: Props) => {
           </Link>
         </div>
         <Navigation activeItem={activeItem} active={active} />
-        {isUser && (
+        {isUser && userToken && (
           <div className="flex items-center gap-2">
             <div>
               <FaRegEnvelope className="text-[#F84F39] ml-4" />

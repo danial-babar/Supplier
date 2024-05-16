@@ -7,6 +7,7 @@ type Props = {
   onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   required?: boolean;
+  title?: string;
 };
 
 const InputForm = ({
@@ -16,9 +17,21 @@ const InputForm = ({
   value,
   onchange,
   required,
+  title,
 }: Props) => {
   return (
     <div dir="rtl">
+      {title && (
+        <label className="text-[#000] block font-rbRegular text-[16px] mb-1">
+          {title}
+          {required && (
+            <span className="text-[#F84F39] font-rbRegular text-[16px]">
+              {" "}
+              *
+            </span>
+          )}
+        </label>
+      )}
       <input
         type={type}
         placeholder={placeholder}

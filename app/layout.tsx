@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Provider from "./(Providers)/NextUiProvider";
 import localFont from 'next/font/local';
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,6 +49,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${rbBold.variable} ${rbRegular.variable} ${rbLight.variable} font-sans`}>
+       <Head>
+       <link rel='icon' href='/favicon.ico' />
+      </Head>
       <body className={inter.className}>
         <Provider>{children}</Provider>
       </body>
