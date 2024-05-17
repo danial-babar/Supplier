@@ -14,11 +14,12 @@ import DropDownComp from "../DropDownComp";
 
 type Props = {
   onClick: (data: any) => void;
+  onReSearchClick?: (data: any) => void;
   search?: boolean;
   results?: number;
 };
 
-const Banner = ({ onClick, search, results }: Props) => {
+const Banner = ({ onClick, search, results, onReSearchClick }: Props) => {
   const [categories, setCategories] = useState([{ id: 0, title: "" }]);
   const [cities, setCities] = useState([{ id: 0, city_name: "" }]);
   const [sortBy, setSortBy] = useState([{ id: 0, name: "" }]);
@@ -81,13 +82,13 @@ const Banner = ({ onClick, search, results }: Props) => {
           <div className="flex items-center md:mb-0 mb-6 md:w-1/5 lg:w-1/4">
             <Image src="/filter1.png" width={20} height={20} alt="" />
             <DropDownComp
-              title={"اختر التصنيف"}
+              title={"التصنيف"}
               data={categories}
               getItemTitle={(item) => item.title}
               onClick={(item) =>
                 setDropdownData({ ...dropdownData, category: item })
               }
-              selectedItem={dropdownData?.category?.title || "التصنيف"}
+              selectedItem={dropdownData?.category?.title || "اختر التصنيف"}
               dropdownBtnClass={`max-w-[220px] justify-start`}
             />
           </div>
@@ -176,7 +177,10 @@ const Banner = ({ onClick, search, results }: Props) => {
               {results}{" "}
             </span>
             طلبات توريد{" "}
-            <span className="text-[#F84F39] text-[20px] font-rbBold underline">
+            <span
+              className="text-[#F84F39] text-[20px] font-rbBold underline cursor-pointer"
+              onClick={onReSearchClick}
+            >
               إعادة البحث{" "}
             </span>
           </p>

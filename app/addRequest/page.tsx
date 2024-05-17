@@ -24,7 +24,11 @@ import InputForm from "@/components/inputForm";
 import DatePicker from "react-datepicker";
 type Props = {};
 import "react-datepicker/dist/react-datepicker.css";
-import { IoIosCalendar, IoMdAddCircleOutline } from "react-icons/io";
+import {
+  IoIosCalendar,
+  IoMdAddCircleOutline,
+  IoMdCloseCircle,
+} from "react-icons/io";
 import Image from "next/image";
 import CommonButton from "@/components/commonButton";
 import { useSelector } from "react-redux";
@@ -75,6 +79,9 @@ const Page = (props: Props) => {
   };
   const handleImageFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     setImages([...images, ...e.target.files]);
+  };
+  const handleRemoveImage = (indexToRemove) => {
+    setImages(images.filter((_, index) => index !== indexToRemove));
   };
   const formatDate = (date: any) => {
     const day = date.getDate().toString().padStart(2, "0");
@@ -573,21 +580,37 @@ const Page = (props: Props) => {
             }
           />
         </div>
-        <div className="w-full flex justify-between my-6">
-          <label className="text-[#000] font-rbRegular text-[18px]">
-            صورة مميزة
-          </label>
-          <div className="" dir="ltr">
-            <input
-              placeholder="ارفاق الملف"
-              type="file"
-              accept="image/*"
-              id="file"
-              className="w-full"
-              onChange={handelDefaultImage}
-              title="ارفاق الملف"
-            />
-            {defaultImage && (
+        <div>
+          <div className="w-full flex justify-between my-6">
+            <label className="text-[#000] font-rbRegular text-[18px]">
+              صورة مميزة
+            </label>
+            <div className="" dir="ltr">
+              <input
+                placeholder="ارفاق الملف"
+                type="file"
+                accept="image/*"
+                id="file"
+                className="w-full hidden"
+                onChange={handelDefaultImage}
+                title="ارفاق الملف"
+              />
+              <label
+                for="file"
+                className="p-1 px-3 bg-white shadow text-[#000] text-[16px] font-rbRegular"
+              >
+                ارفاق الملف
+              </label>
+            </div>
+          </div>
+          {defaultImage && (
+            <div className="" >
+              <IoMdCloseCircle
+                className="absolute bg-white rounded-full"
+                color="#F84F39"
+                size={20}
+                onClick={() => setDefaultImage(null)}
+              />
               <Image
                 src={URL?.createObjectURL(defaultImage)}
                 alt=""
@@ -595,36 +618,53 @@ const Page = (props: Props) => {
                 height={200}
                 className="w-[200] md:w-[200] object-cover md:m-2 my-2"
               />
-            )}
-          </div>
+            </div>
+          )}
         </div>
-        <div className="w-full flex justify-between my-6">
-          <label className="text-[#000] font-rbRegular text-[18px]">
-            صور إضافية
-          </label>
-          <div className="" dir="ltr">
-            <input
-              placeholder="ارفاق الملف"
-              type="file"
-              accept="image/*"
-              id="file"
-              className="w-full"
-              onChange={handleImageFileChange}
-              multiple
-            />
-            <div className="flex items-center">
-              {image?.length > 0 &&
-                images?.map((item: any) => (
+        <div className="mt-10">
+          <div className="w-full flex justify-between my-6">
+            <label className="text-[#000] font-rbRegular text-[18px] ">
+              صور إضافية
+            </label>
+            <div className="" dir="ltr">
+              <input
+                placeholder="إرفاق الملفات"
+                type="file"
+                accept="image/*"
+                id="files"
+                className="w-full hidden"
+                onChange={handleImageFileChange}
+                multiple
+              />
+              <label
+                for="files"
+                className="p-1 px-3 bg-white shadow text-[#000] text-[16px] font-rbRegular"
+              >
+                إرفاق الملفات
+              </label>
+            </div>
+          </div>
+          <div className="flex w-full flex-wrap justify-start">
+            {image?.length > 0 &&
+              images?.map((item: any, index: number) => (
+                <div className="mb-5" key={index}>
+                  <IoMdCloseCircle
+                    className="absolute bg-white rounded-full"
+                    color="#F84F39"
+                    size={20}
+                    onClick={() => handleRemoveImage(index)}
+                  />
                   <Image
                     src={URL.createObjectURL(item)}
                     alt=""
                     width={200}
                     height={200}
                     key={item}
-                    className="w-[200] md:w-[200] object-cover md:m-2 my-2"
+                    className="w-[200] md:w-[200] object-cover md:m-2 my-2 mr-2"
+                    style={{ zIndex: -99 }}
                   />
-                ))}
-            </div>
+                </div>
+              ))}
           </div>
         </div>
         <div className="w-full items-center  flex justify-center">

@@ -13,7 +13,7 @@ type Props = {};
 
 const Page = (props: Props) => {
   const route = useRouter();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [myLeads, setMyLeads] = useState([]);
   const { user } = useSelector((state: any) => state.user);
   useEffect(() => {
@@ -29,11 +29,11 @@ const Page = (props: Props) => {
   }, [user]);
   const onLeadCLick = (id: any) => {
     dispatch({
-     type:'saveLeadId',
-     payload:id
-    })
-    route.push('/management')
-   };
+      type: "saveLeadId",
+      payload: id,
+    });
+    route.push("/management");
+  };
   return (
     <div dir="rtl">
       <Header />
@@ -47,6 +47,20 @@ const Page = (props: Props) => {
             <div className="text-[16px] sm:text-[18px] font-rbLight sm:font-rbRegular text-gray-700 sm:mt-8 mt-4">
               <p>يمكنك عرض جميع الطلبات المقدمة النشطة والمنتهية</p>
             </div>
+            {myLeads?.length == 0 && (
+              <div className="mt-4  flex">
+                <label className="text-black text-[16px] font-rbRegular">
+                  لم تقم بنشر أي طلب حتى الآن-
+                  <span
+                    className="text-[#F84F39] underline cursor-pointer"
+                    onClick={() => route.push("/addRequest")}
+                  >
+                    {" "}
+                    يرجى إنشاء طلبك الأول هنا{" "}
+                  </span>
+                </label>
+              </div>
+            )}
           </div>
           <div className="">
             <Image
@@ -59,64 +73,50 @@ const Page = (props: Props) => {
           </div>
         </div>
       </div>
-      {myLeads?.length > 0 ? (
+      {myLeads?.length > 0 &&
         myLeads?.map((item: any, index: any) => {
           return (
             <div
               className="bg-gradient-radial from-blue-100 to-pink-50 via-gray-100"
               key={index}
-              onClick={()=>onLeadCLick(item?.id)}
+              onClick={() => onLeadCLick(item?.id)}
             >
               {/* <Link href={{ pathname: "/management", query: { id: item?.id } }}> */}
-                <div className="w-[95%] mx-auto ">
-                  <div className="lg:flex mb-8 lg:justify-between justify-center items-center p-6 bg-white rounded-xl shadow-lg hover:bg-gray-100">
-                    <div className="flex flex-wrap lg:justify-start justify-evenly gap-4 lg:gap-20 md:gap-12 items-center">
-                      <div
-                        className="py-1 sm:px-3 px-5 text-[16px] border bg-[#F84F39] bg-opacity-20 rounded-full"
-                        dir="ltr"
-                      >
-                        <p className="text-[#F84F39] text-[12px] font-rbRegular">
-                          {item?.status_name}
-                        </p>
-                      </div>
-                      <div className="font-rbRegular md:font-rbBold sm:text-[20px] text-[16px] md:text-lg sm:text-base">
-                        {item?.title}
-                      </div>
-                      <div className="sm:font-rbBold font-rbRegular text-[12px]">
-                        رقم الطلب{" "}
-                        <span className="text-[#F84F39] lg:font-rbBold">
-                          {" " + item?.order_no}
-                        </span>{" "}
-                        تاريخ الانتهاء{" "}
-                        <span className="text-[#F84F39] lg:font-rbBold font-rbRegular">
-                          {" " + item?.date_delivery}
-                        </span>
-                      </div>
+              <div className="w-[95%] mx-auto ">
+                <div className="lg:flex mb-8 lg:justify-between justify-center items-center p-6 bg-white rounded-xl shadow-lg hover:bg-gray-100">
+                  <div className="flex flex-wrap lg:justify-start justify-evenly gap-4 lg:gap-20 md:gap-12 items-center">
+                    <div
+                      className="py-1 sm:px-3 px-5 text-[16px] border bg-[#F84F39] bg-opacity-20 rounded-full"
+                      dir="ltr"
+                    >
+                      <p className="text-[#F84F39] text-[12px] font-rbRegular">
+                        {item?.status_name}
+                      </p>
                     </div>
-                    <div className="flex lg:justify-start justify-center items-center lg:mt-0 mt-4 gap-1">
-                      عرض التفاصيل الطلب{" "}
-                      <FaPlus className="text-[#F84F39] bg-[#F84F39] p-1 bg-opacity-20 rounded-full font-light text-[16px]" />
-                    </div>{" "}
+                    <div className="font-rbRegular md:font-rbBold sm:text-[20px] text-[16px] md:text-lg sm:text-base">
+                      {item?.title}
+                    </div>
+                    <div className="sm:font-rbBold font-rbRegular text-[12px]">
+                      رقم الطلب{" "}
+                      <span className="text-[#F84F39] lg:font-rbBold">
+                        {" " + item?.order_no}
+                      </span>{" "}
+                      تاريخ الانتهاء{" "}
+                      <span className="text-[#F84F39] lg:font-rbBold font-rbRegular">
+                        {" " + item?.date_delivery}
+                      </span>
+                    </div>
                   </div>
+                  <div className="flex lg:justify-start justify-center items-center lg:mt-0 mt-4 gap-1">
+                    عرض التفاصيل الطلب{" "}
+                    <FaPlus className="text-[#F84F39] bg-[#F84F39] p-1 bg-opacity-20 rounded-full font-light text-[16px]" />
+                  </div>{" "}
                 </div>
+              </div>
               {/* </Link> */}
             </div>
           );
-        })
-      ) : (
-        <div className="w-[100%] my-5 px-5 items-center flex justify-center">
-          <label className="text-black text-[16px] font-rbRegular">
-            لم تقم بنشر أي طلب حتى الآن-
-            <span
-              className="text-[#F84F39] underline cursor-pointer"
-              onClick={() => route.push("/addRequest")}
-            >
-              {" "}
-              يرجى إنشاء طلبك الأول هنا{" "}
-            </span>
-          </label>
-        </div>
-      )}
+        })}
 
       <Footer />
     </div>

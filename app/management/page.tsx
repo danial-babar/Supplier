@@ -46,6 +46,10 @@ const Page = ({ searchParams }: Props) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isBidWaringOpen, setIsBidWaringOpen] = useState(false);
   const [successBid, setSuccessBid] = useState(false);
+  const [completeDealModal, setCompleteDealModal] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  const [completeLoading, setCompleteLoading] = useState(false);
+  const [completeDealId, setCompleteDealId] = useState("");
   const [warningMsg, setWarningMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [reqPrice, setReqPrice] = useState("");
@@ -137,6 +141,21 @@ const Page = ({ searchParams }: Props) => {
   const onBidSuccess = () => {
     setSuccessBid(true);
   };
+  const handleCompleteBid = (id: string) => {
+    setCompleteLoading(true);
+    const data = new FormData();
+    data.append("bid_id", id);
+    bidsFLow
+      .completeDeal(data)
+      .then((reponse) => {
+        console.log("response while completing bid", reponse);
+        setCompleted(true);
+      })
+      .catch((error) => {
+        console.log("error while completing bid", error);
+      })
+      .finally(() => setCompleteLoading(false));
+  };
   return (
     <div className="">
       <div dir="rtl">
@@ -199,24 +218,25 @@ const Page = ({ searchParams }: Props) => {
                     <GrLinkNext className="text-[30px] text-[#6c66da4d] border-1 border-[#6c66da4d] p-2 rounded-full hover:bg-[#6c66da4d] hover:text-white" />
                     <span className="sr-only">Next</span>
                   </button>
-                  {user?.id != leadData?.created_by && (
-                    <div className="my-5">
-                      <Button
-                        onClick={() => {
-                          if (user?.user_role_key == "buyer") {
-                            // alert("الرجاء تسجيل الدخول كمورد لتقديم العطاءات");
-                            setIsBidWaringOpen(true);
-                            setWarningMsg(
-                              "الرجاء تسجيل الدخول كمورد لتقديم العطاءات"
-                            );
-                          } else onOpen();
-                        }}
-                        className="sm:font-rbRegular bg-[#F84F39] w-full font-rbLight text-white rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6"
-                      >
-                        تقديم طلب سعر
-                      </Button>
-                    </div>
-                  )}
+                  {leadData?.is_won != 1 &&
+                    user?.id != leadData?.created_by && (
+                      <div className="my-5">
+                        <Button
+                          onClick={() => {
+                            if (user?.user_role_key == "buyer") {
+                              // alert("الرجاء تسجيل الدخول كمورد لتقديم العطاءات");
+                              setIsBidWaringOpen(true);
+                              setWarningMsg(
+                                "الرجاء تسجيل الدخول كمورد لتقديم العطاءات"
+                              );
+                            } else onOpen();
+                          }}
+                          className="sm:font-rbRegular bg-[#F84F39] w-full font-rbLight text-white rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6"
+                        >
+                          تقديم طلب سعر
+                        </Button>
+                      </div>
+                    )}
                 </div>
 
                 <div className="lg:w-3/4 lg:mt-auto mt-8 w-full">
@@ -319,16 +339,19 @@ const Page = ({ searchParams }: Props) => {
                           </div>
                         </div>
                       ) : (
-                        <div className=" text-[#6B66DA] bg-[#6B66DA] font-rbRegular sm:font-rbBold rounded-xl px-3 md:px-7 py-1 sm:py-2 text-center bg-opacity-20">
-                          <div className="justify-center gap-4 md:gap-6 text-[16px] md:text-[20px] flex items-center">
-                            <span>00</span>
-                            <span>00</span>
-                            <span>123</span>
-                          </div>
-                          <p className="sm:text-[8px] text-[10px]">
-                            ريال سعودي
-                          </p>
-                        </div>
+                        <label className="text-[20px] text-[#F84F39] font-rbBold">
+                          مغلق
+                        </label>
+                        // <div className=" text-[#6B66DA] bg-[#6B66DA] font-rbRegular sm:font-rbBold rounded-xl px-3 md:px-7 py-1 sm:py-2 text-center bg-opacity-20">
+                        //   <div className="justify-center gap-4 md:gap-6 text-[16px] md:text-[20px] flex items-center">
+                        //     <span>00</span>
+                        //     <span>00</span>
+                        //     <span>123</span>
+                        //   </div>
+                        //   <p className="sm:text-[8px] text-[10px]">
+                        //     ريال سعودي
+                        //   </p>
+                        // </div>
                       )}
                     </div>
                   </div>
@@ -337,7 +360,14 @@ const Page = ({ searchParams }: Props) => {
             </div>
           </div>
           {user?.id == leadData?.created_by ? (
-            <UserDemandMng bidsData={allBids} />
+            <UserDemandMng
+              bidsData={allBids}
+              onComplete={(id) => {
+                setCompleteDealId(id);
+                setCompleteDealModal(true);
+              }}
+              disable={leadData?.is_won}
+            />
           ) : (
             <LeadDetails text="" />
           )}
@@ -410,6 +440,23 @@ const Page = ({ searchParams }: Props) => {
         isOpen={isBidWaringOpen}
         onClose={() => setIsBidWaringOpen(false)}
         onConfirm={() => setIsBidWaringOpen(false)}
+      />
+      <WarningModal
+        header="تأكيد"
+        message={
+          completed ? "لقد أكملت الصفقة بنجاح." : "هل تريد إتمام الصفقات؟"
+        }
+        buttonText="Confirm"
+        isOpen={completeDealModal}
+        onClose={() => setCompleteDealModal(false)}
+        onConfirm={() => {
+          if (!completed) handleCompleteBid(completeDealId);
+          else {
+            setCompleteDealModal(false);
+            setCompleted(false);
+          }
+        }}
+        loading={completeLoading}
       />
       <SuccessModal
         header="تهانينا"
