@@ -647,7 +647,7 @@ const Page = (props: Props) => {
           <div className="flex w-full flex-wrap justify-start">
             {image?.length > 0 &&
               images?.map((item: any, index: number) => (
-                <div className="mb-5">
+                <div className="mb-5" key={index}>
                   <IoMdCloseCircle
                     className="absolute bg-white rounded-full"
                     color="#F84F39"
