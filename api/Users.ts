@@ -135,10 +135,19 @@ export const bidsFLow = {
   bidsOnLead: async (id: string) => {
     try {
       const response = await api.get(`/view_bids/${id}`);
-      console.log('bids on lead api',`/view_bids/${id}`)
+      // console.log('bids on lead api',`/view_bids/${id}`)
       return response.data;
     } catch (error) {
       console.error("Error while getting bids on a lead:", error);
+      throw error;
+    }
+  },
+  completeDeal: async (data: any) => {
+    try {
+      const response = await api.post (`/complete_deal`,data);
+      return response.data;
+    } catch (error) {
+      console.error("Error while completing deal", error);
       throw error;
     }
   },

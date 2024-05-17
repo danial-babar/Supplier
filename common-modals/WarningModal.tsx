@@ -9,9 +9,18 @@ type Props = {
   message?: string;
   onClose: () => void;
   onConfirm: () => void;
+  loading?: boolean;
 };
 
-const WarningModal = ({ isOpen,buttonText, header, message, onClose, onConfirm }: Props) => {
+const WarningModal = ({
+  isOpen,
+  buttonText,
+  header,
+  message,
+  onClose,
+  onConfirm,
+  loading,
+}: Props) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -21,15 +30,19 @@ const WarningModal = ({ isOpen,buttonText, header, message, onClose, onConfirm }
     >
       <ModalContent>
         <>
-          <ModalHeader
-            className="flex justify-between items-center"
-            dir="rtl"
-          >
+          <ModalHeader className="flex justify-between items-center" dir="rtl">
             <label htmlFor="">{header}</label>
           </ModalHeader>
           <ModalBody>
-            <p className="text-black text-[14px] font-rbRegular text-center">{message}</p>
-            <CommonButton text={buttonText || 'Title'} bgColor="#F84F39" onPress={onConfirm} />
+            <p className="text-black text-[14px] font-rbRegular text-center">
+              {message}
+            </p>
+            <CommonButton
+              text={buttonText || "Title"}
+              bgColor="#F84F39"
+              onPress={onConfirm}
+              loading={loading}
+            />
           </ModalBody>
         </>
       </ModalContent>

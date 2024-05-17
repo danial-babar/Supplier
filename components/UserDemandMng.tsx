@@ -3,13 +3,15 @@ import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import React from "react";
 import { FaCircle } from "react-icons/fa";
-import { LuArrowUpToLine } from "react-icons/lu";
+import { LuArrowDownToLine, LuArrowUpToLine } from "react-icons/lu";
 
 type Props = {
   bidsData?: [];
+  onComplete?: (id: string) => void;
+  disable?: boolean;
 };
 
-const UserDemandMng = ({ bidsData }: Props) => {
+const UserDemandMng = ({ bidsData, onComplete, disable }: Props) => {
   return (
     <div>
       <div
@@ -156,24 +158,26 @@ const UserDemandMng = ({ bidsData }: Props) => {
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="md:text-xl text-small border-b-1 text-[black] uppercase">
               <tr>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 font-rbBold">
                   افضل سعر
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 font-rbBold">
                   المورد
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 font-rbBold">
                   التاريخ
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 font-rbBold">
                   أفضل سعر
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 font-rbBold">
                   الاجراء
                 </th>
               </tr>
             </thead>
             {bidsData?.map((bid, index) => {
+              const bestPrice = index == 0 || index == 1 || index == 2;
+              const disabled = disable && bid?.is_winner != "1";
               return (
                 <tbody className="text-[#000]" key={index}>
                   <tr className="bg-white border-b text-nowrap dark:bg-gray-800 dark:border-gray-700">
@@ -181,24 +185,60 @@ const UserDemandMng = ({ bidsData }: Props) => {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      <div className="flex items-center text-[#34E5A8] font-rbRegular md:font-rbBold gap-1">
-                        <LuArrowUpToLine /> {bid?.amount} ريال سعودي
+                      <div
+                        className={`flex items-center ${
+                          disabled
+                            ? "text-[#808080]"
+                            : bestPrice
+                            ? "text-[#34E5A8]"
+                            : "text-[#F84F39]"
+                        } font-rbRegular md:font-rbBold gap-1`}
+                      >
+                        {bestPrice ? (
+                          <LuArrowUpToLine />
+                        ) : (
+                          <LuArrowDownToLine />
+                        )}
+                        {bid?.amount} ريال سعودي
                       </div>
                     </th>
-                    <td className="px-6 py- 4 font-rbRegular md:font-rbBold ">
+                    <td
+                      className={`px-6 py- 4 font-rbRegular md:font-rbBold ${
+                        disabled ? "text-[#808080]" : "text-[#000]"
+                      }`}
+                    >
                       المورد {arabicNumbers[index]}
                     </td>
-                    <td className="px-6 py-4">{bid?.created_date}</td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center md:font-rbBold font-rbRegular">
-                        <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-                        أفضل سعر
-                      </div>
+                    <td
+                      className={`px-6 py-4 ${
+                        disabled ? "text-[#808080]" : "text-[#000]"
+                      }`}
+                    >
+                      {bid?.created_date}
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-[#6B66DA] lg:px-4 px-3 bg-[#6B66DA] bg-opacity-20 py-2 rounded-full text-center">
+                      {index == 0 && (
+                        <div className="flex items-center md:font-rbBold font-rbRegular">
+                          <div
+                            className={`h-2.5 w-2.5 rounded-full ${
+                              disabled ? "bg-[#808080]" : "bg-[#34E5A8]"
+                            } me-2`}
+                          ></div>
+                          أفضل سعر
+                        </div>
+                      )}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div
+                        className={`text-[${
+                          disabled ? "#808080" : "#6B66DA"
+                        }] lg:px-4 px-3 bg-[#6B66DA] bg-opacity-20 py-2 rounded-full text-center cursor-pointer ${
+                          disable && "pointer-events-none"
+                        }`}
+                        onClick={() => onComplete(bid?.id)}
+                      >
                         <p className="text-[12px] font-rbRegular md:font-rbBold">
-                          اتمام الصفقة
+                          {bid?.is_winner=='1'?'الفائز':'اتمام الصفقة'}
                         </p>
                       </div>
                     </td>

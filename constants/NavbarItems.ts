@@ -8,7 +8,7 @@ export const NavItems = [
       href: "/about",
     },
     {
-      title: "التصنيفات",
+      title: "بحث متقدم",
       href: "/categories",
     },
     {
