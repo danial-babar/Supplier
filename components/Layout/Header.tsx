@@ -179,9 +179,9 @@ const Header = ({ activeItem }: Props) => {
             onClick={handleClose}
             id="screen"
           >
-            {userToken && isUser ? (
-              <div className="fixed bg-[#000] w-[60%] h-screen top-0 right-0 z-[999]">
-                <div className="mt-8 px-5">
+            <div className="fixed bg-[#000] w-[60%] h-screen top-0 right-0 z-[999]">
+              <div className="mt-8 px-5">
+                {userToken && isUser ? (
                   <div className="flex items-center gap-2">
                     <div>
                       <FaRegEnvelope className="text-[#F84F39] ml-4" />
@@ -223,21 +223,21 @@ const Header = ({ activeItem }: Props) => {
                       </DropdownMenu>
                     </Dropdown>
                   </div>
-                  <Navigation activeItem={activeItem} active={active} />
-                  <Link
-                    href={{
-                      pathname: userToken && isUser ? "/addRequest" : "/login",
-                    }}
-                  >
-                    <div className="text-white cursor-pointer p-2 bg-[#F84F39] rounded-full">
-                      <h4 className="text-[14px] lg:text-[16px] font-rbRegular">
-                        {userToken && isUser ? "طلب سعر" : "تسجيل دخول"}
-                      </h4>
-                    </div>
-                  </Link>
-                </div>
+                ) : null}
+                <Navigation activeItem={activeItem} active={active} />
+                <Link
+                  href={{
+                    pathname: userToken && isUser ? "/addRequest" : "/login",
+                  }}
+                >
+                  <div className="text-white cursor-pointer p-2 bg-[#F84F39] rounded-full">
+                    <h4 className="text-[14px] lg:text-[16px] font-rbRegular">
+                      {userToken && isUser ? "طلب سعر" : "تسجيل دخول"}
+                    </h4>
+                  </div>
+                </Link>
               </div>
-            ) : null}
+            </div>
           </div>
         )}
       </div>
