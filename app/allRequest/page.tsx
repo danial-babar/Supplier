@@ -86,28 +86,28 @@ const Page = (props: Props) => {
                 <div className="lg:flex mb-8 lg:justify-between justify-center items-center p-6 bg-white rounded-xl shadow-lg hover:bg-gray-100">
                   <div className="flex flex-wrap lg:justify-start justify-evenly gap-4 lg:gap-20 md:gap-12 items-center">
                     <div
-                      className="py-1 sm:px-3 px-5 text-[16px] border bg-[#F84F39] bg-opacity-20 rounded-full"
+                      className="py-1 sm:px-3 text-right px-5 text-[16px] border min-w-[80px] bg-[#F84F39] bg-opacity-20 rounded-full"
                       dir="ltr"
                     >
-                      <p className="text-[#F84F39] text-[12px] font-rbRegular">
+                      <p className="text-[#F84F39] text-[12px] font-rbRegular items-center justify-center flex">
                         {item?.status_name}
                       </p>
                     </div>
-                    <div className="font-rbRegular md:font-rbBold sm:text-[20px] text-[16px] md:text-lg sm:text-base">
-                      {item?.title}
+                    <div className="font-rbRegular w-[300px] line-clamp-1 md:font-rbBold sm:text-[20px] text-[16px] md:text-lg sm:text-base">
+                      {item?.title} and this is my title you have to update this
                     </div>
-                    <div className="sm:font-rbBold font-rbRegular text-[12px]">
-                      رقم الطلب{" "}
-                      <span className="text-[#F84F39] lg:font-rbBold">
-                        {" " + item?.order_no}
-                      </span>{" "}
-                      تاريخ الانتهاء{" "}
-                      <span className="text-[#F84F39] lg:font-rbBold font-rbRegular">
-                        {" " + item?.date_delivery}
+                    <div className="sm:font-rbBold font-rbRegular text-[12px] mr-2">
+                      رقم الطلب
+                      <span className="text-[#F84F39] lg:font-rbBold mr-2">
+                        {item?.order_no}
+                      </span>
+                      <span className="mr-2">تاريخ الانتهاء</span>
+                      <span className="text-[#F84F39] lg:font-rbBold font-rbRegular mr-2">
+                        {"   " + item?.date_delivery}
                       </span>
                     </div>
                   </div>
-                  <div className="flex lg:justify-start justify-center items-center lg:mt-0 mt-4 gap-1">
+                  <div className="flex text-[12px] lg:justify-start justify-center items-center lg:mt-0 mt-4 gap-1 font-rbBold">
                     عرض التفاصيل الطلب{" "}
                     <FaPlus className="text-[#F84F39] bg-[#F84F39] p-1 bg-opacity-20 rounded-full font-light text-[16px]" />
                   </div>{" "}

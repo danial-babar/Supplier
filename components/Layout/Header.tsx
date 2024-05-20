@@ -19,6 +19,7 @@ import {
 import { IoMdArrowDropdown, IoMdLogOut } from "react-icons/io";
 import { MdCollectionsBookmark } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import WarningModal from "@/common-modals/WarningModal";
 
 type Props = {
   activeItem?: number;
@@ -33,10 +34,11 @@ const Header = ({ activeItem }: Props) => {
   const [open, setOpen] = useState(false);
   const [isUser, setIsUser] = useState(false);
   const [activeProfile, setActiveProfile] = useState(false);
+  const [warningModal, setWarningModal] = useState(false);
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 120) {
+      if (window.scrollY > 300) {
         setActive(true);
       } else setActive(false);
     });
@@ -56,8 +58,7 @@ const Header = ({ activeItem }: Props) => {
   };
   const onLoginAddReqClicked = () => {
     if (userToken && isUser) {
-      if (user?.user_role_key == "vendor")
-        alert("يرجى تسجيل الدخول كمشتري قبل إضافة طلب");
+      if (user?.user_role_key == "vendor") setWarningModal(true);
       else router.push("/addRequest");
     } else {
       router.push("/login");
@@ -130,12 +131,12 @@ const Header = ({ activeItem }: Props) => {
                   </div>
                 </div>
               </DropdownTrigger>
-              <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownMenu aria-label="Profile Actions" variant="flat" dir="rtl">
                 <DropdownItem onClick={() => router.push("allRequest")}>
                   <div className="flex items-center w-full">
                     <MdCollectionsBookmark className="text-black text-2xl ml-2" />
                     <span className={`text-black text-[16px] pl-2`}>
-                      My Orders
+                      طلباتي
                     </span>
                   </div>
                 </DropdownItem>
@@ -143,7 +144,7 @@ const Header = ({ activeItem }: Props) => {
                   <div className="flex items-center w-full">
                     <IoMdLogOut className="text-black text-2xl ml-2" />
                     <span className={`text-black text-[16px] pl-2`}>
-                      Logout
+                      تسجيل خروج
                     </span>
                   </div>
                 </DropdownItem>
@@ -203,12 +204,12 @@ const Header = ({ activeItem }: Props) => {
                           </div>
                         </div>
                       </DropdownTrigger>
-                      <DropdownMenu aria-label="Profile Actions" variant="flat">
+                      <DropdownMenu aria-label="Profile Actions" variant="flat" dir="rtl">
                         <DropdownItem onClick={() => router.push("allRequest")}>
                           <div className="flex items-center w-full">
                             <MdCollectionsBookmark className="text-black text-2xl ml-2" />
                             <span className={`text-black text-[16px] pl-2`}>
-                              My Orders
+                              طلباتي
                             </span>
                           </div>
                         </DropdownItem>
@@ -216,7 +217,7 @@ const Header = ({ activeItem }: Props) => {
                           <div className="flex items-center w-full">
                             <IoMdLogOut className="text-black text-2xl ml-2" />
                             <span className={`text-black text-[16px] pl-2`}>
-                              Logout
+                              تسجيل خروج
                             </span>
                           </div>
                         </DropdownItem>
@@ -241,6 +242,14 @@ const Header = ({ activeItem }: Props) => {
           </div>
         )}
       </div>
+      <WarningModal
+        buttonText="يغلق"
+        isOpen={warningModal}
+        onClose={() => setWarningModal(false)}
+        onConfirm={() => setWarningModal(false)}
+        header="تحذير"
+        message="يرجى تسجيل الدخول كمشتري قبل إضافة طلب"
+      />
     </div>
   );
 };

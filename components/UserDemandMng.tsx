@@ -24,9 +24,8 @@ const UserDemandMng = ({ bidsData, onComplete, disable }: Props) => {
             طلب
           </span>
           <p className="text-[16px] sm:text-[18px] sm:w-[85%] lg:w-[60%] font-rbLight sm:font-rbRegular sm:mt-5 mt-3">
-            تقدم منصة <span className="font-rbBold">مــوّرد</span> مجموعة متنوعة
-            من المنتجات الأكثر طلبًا في صناعة التوريد. نحن متخصصون في توفير حلول
-            فعالة وذات جودة عالية لاحتياجاتكم.
+            يمكن عرض تقارير طلبات الاسعار المقدمة من قبل الوكلاء وعرض اعلي
+            الاسعار المقدمة
           </p>
         </h1>
         <div className="flex flex-col sm:flex-row items-center gap-5 sm:mb-auto mb-4 sm:justify-start justify-end md:mt-auto mt-5">
@@ -238,7 +237,7 @@ const UserDemandMng = ({ bidsData, onComplete, disable }: Props) => {
                         onClick={() => onComplete(bid?.id)}
                       >
                         <p className="text-[12px] font-rbRegular md:font-rbBold">
-                          {bid?.is_winner=='1'?'الفائز':'اتمام الصفقة'}
+                          {bid?.is_winner == "1" ? "الفائز" : "اتمام الصفقة"}
                         </p>
                       </div>
                     </td>
