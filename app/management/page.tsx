@@ -278,8 +278,8 @@ const Page = ({ searchParams }: Props) => {
                     </div>
                     <div className="flex justify-between items-center mb-3 mt-6">
                       <div className="flex items-center">
-                        <FaCircle className="text-[red] me-3 text-opacity-30 text-[10px]" />
-                        <span className="text-[#000] font-rbLight">الكمية</span>
+                        <FaCircle className="text-[#6B66DA33] me-3 text-opacity-30 text-[10px]" />
+                        <span className="text-[#000] font-bahijRegular">الكمية</span>
                       </div>
                       <span className="text-[#000] md:font-rbBold font-rbRegular">
                         عدد {leadData?.quantity} عبوة
@@ -288,8 +288,8 @@ const Page = ({ searchParams }: Props) => {
                     <hr className="mb-3" />
                     <div className="flex justify-between mb-3 items-center">
                       <div className="flex items-center">
-                        <FaCircle className="text-[red] me-3 text-opacity-30 text-[10px]" />
-                        <span className="text-[#000] font-rbLight">
+                        <FaCircle className="text-[#6B66DA33] me-3 text-opacity-30 text-[10px]" />
+                        <span className="text-[#000] font-bahijRegular">
                           تاريخ التسليم
                         </span>
                       </div>
@@ -298,7 +298,7 @@ const Page = ({ searchParams }: Props) => {
                       </span>
                     </div>
                     <hr className="mb-3" />
-                    <div className="flex mx-auto text-[#000] my-4 text-[12px] w-full justify-between items-center ">
+                    <div className="flex mx-auto text-[#000] my-4 text-[16px] w-full justify-between items-center ">
                       <div className="">
                         <button className="font-rbBold">
                           الوقت المتبقي حتى نهاية الطلب

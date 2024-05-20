@@ -59,12 +59,8 @@ const Page = (props: Props) => {
   const [dragging, setDragging] = useState<Boolean>(false);
   const [loading, setLoading] = useState<Boolean>(false);
   const fileInputRef = useRef(null);
-  const [inputData, setInputData] = useState({
-    title: "",
-    category: {},
-    description: "",
-    status: {},
-  });
+  const [errors, setErrors] = useState({});
+  const [inputData, setInputData] = useState({});
   const [selectedDate, setSelectedDate] = useState({
     deliveryDate: null,
     postedDate: null,
@@ -141,47 +137,89 @@ const Page = (props: Props) => {
       throw error;
     }
   };
-  console.log("status", inputData?.status);
+
+  const validateForm = () => {
+    const errors = {};
+    if (!inputData.title) {
+      errors.title = "الرجاء إدخال العنوان";
+    }
+    if (!inputData.category) {
+      errors.category = "الرجاء اختيار التصنيف";
+    }
+    if (!inputData.city) {
+      errors.city = "الرجاء اختيار المدينة";
+    }
+    if (!inputData.product) {
+      errors.product = "الرجاء اختيار المنتج";
+    }
+    if (!inputData.quantity) {
+      errors.quantity = "الرجاء إدخال الكمية";
+    }
+    if (!inputData.unit) {
+      errors.unit = "الرجاء اختيار وحدة";
+    }
+    if (!inputData.postedDate) {
+      errors.postedDate = "الرجاء اختيار تاريخ النشر";
+    }
+    if (!inputData.deliveryDate) {
+      errors.deliveryDate = "الرجاء اختيار تاريخ التسليم";
+    }
+    if (!inputData.expiryDate) {
+      errors.expiryDate = "الرجاء اختيار تاريخ الانتهاء";
+    }
+    if (!inputData.startDate) {
+      errors.startDate = "الرجاء اختيار تاريخ البدء";
+    }
+    if (!inputData.description) {
+      errors.description = "الرجاء إدخال التفاصيل";
+    }
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+  console.log("input data", inputData);
+  console.log("input errors", errors);
 
   const submitLead = () => {
-    setLoading(true);
-    const data = new FormData();
-    data.append("title", inputData.title);
-    data.append("city_id", inputData.city?.id);
-    data.append("category_id", inputData.category?.id);
-    data.append("product_id", inputData.product?.id);
-    data.append("description", inputData?.description);
-    data.append("quantity", inputData.quantity);
-    data.append("unit", inputData.unit?.id);
-    data.append("date_posted", inputData.postedDate);
-    data.append("date_start", inputData.startDate);
-    data.append("date_expire", inputData.expiryDate);
-    data.append("date_delivery", inputData.deliveryDate);
-    data.append("created_by", user?.id);
-    data.append("default_image", defaultImage);
-    data.append("status", inputData?.status?.id);
-    data.append("min_price", inputData?.minPrice);
-    data.append("max_price", inputData?.maxPrice);
-    if (images?.length > 0) {
-      images.forEach((item) => data.append("other_images[]", item));
+    if (validateForm()) {
+      setLoading(true);
+      const data = new FormData();
+      data.append("title", inputData.title);
+      data.append("city_id", inputData.city?.id);
+      data.append("category_id", inputData.category?.id);
+      data.append("product_id", inputData.product?.id);
+      data.append("description", inputData?.description);
+      data.append("quantity", inputData.quantity);
+      data.append("unit", inputData.unit?.id);
+      data.append("date_posted", inputData.postedDate);
+      data.append("date_start", inputData.startDate);
+      data.append("date_expire", inputData.expiryDate);
+      data.append("date_delivery", inputData.deliveryDate);
+      data.append("created_by", user?.id);
+      data.append("default_image", defaultImage);
+      data.append("status", inputData?.status?.id);
+      data.append("min_price", inputData?.minPrice);
+      data.append("max_price", inputData?.maxPrice);
+      if (images?.length > 0) {
+        images.forEach((item) => data.append("other_images[]", item));
+      }
+
+      data.append("is_show_price_data", "1");
+      console.log("form data", data);
+
+      leadsFLow
+        .addLead(data)
+        .then((res) => {
+          console.log("res while submiting lead data", res);
+          if (res?.code == "1") {
+            route.push("/allRequest");
+          }
+          // setUnits(res?.data);
+        })
+        .catch((err) => {
+          console.log("err while submiting lead data", err);
+        })
+        .finally(() => setLoading(false));
     }
-
-    data.append("is_show_price_data", "1");
-    console.log("form data", data);
-
-    leadsFLow
-      .addLead(data)
-      .then((res) => {
-        console.log("res while submiting lead data", res);
-        if (res?.code == "1") {
-          route.push("/allRequest");
-        }
-        // setUnits(res?.data);
-      })
-      .catch((err) => {
-        console.log("err while submiting lead data", err);
-      })
-      .finally(() => setLoading(false));
   };
 
   return (
@@ -191,38 +229,42 @@ const Page = (props: Props) => {
         <h1 className="text-black text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] relative font-rbBold  text-center">
           اضافة ط<span className="rounded-3xl bg-[#BDFFA5] pe-3 ">لب سعر</span>
         </h1>
-        <h4 className="text-black w-[95%] opacity-80 tracking-wide sm:opacity-60 text-[16px] sm:text-[18px] md:mt-10 sm:mt-8 mt-4 text-center font-rbLight sm:font-rbRegular">
+        <h4 className="text-black w-[95%] opacity-80 tracking-wide sm:opacity-60 text-[20px] sm:text-[20px] md:mt-10 sm:mt-8 mt-4 text-center font-rbLight sm:font-rbRegular">
           برجاء ادخال البيانات المطلوبة
         </h4>
       </div>
       <div className="md:w-[70%] mx-auto w-[95%] pb-5">
-        <div className="grid gap-6 mb-6 md:grid-cols-2 my-5">
-          <div className="">
+        <div className="grid gap-6 mb-6 md:grid-cols-2 my-5" dir="rtl">
+          <div className="" dir="rtl">
             <label
-              className="text-[#000] font-rbRegular text-[18px]"
+              className="text-[#000] font-rbRegular text-[16px]"
               htmlFor="title"
             >
               عنوان
-              <span className="text-[#F84F39] font-rbRegular text-[18px]">
+              <span className="text-[#F84F39] font-rbRegular text-[16px]">
                 {" "}
                 *
               </span>
             </label>
 
             <InputForm
-              placeholder={"أكتب هنا ...."}
+              placeholder={"أكتب هنا"}
               type={"text"}
-              className="border border-gray-300 text-sm block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 bg:hover-gray-500"
+              className="border border-gray-300 text-sm block w-full p-[9px] dark:border-gray-600 dark:placeholder-gray-400 bg:hover-gray-500"
               value={inputData?.title}
               onchange={(e) =>
                 setInputData({ ...inputData, title: e.target.value })
               }
+              style={{ textAlign: "right" }}
             />
+            {errors.title && !inputData?.title && (
+              <div className="text-red-500 text-[12px]">{errors.title}</div>
+            )}
           </div>
           <div className="" htmlFor="category">
-            <label className="text-[#000] font-rbRegular text-[18px]">
+            <label className="text-[#000] font-rbRegular text-[16px]">
               التصنيف
-              <span className="text-[#F84F39] font-rbRegular text-[18px]">
+              <span className="text-[#F84F39] font-rbRegular text-[16px]">
                 {" "}
                 *
               </span>
@@ -248,14 +290,17 @@ const Page = (props: Props) => {
                 </SelectItem>
               ))}
             </Select>
+            {errors.category && !inputData?.category && (
+              <div className="text-red-500 text-[12px]">{errors.category}</div>
+            )}
           </div>
           <div className="">
             <label
-              className="text-[#000] font-rbRegular text-[18px]"
+              className="text-[#000] font-rbRegular text-[16px]"
               htmlFor="city"
             >
               المدينة
-              <span className="text-[#F84F39] font-rbRegular text-[18px]">
+              <span className="text-[#F84F39] font-rbRegular text-[16px]">
                 {" "}
                 *
               </span>
@@ -275,14 +320,17 @@ const Page = (props: Props) => {
                 </SelectItem>
               ))}
             </Select>
+            {errors.city && !inputData?.city && (
+              <div className="text-red-500 text-[12px]">{errors.city}</div>
+            )}
           </div>
           <div className="">
             <label
-              className="text-[#000] font-rbRegular text-[18px]"
+              className="text-[#000] font-rbRegular text-[16px]"
               htmlFor="city"
             >
               المنتج
-              <span className="text-[#F84F39] font-rbRegular text-[18px]">
+              <span className="text-[#F84F39] font-rbRegular text-[16px]">
                 {" "}
                 *
               </span>
@@ -302,36 +350,43 @@ const Page = (props: Props) => {
                 </SelectItem>
               ))}
             </Select>
+            {errors.product && !inputData?.product && (
+              <div className="text-red-500 text-[12px]">{errors.product}</div>
+            )}
           </div>
           <div className="">
             <label
-              className="text-[#000] font-rbRegular text-[18px]"
+              className="text-[#000] font-rbRegular text-[16px]"
               htmlFor="quantity"
             >
               الكمية
-              <span className="text-[#F84F39] font-rbRegular text-[18px]">
+              <span className="text-[#F84F39] font-rbRegular text-[16px]">
                 {" "}
                 *
               </span>
             </label>
 
             <InputForm
-              placeholder={"أكتب هنا ...."}
+              placeholder={"أكتب هنا"}
               type={"text"}
               className="border border-gray-300 text-sm block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 bg:hover-gray-500"
               value={inputData?.quantity}
               onchange={(e) =>
                 setInputData({ ...inputData, quantity: e.target.value })
               }
+              style={{ textAlign: "right" }}
             />
+            {errors.quantity && !inputData?.quantity && (
+              <div className="text-red-500 text-[12px]">{errors.quantity}</div>
+            )}
           </div>
           <div className="">
             <label
-              className="text-[#000] font-rbRegular text-[18px]"
+              className="text-[#000] font-rbRegular text-[16px]"
               htmlFor="unit"
             >
               وحدة
-              <span className="text-[#F84F39] font-rbRegular text-[18px]">
+              <span className="text-[#F84F39] font-rbRegular text-[16px]">
                 {" "}
                 *
               </span>
@@ -352,11 +407,14 @@ const Page = (props: Props) => {
                   </SelectItem>
                 ))}
             </Select>
+            {errors.unit && !inputData?.unit && (
+              <div className="text-red-500 text-[12px]">{errors.unit}</div>
+            )}
           </div>
 
           <div className="">
             <label
-              className="text-[#000] font-rbRegular text-[18px]"
+              className="text-[#000] font-rbRegular text-[16px]"
               htmlFor="title"
             >
               اقل سعر
@@ -370,11 +428,15 @@ const Page = (props: Props) => {
               onchange={(e) =>
                 setInputData({ ...inputData, minPrice: e.target.value })
               }
+              style={{ textAlign: "right" }}
             />
+            {errors.minPrice && !inputData?.minPrice && (
+              <div className="text-red-500 text-[12px]">{errors.minPrice}</div>
+            )}
           </div>
           <div className="">
             <label
-              className="text-[#000] font-rbRegular text-[18px]"
+              className="text-[#000] font-rbRegular text-[16px]"
               htmlFor="title"
             >
               اعلي سعر
@@ -388,16 +450,20 @@ const Page = (props: Props) => {
               onchange={(e) =>
                 setInputData({ ...inputData, maxPrice: e.target.value })
               }
+              style={{ textAlign: "right" }}
             />
+            {errors.maxPrice && !inputData?.maxPrice && (
+              <div className="text-red-500 text-[12px]">{errors.maxPrice}</div>
+            )}
           </div>
 
           <div className="w-full">
             <label
-              className="text-[#000] block font-rbRegular text-[18px]"
+              className="text-[#000] block font-rbRegular text-[16px]"
               htmlFor="date"
             >
               تاريخ النشر
-              <span className="text-[#F84F39] font-rbRegular text-[18px]">
+              <span className="text-[#F84F39] font-rbRegular text-[16px]">
                 {" "}
                 *
               </span>
@@ -428,14 +494,19 @@ const Page = (props: Props) => {
               className="w-[100%] border border-gray-300  p-2 focus:outline-none focus:border-blue-500"
               locale="ar"
             />
+            {errors.postedDate && !inputData?.postedDate && (
+              <div className="text-red-500 text-[12px]">
+                {errors.postedDate}
+              </div>
+            )}
           </div>
           <div className="w-full">
             <label
-              className="text-[#000] block font-rbRegular text-[18px]"
+              className="text-[#000] block font-rbRegular text-[16px]"
               htmlFor="date"
             >
               تاريخ التسليم
-              <span className="text-[#F84F39] font-rbRegular text-[18px]">
+              <span className="text-[#F84F39] font-rbRegular text-[16px]">
                 {" "}
                 *
               </span>
@@ -459,17 +530,19 @@ const Page = (props: Props) => {
               className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
               locale="ar"
             />
-            {/* <span className="absolute inset-y-0 left-2 flex items-center pr-3">
-              <IoIosCalendar />
-            </span> */}
+            {errors.deliveryDate && !inputData?.deliveryDate && (
+              <div className="text-red-500 text-[12px]">
+                {errors.deliveryDate}
+              </div>
+            )}
           </div>
           <div className="w-full">
             <label
-              className="text-[#000] block font-rbRegular text-[18px]"
+              className="text-[#000] block font-rbRegular text-[16px]"
               htmlFor="date"
             >
               تاريخ الانتهاء
-              <span className="text-[#F84F39] font-rbRegular text-[18px]">
+              <span className="text-[#F84F39] font-rbRegular text-[16px]">
                 {" "}
                 *
               </span>
@@ -493,17 +566,19 @@ const Page = (props: Props) => {
               className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
               locale="ar"
             />
-            {/* <span className="absolute inset-y-0 left-2 flex items-center pr-3">
-              <IoIosCalendar />
-            </span> */}
+            {errors.expiryDate && !inputData?.expiryDate && (
+              <div className="text-red-500 text-[12px]">
+                {errors.expiryDate}
+              </div>
+            )}
           </div>
           <div className="w-full">
             <label
-              className="text-[#000] block font-rbRegular text-[18px]"
+              className="text-[#000] block font-rbRegular text-[16px]"
               htmlFor="date"
             >
               تاريخ البدء
-              <span className="text-[#F84F39] font-rbRegular text-[18px]">
+              <span className="text-[#F84F39] font-rbRegular text-[16px]">
                 {" "}
                 *
               </span>
@@ -527,17 +602,17 @@ const Page = (props: Props) => {
               className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
               locale="ar"
             />
-            {/* <span className="absolute inset-y-0 left-2 flex items-center pr-3">
-              <IoIosCalendar />
-            </span> */}
+            {errors.startDate && !inputData?.startDate && (
+              <div className="text-red-500 text-[12px]">{errors.startDate}</div>
+            )}
           </div>
-          <div className="">
+          {/* <div className="">
             <label
-              className="text-[#000] font-rbRegular text-[18px]"
+              className="text-[#000] font-rbRegular text-[16px]"
               htmlFor="status"
             >
               حالة
-              <span className="text-[#F84F39] font-rbRegular text-[18px]">
+              <span className="text-[#F84F39] font-rbRegular text-[16px]">
                 {" "}
                 *
               </span>
@@ -553,19 +628,22 @@ const Page = (props: Props) => {
                   value={item.id}
                   onClick={() => setInputData({ ...inputData, status: item })}
                 >
-                  {item.title}
+                  {item.name}
                 </SelectItem>
               ))}
             </Select>
-          </div>
+            {errors.status && !inputData?.status && (
+              <div className="text-red-500 text-[12px]">{errors.status}</div>
+            )}
+          </div> */}
         </div>
         <div className="">
           <label
-            className="text-[#000] font-rbRegular text-[18px]"
+            className="text-[#000] font-rbRegular text-[16px]"
             htmlFor="description"
           >
             التفاصيل
-            <span className="text-[#F84F39] font-rbRegular text-[18px]">
+            <span className="text-[#F84F39] font-rbRegular text-[16px]">
               {" "}
               *
             </span>
@@ -579,10 +657,13 @@ const Page = (props: Props) => {
               setInputData({ ...inputData, description: e.target.value })
             }
           />
+          {errors.description && !inputData?.description && (
+            <div className="text-red-500 text-[12px]">{errors.description}</div>
+          )}
         </div>
         <div>
           <div className="w-full flex justify-between my-6">
-            <label className="text-[#000] font-rbRegular text-[18px]">
+            <label className="text-[#000] font-rbRegular text-[16px]">
               صورة مميزة
             </label>
             <div className="" dir="ltr">
@@ -604,7 +685,7 @@ const Page = (props: Props) => {
             </div>
           </div>
           {defaultImage && (
-            <div className="" >
+            <div className="">
               <IoMdCloseCircle
                 className="absolute bg-white rounded-full"
                 color="#F84F39"
@@ -623,7 +704,7 @@ const Page = (props: Props) => {
         </div>
         <div className="mt-10">
           <div className="w-full flex justify-between my-6">
-            <label className="text-[#000] font-rbRegular text-[18px] ">
+            <label className="text-[#000] font-rbRegular text-[16px] ">
               صور إضافية
             </label>
             <div className="" dir="ltr">

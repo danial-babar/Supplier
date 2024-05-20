@@ -131,7 +131,7 @@ const Page = (props: Props) => {
                   dir="rtl"
                 >
                   <label className="text-[#656161] text-[16px] font-rbRegular">
-                    لم يتم العثور على بيانات مرة أخرى لهذا البحث.
+                  لم يتم العثور على بيانات ضد هذا البحث.
                   </label>
                 </div>
               )}

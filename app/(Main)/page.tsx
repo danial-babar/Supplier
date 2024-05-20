@@ -15,6 +15,7 @@ import Partners from "@/components/Partners";
 import { filterLeads, getAllLeads, getCategories } from "@/api/Users";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
+import { Spinner } from "@nextui-org/react";
 
 type Props = {};
 interface Lead {
@@ -25,6 +26,7 @@ interface Lead {
 const Page = (props: Props) => {
   const [leadsData, setLeadsData] = useState<Array<any>>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const leadsPerPage = 6;
   const router = useRouter();
   const dispatch = useDispatch();
@@ -50,6 +52,7 @@ const Page = (props: Props) => {
   };
 
   const getLeads = (page: any, leadsPerPage: any) => {
+    setLoading(true);
     getAllLeads()
       .then((res: Lead[]) => {
         console.log("res while getting leads", res);
@@ -62,7 +65,8 @@ const Page = (props: Props) => {
       })
       .catch((err) => {
         console.log("err while getting leads", err);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const getCategoriesList = () => {
@@ -125,47 +129,64 @@ const Page = (props: Props) => {
           </button>
         </div>
       </div>
-      <div
-        className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5"
-        style={{ direction: "rtl" }}
-      >
-        {Array.isArray(currentLeads) && currentLeads.length > 0 ? (
-          currentLeads.map((item: { id: string; status: string }, index) => {
-            return (
-              <RequestCard
-                key={item.id} // don't forget to add a unique key when mapping over arrays in React
-                bgColor={
-                  item?.status == "7"
-                    ? "bg-[#FEDCD7]"
-                    : item.status == "6"
-                    ? "bg-[#D6FAEE]"
-                    : "bg-[#FAFAFF]"
+      {loading ? (
+        <div className="flex w-full  justify-center mb-10 items-center">
+          <Spinner />
+        </div>
+      ) : (
+        <div
+          className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5"
+          style={{ direction: "rtl" }}
+        >
+          <>
+            {Array.isArray(currentLeads) && currentLeads.length > 0 ? (
+              currentLeads.map(
+                (item: { id: string; status: string }, index) => {
+                  return (
+                    <RequestCard
+                      key={item.id} // don't forget to add a unique key when mapping over arrays in React
+                      bgColor={
+                        item?.status == "7"
+                          ? "bg-[#FEDCD7]"
+                          : item.status == "6"
+                          ? "bg-[#D6FAEE]"
+                          : "bg-[#FAFAFF]"
+                      }
+                      contentBg={
+                        item?.status == "7"
+                          ? "bg-[#f84f3948]"
+                          : item.status == "6"
+                          ? "bg-[#34e5a755]"
+                          : "bg-[#6c66da4d]"
+                      }
+                      contentColor={
+                        item?.status == "7"
+                          ? "#F84F39"
+                          : item.status == "6"
+                          ? "#34E5A8"
+                          : "#6B66DA"
+                      }
+                      // href={{ pathname: "/management", query: { id: item?.id } }}
+                      onClick={() => onLeadCLick(item?.id)}
+                      data={item}
+                      textColor={item?.status == "2" ? "#000000" : ""}
+                    />
+                  );
                 }
-                contentBg={
-                  item?.status == "7"
-                    ? "bg-[#f84f3948]"
-                    : item.status == "6"
-                    ? "bg-[#34e5a755]"
-                    : "bg-[#6c66da4d]"
-                }
-                contentColor={
-                  item?.status == "7"
-                    ? "#F84F39"
-                    : item.status == "6"
-                    ? "#34E5A8"
-                    : "#6B66DA"
-                }
-                // href={{ pathname: "/management", query: { id: item?.id } }}
-                onClick={() => onLeadCLick(item?.id)}
-                data={item}
-                textColor={item?.status == "2" ? "#000000" : ""}
-              />
-            );
-          })
-        ) : (
-          <p>No leads available.</p>
-        )}
-      </div>
+              )
+            ) : (
+              <div
+                className="w-[100%] my-5 px-5 items-center flex justify-center"
+                dir="rtl"
+              >
+                <label className="text-[#656161] text-[16px] font-rbRegular">
+                  لا توجد طلبات متاحة.
+                </label>
+              </div>
+            )}
+          </>
+        </div>
+      )}
       <div className="w-[95%] mx-auto sm:mt-20 md:mt-32 mt-8">
         <div className="text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold text-black text-center">
           <span className="">لماذا منصة مـ</span>

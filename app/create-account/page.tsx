@@ -1,6 +1,7 @@
 "use client";
 import { userFlow } from "@/api/Users";
 import SuccessModal from "@/common-modals/SuccessModal";
+import WarningModal from "@/common-modals/WarningModal";
 import DropDownComp from "@/components/DropDownComp";
 import Header from "@/components/Layout/Header";
 import CommonButton from "@/components/commonButton";
@@ -30,6 +31,7 @@ const Page = ({ searchParams }: Props) => {
   const [errors, setErrors] = useState({});
   const [resError, setResError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [warningModal, setWarningModal] = useState(false);
   const [formData, setFormData] = useState({
     commercial: "",
     facilityName: "",
@@ -40,12 +42,12 @@ const Page = ({ searchParams }: Props) => {
     password: "",
     confirmPassword: "",
     characteristics: "",
-    user_role_key: "",
+    user_role_key: "vendor",
   });
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const validateForm = () => {
     const errors = {};
-    
+
     console.log("email validation", emailRegex.test(formData?.email));
     const emailValidation = emailRegex.test(formData.email);
     if (!formData.email) {
@@ -95,8 +97,10 @@ const Page = ({ searchParams }: Props) => {
           console.log("response while creating account", response);
           if (response?.code === "1") {
             onOpen();
-            router.push("/login");
-          } else setResError(response?.message);
+          } else {
+            setResError(response?.message);
+            setWarningModal(true);
+          }
         })
         .catch((error) => {
           console.log("error while creating account", error);
@@ -104,7 +108,18 @@ const Page = ({ searchParams }: Props) => {
         .finally(() => setLoading(false));
     }
   };
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      CreateAccount();
+    }
+  };
 
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
   return (
     <div dir="rtl">
       <Header />
@@ -112,10 +127,10 @@ const Page = ({ searchParams }: Props) => {
         <div className="text-center w-[95%] mx-auto md:pt-20 pt-8">
           <div className="text-[#0A102F] lg:text-[45px] md:text-[34px] sm:text-[22px] text-[14px] relative font-rbBold">
             <span> إنشاء ح</span>
-            <span className="rounded-3xl bg-[#BDFFA5] md:pe-24 pe-4 py-0">
+            <span className="rounded-3xl bg-[#BDFFA5] md:pe-[24px] pe-4 py-0">
               ساب جديد
             </span>
-            <div className="text-[14px] md:text-[18px] text-gray-700 sm:my-8 my-4 font-rbRegular">
+            <div className="text-[14px] md:text-[20px] text-gray-700 sm:my-8 my-4 font-rbRegular">
               <p>برجاء ادخال البيانات المطلوبة</p>
             </div>
           </div>
@@ -123,17 +138,20 @@ const Page = ({ searchParams }: Props) => {
         <div className="flex flex-col items-center justify-center w-[95%] py-5 sm:py-8 mx-auto lg:py-0">
           <div className="w-full bg-white rounded-lg dark:border mx-auto md:mt-0 md:mb-24 sm:mb-16 mb-8 md:w-[70%] lg:w-[50%] sm:w-[80%] shadow md:shadow-2xl xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-4 space-y-4 md:space-y-6 sm:p-6">
-              <h1 className="text-xl relative flex items-center justify-start font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              <label className="text-[24px] relative flex items-center justify-start font-rbBold leading-tight tracking-tight text-gray-900 md:text-[24px] dark:text-white">
                 <span className="bg-[#F84F39] bg-opacity-20 md:p-3 p-2 absolute rounded-full"></span>
                 <LuPenLine className="pe-3 ms-2 text-[30px] md:text-[40px] text-[#F84F39]" />
                 {accountType == 1 ? "سجل كفرد" : "التسجيل كممثل منشأة"}
-              </h1>
+              </label>
             </div>
             <div className="px-3 mb-4">
               <RadioGroup
                 label="دور المستخدم"
                 orientation="horizontal"
                 dir="rtl"
+                defaultValue="vendor"
+                className="text-[#000]"
+                classNames={{label:'text-[#000] text-[16px] font-rbRegular'}}
               >
                 <Radio
                   value="vendor"
@@ -222,11 +240,13 @@ const Page = ({ searchParams }: Props) => {
                         {errors.email}
                       </div>
                     )}
-                    {errors.emailValid && formData?.email && !emailRegex.test(formData?.email) && (
-                      <div className="text-red-500 text-[12px]">
-                        {errors.emailValid}
-                      </div>
-                    )}
+                    {errors.emailValid &&
+                      formData?.email &&
+                      !emailRegex.test(formData?.email) && (
+                        <div className="text-red-500 text-[12px]">
+                          {errors.emailValid}
+                        </div>
+                      )}
                   </div>
                   <div>
                     <InputForm
@@ -317,11 +337,11 @@ const Page = ({ searchParams }: Props) => {
                     />
                   </div>
                 )}
-                {resError && (
+                {/* {resError && (
                   <label className="text-[#F84F39] text-[12px]">
                     {resError}
                   </label>
-                )}
+                )} */}
                 <CommonButton
                   text="تسجيل جديد"
                   bgColor="#F84F39"
@@ -340,6 +360,14 @@ const Page = ({ searchParams }: Props) => {
         header="تم التسجيل بنجاح"
         message="لقد تم إنشاء حسابك بنجاح"
         buttonText={"اذهب لتسجيل الدخول"}
+      />
+      <WarningModal
+        buttonText="يغلق"
+        isOpen={warningModal}
+        onClose={() => setWarningModal(false)}
+        onConfirm={() => setWarningModal(false)}
+        header="تحذير"
+        message={resError}
       />
     </div>
   );

@@ -1,5 +1,6 @@
 "use client";
 import { userFlow } from "@/api/Users";
+import WarningModal from "@/common-modals/WarningModal";
 import Header from "@/components/Layout/Header";
 import CommonButton from "@/components/commonButton";
 import InputForm from "@/components/inputForm";
@@ -13,6 +14,7 @@ import { GoPeople } from "react-icons/go";
 
 import { MdLogin, MdPeopleAlt } from "react-icons/md";
 import { useDispatch } from "react-redux";
+
 type Props = {};
 
 const Page = (props: Props) => {
@@ -24,6 +26,8 @@ const Page = (props: Props) => {
   const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const [warningModal, setWarningModal] = useState(false);
+
   const handleClick = () => {
     router.push(`/create`);
   };
@@ -32,7 +36,7 @@ const Page = (props: Props) => {
     const errors: any = {};
 
     if (!email) {
-      errors.email = "الرجاء إدخال اسم المستخدم";
+      errors.email = "رجاءا أدخل بريدك الإلكتروني";
     }
     if (!password) {
       errors.password = "يرجى إدخال كلمة المرور";
@@ -42,6 +46,7 @@ const Page = (props: Props) => {
 
     return Object.keys(errors).length === 0;
   };
+
   const Login = () => {
     if (validateForm()) {
       setLoading(true);
@@ -63,6 +68,7 @@ const Page = (props: Props) => {
             });
           } else {
             setErrorMsg(response?.message);
+            setWarningModal(true);
             setShowError(true);
           }
         })
@@ -72,17 +78,31 @@ const Page = (props: Props) => {
         .finally(() => setLoading(false));
     }
   };
+
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      Login();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [email, password]);
+
   return (
     <div dir="rtl">
       <Header />
       <div className="bg-gradient-radial md:pb-28 pb-16 lg:pb-40 from-blue-100 to-pink-50 via-gray-100">
         <div className="text-center w-[95%] mx-auto md:pt-20 pt-8">
-          <div className=" text-[#0A102F] text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold relative">
+          <div className="text-[#0A102F] text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold relative">
             <span> تـسجيل </span>
-            <span className="rounded-3xl bg-[#BDFFA5] md:pe-24 ps-2 pe-4 py-0">
+            <span className="rounded-3xl bg-[#BDFFA5] md:pe-[32px] ps-2 pe-4 py-0">
               الـدخول
             </span>
-            <div className="text-[16px] sm:text-[18px] font-rbLight sm:font-rbRegular text-gray-700 sm:mt-8 mt-5 mb-5">
+            <div className="text-[16px] sm:text-[20px] font-rbLight sm:font-rbRegular text-gray-700 sm:mt-8 mt-5 mb-5">
               <p>يمكنك الدخول عن طريق حسابك الشخصي او الدخول عبر بوابة نفاذ</p>
             </div>
           </div>
@@ -126,13 +146,13 @@ const Page = (props: Props) => {
                     </div>
                   )}
                 </div>
-                {showError && errorMsg && (
+                {/* {showError && errorMsg && (
                   <div>
                     <label className="font-rbRegular hover:underline text-[#F84F39]">
                       {errorMsg}
                     </label>
                   </div>
-                )}
+                )} */}
                 <div className="mt-4 flex items-center justify-end">
                   <Link
                     href="#"
@@ -148,7 +168,7 @@ const Page = (props: Props) => {
                     onPress={Login}
                     loading={loading}
                   />
-                  <div className="flex items-center  mt-4 justify-center">
+                  <div className="flex items-center mt-4 justify-center">
                     <hr className="w-full border-t border-red-300 before:w-1/4 before:border-t before:border-r before:border-gray-300 after:w-1/4 after:border-t after:border-l after:border-gray-300 border-dotted" />
                     <div className="mx-2">او</div>
                     <hr className="w-full border-t border-red-300 before:w-1/4 before:border-t before:border-l before:border-gray-300 after:w-1/4 after:border-t after:border-r after:border-gray-300 border-dotted" />
@@ -172,6 +192,14 @@ const Page = (props: Props) => {
           </div>
         </div>
       </div>
+      <WarningModal
+        buttonText="يغلق"
+        isOpen={warningModal}
+        onClose={() => setWarningModal(false)}
+        onConfirm={() => setWarningModal(false)}
+        header="تحذير"
+        message={errorMsg}
+      />
     </div>
   );
 };

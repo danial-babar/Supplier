@@ -33,10 +33,10 @@ const Page = (props: Props) => {
         <div className="text-center w-[95%] mx-auto md:pt-20 pt-8">
           <div className=" text-[#0A102F] lg:text-[45px] md:text-[34px] sm:text-[22px] text-[14px] relative font-rbBold">
             <span> إنشاء ح</span>
-            <span className="rounded-3xl bg-[#BDFFA5] md:pe-24 pe-4 py-0">
+            <span className="rounded-3xl bg-[#BDFFA5] md:pe-[24px] pe-4 py-0">
               ساب جديد
             </span>
-            <div className="text-[14px] md:text-[18px] text-gray-700 sm:my-8 my-4 font-rbRegular">
+            <div className="text-[14px] md:text-[20px] text-gray-700 sm:my-8 my-4 font-rbRegular">
               <p>فضلا قم باختيار نوع الحساب</p>
             </div>
           </div>
