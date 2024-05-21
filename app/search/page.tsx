@@ -18,43 +18,31 @@ const Page = (props: Props) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [leadsData, setLeadsData] = useState<Array<any>>([]);
+  const [filterparams, setFilterparams] = useState({});
   const [loading, setLoading] = useState(true);
-  const [searchLoading, setSearchLoading] = useState(false);
-  console.log("search parameters", searchParams);
+  const [searchLoading, setSearchLoading] = useState(true);
+  const [moreLoading, setMoreLoading] = useState(true);
+  const [finishFlag, setFinishFlag] = useState(true);
+  const [page, setPage] = useState(1);
+  // console.log("search parameters", searchParams);
 
   useEffect(() => {
-    if (searchParams) handleSearchClick(searchParams);
-    else getLeads();
-    return () => {
-      dispatch({ type: "clearSearchParams" });
-    };
-  }, [dispatch, searchParams]);
+    handleSearchClick(searchParams);
+    // else getLeads();
+    // return () => {
+    //   dispatch({ type: "clearSearchParams" });
+    // };
+  }, []);
 
-  const getLeads = () => {
-    getAllLeads()
-      .then((res) => {
-        console.log("res while getting leads", res);
-
-        setLeadsData(res);
-
-        // setLeadsData(res);
-      })
-      .catch((err) => {
-        console.log("err while getting leads", err);
-      })
-      .finally(() => setLoading(false));
-  };
   const handleSearchClick = (data: any) => {
-    console.log("data filtered", data);
-    dispatch({
-      type: "addSearchParams",
-      payload: data,
-    });
-    setSearchLoading(true);
-    filterLeads(data)
+    console.log("data received", data);
+    setFilterparams(data);
+    const finalData = { ...data, page: page };
+    filterLeads(finalData)
       .then((response) => {
         console.log("response while filtering", response);
-        setLeadsData(response);
+        setLeadsData((prevLeads: []) => [...prevLeads, ...response]);
+        setFinishFlag(response?.length >= 15);
       })
       .catch((error) => {
         console.log("error while filtering", error);
@@ -62,6 +50,7 @@ const Page = (props: Props) => {
       .finally(() => {
         setSearchLoading(false);
         setLoading(false);
+        setMoreLoading(false);
       });
   };
   const onLeadCLick = (id: any) => {
@@ -79,13 +68,28 @@ const Page = (props: Props) => {
         <>
           <Header />
           <Banner
-            onClick={handleSearchClick}
+            onClick={(data) => {
+              setLeadsData([]);
+              setPage(1);
+              setSearchLoading(true);
+              setTimeout(() => {
+                handleSearchClick(data);
+              }, 0);
+            }}
             search
             results={leadsData?.length}
-            onReSearchClick={() => handleSearchClick(searchParams)}
+            onReSearchClick={(data) => {
+              setPage(1);
+              setSearchLoading(true);
+              setTimeout(() => {
+                handleSearchClick(data);
+              }, 0);
+            }}
           />
           {searchLoading ? (
-            <div className="flex w-full justify-center mb-10"><Spinner /></div>
+            <div className="flex w-full justify-center mb-10">
+              <Spinner />
+            </div>
           ) : (
             <>
               {leadsData?.length > 0 ? (
@@ -131,17 +135,30 @@ const Page = (props: Props) => {
                   dir="rtl"
                 >
                   <label className="text-[#656161] text-[16px] font-rbRegular">
-                  لم يتم العثور على بيانات ضد هذا البحث.
+                    لم يتم العثور على بيانات مقابل البحث
                   </label>
                 </div>
               )}
-              {leadsData?.length > 0 && (
-                <div className="md:mt-20 text-center mt-8 mb-8">
+              {leadsData?.length > 0 && finishFlag && (
+                <div
+                  className="md:mt-20 text-center mt-8 mb-8"
+                  onClick={() => {
+                    setPage(page + 1);
+                    setMoreLoading(true);
+                    setTimeout(() => {
+                      handleSearchClick(filterparams);
+                    }, 0);
+                  }}
+                >
                   <a
                     // href=""
                     className="bg-[#F84F39] px-4 py-2 rounded-medium md:rounded-full text-white font-rbRegular"
                   >
-                    المزيد من التنصيفات...
+                    {moreLoading ? (
+                      <Spinner color="white" size="sm" />
+                    ) : (
+                      " المزيد من التنصيفات..."
+                    )}
                   </a>
                 </div>
               )}

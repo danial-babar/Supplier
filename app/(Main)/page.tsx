@@ -36,7 +36,7 @@ const Page = (props: Props) => {
   }, []);
   useEffect(() => {
     getLeads(currentPage, leadsPerPage);
-  }, [currentPage]);
+  }, []);
 
   const indexOfLastLead = currentPage * leadsPerPage;
   const indexOfFirstLead = indexOfLastLead - leadsPerPage;
@@ -84,7 +84,9 @@ const Page = (props: Props) => {
       type: "addSearchParams",
       payload: data,
     });
-    router.push("/search");
+    setTimeout(() => {
+      router.push("/search");
+    }, 0);
   };
   const onLeadCLick = (id: any) => {
     dispatch({
