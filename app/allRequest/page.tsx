@@ -94,7 +94,7 @@ const Page = (props: Props) => {
                       </p>
                     </div>
                     <div className="font-rbRegular w-[300px] line-clamp-1 md:font-rbBold sm:text-[20px] text-[16px] md:text-lg sm:text-base">
-                      {item?.title} and this is my title you have to update this
+                      {item?.title}
                     </div>
                     <div className="sm:font-rbBold font-rbRegular text-[12px] mr-2">
                       رقم الطلب

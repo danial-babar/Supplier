@@ -69,7 +69,7 @@ const Page = ({ searchParams }: Props) => {
 
   const handleNextSlide = () => {
     // Assuming you have two slides for demonstration purposes
-    setCurrentSlide((prevSlide) => (prevSlide < 1 ? prevSlide + 1 : 1));
+    setCurrentSlide((prevSlide) => (prevSlide < leadData?.images?.length-1 ? prevSlide + 1 : 1));
   };
   useEffect(() => {
     if (leadId) {
@@ -205,7 +205,7 @@ const Page = ({ searchParams }: Props) => {
                     data-carousel-prev
                     onClick={handlePrevSlide}
                   >
-                    <GrLinkPrevious className="text-[30px] text-[#6c66da4d] border-1 border-[#6c66da4d] p-2 rounded-full hover:bg-[#6c66da4d] hover:text-white" />
+                    <GrLinkPrevious className="text-[30px] text-[#e2e1e1]  shadow shadow-[#65656584] border-1 border-[#fff] p-2 rounded-full hover:bg-[#efe1e19b] hover:text-white" />
                     <span className="sr-only">Previous</span>
                   </button>
 
@@ -215,7 +215,7 @@ const Page = ({ searchParams }: Props) => {
                     data-carousel-next
                     onClick={handleNextSlide}
                   >
-                    <GrLinkNext className="text-[30px] text-[#6c66da4d] border-1 border-[#6c66da4d] p-2 rounded-full hover:bg-[#6c66da4d] hover:text-white" />
+                    <GrLinkNext className="text-[30px] text-[#e2e1e1]  shadow shadow-[#65656584] border-1 border-[#fff] p-2 rounded-full hover:bg-[#efe1e19b] hover:text-white" />
                     <span className="sr-only">Next</span>
                   </button>
                   {leadData?.is_won != 1 &&

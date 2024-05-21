@@ -55,8 +55,6 @@ const RequestCard = ({
     const remainingMinutes = Math.floor(
       (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
     );
-    console.log("remaintin", remainingDays, remainingHours, remainingMinutes);
-
     setRemainingTime({
       days: remainingDays,
       hours: remainingHours,
@@ -79,7 +77,7 @@ const RequestCard = ({
           >
             <BsTagFill color={contentColor} size={20} />
             <p
-              className={`ms-2 font-rbRegular sm:font-rbBold text-[12px] text-[${
+              className={`ms-2 font-rbRegular sm:font-rbBold text-[12px] line-clamp-1 text-[${
                 textColor || contentColor
               }]`}
             >
@@ -87,12 +85,12 @@ const RequestCard = ({
             </p>
           </div>
           <div
-            className={`${contentBg} bg-opacity-20 px-3 lg:px-5 py-2 rounded-full flex items-center]`}
+            className={`${contentBg} bg-opacity-20 px-3 xl:px-5 py-2 rounded-full flex items-center]`}
           >
             {/* <Image src="/location.png" alt="" width={16} height={16} /> */}
             <TiLocationOutline color={contentColor} size={20} />
             <p
-              className={`ms-2 text-[12px] font-rbRegular sm:font-rbBold text-[${
+              className={`ms-2 text-[10px] md:text-[12px] line-clamp-1 font-rbRegular sm:font-rbBold text-[${
                 textColor || contentColor
               }]`}
             >
@@ -100,11 +98,11 @@ const RequestCard = ({
             </p>
           </div>
         </div>
-        <h1 className="font-rbBold text-[18px] md:text-[20px] text-[#061C3D] text-center my-6 overflow-hidden whitespace-nowrap line-clamp-1">
+        <h1 className="font-rbBold text-[18px] md:text-[20px] text-[#061C3D] text-center my-6 line-clamp-1">
           {data?.title}
         </h1>
 
-        <p className="font-rbBold text-[16px] text-center mt-6 mb-3">
+        <p className="font-rbBold text-[16px] text-center line-clamp-1 mt-6 mb-3">
           {data?.status == "1"
             ? "تم انتهاء الطلب"
             : "الوقت المتبقي حتى نهاية الطلب"}
@@ -117,7 +115,7 @@ const RequestCard = ({
           <div
             className={`${contentBg} text-[${
               textColor || contentColor
-            }] font-rbBold mx-auto w-[220px] px-4 flex items-center justify-between rounded-xl py-2 text-center bg-opacity-20`}
+            }] font-rbBold mx-auto w-[220px] h-[55px] px-4 flex items-center justify-between rounded-xl py-2 text-center bg-opacity-20`}
             dir="ltr"
           >
             <div className="justify-center text-[20px] items-center">
@@ -145,7 +143,7 @@ const RequestCard = ({
           <div
             className={`${contentBg} text-[${
               textColor || contentColor
-            }] font-rbBold mx-auto w-[220px] rounded-xl py-2 text-center bg-opacity-20`}
+            }] font-rbBold mx-auto w-[220px] h-[55px] items-center justify-center flex rounded-xl py-2 text-center bg-opacity-20`}
           >
             <label
               className={`text-[20px] text-[${

@@ -27,7 +27,7 @@ const Banner = ({ onClick, search, results, onReSearchClick }: Props) => {
   const [dropdownData, setDropdownData] = useState({
     category: { id: 0, title: "" },
     city: { id: 0, city_name: "" },
-    sortBy: { id: 0, name: "" },
+    sortBy: { id: '0', name: "" },
     status: { id: 0, name: "" },
   });
   const onSearchPress = () => {
@@ -50,21 +50,21 @@ const Banner = ({ onClick, search, results, onReSearchClick }: Props) => {
       });
     getCities()
       .then((res) => {
-        console.log("res while getting cities", res);
+        // console.log("res while getting cities", res);
         setCities(res?.data);
       })
       .catch((err) => {
-        console.log("err while getting cities", err);
+        // console.log("err while getting cities", err);
       });
     getStatus()
       .then((res) => {
-        console.log("res while getting status", res);
+        // console.log("res while getting status", res);
         setstatus(res?.data);
       })
       .catch((err) => {
         console.log("err while getting status", err);
       });
-  }, []);
+  }, [0]);
 
   return (
     <div className="w-[95] flex flex-col items-center justify-between py-8 sm:py-10 md:py-14 lg:py-28 bg-gradient-radial from-gray-100 via-gray-50">
@@ -112,8 +112,8 @@ const Banner = ({ onClick, search, results, onReSearchClick }: Props) => {
             <DropDownComp
               title={"ترتيب"}
               data={[
-                { id: 0, name: "الأحدث إلى الأقدم" },
-                { id: 1, name: "من الأقدم إلى الأحدث" },
+                { id: '0', name: "الأحدث إلى الأقدم" },
+                { id: '1', name: "من الأقدم إلى الأحدث" },
               ]}
               getItemTitle={(item) => item.name}
               onClick={(item) =>

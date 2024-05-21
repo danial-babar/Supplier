@@ -149,9 +149,9 @@ const Page = (props: Props) => {
     if (!inputData.city) {
       errors.city = "الرجاء اختيار المدينة";
     }
-    if (!inputData.product) {
-      errors.product = "الرجاء اختيار المنتج";
-    }
+    // if (!inputData.product) {
+    //   errors.product = "الرجاء اختيار المنتج";
+    // }
     if (!inputData.quantity) {
       errors.quantity = "الرجاء إدخال الكمية";
     }
@@ -222,6 +222,18 @@ const Page = (props: Props) => {
     }
   };
 
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      submitLead();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
   return (
     <div className="flex-1" dir="rtl">
       <Header />
@@ -330,10 +342,10 @@ const Page = (props: Props) => {
               htmlFor="city"
             >
               المنتج
-              <span className="text-[#F84F39] font-rbRegular text-[16px]">
+              {/* <span className="text-[#F84F39] font-rbRegular text-[16px]">
                 {" "}
                 *
-              </span>
+              </span> */}
             </label>
             <Select
               placeholder="إختر ...."
@@ -350,9 +362,9 @@ const Page = (props: Props) => {
                 </SelectItem>
               ))}
             </Select>
-            {errors.product && !inputData?.product && (
+            {/* {errors.product && !inputData?.product && (
               <div className="text-red-500 text-[12px]">{errors.product}</div>
-            )}
+            )} */}
           </div>
           <div className="">
             <label

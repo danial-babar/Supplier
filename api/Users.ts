@@ -66,7 +66,11 @@ export const getAllLeads = async () => {
 export const filterLeads = async (data: any) => {
   try {
     const response = await api.get(
-      `/get_leads_filter?category=${data.category}&city=${data?.city}&order_status=${data?.status}&sort_by=${data?.sort_by}`
+      `/get_leads_filter?category=${data.category || ""}&city=${
+        data?.city || ""
+      }&order_status=${data?.status || ""}&sort_by=${data?.sortBy}&page=${
+        data?.page
+      }`
     );
     return response.data;
   } catch (error) {
@@ -144,7 +148,7 @@ export const bidsFLow = {
   },
   completeDeal: async (data: any) => {
     try {
-      const response = await api.post (`/complete_deal`,data);
+      const response = await api.post(`/complete_deal`, data);
       return response.data;
     } catch (error) {
       console.error("Error while completing deal", error);
@@ -156,8 +160,8 @@ export const leadsFLow = {
   addLead: async (data: any) => {
     try {
       const response = await api.post(`/add_lead`, data);
-      console.log('response while add lead in api calling',response);
-      
+      console.log("response while add lead in api calling", response);
+
       return response.data;
     } catch (error) {
       console.error("Error while adding lead:", error);
