@@ -8,6 +8,20 @@ type Props = {};
 const Partners = (props: Props) => {
   return (
     <div className="relative w-[90%] mx-auto">
+      <div className="text-center mt-14 sm:mt-20">
+        <h3 className="sm:text-[28px] md:text-[36px] lg:text-[50px] text-[18px] font-rbBold">
+          شــ<span className="pe-10 bg-[#BDFFA5] rounded-3xl">ــركــاؤنا</span>
+        </h3>
+
+        <div className="my-5">
+          <p className="sm:font-rbBold font-rbRegular text-[16px] sm:text-[18px] mb-3 text-[#475467]">
+            نفخر بالتعاون مع شركاء منصة مــوّرد الإلكتروني
+          </p>
+          <p className="text-[16px] sm:text-[20px] md:text-[22px] text-black text-opacity-50 sm:font-rbRegular font-rbLight">
+            موثوق به من قبل أكثر من 10,000 جهة داخل المملكة
+          </p>
+        </div>
+      </div>
       <div className="md:py-10">
         <Marquee className=" mt-3" direction="right" speed={70}>
           {partners?.map((item, index) => (

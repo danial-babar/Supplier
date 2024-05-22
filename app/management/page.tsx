@@ -39,8 +39,6 @@ type Props = {
 const Page = ({ searchParams }: Props) => {
   const { leadId } = useSelector((state: any) => state.user);
   const { user } = useSelector((state: any) => state.user);
-  console.log("user", user);
-  const [isBidSuccess, setIsBidSuccess] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -51,7 +49,6 @@ const Page = ({ searchParams }: Props) => {
   const [completeLoading, setCompleteLoading] = useState(false);
   const [completeDealId, setCompleteDealId] = useState("");
   const [warningMsg, setWarningMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
   const [reqPrice, setReqPrice] = useState("");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [remainingTime, setRemainingTime] = useState({
@@ -69,7 +66,11 @@ const Page = ({ searchParams }: Props) => {
 
   const handleNextSlide = () => {
     // Assuming you have two slides for demonstration purposes
-    setCurrentSlide((prevSlide) => (prevSlide < leadData?.images?.length-1 ? prevSlide + 1 : 1));
+    setCurrentSlide((prevSlide) =>
+      prevSlide < leadData?.images?.length - 1
+        ? prevSlide + 1
+        : leadData?.images?.length - 1
+    );
   };
   useEffect(() => {
     if (leadId) {
@@ -185,7 +186,7 @@ const Page = ({ searchParams }: Props) => {
                         >
                           <Image
                             src={
-                              "https://projects.microrage.com/moward/resources/uploads/lead_images/" +
+                              "http://165.73.252.160/manage/resources/uploads/lead_images/" +
                               image.filepath
                             }
                             width={500}
@@ -195,29 +196,50 @@ const Page = ({ searchParams }: Props) => {
                             loading="lazy"
                             // objectPosition="cover"
                           />
+                          {leadData?.images?.length > 1 && (
+                            <div className="p-1 flex items-center absolute z-[999] right-10 bottom-8">
+                              {leadData?.images?.map(
+                                (item: any, index: number) => {
+                                  return (
+                                    <div
+                                      className={`w-2 h-2 rounded-full mx-1 ${
+                                        currentSlide == index
+                                          ? "bg-[#F84F39]"
+                                          : "border border-[#F84F39]"
+                                      }`}
+                                      key={index}
+                                    ></div>
+                                  );
+                                }
+                              )}
+                            </div>
+                          )}
                         </div>
                       ))}
                   </div>
+                  {leadData?.images?.length > 1 && (
+                    <>
+                      <button
+                        type="button"
+                        className="absolute bottom-[50%] start-0 z-30 flex items-center justify-center px-4 cursor-pointer group focus:outline-none"
+                        data-carousel-prev
+                        onClick={handlePrevSlide}
+                      >
+                        <GrLinkPrevious className="text-[30px] text-[#e2e1e1]  shadow shadow-[#65656584] border-1 border-[#fff] p-2 rounded-full hover:bg-[#efe1e19b] hover:text-white" />
+                        <span className="sr-only">Previous</span>
+                      </button>
 
-                  <button
-                    type="button"
-                    className="absolute bottom-[50%] start-0 z-30 flex items-center justify-center px-4 cursor-pointer group focus:outline-none"
-                    data-carousel-prev
-                    onClick={handlePrevSlide}
-                  >
-                    <GrLinkPrevious className="text-[30px] text-[#e2e1e1]  shadow shadow-[#65656584] border-1 border-[#fff] p-2 rounded-full hover:bg-[#efe1e19b] hover:text-white" />
-                    <span className="sr-only">Previous</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    className="absolute bottom-[50%] end-0 z-30 flex items-center justify-center px-4 cursor-pointer group focus:outline-none"
-                    data-carousel-next
-                    onClick={handleNextSlide}
-                  >
-                    <GrLinkNext className="text-[30px] text-[#e2e1e1]  shadow shadow-[#65656584] border-1 border-[#fff] p-2 rounded-full hover:bg-[#efe1e19b] hover:text-white" />
-                    <span className="sr-only">Next</span>
-                  </button>
+                      <button
+                        type="button"
+                        className="absolute bottom-[50%] end-0 z-30 flex items-center justify-center px-4 cursor-pointer group focus:outline-none"
+                        data-carousel-next
+                        onClick={handleNextSlide}
+                      >
+                        <GrLinkNext className="text-[30px] text-[#e2e1e1]  shadow shadow-[#65656584] border-1 border-[#fff] p-2 rounded-full hover:bg-[#efe1e19b] hover:text-white" />
+                        <span className="sr-only">Next</span>
+                      </button>
+                    </>
+                  )}
                   {leadData?.is_won != 1 &&
                     user?.id != leadData?.created_by && (
                       <div className="my-5">
@@ -279,7 +301,9 @@ const Page = ({ searchParams }: Props) => {
                     <div className="flex justify-between items-center mb-3 mt-6">
                       <div className="flex items-center">
                         <FaCircle className="text-[#6B66DA33] me-3 text-opacity-30 text-[10px]" />
-                        <span className="text-[#000] font-bahijRegular">الكمية</span>
+                        <span className="text-[#000] font-bahijRegular">
+                          الكمية
+                        </span>
                       </div>
                       <span className="text-[#000] md:font-rbBold font-rbRegular">
                         عدد {leadData?.quantity} عبوة

@@ -1,11 +1,5 @@
 import { getCategories, getCities, getStatus } from "@/api/Users";
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-} from "@nextui-org/react";
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -30,6 +24,7 @@ const Banner = ({ onClick, search, results, onReSearchClick }: Props) => {
     sortBy: { id: '0', name: "" },
     status: { id: 0, name: "" },
   });
+
   const onSearchPress = () => {
     const data = {
       category: dropdownData?.category?.id,
@@ -39,10 +34,10 @@ const Banner = ({ onClick, search, results, onReSearchClick }: Props) => {
     };
     onClick(data);
   };
+
   useEffect(() => {
     getCategories()
       .then((res) => {
-        // console.log("res while getting categories", res);
         setCategories(res?.data);
       })
       .catch((err) => {
@@ -50,24 +45,22 @@ const Banner = ({ onClick, search, results, onReSearchClick }: Props) => {
       });
     getCities()
       .then((res) => {
-        // console.log("res while getting cities", res);
         setCities(res?.data);
       })
       .catch((err) => {
-        // console.log("err while getting cities", err);
+        console.log("err while getting cities", err);
       });
     getStatus()
       .then((res) => {
-        // console.log("res while getting status", res);
         setstatus(res?.data);
       })
       .catch((err) => {
         console.log("err while getting status", err);
       });
-  }, [0]);
+  }, []);
 
   return (
-    <div className="w-[95] flex flex-col items-center justify-between py-8 sm:py-10 md:py-14 lg:py-28 bg-gradient-radial from-gray-100 via-gray-50">
+    <div className="w-[95%] flex flex-col items-center justify-between py-8 sm:py-10 md:py-14 lg:py-28 banner-gradient">
       <h1 className="text-black text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] relative font-rbBold">
         بحث عن طل
         <span className="rounded-3xl bg-[#BDFFA5] pe-3 ">بات التوريد</span>
@@ -124,11 +117,8 @@ const Banner = ({ onClick, search, results, onReSearchClick }: Props) => {
               }
               dropdownBtnClass={`max-w-[220px] justify-start`}
             />
-            {/* <div>
-              <p className="text-gray-400 px-2">ترتيب</p>
-              <p className="text-[16px] px-1">اختر من الاحدث الي الاقدم</p>
-            </div> */}
           </div>
+
           <div className="flex items-center md:mb-0 mb-6 md:w-1/6">
             <Image src="/flag.png" width={20} height={20} alt="" />
             <DropDownComp
@@ -141,30 +131,15 @@ const Banner = ({ onClick, search, results, onReSearchClick }: Props) => {
               selectedItem={dropdownData?.status?.name || "اختر حالة الطلب"}
               dropdownBtnClass={`max-w-[220px] justify-start`}
             />
-            {/* <div>
-              <p className="text-gray-400 px-2"> حالة الطلب</p>
-              <select
-                id="order_status"
-                className="text-gray-900 focus:ring-blue-500 text-[16px] appearance-none focus:border-none px-2 border-none bg-transparent dark:text-white"
-              >
-                <option selected>اختر حالة الطلب</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
-              </select>
-            </div> */}
           </div>
 
           <div className="md:w-auto sm:w-1/2 w-full md:text-start text-end">
-            {/* <Link href="/search"> */}
             <div
               className="bg-[#F84F39] md:p-3 w-full p-2 lg:p-4 rounded-full text-white cursor-pointer"
               onClick={onSearchPress}
             >
               <CiSearch className="text-[25px]" />
             </div>
-            {/* </Link> */}
           </div>
         </div>
       </div>

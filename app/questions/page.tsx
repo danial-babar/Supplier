@@ -95,14 +95,14 @@ const Page = (props: Props) => {
           المشاركة في طلبات التوريد المطروحة في أي وقت ومن أي مكان بكل سهولة
         </h3>
         <div className="md:flex mx-auto w-full justify-between items-center mt-6">
-          <div className="md:w-1/3">
+          <div className="md:w-1/3 mt-10">
             <PlatformCard
-              icon={"/Icon1.png"}
+              icon={"/Icon2.png"}
               title="المشاركة عن بعد"
               description="بإمكانك المزايدة بشكل إلكتروني في أي وقت ومن أي مكان"
             />
             <PlatformCard
-              icon={"/Icon2.png"}
+              icon={"/Icon1.png"}
               title="تقديم طلب سعر على أكثر من طلب توريد في نفس الوقت"
               description="يمكنك تقديم عرض سعر على عدة طلب توريد مختلف عبر المنصة في نفس الوقت"
             />
@@ -116,7 +116,7 @@ const Page = (props: Props) => {
               className="object-contain mx-auto"
             />
           </div>
-          <div className="md:w-1/3">
+          <div className="md:w-1/3 mt-10">
             <PlatformCard
               icon={"/Icon3.png"}
               title="وسائل دفع إلكترونية"

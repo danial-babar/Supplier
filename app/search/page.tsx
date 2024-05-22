@@ -28,11 +28,10 @@ const Page = (props: Props) => {
 
   useEffect(() => {
     handleSearchClick(searchParams);
-    // else getLeads();
-    // return () => {
-    //   dispatch({ type: "clearSearchParams" });
-    // };
-  }, []);
+    return () => {
+      dispatch({ type: "clearSearchParams" });
+    };
+  }, [searchParams, dispatch]);
 
   const handleSearchClick = (data: any) => {
     console.log("data received", data);

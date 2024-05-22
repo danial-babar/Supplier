@@ -69,7 +69,6 @@ const RequestCard = ({
       {/* <Link href={href || '/'}> */}
       <div
         className={`px-5 p-6 ${bgColor} border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
-        onClick={onClick}
       >
         <div className="flex gap-2 justify-around items-center">
           <div
@@ -208,11 +207,15 @@ const RequestCard = ({
         <hr className="mb-3" />
 
         <div className="flex mx-auto text-[#42526B] my-4 text-[12px] w-full justify-end items-center">
-          <button className="font-rbBold">المزيد من التفاصيل</button>
-          <IoAdd
-            className={`text-[16px] bg-white rounded-full ms-2`}
-            color={"#F84F39"}
-          />
+          <div className="flex items-center cursor-pointer" onClick={onClick}>
+            <label className="font-rbBold cursor-pointer">
+              المزيد من التفاصيل
+            </label>
+            <IoAdd
+              className={`text-[16px] bg-white rounded-full ms-2`}
+              color={"#F84F39"}
+            />
+          </div>
         </div>
       </div>
       {/* </Link> */}

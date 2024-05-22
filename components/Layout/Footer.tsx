@@ -99,7 +99,9 @@ const Footer = () => {
         <hr className="border-[#858080] border-[1px]" />
         <div className="sm:flex sm:text-start text-center items-center justify-between mt-5 my-5">
           <div className="text-white text-[14px]  tracking-wide font-rbLight sm:font-rbRegular">
-            <p className="sm:whitespace-pre">الشروط والأحكام سياسة الخصوصية</p>
+            <p className="sm:whitespace-pre">
+              {"سياسة الخصوصية" + "     " + "الشروط والأحكام"}
+            </p>
           </div>
           <div className="text-white text-[14px] tracking-wide sm:font-rbBold">
             <p>جميع الحقوق محفوظة - مــوّرد</p>
