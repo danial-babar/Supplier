@@ -5,6 +5,22 @@
 * {
   scroll-behavior: smooth;
 }
+
+/* .banner-gradient {
+  background: radial-gradient(circle, rgba(250, 250, 250, 1) 0%, rgba(200, 250, 250, 1) 25%, rgba(180, 200, 250, 1) 50%, rgba(160, 150, 250, 0.5) 75%, rgba(140, 100, 250, 0.3) 100%);
+} */
+.banner-gradient {
+  background: radial-gradient(circle, rgba(180, 200, 250, 1) 10%, rgba(200, 250, 250, 1) 15%, rgba(245, 210, 230, 1) 30%, rgba(250, 250, 250, 1) 40%);
+
+}
+
+.gradient-background {
+  background: linear-gradient(90deg, rgba(250, 250, 250, .1) 10%, rgba(250, 250, 250, .4) 40%, rgba(200, 250, 250, .3) 50%, rgba(245, 210, 230, .3) 70%,rgba(250, 250, 250, .4) 80%, rgba(250, 250, 250, .1)100%);
+}
+.supplier-banner-gradient {
+  background: linear-gradient(90deg, rgba(246, 248, 250, 1) 10%, rgba(246, 248, 250, 1) 40%, rgba(200, 250, 250, .3) 50%, rgba(245, 210, 230, .3) 70%,rgba(246, 248, 250, 1) 80%, rgba(246, 248, 250, 1)100%);
+}
+
 body {
   background: #fff !important;
   font-size: 16px;
@@ -17,6 +33,19 @@ body {
   -webkit-tap-highlight-color: transparent;
   scroll-behavior: smooth;
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
 .banner::before {
   position: absolute;
   top: 0px;
@@ -30,6 +59,7 @@ body {
   filter: blur(227px);
   /* z-index: -1; */
 }
+
 .banner::after {
   position: absolute;
   top: 50%;
@@ -44,6 +74,7 @@ body {
   filter: blur(272px);
   /* z-index: -1; */
 }
+
 .shop-banner {
   background-image: url("https://pixner.net/aikeu/assets/images/banner/cmn-bg.png");
   background-position: center center;
@@ -52,9 +83,11 @@ body {
   z-index: 1;
   height: 50vh;
 }
+
 .before\:transition-background::before {
   background-color: transparent !important;
 }
+
 .sellers-banner {
   background: linear-gradient(132deg, #5fec46 0%, #46e695 100%);
 }
@@ -67,13 +100,15 @@ body {
   overflow: hidden;
   z-index: 1;
 }
-.map_img{
+
+.map_img {
   width: 100%;
   height: auto;
   object-fit: contain;
   background-position: center;
 }
-.parent> :last-child{
+
+.parent> :last-child {
   margin-right: auto;
 }
 
@@ -81,24 +116,29 @@ body {
   span {
     text-align: right;
   }
-  svg{
-  position: unset !important;
+
+  svg {
+    position: unset !important;
   }
+
   .bg-default-100 {
     --tw-bg-opacity: 1;
     background-color: white;
     border-radius: 0px;
     border: 1px solid #D1D5DB;
+  }
+
+  .bg-default-100:hover {
+    background-color: rgb(233, 232, 232);
+    border: 1px;
+    /* border-color:  */
+  }
+
+  .datepicker_w {
+    width: 100% !important;
+  }
 }
-.bg-default-100:hover{
-  background-color: rgb(233, 232, 232);
-  border: 1px ;
-  border-color: );
-}
-.datepicker_w{
-  width: 100% !important;
-}
-}
+
 /* .text-left {
   text-align: left;
 }
@@ -106,30 +146,35 @@ body {
   right: 0.75rem;
 } */
 @media screen and (max-width:1024px) {
-  .download_app{
+  .download_app {
     width: 30px;
     height: 30px;
   }
 
 }
+
 @media screen and (max-width: 760px) {
   .banner {
     min-height: unset !important;
   }
-  .parent> :last-child{
-    margin:initial;
+
+  .parent> :last-child {
+    margin: initial;
   }
+
   .groupOfImage {
     width: 35px;
     height: 35px;
   }
-  .target_img{
+
+  .target_img {
     width: 300px;
     height: 300px;
   }
 }
+
 @media screen and(max-width: 576px) {
-  .footer_img{
+  .footer_img {
     width: 70px;
     height: 70px;
   }

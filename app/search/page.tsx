@@ -15,6 +15,7 @@ type Props = {};
 
 const Page = (props: Props) => {
   const { searchParams } = useSelector((state: any) => state.search);
+
   const router = useRouter();
   const dispatch = useDispatch();
   const [leadsData, setLeadsData] = useState<Array<any>>([]);
@@ -24,19 +25,18 @@ const Page = (props: Props) => {
   const [moreLoading, setMoreLoading] = useState(true);
   const [finishFlag, setFinishFlag] = useState(true);
   const [page, setPage] = useState(1);
-  // console.log("search parameters", searchParams);
+  console.log("search parameters", filterparams);
 
   useEffect(() => {
     handleSearchClick(searchParams);
-    // else getLeads();
-    // return () => {
-    //   dispatch({ type: "clearSearchParams" });
-    // };
-  }, []);
+    return () => {
+      dispatch({ type: "clearSearchParams" });
+    };
+  }, [searchParams, dispatch]);
 
   const handleSearchClick = (data: any) => {
     console.log("data received", data);
-    setFilterparams(data);
+    setFilterparams(data || {});
     const finalData = { ...data, page: page };
     filterLeads(finalData)
       .then((response) => {
@@ -76,7 +76,11 @@ const Page = (props: Props) => {
                 handleSearchClick(data);
               }, 0);
             }}
-            search
+            // ={Object.keys(filterparams).length > 0}
+            search={
+              Object.keys(filterparams).length > 0 &&
+              Object.values(filterparams).some((value: number) => value !=0)
+            }
             results={leadsData?.length}
             onReSearchClick={(data) => {
               setPage(1);

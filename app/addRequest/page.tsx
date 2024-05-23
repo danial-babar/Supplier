@@ -12,6 +12,7 @@ import { Button, Select, SelectItem, Textarea, image } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
 import { fieldData } from "@/constants/DummyData";
 import {
+  BASE_URL,
   addLead,
   getCategories,
   getCities,
@@ -39,10 +40,10 @@ import { ar } from "date-fns/locale/ar";
 registerLocale("ar", ar);
 
 const Page = (props: Props) => {
-  const BASE_URL = "http://projects.microrage.com/moward/api";
+  const URL = BASE_URL;
 
   const api = axios.create({
-    baseURL: BASE_URL,
+    baseURL: URL,
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -348,19 +349,25 @@ const Page = (props: Props) => {
               </span> */}
             </label>
             <Select
-              placeholder="إختر ...."
+              placeholder={products?.length > 0 ? "إختر ...." : "لا يوجد منتج"}
               aria-label="إختر"
               className="rounded-none selectboxForRTL"
+              // isDisabled={products?.length <= 0}
             >
-              {products?.map((item) => (
-                <SelectItem
-                  key={item.id}
-                  value={item.id}
-                  onClick={() => setInputData({ ...inputData, product: item })}
-                >
-                  {item.title}
-                </SelectItem>
-              ))}
+              {products?.length > 0
+                ? products?.map((item) => (
+                    <SelectItem
+                      key={item.id}
+                      value={item.id}
+                      onClick={() =>
+                        setInputData({ ...inputData, product: item })
+                      }
+                    >
+                      {item.title}
+                    </SelectItem>
+                  ))
+                : null // <SelectItem key={""}>No Product</SelectItem>
+              }
             </Select>
             {/* {errors.product && !inputData?.product && (
               <div className="text-red-500 text-[12px]">{errors.product}</div>

@@ -66,7 +66,7 @@ const Page = (props: Props) => {
                     التسجيل كفرد
                   </p>
                   <button
-                    className="text-[16px] text-gray-400 text-start sm:font-rbLight"
+                    className="text-[16px] text-gray-400 text-start sm:font-rbRegular "
                     type="submit"
                   >
                     يمكنك التسجيل كفرد و تقديم وطلب عرض اسعار
@@ -91,7 +91,7 @@ const Page = (props: Props) => {
                     التسجيل كممثل منشأة
                   </p>
                   <button
-                    className="text-[16px] text-gray-400 sm text-start:sm:font-rbLight"
+                    className="text-[16px] text-gray-400 text-start sm:font-rbRegular "
                     type="submit"
                   >
                     يمكنك التسجيل وتقديم وطلب عرض سعر بالنيابة عن المنشأة

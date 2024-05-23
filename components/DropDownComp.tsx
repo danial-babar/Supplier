@@ -32,24 +32,23 @@ const DropDownComp = <T,>({
   dropdownBtnClass,
   dropdownMenuClass,
   hideTitle,
-  containerClass
+  containerClass,
 }: DropDownProps<T>) => {
   return (
     <div className={containerClass}>
       {!hideTitle && <p className="text-gray-400 px-2">{title}</p>}
-      <Dropdown className="w-full">
+      <Dropdown className="w-full " dir="rtl">
         <DropdownTrigger className="bg-blue-400">
           <Button
             variant={variant || "light"}
-            className={dropdownBtnClass}
-            
+            className="sm:w-[130px] md:w-[110px] lg:w-[180px] justify-start pr-2  sm:text-[12px] md:text-[9px] lg:text-[14px] text-[10px]"
           >
             {selectedItem}
           </Button>
         </DropdownTrigger>
         <DropdownMenu
           aria-label="Action event example"
-          className={dropdownMenuClass || "max-h-[200px] overflow-auto"}
+          className={dropdownMenuClass || "max-h-[200px] overflow-auto hide-scrollbar"}
         >
           {data?.map((item: any, index: number) => (
             <DropdownItem key={index} onClick={() => onClick?.(item)}>

@@ -91,12 +91,12 @@ const Header = ({ activeItem }: Props) => {
 
   return (
     <div
-      className={`w-full py-5 border-b border-b-[#F84F39] px-3 min-h-[60px] transition-opacity false ${
+      className={`w-full py-5 border-b border-b-[#F84F39] px-3 min-h-[60px] transition-opacity ${
         active && "fixed top-0 left-0 bg-[#fff] z-[9999] sm:px-0 px-3 "
       }`}
       dir="rtl"
     >
-      <div className="hidden w-[95%] mx-auto md:flex items-center justify-between">
+      <div className="hidden md:flex w-[95%] mx-auto items-center justify-between">
         <div>
           <Link href={"/"}>
             <Image
@@ -120,7 +120,7 @@ const Header = ({ activeItem }: Props) => {
             <Dropdown>
               <DropdownTrigger>
                 <div>
-                  <p className="text-[##979797] text-[10px] font-rbLight">
+                  <p className="text-[#979797] text-[10px] font-rbLight">
                     مرحبا بك{" "}
                   </p>
                   <div className="flex items-center">
@@ -152,19 +152,16 @@ const Header = ({ activeItem }: Props) => {
             </Dropdown>
           </div>
         )}
-        {/* <Link
-          href={{ pathname: userToken && isUser ? "/addRequest" : "/login" }}
-        > */}
         <div
-          className="text-center md:px-3 px-2 xl:py-3 py-2 bg-[#F84F39] rounded-full"
+          className="text-center md:px-3 px-2 xl:py-3 py-2 bg-[#F84F39] rounded-full cursor-pointer"
           onClick={onLoginAddReqClicked}
         >
-          <h4 className="text-white cursor-pointer lg:w-[120px] w-[90px] text-[14px] lg:text-[16px] font-rbRegular">
+          <h4 className="text-white lg:w-[120px] w-[90px] text-[14px] lg:text-[16px] font-rbRegular">
             {userToken && isUser ? "طلب سعر" : "تسجيل دخول"}
           </h4>
         </div>
-        {/* </Link> */}
       </div>
+
       <div className="w-full md:hidden flex items-center justify-between">
         <div>
           <Link href={"/"}>
@@ -226,17 +223,14 @@ const Header = ({ activeItem }: Props) => {
                   </div>
                 ) : null}
                 <Navigation activeItem={activeItem} active={active} />
-                <Link
-                  href={{
-                    pathname: userToken && isUser ? "/addRequest" : "/login",
-                  }}
+                <div
+                  className="text-white cursor-pointer p-2 bg-[#F84F39] rounded-full mt-4"
+                  onClick={onLoginAddReqClicked}
                 >
-                  <div className="text-white cursor-pointer p-2 bg-[#F84F39] rounded-full">
-                    <h4 className="text-[14px] lg:text-[16px] font-rbRegular">
-                      {userToken && isUser ? "طلب سعر" : "تسجيل دخول"}
-                    </h4>
-                  </div>
-                </Link>
+                  <h4 className="text-[14px] lg:text-[16px] font-rbRegular">
+                    {userToken && isUser ? "طلب سعر" : "تسجيل دخول"}
+                  </h4>
+                </div>
               </div>
             </div>
           </div>

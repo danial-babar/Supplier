@@ -51,7 +51,7 @@ const Page = (props: Props) => {
   return (
     <div dir="rtl">
       <Header activeItem={3} />
-      <Banner onClick={handleSearchClick} />
+      <Banner onClick={handleSearchClick} text1="طـلبا" text2="ت التوريد" />
       <div className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
         {leadsData.map((item: { id: string; status: string }, index) => {
           return (

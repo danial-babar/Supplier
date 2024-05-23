@@ -4,14 +4,15 @@ import Header from "@/components/Layout/Header";
 import Footer from "@/components/Layout/Footer";
 import Image from "next/image";
 import Link from "next/link";
+import { BsThreeDots } from "react-icons/bs";
 type Props = {};
 
 const Page = (props: Props) => {
   return (
     <div dir="rtl">
       <Header activeItem={5} />
-      <div className="w-[95%] grid grid-cols-1 md:grid-cols-2 md:mt-3 mt-6 gap-4 mx-auto items-center">
-        <div className=" text-[#0A102F] text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold relative">
+      <div className="w-[95%] grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto items-center gradient-background">
+        <div className=" text-[#0A102F] text-[18px] sm:mt-4 md:mt-0 mt-4 sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold relative">
           تواص
           <span className="rounded-3xl bg-[#BDFFA5] md:pe-24 pe-4 py-0">
             ل معنا
@@ -20,7 +21,7 @@ const Page = (props: Props) => {
             <p>لا تتردد في الاتصال بنا مع أي أسئلة أو تعليقات</p>
             <p>
               او التواصل علي البريد الاكتروني
-              <strong className="text-[#F84F39] sm:font-rbBold font-rbRegular uppercase">
+              <strong className="text-[#F84F39] sm:font-rbBold font-rbRegular uppercase underline ps-1">
                 info@mowarrd.sa
               </strong>
             </p>
@@ -48,8 +49,12 @@ const Page = (props: Props) => {
                 className="object-contain rounded-lg bg-[#F84F39] bg-opacity-20 p-3 mx-auto"
               />
             </div>
-            <p className="sm:font-rbBold text-[#000] text-opacity-80 font-rbRegular my-3">رقم الهاتف</p>
-            <small className="sm:font-rbBold font-rbRegular text-[#000] text-opacity-80">+1-202-555-0177</small>
+            <p className="sm:font-rbBold text-[#000] text-opacity-80 font-rbRegular my-3">
+              رقم الهاتف
+            </p>
+            <small className="sm:font-rbBold font-rbRegular text-[#000] text-opacity-80">
+              +1-202-555-0177
+            </small>
           </div>
           <div className="max-w-sm p-6 text-center bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
             <div className="">
@@ -61,8 +66,12 @@ const Page = (props: Props) => {
                 className="object-contain rounded-lg bg-[#F84F39] bg-opacity-20 p-3 mx-auto"
               />
             </div>
-            <p className="sm:font-rbBold text-[#000] text-opacity-80 font-rbRegular my-3">الفاكس</p>
-            <small className="sm:font-rbBold font-rbRegular text-[#000] text-opacity-80">+1-202-555-0177</small>
+            <p className="sm:font-rbBold text-[#000] text-opacity-80 font-rbRegular my-3">
+              الفاكس
+            </p>
+            <small className="sm:font-rbBold font-rbRegular text-[#000] text-opacity-80">
+              +1-202-555-0177
+            </small>
           </div>
           <div className="max-w-sm p-6 text-center bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
             <div className="">
@@ -74,8 +83,12 @@ const Page = (props: Props) => {
                 className="object-contain rounded-lg bg-[#F84F39] bg-opacity-20 p-3 mx-auto"
               />
             </div>
-            <p className="sm:font-rbBold text-[#000] text-opacity-80 font-rbRegular my-3">البريد الإلكتروني</p>
-            <small className="font-rbRegular text-[#000] text-opacity-80">info@mowarrd.sa</small>
+            <p className="sm:font-rbBold text-[#000] text-opacity-80 font-rbRegular my-3">
+              البريد الإلكتروني
+            </p>
+            <small className="font-rbRegular text-[#000] text-opacity-80">
+              info@mowarrd.sa
+            </small>
           </div>
         </div>
       </div>
@@ -88,7 +101,7 @@ const Page = (props: Props) => {
           className="object-cover h-56 w-full mx-auto"
         />
       </div>
-      <div className="bg-gradient-radial from-blue-100 to-pink-50 via-gray-100">
+      <div className="gradient-background">
         <div className="text-center md:pt-20 pt-8">
           <div className=" text-[#0A102F] text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold relative">
             <span> نموذج </span>
@@ -97,8 +110,12 @@ const Page = (props: Props) => {
             </span>
             <div className="text-[16px] sm:text-[18px] text-gray-700 sm:mt-8 mt-4 font-rbLight sm:font-rbRegular">
               <p>
-                تتيح لك منصة <strong className="sm:font-rbBold font-rbRegular">مــوّرد</strong> الإلكتروني المشاركة في
-                طلبات التوريد المطروحة في أي وقت ومن أي مكان بكل سهولة
+                تتيح لك منصة{" "}
+                <strong className="sm:font-rbBold font-rbRegular">
+                  مــوّرد
+                </strong>{" "}
+                الإلكتروني المشاركة في طلبات التوريد المطروحة في أي وقت ومن أي
+                مكان بكل سهولة
               </p>
             </div>
           </div>
@@ -129,7 +146,7 @@ const Page = (props: Props) => {
                   required
                 />
               </div>
-               <div className="mb-5">
+              <div className="mb-5">
                 <label className="block mb-2 text-sm font-rbRegular text-gray-900 dark:text-white">
                   رقم الجوال<span className="text-red-500 ps-2">*</span>
                 </label>
@@ -140,7 +157,7 @@ const Page = (props: Props) => {
                   required
                 />
               </div>
-            
+
               {/* <div className="mb-5">
                 <label className="block mb-2 text-sm font-rbRegular text-gray-900 dark:text-white">
                   تاريخ الميلاد<span className="text-red-500 ps-2">*</span>
@@ -152,7 +169,7 @@ const Page = (props: Props) => {
                   required
                 />
               </div> */}
-             
+
               <div className="mb-5">
                 <label className="block mb-2 text-sm font-rbRegular text-gray-900 dark:text-white">
                   البريد الإلكتروني<span className="text-red-500 ps-2">*</span>
@@ -187,14 +204,11 @@ const Page = (props: Props) => {
                 placeholder="ادخل تفاصيل الطلب"
               ></textarea>
             </div>
-            <div className="md:mt-20 text-center pb-12 mt-8">
-
-                <Link href="/message">
-              <button className="bg-[#F84F39] px-4 py-2 rounded-medium md:rounded-full text-white font-rbRegular">
-                المزيد من التنصيفات...
-              </button>
-                </Link>
-
+            <div className="md:mt-20 text-center mt-8 mb-8 w-full items-center justify-center flex">
+              <div className="bg-[#F84F39] self-center justify-center p-4 px-6 text-[18px] flex items-center rounded-medium md:rounded-full text-white font-rbRegular">
+                ارسال الطلب
+                <BsThreeDots color="white" size={30} className="mr-1" />
+              </div>
             </div>
           </form>
         </div>

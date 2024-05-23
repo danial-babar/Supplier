@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://projects.microrage.com/moward/api";
+// const BASE_URL = "http://projects.microrage.com/moward/api";
+export const BASE_URL = "http://165.73.252.160/manage/index.php/api/";
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -64,6 +65,15 @@ export const getAllLeads = async () => {
   }
 };
 export const filterLeads = async (data: any) => {
+  console.log(
+    "query",
+    `/get_leads_filter?category=${data.category || ""}&city=${
+      data?.city || ""
+    }&order_status=${data?.status || ""}&sort_by=${data?.sortBy}&page=${
+      data?.page
+    }`
+  );
+
   try {
     const response = await api.get(
       `/get_leads_filter?category=${data.category || ""}&city=${

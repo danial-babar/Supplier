@@ -4,7 +4,10 @@ import Header from "@/components/Layout/Header";
 import React from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import Banner from "@/components/Layout/Banner";
+import { BsThreeDots } from "react-icons/bs";
 import CategoriesSupply from "@/components/CategoriesSupply";
+
 // import Image from "next/image";
 
 type Props = {};
@@ -13,6 +16,7 @@ const Page = (props: Props) => {
   return (
     <div dir="rtl">
       <Header activeItem={2} />
+      <Banner onClick={() => {}} />
       <div>
         <div className="md:my-24 sm:my-10 mt-10 w-[95%] mx-auto sm:flex justify-between items-center ">
           <div className="text-black text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold relative">
@@ -22,8 +26,9 @@ const Page = (props: Props) => {
             </span>
             <span>طلبا للتوريد</span>
             <p className="text-[16px] sm:text-[18px] font-rbLight sm:font-rbRegular sm:mt-4 mt-2">
-              تقدم منصة <strong className="sm:font-rbBold font-rbLight">مــوّرد</strong> مجموعة متنوعة من المنتجات
-              الأكثر طلبًا في صناعة التوريد.
+              تقدم منصة{" "}
+              <strong className="sm:font-rbBold font-rbLight">مــوّرد</strong>{" "}
+              مجموعة متنوعة من المنتجات الأكثر طلبًا في صناعة التوريد.
             </p>
             <p className="text-[16px] sm:text-[18px] font-rbLight sm:font-rbRegular mt-2">
               نحن متخصصون في توفير حلول فعالة وذات جودة عالية لاحتياجاتكم
@@ -39,10 +44,22 @@ const Page = (props: Props) => {
           </div>
         </div>
       </div>
-      <div className="w-[95%] lg:gap-7 bg-gradient-radial from-gray-100 via-gray-100 pb-8 sm:pb-12 md:pb-16 lg:pb-24 mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
-      <CategoriesSupply text={" هي مجموعة من المواد الاصطناعية التي تمتاز بمرونتها وقابليتها للتشكيل"} />
-      <CategoriesSupply text={" المأكولات والمشروبات تشمل جميع الأطعمة والمشروبات التي يتم تناولها للتغذية والاستمتاع بالطعام والشراب."} />
-      <CategoriesSupply text={"يشمل هذا التصنيف مجموعة واسعة من الصناعات والقطاعات التي تعتمد على تقديم خدمات للآخرين بدلاً من إنتاج سلع ملموسة."} />
+      <div className="w-[95%] lg:gap-7 banner-gradient  pb-8 sm:pb-12 md:pb-16 lg:pb-24 mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+        <CategoriesSupply
+          text={
+            " هي مجموعة من المواد الاصطناعية التي تمتاز بمرونتها وقابليتها للتشكيل"
+          }
+        />
+        <CategoriesSupply
+          text={
+            " المأكولات والمشروبات تشمل جميع الأطعمة والمشروبات التي يتم تناولها للتغذية والاستمتاع بالطعام والشراب."
+          }
+        />
+        <CategoriesSupply
+          text={
+            "يشمل هذا التصنيف مجموعة واسعة من الصناعات والقطاعات التي تعتمد على تقديم خدمات للآخرين بدلاً من إنتاج سلع ملموسة."
+          }
+        />
       </div>
       <div className="w-[95%] text-black text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold md:my-20 my-8 text-center relative">
         عرض جميع
@@ -50,22 +67,51 @@ const Page = (props: Props) => {
           التصنيفات
         </span>
         <p className="text-[16px] sm:text-[18px] text-gray-700 sm:mt-4 mt-2 font-rbLight sm:font-rbRegular">
-          تتيح لك منصة <strong className="sm:font-rbBold font-rbLight">مــوّرد</strong> الإلكتروني المشاركة في طلبات
-          التوريد المطروحة في أي وقت ومن أي مكان بكل سهولة
+          تتيح لك منصة{" "}
+          <strong className="sm:font-rbBold font-rbLight">مــوّرد</strong>{" "}
+          الإلكتروني المشاركة في طلبات التوريد المطروحة في أي وقت ومن أي مكان
+          بكل سهولة
         </p>
       </div>
-      <div className="w-[95%] lg:gap-7 bg-gradient-radial from-gray-100 via-gray-100 pb-8 sm:pb-12 md:pb-16 lg:pb-24 mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
-      <CategoriesSupply text={" هي مجموعة من المواد الاصطناعية التي تمتاز بمرونتها وقابليتها للتشكيل"} />
-      <CategoriesSupply text={" المأكولات والمشروبات تشمل جميع الأطعمة والمشروبات التي يتم تناولها للتغذية والاستمتاع بالطعام والشراب."} />
-      <CategoriesSupply text={"يشمل هذا التصنيف مجموعة واسعة من الصناعات والقطاعات التي تعتمد على تقديم خدمات للآخرين بدلاً من إنتاج سلع ملموسة."} />
-      </div>
-      <div className="md:mt-20 text-center mt-8 mb-8">
-        <a
-          href=""
-          className="bg-[#F84F39] px-4 py-2 rounded-medium md:rounded-full text-white font-rbRegular"
-        >
-          المزيد من التنصيفات...
-        </a>
+      <div className="banner-gradient ">
+        <div className="w-[95%]  lg:gap-7 pb-5 sm:pb-5 md:pb-5 lg:pb-5 mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+          <CategoriesSupply
+            text={
+              " هي مجموعة من المواد الاصطناعية التي تمتاز بمرونتها وقابليتها للتشكيل"
+            }
+          />
+          <CategoriesSupply
+            text={
+              " المأكولات والمشروبات تشمل جميع الأطعمة والمشروبات التي يتم تناولها للتغذية والاستمتاع بالطعام والشراب."
+            }
+          />
+          <CategoriesSupply
+            text={
+              "يشمل هذا التصنيف مجموعة واسعة من الصناعات والقطاعات التي تعتمد على تقديم خدمات للآخرين بدلاً من إنتاج سلع ملموسة."
+            }
+          />
+          <CategoriesSupply
+            text={
+              " هي مجموعة من المواد الاصطناعية التي تمتاز بمرونتها وقابليتها للتشكيل"
+            }
+          />
+          <CategoriesSupply
+            text={
+              " المأكولات والمشروبات تشمل جميع الأطعمة والمشروبات التي يتم تناولها للتغذية والاستمتاع بالطعام والشراب."
+            }
+          />
+          <CategoriesSupply
+            text={
+              "يشمل هذا التصنيف مجموعة واسعة من الصناعات والقطاعات التي تعتمد على تقديم خدمات للآخرين بدلاً من إنتاج سلع ملموسة."
+            }
+          />
+        </div>
+        <div className="md:mt-20 text-center mt-8 mb-8 w-full items-center justify-center flex">
+          <div className="bg-[#F84F39] self-center justify-center p-4 text-[18px] flex items-center rounded-medium md:rounded-full text-white font-rbRegular">
+            المزيد من التنصيفات
+            <BsThreeDots color="white"  size={30} className="mr-1"/>
+          </div>
+        </div>
       </div>
       <Footer />
     </div>
