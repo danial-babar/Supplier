@@ -33,14 +33,15 @@ import { useSelector } from "react-redux";
 import Loader from "@/components/Loader";
 import WarningModal from "@/common-modals/WarningModal";
 import SuccessModal from "@/common-modals/SuccessModal";
+import { useRouter } from "next/navigation";
 type Props = {
   searchParams: any;
 };
 const Page = ({ searchParams }: Props) => {
+  const router = useRouter();
   const { leadId } = useSelector((state: any) => state.user);
   const { user } = useSelector((state: any) => state.user);
   const [loading, setLoading] = useState(true);
-
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isBidWaringOpen, setIsBidWaringOpen] = useState(false);
   const [successBid, setSuccessBid] = useState(false);
@@ -246,12 +247,12 @@ const Page = ({ searchParams }: Props) => {
                         <Button
                           onClick={() => {
                             if (user?.user_role_key == "buyer") {
-                              // alert("الرجاء تسجيل الدخول كمورد لتقديم العطاءات");
                               setIsBidWaringOpen(true);
                               setWarningMsg(
                                 "الرجاء تسجيل الدخول كمورد لتقديم العطاءات"
                               );
-                            } else onOpen();
+                            } else if (!user?.token) router.push("/login");
+                            else onOpen();
                           }}
                           className="sm:font-rbRegular bg-[#F84F39] w-full font-rbLight text-white rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6"
                         >
@@ -460,7 +461,7 @@ const Page = ({ searchParams }: Props) => {
       <WarningModal
         header="تحذير"
         message={warningMsg}
-        buttonText="Okay"
+        buttonText="يغلق"
         isOpen={isBidWaringOpen}
         onClose={() => setIsBidWaringOpen(false)}
         onConfirm={() => setIsBidWaringOpen(false)}

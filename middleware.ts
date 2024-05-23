@@ -3,9 +3,6 @@ import { useSelector } from "react-redux";
 import { store } from "./redux/Store";
 
 const protectedRoutes = [
-  "management",
-  "requests",
-  "requestDetail",
   "addRequest",
 ];
 

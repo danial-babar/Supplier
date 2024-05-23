@@ -14,10 +14,10 @@ const Partners = (props: Props) => {
         </h3>
 
         <div className="my-5">
-          <p className="sm:font-rbBold font-rbRegular text-[16px] sm:text-[18px] mb-3 text-[#475467]">
+          <p className="sm:font-rbBold font-rbRegular text-[16px] sm:text-[20px] mb-3 text-[#475467]">
             نفخر بالتعاون مع شركاء منصة مــوّرد الإلكتروني
           </p>
-          <p className="text-[16px] sm:text-[20px] md:text-[22px] text-black text-opacity-50 sm:font-rbRegular font-rbLight">
+          <p className="text-[18px] sm:text-[14px] md:text-[18px] text-black text-opacity-50 sm:font-rbRegular font-rbLight">
             موثوق به من قبل أكثر من 10,000 جهة داخل المملكة
           </p>
         </div>

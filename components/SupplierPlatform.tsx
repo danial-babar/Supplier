@@ -4,7 +4,7 @@ type Props = {};
 
 const supplierPlatform = (props: Props) => {
   return (
-    <div className="bg-[#F5F5F5] md:py-14 sm:py-10 lg:py-20 py-6">
+    <div className=" md:py-14 sm:py-10 lg:py-20 py-6 supplier-banner-gradient">
       <div className="w-[95%] mx-auto">
         <div className="my-10 text-center">
           <div className="font-rbBold sm:text-[28px] md:text-[36px] lg:text-[50px] text-[18px]">

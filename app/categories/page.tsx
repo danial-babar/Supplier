@@ -44,7 +44,7 @@ const Page = (props: Props) => {
           </div>
         </div>
       </div>
-      <div className="w-[95%] lg:gap-7 bg-gradient-radial from-gray-100 via-gray-100 pb-8 sm:pb-12 md:pb-16 lg:pb-24 mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+      <div className="w-[95%] lg:gap-7 banner-gradient  pb-8 sm:pb-12 md:pb-16 lg:pb-24 mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
         <CategoriesSupply
           text={
             " هي مجموعة من المواد الاصطناعية التي تمتاز بمرونتها وقابليتها للتشكيل"
@@ -74,7 +74,22 @@ const Page = (props: Props) => {
         </p>
       </div>
       <div className="banner-gradient ">
-        <div className="w-[95%]  lg:gap-7 pb-5 sm:pb-5 md:pb-5  lg:pb-5 mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+        <div className="w-[95%]  lg:gap-7 pb-5 sm:pb-5 md:pb-5 lg:pb-5 mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+          <CategoriesSupply
+            text={
+              " هي مجموعة من المواد الاصطناعية التي تمتاز بمرونتها وقابليتها للتشكيل"
+            }
+          />
+          <CategoriesSupply
+            text={
+              " المأكولات والمشروبات تشمل جميع الأطعمة والمشروبات التي يتم تناولها للتغذية والاستمتاع بالطعام والشراب."
+            }
+          />
+          <CategoriesSupply
+            text={
+              "يشمل هذا التصنيف مجموعة واسعة من الصناعات والقطاعات التي تعتمد على تقديم خدمات للآخرين بدلاً من إنتاج سلع ملموسة."
+            }
+          />
           <CategoriesSupply
             text={
               " هي مجموعة من المواد الاصطناعية التي تمتاز بمرونتها وقابليتها للتشكيل"
