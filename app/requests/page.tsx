@@ -7,6 +7,7 @@ import RequestCard from "@/components/RequestCard";
 import { filterLeads, getAllLeads } from "@/api/Users";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
+import ThreeDotedBtn from "@/components/ThreeDotedBtn";
 // import Image from "next/image";
 
 type Props = {};
@@ -86,14 +87,7 @@ const Page = (props: Props) => {
           );
         })}
       </div>
-      <div className="md:mt-20 text-center mt-8 mb-8">
-        <a
-          // href=""
-          className="bg-[#F84F39] px-4 py-2 rounded-medium md:rounded-full text-white font-rbRegular"
-        >
-          المزيد من التنصيفات...
-        </a>
-      </div>
+      <ThreeDotedBtn title="المزيد من التنصيفات" onclick={()=>{}} />
 
       <Footer />
     </div>

@@ -7,6 +7,7 @@ import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import Banner from "@/components/Layout/Banner";
 import { BsThreeDots } from "react-icons/bs";
 import CategoriesSupply from "@/components/CategoriesSupply";
+import ThreeDotedBtn from "@/components/ThreeDotedBtn";
 
 // import Image from "next/image";
 
@@ -44,7 +45,7 @@ const Page = (props: Props) => {
           </div>
         </div>
       </div>
-      <div className="w-[95%] lg:gap-7 banner-gradient  pb-8 sm:pb-12 md:pb-16 lg:pb-24 mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+      <div className="w-[95%] lg:gap-7 gradient-background pb-8 sm:pb-12 md:pb-16 lg:pb-24 mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
         <CategoriesSupply
           text={
             " هي مجموعة من المواد الاصطناعية التي تمتاز بمرونتها وقابليتها للتشكيل"
@@ -73,7 +74,7 @@ const Page = (props: Props) => {
           بكل سهولة
         </p>
       </div>
-      <div className="banner-gradient ">
+      <div className="gradient-background ">
         <div className="w-[95%]  lg:gap-7 pb-5 sm:pb-5 md:pb-5 lg:pb-5 mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
           <CategoriesSupply
             text={
@@ -106,12 +107,7 @@ const Page = (props: Props) => {
             }
           />
         </div>
-        <div className="md:mt-20 text-center mt-8 mb-8 w-full items-center justify-center flex">
-          <div className="bg-[#F84F39] self-center justify-center p-4 text-[18px] flex items-center rounded-medium md:rounded-full text-white font-rbRegular">
-            المزيد من التنصيفات
-            <BsThreeDots color="white"  size={30} className="mr-1"/>
-          </div>
-        </div>
+        <ThreeDotedBtn title="المزيد من التنصيفات" onclick={() => {}} />
       </div>
       <Footer />
     </div>

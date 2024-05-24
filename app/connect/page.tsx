@@ -5,6 +5,7 @@ import Footer from "@/components/Layout/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import { BsThreeDots } from "react-icons/bs";
+import ThreeDotedBtn from "@/components/ThreeDotedBtn";
 type Props = {};
 
 const Page = (props: Props) => {
@@ -194,9 +195,9 @@ const Page = (props: Props) => {
               </div>
             </div>
             <div className="mb-5">
-              <label className="block mb-2 text-sm font-rbRegular text-gray-900 dark:text-white">
+              <p className="block mb-2 text-sm font-rbRegular text-gray-900 dark:text-white">
                 التفاصيل<span className="text-red-500 ps-2">*</span>
-              </label>
+              </p>
               <textarea
                 id="message"
                 rows={4}
@@ -204,12 +205,7 @@ const Page = (props: Props) => {
                 placeholder="ادخل تفاصيل الطلب"
               ></textarea>
             </div>
-            <div className="md:mt-20 text-center mt-8 mb-8 w-full items-center justify-center flex">
-              <div className="bg-[#F84F39] self-center justify-center p-4 px-6 text-[18px] flex items-center rounded-medium md:rounded-full text-white font-rbRegular">
-                ارسال الطلب
-                <BsThreeDots color="white" size={30} className="mr-1" />
-              </div>
-            </div>
+            <ThreeDotedBtn title="ارسال الطلب" onclick={() => {}} />
           </form>
         </div>
       </div>
