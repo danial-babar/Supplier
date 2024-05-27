@@ -75,14 +75,14 @@ const Banner = ({
   }, []);
 
   return (
-    <div className="w-[95%] flex flex-col items-center justify-between py-8 sm:py-10 md:py-14 lg:py-28 gradient-background">
+    <div className="w-[100%] flex flex-col items-center justify-between py-8 sm:py-10 md:py-14 lg:py-28 gradient-background">
       <h1 className="text-black text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] relative font-rbBold text-center">
         {text1 || "بحث عن طل"}
         <span className="rounded-3xl bg-[#BDFFA5] pe-3">
           {text2 || "بات التوريد"}
         </span>
       </h1>
-      <h4 className="text-black w-[95%] opacity-80 tracking-wide sm:opacity-60 text-[16px] sm:text-[18px] md:mt-10 sm:mt-8 mt-4 text-center font-rbLight sm:font-rbRegular">
+      <h4 className="text-[#475467] w-[95%] tracking-wide  text-[16px] sm:text-[18px] md:mt-10 sm:mt-8 mt-4 text-center font-rbLight sm:font-rbRegular">
         تتيح منصة <span className="sm:font-rbBold font-rbRegular">مــوّرد</span>{" "}
         الإلكتروني فرصة مشاركة طلب وعرض سعر الإلكترونية من مختلف مناطق المملكة
       </h4>
@@ -153,7 +153,7 @@ const Banner = ({
           </div>
           <div className="md:w-auto w-full flex md:text-start text-end">
             <div
-              className="bg-[#F84F39] md:p-2 px-4 font-rbRegular p-2 lg:p-4 rounded-full text-white cursor-pointer flex justify-between items-center"
+              className="bg-[#F84F39] md:w-auto w-full md:p-2 px-4 font-rbRegular p-2 lg:p-4 rounded-full text-white cursor-pointer flex justify-between items-center"
               onClick={onSearchPress}
             >
               <label className="md:hidden">يبحث</label>

@@ -9,16 +9,16 @@ type Props = {
 
 const Navigation = ({ activeItem, active }: Props) => {
   return (
-    <div className="block md:flex">
+    <div className="block lg:flex">
       {NavItems.map((item, index) => {
         return (
           <div key={item.title}>
             <Link href={item?.href || "/"}>
               <p
-                className={`inline-block cursor-pointer lg:px-3 md:px-2 md:text-[14px] xl:text-[16px] xl:px-5 py-5 md:py-0 ${
+                className={`inline-block cursor-pointer lg:px-3 md:px-2 md:text-[14px] xl:text-[16px] xl:px-5 py-5 lg:py-0 ${
                   activeItem === index
                     ? "text-[#F84F39] font-rbBold"
-                    : "md:text-black text-white lg:font-rbRegular"
+                    : "lg:text-black text-white lg:font-rbRegular"
                 }`}
               >
                 {item.title}

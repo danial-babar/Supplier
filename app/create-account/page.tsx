@@ -99,7 +99,7 @@ const Page = ({ searchParams }: Props) => {
             onOpen();
           } else {
             setResError(response?.message);
-            setWarningModal(true);
+            // setWarningModal(true);
           }
         })
         .catch((error) => {
@@ -151,7 +151,7 @@ const Page = ({ searchParams }: Props) => {
                 dir="rtl"
                 defaultValue="vendor"
                 className="text-[#000]"
-                classNames={{label:'text-[#000] text-[16px] font-rbRegular'}}
+                classNames={{ label: "text-[#000] text-[16px] font-rbRegular" }}
               >
                 <Radio
                   value="vendor"
@@ -176,6 +176,11 @@ const Page = ({ searchParams }: Props) => {
                 <div className="text-red-500 text-[12px]">{errors.role}</div>
               )}
             </div>
+            {resError && (
+              <div className="text-[14px] md:text-[16px] flex items-center justify-center text-[#F84F39] my-3 font-rbRegular">
+                <p>{resError}</p>
+              </div>
+            )}
             <form onSubmit={CreateAccount}>
               <div className="px-3 pb-6">
                 <div className="grid gap-6 mb-6 md:grid-cols-2">

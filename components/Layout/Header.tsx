@@ -2,12 +2,9 @@ import Navigation from "@/components/Layout/Navigation";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
 import { FaBars, FaRegEnvelope } from "react-icons/fa";
 import { GoPeople } from "react-icons/go";
 import { localstorageService } from "@/utils/LocalStorage.service";
-import { RxCross1 } from "react-icons/rx";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import {
@@ -91,12 +88,12 @@ const Header = ({ activeItem }: Props) => {
 
   return (
     <div
-      className={`w-full py-5 border-b border-b-[#F84F39] px-3 min-h-[60px] transition-opacity ${
-        active && "fixed top-0 left-0 bg-[#fff] z-[9999] sm:px-0 px-3 "
+      className={`w-full py-5 border-b border-b-[#F84F39] px-3 h-[90px] transition-opacity ${
+        active && "fixed top-0 left-0 bg-[#fff] z-[999] sm:px-0 px-3 "
       }`}
       dir="rtl"
     >
-      <div className="hidden md:flex w-[95%] mx-auto items-center justify-between">
+      <div className="hidden lg:flex w-[95%] mx-auto items-center justify-between">
         <div>
           <Link href={"/"}>
             <Image
@@ -131,7 +128,11 @@ const Header = ({ activeItem }: Props) => {
                   </div>
                 </div>
               </DropdownTrigger>
-              <DropdownMenu aria-label="Profile Actions" variant="flat" dir="rtl">
+              <DropdownMenu
+                aria-label="Profile Actions"
+                variant="flat"
+                dir="rtl"
+              >
                 <DropdownItem onClick={() => router.push("allRequest")}>
                   <div className="flex items-center w-full">
                     <MdCollectionsBookmark className="text-black text-2xl ml-2" />
@@ -162,7 +163,7 @@ const Header = ({ activeItem }: Props) => {
         </div>
       </div>
 
-      <div className="w-full md:hidden flex items-center justify-between">
+      <div className="w-full lg:hidden flex items-center justify-between">
         <div>
           <Link href={"/"}>
             <Image src={"/logo.png"} width={150} height={150} alt="Logo" />
@@ -173,7 +174,7 @@ const Header = ({ activeItem }: Props) => {
         </div>
         {open && (
           <div
-            className="fixed md:hidden w-full h-screen top-0 left-0 z-[9999] bg-[unset]"
+            className="fixed lg:hidden w-full h-screen top-0 left-0 z-[9999] bg-[unset]"
             onClick={handleClose}
             id="screen"
           >
@@ -201,7 +202,11 @@ const Header = ({ activeItem }: Props) => {
                           </div>
                         </div>
                       </DropdownTrigger>
-                      <DropdownMenu aria-label="Profile Actions" variant="flat" dir="rtl">
+                      <DropdownMenu
+                        aria-label="Profile Actions"
+                        variant="flat"
+                        dir="rtl"
+                      >
                         <DropdownItem onClick={() => router.push("allRequest")}>
                           <div className="flex items-center w-full">
                             <MdCollectionsBookmark className="text-black text-2xl ml-2" />

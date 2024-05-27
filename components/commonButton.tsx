@@ -32,7 +32,7 @@ const CommonButton = ({
         className ||
         `mt-4 w-full text-[${
           textColor || "#fff"
-        }] bg-[${bgColor}] sm:font-rbRegular font-rbLight rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6`
+        }] bg-[${bgColor}] sm:font-rbBold font-rbRegular rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6`
       }
       onPress={onPress}
     >

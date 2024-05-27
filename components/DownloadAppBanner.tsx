@@ -60,14 +60,14 @@ const DownloadAppBanner = (props: Props) => {
           </p>
         </div>
         <div className="xl:flex items-center justify-center gap-1 my-5">
-          <div className="flex py-2 lg:py-3 xl:mb-0 mb-4 lg:px-4 items-center justify-center xl:justify-start border border-[#F84F39] rounded-full">
-            <p className="text-[#F84F39]  me-1 text-[16px] font-rbRegular">
+          <div className="flex py-2 lg:py-3 xl:mb-0 mb-4 lg:px-6 items-center justify-center xl:justify-start border border-[#F84F39] rounded-full">
+            <p className="text-[#F84F39]  me-1 text-[16px] font-rbBold">
               تحميل لنظام الاندرويد
             </p>
             <Image src={"/store.png"} alt="" width={14} height={14} />
           </div>
-          <div className="flex py-2 lg:py-3 lg:px-4 items-center justify-center border border-[#F84F39] xl:justify-start bg-[#F84F39] rounded-full">
-            <p className="text-[#fff] me-1 text-[16px] font-rbRegular">
+          <div className="flex py-2 lg:py-3 lg:px-6 items-center justify-center border border-[#F84F39] xl:justify-start bg-[#F84F39] rounded-full">
+            <p className="text-[#fff] me-1 text-[16px] font-rbBold">
               تحميل لنظام iOS
             </p>
             <Image src={"/apple.png"} alt="" width={14} height={14} />
