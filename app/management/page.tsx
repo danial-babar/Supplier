@@ -169,13 +169,13 @@ const Page = ({ searchParams }: Props) => {
         <>
           <div>
             <div className="mt-5">
-              <div className="lg:flex flex-row items-start lg:gap-12 gap-6 w-[95%] mx-auto">
+              <div className="lg:flex flex-row items-start lg:gap-12 gap-6 w-[95%] mx-auto ">
                 <div
                   id="indicators-carousel"
-                  className="relative lg:w-1/2 w-full"
+                  className="relative lg:w-1/2 w-full "
                   data-carousel="active"
                 >
-                  <div className="relative h-56 overflow-hidden rounded-lg lg:h-96">
+                  <div className="relative md:h-[550px] h-[300px]  overflow-hidden rounded-lg ">
                     {leadData?.images?.length > 0 &&
                       leadData?.images.map((image: any, index: number) => (
                         <div
@@ -190,9 +190,9 @@ const Page = ({ searchParams }: Props) => {
                               "http://165.73.252.160/manage/resources/uploads/lead_images/" +
                               image.filepath
                             }
-                            width={500}
+                            width={600}
                             height={500}
-                            className="absolute block w-[500] lg:w-[800px] h-[500] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                            className="absolute block h-auto w-[600px] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                             alt={`Slide ${index}`}
                             loading="lazy"
                             // objectPosition="cover"
@@ -262,7 +262,7 @@ const Page = ({ searchParams }: Props) => {
                     )}
                 </div>
 
-                <div className="lg:w-3/4 lg:mt-auto mt-8 w-full">
+                <div className="lg:w-3/4 mt-8 w-full ">
                   <div className="" dir="rtl">
                     <div className="sm:flex sm:space-y-0 space-y-5 justify-between items-center">
                       <div className="text-[#6B66DA] bg-[#6B66DA] bg-opacity-20 lg:px-5 px-3 py-1 rounded-full flex items-center">

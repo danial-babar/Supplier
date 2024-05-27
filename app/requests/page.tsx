@@ -87,7 +87,7 @@ const Page = (props: Props) => {
           );
         })}
       </div>
-      <ThreeDotedBtn title="المزيد من التنصيفات" onclick={()=>{}} />
+      <ThreeDotedBtn title="المزيد من طلبات التوريد" onclick={() => {}} />
 
       <Footer />
     </div>

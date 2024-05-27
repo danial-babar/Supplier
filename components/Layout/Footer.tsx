@@ -7,23 +7,23 @@ const Footer = () => {
   const [email, setEmail] = useState("");
 
   return (
-    <div className="bg-[#272737] xl:pt-24 lg:pt-20 md:pt-16 pt-12 pb-5">
+    <div className="bg-[#272737] xl:pt-24 lg:pt-20 md:pt-16 pt-12 pb-5 mt-4">
       <div className="w-[95%] mx-auto xl:w-[85%] lg:w-[90%]">
         <div className="flex lg:col-span-7 flex-col md:flex-row justify-between">
           <div className="flex-col md:flex-row md:col-span-6">
             <Link href={"/"}>
               <Image
                 src={"/logo-white.png"}
-                width={150}
+                width={200}
                 height={150}
                 alt="Logo"
               />
             </Link>
-            <p className="text-[#fff] text-[14px] md:text-[18px] font-rbLight sm:font-rbRegular tracking-wide md:w-[85%] lg:w-[75%] mt-3 leading-7">
+            <p className="text-[#fff] text-[14px] lg:text-[18px] md:text-[16px] font-rbLight sm:font-rbRegular tracking-wide md:w-[85%] lg:w-[75%] mt-3 leading-7">
               تتيح منصة مـوّرد الإلكتروني فرصة مشاركة المزايدين في المزادات
               الإلكترونية من مختلف مناطق المملكة
             </p>
-            <div className="flex text-[14px] font-rbLight sm:font-rbRegular text-[#fff] md:w-1/2 justify-between mt-6">
+            <div className="flex text-[14px] font-rbLight sm:font-rbRegular text-[#fff] md:w-1/2 md:justify-between justify-start mt-6">
               <div className="flex flex-col tracking-wide gap-5">
                 <Link href={"/"}>
                   <p className="cursor-pointer">الرئيسية</p>
@@ -31,7 +31,7 @@ const Footer = () => {
                 <p>الأقسام</p>
                 <p>المزادات</p>
               </div>
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col mr-5 gap-5">
                 <Link href={"/about"}>
                   <p className="cursor-pointer">عن مــورد</p>
                 </Link>
@@ -57,7 +57,7 @@ const Footer = () => {
                 <p className="text-[18px] tracking-wide md:text-[30px] xl:text-[45px] font-rbRegular sm:font-rbBold">
                   النشرة الإخبارية
                 </p>
-                <p className="text-[14px] md:text-[18px] tracking-wide font-rbLight sm:font-rbRegular mt-3 leading-7">
+                <p className="text-[14px] lg:text-[18px] md:text-[16px] tracking-wide font-rbLight sm:font-rbRegular mt-3 leading-7">
                   انضم إلى قائمتنا البريدية للبقاء على اطلاع دائم بآخر الأخبار
                   والأحداث والمزادات التي تقدمها منصة مــوّرد .
                 </p>

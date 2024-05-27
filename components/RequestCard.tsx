@@ -68,7 +68,7 @@ const RequestCard = ({
     <div>
       {/* <Link href={href || '/'}> */}
       <div
-        className={`px-5 p-6 ${bgColor} border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
+        className={`px-5 p-6 ${bgColor} border border-gray-200 rounded-lg shadow`}
       >
         <div className="flex gap-2 justify-around items-center">
           <div

@@ -48,6 +48,7 @@ const Page = (props: Props) => {
   };
 
   const Login = () => {
+    setErrorMsg("");
     if (validateForm()) {
       setLoading(true);
       const data = new FormData();
@@ -68,7 +69,7 @@ const Page = (props: Props) => {
             });
           } else {
             setErrorMsg(response?.message);
-            setWarningModal(true);
+            // setWarningModal(true);
             setShowError(true);
           }
         })
@@ -115,6 +116,11 @@ const Page = (props: Props) => {
                 <MdLogin className="pe-3 ms-2 text-[30px] md:text-[40px] text-[#F84F39]" />{" "}
                 تـسجيل الـدخول
               </h1>
+              {errorMsg && (
+                <div className="text-[14px] md:text-[16px] flex text-[#F84F39] my-3 font-rbRegular">
+                  <p>{errorMsg}</p>
+                </div>
+              )}
               <div>
                 <div>
                   <InputWithIcon

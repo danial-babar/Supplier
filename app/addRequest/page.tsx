@@ -40,10 +40,10 @@ import { ar } from "date-fns/locale/ar";
 registerLocale("ar", ar);
 
 const Page = (props: Props) => {
-  const URL = BASE_URL;
+ ;
 
   const api = axios.create({
-    baseURL: URL,
+    baseURL: BASE_URL,
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -71,7 +71,6 @@ const Page = (props: Props) => {
   console.log("selcted Date", inputData.postedDate);
   const handelDefaultImage = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0]; // Get the first selected file
-    console.log("Selected file:", file); // Log the selected file object
     setDefaultImage(file); // Set the selected file as the default image
   };
   const handleImageFileChange = (e: ChangeEvent<HTMLInputElement>) => {
