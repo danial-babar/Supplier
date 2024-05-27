@@ -51,6 +51,7 @@ const Page = ({ searchParams }: Props) => {
   const [completeDealId, setCompleteDealId] = useState("");
   const [warningMsg, setWarningMsg] = useState("");
   const [reqPrice, setReqPrice] = useState("");
+  const [bidError, setBidError] = useState("");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [remainingTime, setRemainingTime] = useState({
     days: 0,
@@ -75,29 +76,32 @@ const Page = ({ searchParams }: Props) => {
   };
   useEffect(() => {
     if (leadId) {
-      singleLeadById(leadId)
-        .then((response) => {
-          console.log("response while getting single lead", response);
-          if (response?.bids?.length > 0) {
-            const sortedBids = response?.bids.sort((a, b) => {
-              // Convert the amount strings to numbers for comparison
-              const amountA = parseInt(a?.amount);
-              const amountB = parseInt(b?.amount);
-              return amountA - amountB; // Ascending order
-              // For descending order: return amountB - amountA;
-            });
-            setAllBids(sortedBids);
-          }
-          setLeadData(response);
-          calculateRemainingTime(response?.date_expire);
-        })
-        .catch((error) => {
-          console.log("error while getting single lead", error);
-        })
-        .finally(() => setLoading(false));
+      GetSinlgeLead();
     } else setLoading(false);
   }, [leadId]);
 
+  const GetSinlgeLead = () => {
+    singleLeadById(leadId)
+      .then((response) => {
+        console.log("response while getting single lead", response);
+        if (response?.bids?.length > 0) {
+          const sortedBids = response?.bids.sort((a, b) => {
+            // Convert the amount strings to numbers for comparison
+            const amountA = parseInt(a?.amount);
+            const amountB = parseInt(b?.amount);
+            return amountA - amountB; // Ascending order
+            // For descending order: return amountB - amountA;
+          });
+          setAllBids(sortedBids);
+        }
+        setLeadData(response);
+        calculateRemainingTime(response?.date_expire);
+      })
+      .catch((error) => {
+        console.log("error while getting single lead", error);
+      })
+      .finally(() => setLoading(false));
+  };
   const calculateRemainingTime = (expireDate: any) => {
     const [day, month, year] = expireDate?.split("/")?.map(Number);
 
@@ -138,13 +142,14 @@ const Page = ({ searchParams }: Props) => {
       })
       .catch((error) => {
         console.log("error while adding bid", error);
-      });
+      }).finally(() => setReqPrice(''))
   };
   const onBidSuccess = () => {
     setSuccessBid(true);
   };
   const handleCompleteBid = (id: string) => {
     setCompleteLoading(true);
+
     const data = new FormData();
     data.append("bid_id", id);
     bidsFLow
@@ -242,7 +247,12 @@ const Page = ({ searchParams }: Props) => {
                     </>
                   )}
                   {leadData?.is_won != 1 &&
-                    user?.id != leadData?.created_by && (
+                    user?.id != leadData?.created_by &&
+                    !(
+                      remainingTime?.days <= 0 &&
+                      remainingTime?.hours <= 0 &&
+                      remainingTime?.minutes <= 0
+                    ) && (
                       <div className="my-5">
                         <Button
                           onClick={() => {
@@ -426,23 +436,51 @@ const Page = ({ searchParams }: Props) => {
                     />
                   </ModalHeader>
                   <ModalBody>
-                    <input
-                      type="text"
-                      placeholder="اضافة سعر"
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 mb-4"
-                      dir="rtl"
-                      value={reqPrice}
-                      onChange={(e) => setReqPrice(e.target.value)}
-                    />
+                    <div className="i" dir="rtl">
+                      <label className="text-[12px] text-[#000] font-rbRegular">
+                        الحد الأقصى للسعر هو {leadData?.max_price}
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="اضافة سعر"
+                        className="w-full border border-gray-300 rounded-md px-3 py-2 my-4"
+                        dir="rtl"
+                        value={reqPrice}
+                        onChange={(e: any) => {
+                          const value = e.target.value;
+
+                          if (!value || isNaN(parseInt(value))) {
+                            setReqPrice(value);
+                            setBidError("");
+                          } else if (parseInt(value) <= leadData?.max_price) {
+                            setReqPrice(value);
+                            setBidError("");
+                          } else {
+                            setBidError(
+                              "لا يمكن أن يكون السعر أكثر من الحد الأقصى للسعر"
+                            );
+                          }
+                        }}
+                      />
+                      {bidError && (
+                        <label className="text-[12px] text-[#F84F39] font-rbLight">
+                          {bidError}
+                        </label>
+                      )}
+                    </div>
                     <CommonButton
                       text="ارسال"
                       bgColor="#F84F39"
                       onPress={add_bid}
+                      disable={!reqPrice || parseInt(reqPrice)<1}
                     />
                     <CommonButton
                       text="الغاء"
                       bgColor="#FEDCD7"
-                      onPress={onClose}
+                      onPress={()=>{
+                        setReqPrice('');
+                        onClose()
+                      }}
                       textColor="#000"
                     />
                   </ModalBody>
@@ -471,7 +509,7 @@ const Page = ({ searchParams }: Props) => {
         message={
           completed ? "لقد أكملت الصفقة بنجاح." : "هل تريد إتمام الصفقات؟"
         }
-        buttonText="Confirm"
+        buttonText="يتأكد"
         isOpen={completeDealModal}
         onClose={() => setCompleteDealModal(false)}
         onConfirm={() => {
@@ -479,6 +517,7 @@ const Page = ({ searchParams }: Props) => {
           else {
             setCompleteDealModal(false);
             setCompleted(false);
+            GetSinlgeLead();
           }
         }}
         loading={completeLoading}
@@ -486,7 +525,7 @@ const Page = ({ searchParams }: Props) => {
       <SuccessModal
         header="تهانينا"
         message={"تمت إضافة المزايدة بنجاح!"}
-        buttonText="Confirm"
+        buttonText="يتأكد"
         isOpen={successBid}
         onClose={() => setSuccessBid(false)}
         onConfirm={() => setSuccessBid(false)}

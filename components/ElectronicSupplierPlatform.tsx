@@ -7,7 +7,7 @@ type Props = {}
 const ElectronicSupplierPlatform = (props: Props) => {
   return (
     <div className="w-[95%] mx-auto sm:mt-20 md:mt-32 mt-8">
-        <div className="text-[18px] sm:text-[22px] md:text-[26px] lg:text-[52px] font-rbBold text-[#0A102F] text-center">
+        <div className="text-[22px] sm:text-[24px] md:text-[26px] lg:text-[52px] font-rbBold text-[#0A102F] text-center">
           <span className="">
           لماذا منصة مـوّ
           </span>
@@ -16,7 +16,7 @@ const ElectronicSupplierPlatform = (props: Props) => {
           </span>
         </div>
         <h3 className="text-[#475467] text-center text-[16px] sm:text-[20px] font-rbLight sm:font-rbRegular mt-8">
-          تتيح لك منصة <span className="font-bold">مــوّرد</span> الإلكتروني
+          تتيح لك منصة <span className="font-rbBold">مــوّرد</span> الإلكتروني
           المشاركة في طلبات التوريد المطروحة في أي وقت ومن أي مكان بكل سهولة
         </h3>
         <div className="md:flex mx-auto w-full justify-between items-start mt-6">

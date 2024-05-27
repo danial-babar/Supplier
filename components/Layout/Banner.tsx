@@ -153,7 +153,7 @@ const Banner = ({
           </div>
           <div className="md:w-auto w-full flex md:text-start text-end">
             <div
-              className="bg-[#F84F39] md:w-auto w-full md:p-2 px-4 font-rbRegular p-2 lg:p-4 rounded-full text-white cursor-pointer flex justify-between items-center"
+              className="bg-[#F84F39] mx-[30%] self-center px-4 md:mx-0 md:w-auto w-full md:p-2 font-rbRegular p-2 lg:p-4 rounded-full text-white cursor-pointer flex justify-between items-center"
               onClick={onSearchPress}
             >
               <label className="md:hidden">يبحث</label>

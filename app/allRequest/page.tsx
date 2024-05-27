@@ -5,7 +5,6 @@ import Footer from "@/components/Layout/Footer";
 import Image from "next/image";
 import { FaPlus } from "react-icons/fa";
 import { leadsFLow } from "@/api/Users";
-import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
@@ -79,7 +78,6 @@ const Page = (props: Props) => {
             <div
               className="bg-gradient-radial from-blue-100 to-pink-50 via-gray-100"
               key={index}
-              onClick={() => onLeadCLick(item?.id)}
             >
               {/* <Link href={{ pathname: "/management", query: { id: item?.id } }}> */}
               <div className="w-[95%] mx-auto ">
@@ -107,7 +105,10 @@ const Page = (props: Props) => {
                       </span>
                     </div>
                   </div>
-                  <div className="flex text-[12px] lg:justify-start justify-center items-center lg:mt-0 mt-4 gap-1 font-rbBold">
+                  <div
+                    className="flex text-[12px] lg:justify-start justify-center items-center lg:mt-0 mt-4 gap-1 font-rbBold cursor-pointer"
+                    onClick={() => onLeadCLick(item?.id)}
+                  >
                     عرض التفاصيل الطلب{" "}
                     <FaPlus className="text-[#F84F39] bg-[#F84F39] p-1 bg-opacity-20 rounded-full font-light text-[16px]" />
                   </div>{" "}

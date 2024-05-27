@@ -69,7 +69,7 @@ const QuestionAnsersComp = ({ item, index }) => {
             <p className="font-rbBold text-[#F84F39] md:me-10 sm:me-6 me-3 text-[20px] sm:text-[24px] md:text-[30px]">
               {index < 10 ? `0${index + 1}` : index + 1}{" "}
             </p>
-            <p className="font-rbRegular md:text-[20px] text-[16px] md:font-rbBold">
+            <p className="md:text-[22px] text-[18px] font-rbBold ">
               {item?.Q}
             </p>
           </div>
@@ -87,7 +87,7 @@ const QuestionAnsersComp = ({ item, index }) => {
           </div>
         </div>
         {open && (
-          <p className="text-black sm:text-[18px] text-[16px] font-rbLight sm:font-rbRegular w-[83%] sm:mt-6 mt-4 md:mt-8 mx-auto">
+          <p className="text-[#5A5365] md:text-[20px] text-[14px]  font-rbLight sm:font-rbRegular w-[83%] sm:mt-6 mt-4 md:mt-8 mx-auto">
             {item?.A}
           </p>
         )}

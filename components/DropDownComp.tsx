@@ -48,7 +48,7 @@ const DropDownComp = <T,>({
         </DropdownTrigger>
         <DropdownMenu
           aria-label="Action event example"
-          className={dropdownMenuClass || "max-h-[200px] overflow-auto hide-scrollbar"}
+          className={dropdownMenuClass || "max-h-[200px] overflow-auto hide-scrollbar text-[#475467] font-rbRegular"}
         >
           {data?.map((item: any, index: number) => (
             <DropdownItem key={index} onClick={() => onClick?.(item)}>

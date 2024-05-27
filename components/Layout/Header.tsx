@@ -89,7 +89,7 @@ const Header = ({ activeItem }: Props) => {
   return (
     <div
       className={`w-full py-5 border-b border-b-[#F84F39] px-3 h-[90px] transition-opacity ${
-        active && "fixed top-0 left-0 bg-[#fff] z-[999] sm:px-0 px-3 "
+        active && "fixed top-0 left-0 bg-[#fff] z-[9999] sm:px-0 px-3 "
       }`}
       dir="rtl"
     >
@@ -178,7 +178,7 @@ const Header = ({ activeItem }: Props) => {
             onClick={handleClose}
             id="screen"
           >
-            <div className="fixed bg-[#000] w-[60%] h-screen top-0 right-0 z-[999]">
+            <div className="fixed bg-[#000] w-[60%] h-screen top-0 right-0 z-[9999]">
               <div className="mt-8 px-5">
                 {userToken && isUser ? (
                   <div className="flex items-center gap-2">
