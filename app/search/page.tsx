@@ -49,7 +49,7 @@ const Page = (props: Props) => {
       setLeadsData((prevLeads) =>
         resetPage ? response : [...prevLeads, ...response]
       );
-      setFinishFlag(response.length >= 15);
+      setFinishFlag(response.length >= 12);
     } catch (error) {
       console.error("Error while filtering", error);
     } finally {

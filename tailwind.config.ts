@@ -20,6 +20,7 @@ const config: Config = {
         rbLight: ["var(--font-rb-light)"],
         rbRegular: ["var(--font-rb-reg)"],
         bahijRegular: ["var(--font-bah-reg)"],
+        bahijSemibold: ["var(--font-bah-semibold)"],
       },
     },
   },
