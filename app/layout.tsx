@@ -60,7 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${rbBold.variable} ${rbRegular.variable} ${rbLight.variable} ${bahijRegular.variable} font-sans`}>
        <Head>
-       <link rel='icon' href='/favicon.ico' />
+       <link rel='icon' href='/favicon1.ico' />
       </Head>
       <body className={inter.className}>
         <Provider>{children}</Provider>
