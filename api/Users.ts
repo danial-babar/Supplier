@@ -69,7 +69,7 @@ export const filterLeads = async (data: any) => {
     "query",
     `/get_leads_filter?category=${data.category || ""}&city=${
       data?.city || ""
-    }&order_status=${data?.status || ""}&sort_by=${data?.sortBy}&page=${
+    }&order_status=${data?.status || ""}&sort_by=${data?.sortBy || "0"}&page=${
       data?.page
     }`
   );

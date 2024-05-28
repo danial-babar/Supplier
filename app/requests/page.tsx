@@ -38,9 +38,12 @@ const Page = (props: Props) => {
   const handleSearchClick = async (data: any, resetPage = false) => {
     if (isFetching.current) return;
     isFetching.current = true;
-    // setSearchLoading(true);
+
     // setLoading(true);
-    if (resetPage) setPage(1);
+    if (resetPage) {
+      setPage(1);
+      setSearchLoading(true);
+    }
 
     const finalData = { ...data, page: resetPage ? 1 : page + 1 };
     if (!resetPage) setPage(page + 1);
@@ -84,7 +87,7 @@ const Page = (props: Props) => {
         <Loader />
       ) : (
         <>
-          <Header activeItem={3}/>
+          <Header activeItem={3} />
           <Banner
             onClick={(data) => {
               setFilterParams(data);
@@ -97,10 +100,11 @@ const Page = (props: Props) => {
             }
             results={leadsData.length}
             onReSearchClick={(data) => {
-              setFilterParams(data);
-              handleSearchClick(data, true);
+              // setFilterParams(data);
+              handleSearchClick(filterParams, true);
             }}
-            
+            text1="طـلبا"
+            text2="ت التوريد"
           />
           {searchLoading ? (
             <div className="flex w-full justify-center mb-10">
@@ -154,6 +158,7 @@ const Page = (props: Props) => {
                 <ThreeDotedBtn
                   title="المزيد من التنصيفات..."
                   onclick={handleMoreClick}
+                  loading={moreLoading}
                 />
                 // <div
                 //   className="md:mt-20 text-center mt-8 mb-8"

@@ -411,7 +411,8 @@ const Page = ({ searchParams }: Props) => {
             isOpen={isOpen}
             onOpenChange={onOpenChange}
             hideCloseButton
-            className="pb-4"
+            className="pb-4 self-center"
+            
           >
             <ModalContent>
               {(onClose) => (
@@ -437,10 +438,21 @@ const Page = ({ searchParams }: Props) => {
                     />
                   </ModalHeader>
                   <ModalBody>
-                    <div className="i" dir="rtl">
-                      <label className="text-[12px] text-[#000] font-rbRegular">
-                        الحد الأقصى للسعر هو {leadData?.max_price}
-                      </label>
+                    <div className="" dir="rtl">
+                      <div className="flex items-center justify-between">
+                        <label className="text-[10px] sm:text-[12px] text-[#0A102F] font-rbRegular">
+                          الحد الأدنى للسعر هو{" "}
+                          <span className="font-rbBold">
+                            {leadData?.min_price}
+                          </span>
+                        </label>
+                        <label className="text-[10px] sm:text-[12px] text-[#0A102F] font-rbRegular">
+                          الحد الأقصى للسعر هو{" "}
+                          <span className="font-rbBold">
+                            {leadData?.max_price}
+                          </span>
+                        </label>
+                      </div>
                       <input
                         type="text"
                         placeholder="اضافة سعر"
@@ -449,18 +461,18 @@ const Page = ({ searchParams }: Props) => {
                         value={reqPrice}
                         onChange={(e: any) => {
                           const value = e.target.value;
-
-                          if (!value || isNaN(parseInt(value))) {
-                            setReqPrice(value);
-                            setBidError("");
-                          } else if (parseInt(value) <= leadData?.max_price) {
-                            setReqPrice(value);
-                            setBidError("");
-                          } else {
-                            setBidError(
-                              "لا يمكن أن يكون السعر أكثر من الحد الأقصى للسعر"
-                            );
-                          }
+                          setReqPrice(value);
+                          // if (!value || isNaN(parseInt(value))) {
+                          //   setReqPrice(value);
+                          //   setBidError("");
+                          // } else if (parseInt(value) <= leadData?.max_price) {
+                          //   setReqPrice(value);
+                          //   setBidError("");
+                          // } else {
+                          //   setBidError(
+                          //     "لا يمكن أن يكون السعر أكثر من الحد الأقصى للسعر"
+                          //   );
+                          // }
                         }}
                       />
                       {bidError && (
@@ -472,9 +484,19 @@ const Page = ({ searchParams }: Props) => {
                     <CommonButton
                       text="ارسال"
                       bgColor="#F84F39"
-                      onPress={add_bid}
+                      onPress={() => {
+                        if (parseInt(reqPrice) > leadData?.max_price) {
+                          setBidError(
+                            "لا يمكن أن يكون السعر أكثر من الحد الأقصى للسعر"
+                          );
+                        } else if (parseInt(reqPrice) < leadData?.min_price) {
+                          setBidError(
+                            "لا يمكن أن يكون السعر أقل من الحد الأدنى للسعر"
+                          );
+                        } else add_bid();
+                      }}
                       disable={!reqPrice || parseInt(reqPrice) < 1}
-                      marginTop={'mt-[0px]'}
+                      marginTop={"mt-[0px]"}
                     />
                     <CommonButton
                       text="الغاء"
@@ -484,7 +506,7 @@ const Page = ({ searchParams }: Props) => {
                         onClose();
                       }}
                       textColor="#000"
-                      marginTop={'mt-[0px]'}
+                      marginTop={"mt-[0px]"}
                     />
                   </ModalBody>
                   {/* <ModalFooter> */}

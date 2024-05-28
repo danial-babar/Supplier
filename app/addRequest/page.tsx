@@ -40,8 +40,6 @@ import { ar } from "date-fns/locale/ar";
 registerLocale("ar", ar);
 
 const Page = (props: Props) => {
- ;
-
   const api = axios.create({
     baseURL: BASE_URL,
     headers: {
@@ -284,18 +282,20 @@ const Page = (props: Props) => {
             <Select
               placeholder="إختر ...."
               aria-label="إختر"
-              className="rounded-none selectboxForRTL flex justify-start"
-              dir="rtl"
+              className="rounded-none selectboxForRTL font-rbRegular"
+
+              // dir="rtl"
             >
               {categories?.map((item) => (
                 <SelectItem
+                  textValue={item?.id.toString()}
                   key={item.id}
                   value={item.id}
                   onClick={() => {
                     setInputData({ ...inputData, category: item });
                     GetProducts(item.id);
                   }}
-                  className="flex justify-start"
+                  className="flex justify-start font-rbRegular text-right text-[#475467] text-[12px]"
                   dir="rtl"
                 >
                   {item.title}
@@ -320,13 +320,15 @@ const Page = (props: Props) => {
             <Select
               placeholder="إختر ...."
               aria-label="إختر"
-              className="rounded-none selectboxForRTL"
+              className="rounded-none selectboxForRTL font-rbRegular"
             >
               {cities?.map((item) => (
                 <SelectItem
+                  textValue={item?.id.toString()}
                   key={item.id}
                   value={item.id}
                   onClick={() => setInputData({ ...inputData, city: item })}
+                  className="flex justify-start font-rbRegular text-right text-[#475467] text-[12px]"
                 >
                   {item.city_name}
                 </SelectItem>
@@ -350,22 +352,24 @@ const Page = (props: Props) => {
             <Select
               placeholder={products?.length > 0 ? "إختر ...." : "لا يوجد منتج"}
               aria-label="إختر"
-              className="rounded-none selectboxForRTL"
-              // isDisabled={products?.length <= 0}
+              className="rounded-none selectboxForRTL font-rbRegular"
             >
-              {products?.length > 0
-                ? products?.map((item) => (
-                    <SelectItem
-                      key={item.id}
-                      value={item.id}
-                      onClick={() =>
-                        setInputData({ ...inputData, product: item })
-                      }
-                    >
-                      {item.title}
-                    </SelectItem>
-                  ))
-                : null // <SelectItem key={""}>No Product</SelectItem>
+              {
+                products?.length > 0
+                  ? products?.map((item) => (
+                      <SelectItem
+                        textValue={item?.id.toString()}
+                        key={item.id}
+                        value={item.id}
+                        onClick={() =>
+                          setInputData({ ...inputData, product: item })
+                        }
+                        className="flex justify-start font-rbRegular text-right text-[#475467] text-[12px]"
+                      >
+                        {item.title}
+                      </SelectItem>
+                    ))
+                  : null // <SelectItem key={""}>No Product</SelectItem>
               }
             </Select>
             {/* {errors.product && !inputData?.product && (
@@ -412,14 +416,16 @@ const Page = (props: Props) => {
             <Select
               placeholder="إختر ...."
               aria-label="إختر"
-              className="rounded-none selectboxForRTL"
+              className="rounded-none selectboxForRTL font-rbRegular "
             >
               {units?.length > 0 &&
                 units?.map((item) => (
                   <SelectItem
+                    textValue={item?.id.toString()}
                     key={item.id}
                     value={item.id}
                     onClick={() => setInputData({ ...inputData, unit: item })}
+                    className="flex justify-start font-rbRegular text-right text-[#475467] text-[12px]"
                   >
                     {item.title}
                   </SelectItem>
@@ -509,8 +515,9 @@ const Page = (props: Props) => {
               }}
               dateFormat="dd-MM-yyyy" // Update date format here
               placeholderText="dd/mm/yyyy"
-              className="w-[100%] border border-gray-300  p-2 focus:outline-none focus:border-blue-500"
+              className="w-[100%] border border-gray-300 font-rbRegular p-2 focus:outline-none focus:border-blue-500"
               locale="ar"
+              minDate={new Date()}
             />
             {errors.postedDate && !inputData?.postedDate && (
               <div className="text-red-500 text-[12px]">
@@ -547,6 +554,7 @@ const Page = (props: Props) => {
               placeholderText="dd/mm/yyyy"
               className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
               locale="ar"
+              minDate={new Date()}
             />
             {errors.deliveryDate && !inputData?.deliveryDate && (
               <div className="text-red-500 text-[12px]">
@@ -583,6 +591,7 @@ const Page = (props: Props) => {
               placeholderText="dd/mm/yyyy"
               className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
               locale="ar"
+              minDate={new Date()}
             />
             {errors.expiryDate && !inputData?.expiryDate && (
               <div className="text-red-500 text-[12px]">
@@ -619,6 +628,7 @@ const Page = (props: Props) => {
               placeholderText="dd/mm/yyyy"
               className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
               locale="ar"
+              minDate={new Date()}
             />
             {errors.startDate && !inputData?.startDate && (
               <div className="text-red-500 text-[12px]">{errors.startDate}</div>
@@ -638,7 +648,7 @@ const Page = (props: Props) => {
             <Select
               placeholder="إختر ...."
               aria-label="إختر"
-              className="rounded-none selectboxForRTL"
+              className="rounded-none selectboxForRTL font-rbRegular"
             >
               {status?.map((item) => (
                 <SelectItem
@@ -695,7 +705,7 @@ const Page = (props: Props) => {
                 title="ارفاق الملف"
               />
               <label
-                for="file"
+                htmlFor="file"
                 className="p-1 px-3 bg-white shadow text-[#000] text-[16px] font-rbRegular"
               >
                 ارفاق الملف
@@ -736,7 +746,7 @@ const Page = (props: Props) => {
                 multiple
               />
               <label
-                for="files"
+                htmlFor="files"
                 className="p-1 px-3 bg-white shadow text-[#000] text-[16px] font-rbRegular"
               >
                 إرفاق الملفات

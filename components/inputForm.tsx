@@ -1,15 +1,17 @@
 import { Input } from "@nextui-org/react";
 import React from "react";
+import InputMask from "react-input-mask";
 
 type Props = {
   placeholder: string;
-  type: any;
+  type: string;
   value?: string;
   onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   required?: boolean;
   title?: string;
   style?: any;
+  mask?: string;
 };
 
 const InputForm = ({
@@ -20,7 +22,8 @@ const InputForm = ({
   onchange,
   required,
   title,
-  style
+  style,
+  mask,
 }: Props) => {
   return (
     <div dir="rtl">
@@ -35,20 +38,36 @@ const InputForm = ({
           )}
         </label>
       )}
-      <input
-        type={type}
-        placeholder={placeholder}
-        className={
-          className ||
-          `bg-gray-50 text-right border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`
-        }
-        required={required || false}
-        value={value}
-        onChange={onchange}
-        // lang="ar"
-        dir="ltr"
-        style={style}
-      />
+      {mask ? (
+        <InputMask
+          mask={mask}
+          value={value}
+          onChange={onchange}
+          type={type}
+          placeholder={placeholder}
+          className={
+            className ||
+            `bg-gray-50 text-right border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`
+          }
+          required={required || false}
+          dir="ltr"
+          style={style}
+        ></InputMask>
+      ) : (
+        <input
+          type={type}
+          placeholder={placeholder}
+          className={
+            className ||
+            `bg-gray-50 text-right border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`
+          }
+          required={required || false}
+          value={value}
+          onChange={onchange}
+          dir="ltr"
+          style={style}
+        />
+      )}
       {/* Hide the spin buttons in input[type="number"]  */}
       <style>
         {`
