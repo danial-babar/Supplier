@@ -179,10 +179,10 @@ const Page = (props: Props) => {
                     <div className="mx-2">او</div>
                     <hr className="w-full border-t border-red-300 before:w-1/4 before:border-t before:border-l before:border-gray-300 after:w-1/4 after:border-t after:border-r after:border-gray-300 border-dotted" />
                   </div>
-                  <CommonButton
+                  {/* <CommonButton
                     text="الدخول عبر بوابة نفاذ"
                     bgColor="#11998E"
-                  />
+                  /> */}
                 </div>
 
                 <div className="text-center mt-4">

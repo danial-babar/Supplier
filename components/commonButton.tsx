@@ -9,6 +9,7 @@ type Props = {
   color?: string;
   textColor?: string;
   className?: string;
+  marginTop?: string;
   spinnerSize?: any;
   spinnerColor?: any;
   loading?: boolean;
@@ -25,7 +26,8 @@ const CommonButton = ({
   loading,
   spinnerSize,
   spinnerColor,
-  disable
+  disable,
+  marginTop
 }: Props) => {
   console.log('disable', disable);
   
@@ -34,7 +36,7 @@ const CommonButton = ({
       type={"button"}
       className={
         className ||
-        `mt-4 w-full text-[${
+        `${marginTop || "mt-4"} w-full text-[${
           textColor || "#fff"
         }] bg-[${bgColor}] sm:font-rbBold font-rbRegular rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6 ${disable && "pointer-events-none"}`
       }
