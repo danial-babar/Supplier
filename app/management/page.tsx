@@ -142,7 +142,8 @@ const Page = ({ searchParams }: Props) => {
       })
       .catch((error) => {
         console.log("error while adding bid", error);
-      }).finally(() => setReqPrice(''))
+      })
+      .finally(() => setReqPrice(""));
   };
   const onBidSuccess = () => {
     setSuccessBid(true);
@@ -203,7 +204,7 @@ const Page = ({ searchParams }: Props) => {
                             // objectPosition="cover"
                           />
                           {leadData?.images?.length > 1 && (
-                            <div className="p-1 flex items-center absolute z-[999] right-10 bottom-8">
+                            <div className="p-1 flex items-center absolute z-[1] right-10 bottom-8">
                               {leadData?.images?.map(
                                 (item: any, index: number) => {
                                   return (
@@ -472,16 +473,18 @@ const Page = ({ searchParams }: Props) => {
                       text="ارسال"
                       bgColor="#F84F39"
                       onPress={add_bid}
-                      disable={!reqPrice || parseInt(reqPrice)<1}
+                      disable={!reqPrice || parseInt(reqPrice) < 1}
+                      marginTop={'mt-[0px]'}
                     />
                     <CommonButton
                       text="الغاء"
                       bgColor="#FEDCD7"
-                      onPress={()=>{
-                        setReqPrice('');
-                        onClose()
+                      onPress={() => {
+                        setReqPrice("");
+                        onClose();
                       }}
                       textColor="#000"
+                      marginTop={'mt-[0px]'}
                     />
                   </ModalBody>
                   {/* <ModalFooter> */}
