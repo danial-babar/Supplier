@@ -45,11 +45,16 @@ const Page = ({ searchParams }: Props) => {
     user_role_key: "vendor",
   });
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^(?:\+966|966|0)?\s?5\d\s?\d{3}\s?\d{4}$/;
+
+
+
   const validateForm = () => {
     const errors = {};
 
     console.log("email validation", emailRegex.test(formData?.email));
     const emailValidation = emailRegex.test(formData.email);
+    const phoneValidation = phoneRegex.test(formData.phone);
     if (!formData.email) {
       errors.email = "يرجى إدخال البريد الإلكتروني";
     } else if (!emailValidation) {
@@ -60,6 +65,8 @@ const Page = ({ searchParams }: Props) => {
     }
     if (!formData.phone) {
       errors.phone = "يرجى إدخال رقم الجوال";
+    } else if (!phoneValidation) {
+      errors.phoneValid = "رقم الهاتف غير صالح";
     }
     if (!formData.negotiatorName) {
       errors.negotiatorName = "الرجاء إدخال اسم المفاوض";
@@ -120,6 +127,8 @@ const Page = ({ searchParams }: Props) => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+  console.log("errors", errors);
+
   return (
     <div dir="rtl">
       <Header />
@@ -215,19 +224,27 @@ const Page = ({ searchParams }: Props) => {
                   <div className="">
                     <InputForm
                       placeholder="رقم الجوال"
-                      type="number"
+                      type="tel"
                       value={formData?.phone || ""}
                       onchange={(e: any) =>
                         setFormData({ ...formData, phone: e.target.value })
                       }
                       title="رقم الجوال"
                       required
+                      mask="+\966 99 999 9999"
                     />
-                    {errors.phone && !formData?.phone && (
+                    {errors?.phone && !formData?.phone && (
                       <div className="text-red-500 text-[12px]">
-                        {errors.phone}
+                        {errors?.phone}
                       </div>
                     )}
+                    {errors?.phoneValid &&
+                      formData?.phone &&
+                      !phoneRegex.test(formData?.phone) && (
+                        <div className="text-red-500 text-[12px]">
+                          {errors?.phoneValid}
+                        </div>
+                      )}
                   </div>
                   <div>
                     <InputForm

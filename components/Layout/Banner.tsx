@@ -36,7 +36,7 @@ const Banner = ({
   const [dropdownData, setDropdownData] = useState({
     category: { id: 0, title: "" },
     city: { id: 0, city_name: "" },
-    sortBy: { id: 0, name: "" },
+    sortBy: { id: '0', name: "" },
     status: { id: 0, name: "" },
   });
 
@@ -131,7 +131,7 @@ const Banner = ({
                   setDropdownData({ ...dropdownData, sortBy: item })
                 }
                 selectedItem={
-                  dropdownData?.sortBy?.name || "اختر من الاحدث الي الاقدم"
+                  dropdownData?.sortBy?.name || "الأحدث إلى الأقدم"
                 }
                 dropdownBtnClass="max-w-[220px] justify-start"
               />

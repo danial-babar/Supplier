@@ -88,7 +88,7 @@ const Header = ({ activeItem }: Props) => {
 
   return (
     <div
-      className={`w-full py-5 border-b border-b-[#F84F39] px-3 h-[90px] transition-opacity ${
+      className={`w-full py-5 border-b border-b-[#F84F39]  h-[90px] transition-opacity ${
         active && "fixed top-0 left-0 bg-[#fff] z-[9999] sm:px-0 px-3 "
       }`}
       dir="rtl"
@@ -97,7 +97,7 @@ const Header = ({ activeItem }: Props) => {
         <div>
           <Link href={"/"}>
             <Image
-              src={active ? "/logo.png" : "/logo.png"}
+              src={"/logo.png"}
               width={150}
               height={150}
               className="lg:w-[150px] w-[120px]"
@@ -163,7 +163,7 @@ const Header = ({ activeItem }: Props) => {
         </div>
       </div>
 
-      <div className="w-full lg:hidden flex items-center justify-between">
+      <div className=" w-[95%] mx-auto lg:hidden flex items-center justify-between">
         <div>
           <Link href={"/"}>
             <Image src={"/logo.png"} width={150} height={150} alt="Logo" />
