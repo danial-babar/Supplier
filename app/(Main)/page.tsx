@@ -29,41 +29,43 @@ const Page = (props: Props) => {
   const [leadsData, setLeadsData] = useState<Array<any>>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [nextPage, setNextPage] = useState(true);
   const leadsPerPage = 6;
   const router = useRouter();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getCategoriesList();
-  }, []);
-  useEffect(() => {
-    getLeads(currentPage, leadsPerPage);
+    getLeads(currentPage);
   }, []);
 
-  const indexOfLastLead = currentPage * leadsPerPage;
-  const indexOfFirstLead = indexOfLastLead - leadsPerPage;
-  const currentLeads = leadsData.slice(indexOfFirstLead, indexOfLastLead);
+  // const indexOfLastLead = currentPage * leadsPerPage;
+  // const indexOfFirstLead = indexOfLastLead - leadsPerPage;
+  // const currentLeads = leadsData.slice(indexOfFirstLead, indexOfLastLead);
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    console.log("enter in next");
+    if (nextPage) {
+      getLeads(currentPage + 1);
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
   };
-  console.log("current leads", currentLeads);
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    console.log("enter in prev");
+    if (currentPage > 1) {
+      getLeads(currentPage - 1);
+      setCurrentPage((prevPage: any) => prevPage - 1);
+    }
   };
 
-  const getLeads = (page: any, leadsPerPage: any) => {
+  const getLeads = (page: any) => {
     setLoading(true);
-    getAllLeads()
+    getAllLeads(page)
       .then((res: Lead[]) => {
         console.log("res while getting leads", res);
-        if (page === 1) {
-          setLeadsData(res);
-        } else {
-          setLeadsData((prevLeads: Lead[]) => [...prevLeads, ...res]);
-        }
         setLeadsData(res);
+        if (res.length < 6) setNextPage(false);
+        else setNextPage(true);
       })
       .catch((err) => {
         console.log("err while getting leads", err);
@@ -71,15 +73,15 @@ const Page = (props: Props) => {
       .finally(() => setLoading(false));
   };
 
-  const getCategoriesList = () => {
-    getCategories()
-      .then((res) => {
-        console.log("res while getting categories", res);
-      })
-      .catch((err) => {
-        console.log("err while getting categories", err);
-      });
-  };
+  // const getCategoriesList = () => {
+  //   getCategories()
+  //     .then((res) => {
+  //       console.log("res while getting categories", res);
+  //     })
+  //     .catch((err) => {
+  //       console.log("err while getting categories", err);
+  //     });
+  // };
   const handleSearchClick = (data: any) => {
     console.log("data filtered", data);
     dispatch({
@@ -116,18 +118,22 @@ const Page = (props: Props) => {
         </h1>
         <div className="flex items-center sm:mb-auto mb-4 sm:justify-start justify-end sm:mt-auto mt-4">
           <button
-            className="bg-[#6B66DA] border-[2px] border-[#6B66DA] text-white rounded-full sm:p-3 p-1"
+            className={`${
+              nextPage
+                ? "bg-[#6B66DA] text-white "
+                : "bg-[#d2d2d6] text-[#67676a]"
+            } rounded-full sm:p-3 p-1 ml-2`}
             onClick={handleNextPage}
-            disabled={
-              currentPage === Math.ceil(leadsData.length / leadsPerPage)
-            }
           >
             <SlArrowRight className="text-xl md:text-[20px]" />
           </button>
           <button
-            className="text-[#6B66DA] ms-3 border-[2px] border-[#6B66DA] rounded-full sm:p-3 p-1"
+            className={`${
+              currentPage > 1
+                ? "bg-[#6B66DA] text-white "
+                : "bg-[#d2d2d6] text-[#67676a]"
+            }   rounded-full sm:p-3 p-1`}
             onClick={handlePrevPage}
-            disabled={currentPage === 1}
           >
             <SlArrowLeft className="text-xl md:text-[20px]" />
           </button>
@@ -138,14 +144,15 @@ const Page = (props: Props) => {
           <Spinner />
         </div>
       ) : (
-        <div
-          className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5"
-          style={{ direction: "rtl" }}
-        >
-          <>
-            {Array.isArray(currentLeads) && currentLeads.length > 0 ? (
-              currentLeads.map(
-                (item: { id: string; status: string }, index) => {
+        <div className="">
+          <div
+            className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5"
+            style={{ direction: "rtl" }}
+          >
+            <>
+              {Array.isArray(leadsData) &&
+                leadsData.length > 0 &&
+                leadsData.map((item: { id: string; status: string }, index) => {
                   return (
                     <RequestCard
                       key={item.id} // don't forget to add a unique key when mapping over arrays in React
@@ -176,19 +183,19 @@ const Page = (props: Props) => {
                       textColor={item?.status == "2" ? "#000000" : ""}
                     />
                   );
-                }
-              )
-            ) : (
-              <div
-                className="w-[100%] my-5 px-5 items-center flex justify-center"
-                dir="rtl"
-              >
-                <label className="text-[#656161] text-[16px] font-rbRegular">
-                  لا توجد طلبات متاحة.
-                </label>
-              </div>
-            )}
-          </>
+                })}
+            </>
+          </div>
+          {leadsData?.length < 1 && (
+            <div
+              className="w-[100%] my-5 px-5 items-center flex justify-center"
+              dir="rtl"
+            >
+              <label className="text-[#656161] text-[16px] font-rbRegular bg-[#f5f4f4] py-1 px-4 rounded-full">
+                لا توجد طلبات متاحة.
+              </label>
+            </div>
+          )}
         </div>
       )}
       <ElectronicSupplierPlatform />

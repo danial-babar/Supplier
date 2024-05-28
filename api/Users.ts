@@ -1,7 +1,8 @@
+import Page from "@/Dummy/page";
 import axios from "axios";
 
 // const BASE_URL = "http://projects.microrage.com/moward/api";
-export const BASE_URL = "http://165.73.252.160/manage/index.php/api/";
+export const BASE_URL = "http://165.73.252.160/manage/index.php/api";
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -55,9 +56,11 @@ export const getUnits = async () => {
     throw error;
   }
 };
-export const getAllLeads = async () => {
+export const getAllLeads = async (page: any) => {
+  console.log("query", `/get_leads?page=${page}`);
+
   try {
-    const response = await api.get(`/get_leads`);
+    const response = await api.get(`/get_leads?page=${page}`);
     return response.data;
   } catch (error) {
     console.error("Error while getting all leads:", error);
@@ -88,9 +91,9 @@ export const filterLeads = async (data: any) => {
     throw error;
   }
 };
-export const singleLeadById = async (id: string) => {
+export const singleLeadById = async (id: string, userId: string) => {
   try {
-    const response = await api.get(`/get_leads/${id}`);
+    const response = await api.get(`/get_leads/${id}?user_id=${userId}`);
     return response.data;
   } catch (error) {
     console.error("Error while getting single lead:", error);

@@ -101,7 +101,7 @@ const Page = (props: Props) => {
                       </span>
                       <span className="mr-2">تاريخ الانتهاء</span>
                       <span className="text-[#F84F39] lg:font-rbBold font-rbRegular mr-2">
-                        {"   " + item?.date_delivery}
+                        {"   " + item?.date_expire}
                       </span>
                     </div>
                   </div>

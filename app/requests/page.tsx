@@ -24,7 +24,7 @@ const Page = (props: Props) => {
   const [searchLoading, setSearchLoading] = useState(false);
   const [moreLoading, setMoreLoading] = useState(false);
   const [finishFlag, setFinishFlag] = useState(true);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   const isFetching = useRef(false);
 
@@ -49,10 +49,12 @@ const Page = (props: Props) => {
     if (!resetPage) setPage(page + 1);
     try {
       const response = await filterLeads(finalData);
+      console.log('leads response', response);
+      
       setLeadsData((prevLeads) =>
         resetPage ? response : [...prevLeads, ...response]
       );
-      setFinishFlag(response.length >= 12);
+      setFinishFlag(response.length >= 15);
     } catch (error) {
       console.error("Error while filtering", error);
     } finally {

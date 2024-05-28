@@ -41,6 +41,7 @@ const Page = ({ searchParams }: Props) => {
   const router = useRouter();
   const { leadId } = useSelector((state: any) => state.user);
   const { user } = useSelector((state: any) => state.user);
+  console.log("user", user);
   const [loading, setLoading] = useState(true);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isBidWaringOpen, setIsBidWaringOpen] = useState(false);
@@ -81,7 +82,7 @@ const Page = ({ searchParams }: Props) => {
   }, [leadId]);
 
   const GetSinlgeLead = () => {
-    singleLeadById(leadId)
+    singleLeadById(leadId, user?.id)
       .then((response) => {
         console.log("response while getting single lead", response);
         if (response?.bids?.length > 0) {
@@ -247,7 +248,23 @@ const Page = ({ searchParams }: Props) => {
                       </button>
                     </>
                   )}
-                  {leadData?.is_won != 1 &&
+                  {leadData?.user_already_bid == "1" ? (
+                    <div
+                      className="my-5 bg-[#F84F39] items-center justify-center flex-auto p-2 rounded-lg"
+                      dir="rtl"
+                    >
+                      <p className="text-[#fff] font-rbRegular text-[14px] sm:text-[16px] my-1 ">
+                        لقد قمت بالفعل بتقديم عرض على هذا الطلب
+                      </p>
+                      <p className="text-[#fff] font-rbRegular text-[14px] sm:text-[16px] my-1 ">
+                      سعر العرض المقدم :  
+                      
+                      <span className="font-rbBold ps-1">{leadData?.user_bid_amount} </span>
+                      ريال سعودي
+                      </p>
+                    </div>
+                  ) : (
+                    leadData?.is_won != 1 &&
                     user?.id != leadData?.created_by &&
                     !(
                       remainingTime?.days <= 0 &&
@@ -270,7 +287,8 @@ const Page = ({ searchParams }: Props) => {
                           تقديم طلب سعر
                         </Button>
                       </div>
-                    )}
+                    )
+                  )}
                 </div>
 
                 <div className="lg:w-3/4 mt-8 w-full ">
@@ -412,7 +430,6 @@ const Page = ({ searchParams }: Props) => {
             onOpenChange={onOpenChange}
             hideCloseButton
             className="pb-4 self-center"
-            
           >
             <ModalContent>
               {(onClose) => (

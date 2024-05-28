@@ -131,7 +131,7 @@ const Banner = ({
                   setDropdownData({ ...dropdownData, sortBy: item })
                 }
                 selectedItem={
-                  dropdownData?.sortBy?.name || "اختر من الاحدث الي الاقدم"
+                  dropdownData?.sortBy?.name || "الأحدث إلى الأقدم"
                 }
                 dropdownBtnClass="max-w-[220px] justify-start"
               />
