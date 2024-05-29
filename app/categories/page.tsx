@@ -65,6 +65,7 @@ const Page = (props: Props) => {
       <div className="w-[95%] text-black text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold md:my-20 my-8 text-center relative">
         عرض جميع
         <span className="rounded-3xl bg-[#BDFFA5] md:pe-24 pe-4 h-6 py-0">
+          {" "}
           التصنيفات
         </span>
         <p className="text-[16px] sm:text-[18px] text-gray-700 sm:mt-4 mt-2 font-rbLight sm:font-rbRegular">
@@ -109,9 +110,9 @@ const Page = (props: Props) => {
         </div>
         <ThreeDotedBtn title="المزيد من التنصيفات" onclick={() => {}} />
       </div>
-      <Footer />
+      <Footer styles="mt-10" />
     </div>
-  );
+  );  
 };
 
 export default Page;
