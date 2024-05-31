@@ -49,8 +49,8 @@ const Page = (props: Props) => {
     if (!resetPage) setPage(page + 1);
     try {
       const response = await filterLeads(finalData);
-      console.log('leads response', response);
-      
+      console.log("leads response", response);
+
       setLeadsData((prevLeads) =>
         resetPage ? response : [...prevLeads, ...response]
       );
@@ -177,7 +177,7 @@ const Page = (props: Props) => {
               )}
             </>
           )}
-          <Footer />
+          <Footer styles="mt-6" />
         </>
       )}
     </div>

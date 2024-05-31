@@ -1,22 +1,26 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "http",
-        hostname: "165.73.252.160",
-        pathname: "**",
-      },
-    ],
-  },
-  typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
-    ignoreBuildErrors: true,
-  },
-  // output: "export",
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'projects.microrage.com',
+          pathname: '**',
+        },
+        {
+          protocol: 'http',
+          hostname: '165.73.252.160',
+          pathname: '**',
+        },
+      ],
+    },
+    typescript: {
+      // !! WARN !!
+      // Dangerously allow production builds to successfully complete even if
+      // your project has type errors.
+      // !! WARN !!
+      ignoreBuildErrors: true,
+    },
 };
 
 export default nextConfig;

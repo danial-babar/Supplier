@@ -7,7 +7,7 @@ type Props = {};
 
 const Partners = (props: Props) => {
   return (
-    <div className="relative w-[70%] mx-auto">
+    <div className="relative w-[100%] mx-auto">
       <div className="text-center mt-14 sm:mt-20">
         <h3 className="sm:text-[28px] md:text-[36px] lg:text-[50px] text-[18px] font-rbBold">
           شــ<span className="ps-10 bg-[#BDFFA5] rounded-3xl">ــركــاؤنا</span>
