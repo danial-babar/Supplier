@@ -39,9 +39,9 @@ const Page = (props: Props) => {
       <div className="bg-gradient-radial from-blue-100 to-blue-50 via-gray-50">
         <div className="grid w-[95%] grid-cols-1 md:grid-cols-2 sm:pt-8 pt-5 gap-4 mx-auto items-center">
           <div className="text-[#0A102F] text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] font-rbBold relative">
-            جميع
+          جمي
             <span className="rounded-3xl bg-[#BDFFA5] pe-4 h-6 py-0">
-              الطلبات
+            ع الطلبات
             </span>
             <div className="text-[16px] sm:text-[18px] font-rbLight sm:font-rbRegular text-gray-700 sm:mt-8 mt-4">
               <p>يمكنك عرض جميع الطلبات المقدمة النشطة والمنتهية</p>

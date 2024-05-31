@@ -47,8 +47,6 @@ const Page = ({ searchParams }: Props) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^(?:\+966|966|0)?\s?5\d\s?\d{3}\s?\d{4}$/;
 
-
-
   const validateForm = () => {
     const errors = {};
 
@@ -272,7 +270,9 @@ const Page = ({ searchParams }: Props) => {
                   </div>
                   <div>
                     <InputForm
-                      placeholder="رقم هوية ممثل المنشأة"
+                      placeholder={
+                        accountType == 1 ? "الإقامة" : "رقم هوية ممثل المنشأة"
+                      }
                       type="number"
                       value={formData?.negotiatorId || ""}
                       onchange={(e: any) =>
@@ -281,12 +281,16 @@ const Page = ({ searchParams }: Props) => {
                           negotiatorId: e.target.value,
                         })
                       }
-                      title="رقم هوية ممثل المنشأة"
+                      title={
+                        accountType == 1 ? "الإقامة" : "رقم هوية ممثل المنشأة"
+                      }
                     />
                   </div>
                   <div>
                     <InputForm
-                      placeholder="اسم المفاوض"
+                      placeholder={
+                        accountType == 1 ? "الاسم الكامل" : "اسم المفوض"
+                      }
                       type="text"
                       value={formData?.negotiatorName || ""}
                       onchange={(e: any) =>
@@ -295,7 +299,7 @@ const Page = ({ searchParams }: Props) => {
                           negotiatorName: e.target.value,
                         })
                       }
-                      title="اسم المفاوض"
+                      title={accountType == 1 ? "الاسم الكامل" : "اسم المفوض"}
                       required
                     />
                     {errors.negotiatorName && !formData?.negotiatorName && (
@@ -346,7 +350,7 @@ const Page = ({ searchParams }: Props) => {
                 {accountType == 2 && (
                   <div>
                     <InputForm
-                      placeholder="صفة المفاوض"
+                      placeholder="صفة المفوض"
                       type="text"
                       value={formData?.characteristics || ""}
                       onchange={(e: any) =>
@@ -355,7 +359,7 @@ const Page = ({ searchParams }: Props) => {
                           characteristics: e.target.value,
                         })
                       }
-                      title="صفة المفاوض"
+                      title="صفة المفوض"
                     />
                   </div>
                 )}

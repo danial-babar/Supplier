@@ -551,7 +551,7 @@ const Page = ({ searchParams }: Props) => {
         message={
           completed ? "لقد أكملت الصفقة بنجاح." : "هل تريد إتمام الصفقات؟"
         }
-        buttonText="يتأكد"
+        buttonText="تأكيد"
         isOpen={completeDealModal}
         onClose={() => setCompleteDealModal(false)}
         onConfirm={() => {
@@ -566,8 +566,8 @@ const Page = ({ searchParams }: Props) => {
       />
       <SuccessModal
         header="تهانينا"
-        message={"تمت إضافة المزايدة بنجاح!"}
-        buttonText="يتأكد"
+        message={"تم إرسال عرض السعر بنجاح"}
+        buttonText="تأكيد"
         isOpen={successBid}
         onClose={() => setSuccessBid(false)}
         onConfirm={() => setSuccessBid(false)}

@@ -253,7 +253,7 @@ const UserDemandMng = ({ bidsData, onComplete, disable }: Props) => {
           dir="rtl"
         >
           <label className="text-[#656161] text-[16px] font-rbRegular">
-            لم يقم أحد بالمزايدة على طلبك بعد.
+            لايوجد عروض سعر لطلبك حتى الان
           </label>
         </div>
       )}
