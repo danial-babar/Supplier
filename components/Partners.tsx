@@ -1,4 +1,4 @@
-import { partners } from "@/constants/Partners";
+import { partners } from "@/constants/PartnersData";
 import Image from "next/image";
 import React from "react";
 import Marquee from "react-fast-marquee";
@@ -7,10 +7,10 @@ type Props = {};
 
 const Partners = (props: Props) => {
   return (
-    <div className="relative w-[90%] mx-auto">
+    <div className="relative w-[70%] mx-auto">
       <div className="text-center mt-14 sm:mt-20">
         <h3 className="sm:text-[28px] md:text-[36px] lg:text-[50px] text-[18px] font-rbBold">
-          شــ<span className="pe-10 bg-[#BDFFA5] rounded-3xl">ــركــاؤنا</span>
+          شــ<span className="ps-10 bg-[#BDFFA5] rounded-3xl">ــركــاؤنا</span>
         </h3>
 
         <div className="my-5">
@@ -23,7 +23,7 @@ const Partners = (props: Props) => {
         </div>
       </div>
       <div className="md:py-10">
-        <Marquee className=" mt-3" direction="right" speed={70}>
+        <Marquee className=" mt-3" direction="right" speed={70} pauseOnHover>
           {partners?.map((item, index) => (
             <Image
               src={item?.url}
@@ -31,11 +31,11 @@ const Partners = (props: Props) => {
               width={100}
               height={100}
               key={index}
-              className="mx-10 md:text-[36px] text-[22] lg:text-[50px] grayscale-[100%] w-[80px] sm:w-[100px] md:w-[140px] h-[100px] object-contain hover:grayscale-0 transition-opacity cursor-pointer"
+              className="mx-10 md:text-[36px] text-[22] lg:text-[50px] grayscale-[100%] w-[80px] sm:w-[100px] md:w-[140px] h-[100px] object-contain tint hover:grayscale-0 transition-opacity cursor-pointer"
             />
           ))}
         </Marquee>
-        <Marquee className="w-full mb-3" direction="left" speed={90}>
+        <Marquee className="w-full mb-3" direction="left" speed={70} pauseOnHover>
           {partners?.reverse()?.map((item, index) => (
             <Image
               src={item.url}

@@ -8,7 +8,15 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Button, Select, SelectItem, Textarea, image } from "@nextui-org/react";
+import {
+  Button,
+  Radio,
+  RadioGroup,
+  Select,
+  SelectItem,
+  Textarea,
+  image,
+} from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
 import { fieldData } from "@/constants/DummyData";
 import {
@@ -56,7 +64,7 @@ const Page = (props: Props) => {
   const [defaultImage, setDefaultImage] = useState();
   const [images, setImages] = useState([]);
   const [dragging, setDragging] = useState<Boolean>(false);
-  const [loading, setLoading] = useState<Boolean>(false);
+  const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
   const [errors, setErrors] = useState({});
   const [inputData, setInputData] = useState({});
@@ -239,11 +247,11 @@ const Page = (props: Props) => {
   return (
     <div className="flex-1" dir="rtl">
       <Header />
-      <div className="w-full items-center justify-center mt-8">
+      <div className="w-full items-center justify-center mt-8 ">
         <h1 className="text-black text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] relative font-rbBold  text-center">
           اضافة ط<span className="rounded-3xl bg-[#BDFFA5] pe-3 ">لب سعر</span>
         </h1>
-        <h4 className="text-black w-[95%] opacity-80 tracking-wide sm:opacity-60 text-[20px] sm:text-[20px] md:mt-10 sm:mt-8 mt-4 text-center font-rbLight sm:font-rbRegular">
+        <h4 className="text-[#475467]  tracking-wide sm:opacity-60 text-[20px] sm:text-[20px] md:mt-10 sm:mt-8 mt-4 text-center font-rbLight sm:font-rbRegular">
           برجاء ادخال البيانات المطلوبة
         </h4>
       </div>
@@ -484,7 +492,79 @@ const Page = (props: Props) => {
               <div className="text-red-500 text-[12px]">{errors.maxPrice}</div>
             )}
           </div>
+          <div className="w-full">
+            <label
+              className="text-[#000] block font-rbRegular text-[16px]"
+              htmlFor="date"
+            >
+              تاريخ البدء
+              <span className="text-[#F84F39] font-rbRegular text-[16px]">
+                {" "}
+                *
+              </span>
+            </label>
+            <DatePicker
+              wrapperClassName={"w-[100%]"}
+              showIcon
+              icon={
+                <span className="absolute inset-y-0 left-2 flex items-center">
+                  <IoIosCalendar className="h-auto" />
+                </span>
+              }
+              selected={selectedDate?.startDate}
+              onChange={(date: any) => {
+                setSelectedDate({ ...selectedDate, startDate: date });
+                const formattedDate = formatDate(date);
+                setInputData({ ...inputData, startDate: formattedDate });
+              }}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="dd/mm/yyyy"
+              className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
+              locale="ar"
+              minDate={new Date()}
+            />
+            {errors.startDate && !inputData?.startDate && (
+              <div className="text-red-500 text-[12px]">{errors.startDate}</div>
+            )}
+          </div>
 
+          <div className="w-full">
+            <label
+              className="text-[#000] block font-rbRegular text-[16px]"
+              htmlFor="date"
+            >
+              تاريخ الانتهاء
+              <span className="text-[#F84F39] font-rbRegular text-[16px]">
+                {" "}
+                *
+              </span>
+            </label>
+            <DatePicker
+              wrapperClassName={"w-[100%]"}
+              showIcon
+              icon={
+                <span className="absolute inset-y-0 left-2 flex items-center">
+                  <IoIosCalendar />
+                </span>
+              }
+              selected={selectedDate?.expiryDate}
+              onChange={(date: any) => {
+                setSelectedDate({ ...selectedDate, expiryDate: date });
+                const formattedDate = formatDate(date);
+                setInputData({ ...inputData, expiryDate: formattedDate });
+              }}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="dd/mm/yyyy"
+              className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
+              locale="ar"
+              minDate={new Date()}
+            />
+            {errors.expiryDate && !inputData?.expiryDate && (
+              <div className="text-red-500 text-[12px]">
+                {errors.expiryDate}
+              </div>
+            )}
+          </div>
           <div className="w-full">
             <label
               className="text-[#000] block font-rbRegular text-[16px]"
@@ -566,108 +646,6 @@ const Page = (props: Props) => {
               </div>
             )}
           </div>
-          <div className="w-full">
-            <label
-              className="text-[#000] block font-rbRegular text-[16px]"
-              htmlFor="date"
-            >
-              تاريخ الانتهاء
-              <span className="text-[#F84F39] font-rbRegular text-[16px]">
-                {" "}
-                *
-              </span>
-            </label>
-            <DatePicker
-              wrapperClassName={"w-[100%]"}
-              showIcon
-              icon={
-                <span className="absolute inset-y-0 left-2 flex items-center">
-                  <IoIosCalendar />
-                </span>
-              }
-              selected={selectedDate?.expiryDate}
-              onChange={(date: any) => {
-                setSelectedDate({ ...selectedDate, expiryDate: date });
-                const formattedDate = formatDate(date);
-                setInputData({ ...inputData, expiryDate: formattedDate });
-              }}
-              dateFormat="dd/MM/yyyy"
-              placeholderText="dd/mm/yyyy"
-              className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
-              locale="ar"
-              minDate={new Date()}
-            />
-            {errors.expiryDate && !inputData?.expiryDate && (
-              <div className="text-red-500 text-[12px]">
-                {errors.expiryDate}
-              </div>
-            )}
-          </div>
-          <div className="w-full">
-            <label
-              className="text-[#000] block font-rbRegular text-[16px]"
-              htmlFor="date"
-            >
-              تاريخ البدء
-              <span className="text-[#F84F39] font-rbRegular text-[16px]">
-                {" "}
-                *
-              </span>
-            </label>
-            <DatePicker
-              wrapperClassName={"w-[100%]"}
-              showIcon
-              icon={
-                <span className="absolute inset-y-0 left-2 flex items-center">
-                  <IoIosCalendar className="h-auto" />
-                </span>
-              }
-              selected={selectedDate?.startDate}
-              onChange={(date: any) => {
-                setSelectedDate({ ...selectedDate, startDate: date });
-                const formattedDate = formatDate(date);
-                setInputData({ ...inputData, startDate: formattedDate });
-              }}
-              dateFormat="dd/MM/yyyy"
-              placeholderText="dd/mm/yyyy"
-              className="w-[100%] border border-gray-300  px-4 p-2 focus:outline-none focus:border-blue-500"
-              locale="ar"
-              minDate={new Date()}
-            />
-            {errors.startDate && !inputData?.startDate && (
-              <div className="text-red-500 text-[12px]">{errors.startDate}</div>
-            )}
-          </div>
-          {/* <div className="">
-            <label
-              className="text-[#000] font-rbRegular text-[16px]"
-              htmlFor="status"
-            >
-              حالة
-              <span className="text-[#F84F39] font-rbRegular text-[16px]">
-                {" "}
-                *
-              </span>
-            </label>
-            <Select
-              placeholder="إختر ...."
-              aria-label="إختر"
-              className="rounded-none selectboxForRTL font-rbRegular"
-            >
-              {status?.map((item) => (
-                <SelectItem
-                  key={item.id}
-                  value={item.id}
-                  onClick={() => setInputData({ ...inputData, status: item })}
-                >
-                  {item.name}
-                </SelectItem>
-              ))}
-            </Select>
-            {errors.status && !inputData?.status && (
-              <div className="text-red-500 text-[12px]">{errors.status}</div>
-            )}
-          </div> */}
         </div>
         <div className="">
           <label
@@ -782,6 +760,35 @@ const Page = (props: Props) => {
                 </div>
               ))}
           </div>
+        </div>
+        <div className="px-3 my-6 ">
+          <RadioGroup
+            label="نوع الطلب"
+            orientation="horizontal"
+            dir="rtl"
+            defaultValue="publish"
+            className="text-[#000]"
+            classNames={{ label: "text-[#000] text-[16px] font-rbRegular" }}
+          >
+            <Radio
+              value="publish"
+              onClick={() =>
+                setInputData({ ...inputData, requestType: "publish" })
+              }
+              className="font-rbRegular text-[14px] text-[#000] my-1"
+            >
+              <span className="mr-3">طلب النشر</span>
+            </Radio>
+            <Radio
+              value="draft"
+              onClick={() =>
+                setInputData({ ...inputData, requestType: "draft" })
+              }
+              className="font-rbRegular text-[14px] text-[#000]"
+            >
+              <span className="mr-3">طلب مسودة</span>
+            </Radio>
+          </RadioGroup>
         </div>
         <div className="w-full items-center  flex justify-center">
           <CommonButton
