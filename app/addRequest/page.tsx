@@ -171,10 +171,13 @@ const Page = (props: Props) => {
     if (!inputData.description) {
       errors.description = "الرجاء إدخال التفاصيل";
     }
+    if (!defaultImage) {
+      errors.defImage = "يرجى تحميل الصورة الافتراضية";
+    }
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
-  console.log("input data", inputData);
+
   console.log("input errors", errors);
 
   const submitLead = () => {
@@ -232,6 +235,7 @@ const Page = (props: Props) => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+
   return (
     <div className="flex-1" dir="rtl">
       <Header />
@@ -250,7 +254,7 @@ const Page = (props: Props) => {
               className="text-[#000] font-rbRegular text-[16px]"
               htmlFor="title"
             >
-              عنوان
+              عنوان الطلب
               <span className="text-[#F84F39] font-rbRegular text-[16px]">
                 {" "}
                 *
@@ -670,7 +674,7 @@ const Page = (props: Props) => {
             className="text-[#000] font-rbRegular text-[16px]"
             htmlFor="description"
           >
-            التفاصيل
+            تفاصيل الطلب
             <span className="text-[#F84F39] font-rbRegular text-[16px]">
               {" "}
               *
@@ -692,7 +696,7 @@ const Page = (props: Props) => {
         <div>
           <div className="w-full flex justify-between my-6">
             <label className="text-[#000] font-rbRegular text-[16px]">
-              صورة مميزة
+              صورة افتراضية للمنتج
             </label>
             <div className="" dir="ltr">
               <input
@@ -712,6 +716,9 @@ const Page = (props: Props) => {
               </label>
             </div>
           </div>
+          {errors.defImage && !defaultImage && (
+            <div className="text-red-500 text-[12px]">{errors.defImage}</div>
+          )}
           {defaultImage && (
             <div className="">
               <IoMdCloseCircle
@@ -733,7 +740,7 @@ const Page = (props: Props) => {
         <div className="mt-10">
           <div className="w-full flex justify-between my-6">
             <label className="text-[#000] font-rbRegular text-[16px] ">
-              صور إضافية
+              صور إضافية للمنتج ( اختياري )
             </label>
             <div className="" dir="ltr">
               <input
@@ -778,7 +785,7 @@ const Page = (props: Props) => {
         </div>
         <div className="w-full items-center  flex justify-center">
           <CommonButton
-            text="ارسال الطلب..."
+            text="طلب سعر جديد..."
             onPress={submitLead}
             bgColor="#F84F39"
             className={`mt-4 w-[200px] text-[#fff] bg-[#F84F39] sm:font-rbRegular font-rbLight rounded-lg sm:rounded-3xl px-5 py-2 sm:py-6`}
