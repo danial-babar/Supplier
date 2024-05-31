@@ -100,107 +100,111 @@ const Page = (props: Props) => {
     router.push("/management");
   };
   return (
-    <div dir="rtl" className="">
-      <Header activeItem={0} />
-      <Banner onClick={handleSearchClick} />
-      <div className="md:my-24 sm:my-10 mt-10 w-[95%] mx-auto sm:flex justify-between items-center ">
-        <h1 className="text-black text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] relative font-rbBold">
-          طلبات{" "}
-          <span className="rounded-3xl bg-[#BDFFA5] sm:pe-16 md:pe-20 pe-4 ps-2 h-6 py-0">
-            التوريد
-          </span>
-          <p className="text-[16px] text-[#475467] sm:text-[18px] font-rbRegular sm:font-rbRegular sm:mt-5 mt-3">
-            انضم إلينا اليوم واستكشف عالم التوريدات الشيق والمثير.
-            <span className="text-[#F84F39] underline font-rbRegular sm:font-rbBold">
-              كل طلبات التوريد
+    <div>
+      <div dir="rtl" className="">
+        <Header activeItem={0} />
+        <Banner onClick={handleSearchClick} />
+        <div className="md:my-24 sm:my-10 mt-10 w-[95%] mx-auto sm:flex justify-between items-center ">
+          <h1 className="text-black text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] relative font-rbBold">
+            طلبات{" "}
+            <span className="rounded-3xl bg-[#BDFFA5] sm:pe-16 md:pe-20 pe-4 ps-2 h-6 py-0">
+              التوريد
             </span>
-          </p>
-        </h1>
-        <div className="flex items-center sm:mb-auto mb-4 sm:justify-start justify-end sm:mt-auto mt-4">
-          <button
-            className={`${
-              nextPage
-                ? "bg-[#6B66DA] text-white "
-                : "bg-[#d2d2d6] text-[#67676a]"
-            } rounded-full sm:p-3 p-1 ml-2`}
-            onClick={handleNextPage}
-          >
-            <SlArrowRight className="text-xl md:text-[20px]" />
-          </button>
-          <button
-            className={`${
-              currentPage > 1
-                ? "bg-[#6B66DA] text-white "
-                : "bg-[#d2d2d6] text-[#67676a]"
-            }   rounded-full sm:p-3 p-1`}
-            onClick={handlePrevPage}
-          >
-            <SlArrowLeft className="text-xl md:text-[20px]" />
-          </button>
-        </div>
-      </div>
-      {loading ? (
-        <div className="flex w-full  justify-center mb-10 items-center">
-          <Spinner />
-        </div>
-      ) : (
-        <div className="">
-          <div
-            className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5"
-            style={{ direction: "rtl" }}
-          >
-            <>
-              {Array.isArray(leadsData) &&
-                leadsData.length > 0 &&
-                leadsData.map((item: { id: string; status: string }, index) => {
-                  return (
-                    <RequestCard
-                      key={item.id} // don't forget to add a unique key when mapping over arrays in React
-                      bgColor={
-                        item?.status == "7"
-                          ? "bg-[#FEDCD7]"
-                          : item.status == "6"
-                          ? "bg-[#D6FAEE]"
-                          : "bg-[#FAFAFF]"
-                      }
-                      contentBg={
-                        item?.status == "7"
-                          ? "bg-[#f84f3948]"
-                          : item.status == "6"
-                          ? "bg-[#34e5a755]"
-                          : "bg-[#6c66da4d]"
-                      }
-                      contentColor={
-                        item?.status == "7"
-                          ? "#F84F39"
-                          : item.status == "6"
-                          ? "#34E5A8"
-                          : "#6B66DA"
-                      }
-                      // href={{ pathname: "/management", query: { id: item?.id } }}
-                      onClick={() => onLeadCLick(item?.id)}
-                      data={item}
-                      textColor={item?.status == "2" ? "#000000" : ""}
-                    />
-                  );
-                })}
-            </>
-          </div>
-          {leadsData?.length < 1 && (
-            <div
-              className="w-[100%] my-5 px-5 items-center flex justify-center"
-              dir="rtl"
+            <p className="text-[16px] text-[#475467] sm:text-[18px] font-rbRegular sm:font-rbRegular sm:mt-5 mt-3">
+              انضم إلينا اليوم واستكشف عالم التوريدات الشيق والمثير.
+              <span className="text-[#F84F39] underline font-rbRegular sm:font-rbBold">
+                كل طلبات التوريد
+              </span>
+            </p>
+          </h1>
+          <div className="flex items-center sm:mb-auto mb-4 sm:justify-start justify-end sm:mt-auto mt-4">
+            <button
+              className={`${
+                nextPage
+                  ? "bg-[#6B66DA] text-white "
+                  : "bg-[#d2d2d6] text-[#67676a]"
+              } rounded-full sm:p-3 p-1 ml-2`}
+              onClick={handleNextPage}
             >
-              <label className="text-[#656161] text-[16px] font-rbRegular bg-[#f5f4f4] py-1 px-4 rounded-full">
-                لا توجد طلبات متاحة.
-              </label>
-            </div>
-          )}
+              <SlArrowRight className="text-xl md:text-[20px]" />
+            </button>
+            <button
+              className={`${
+                currentPage > 1
+                  ? "bg-[#6B66DA] text-white "
+                  : "bg-[#d2d2d6] text-[#67676a]"
+              }   rounded-full sm:p-3 p-1`}
+              onClick={handlePrevPage}
+            >
+              <SlArrowLeft className="text-xl md:text-[20px]" />
+            </button>
+          </div>
         </div>
-      )}
-      <ElectronicSupplierPlatform />
-      <DownloadAppBanner />
-      <SupplierPlatform />
+        {loading ? (
+          <div className="flex w-full  justify-center mb-10 items-center">
+            <Spinner />
+          </div>
+        ) : (
+          <div className="">
+            <div
+              className="w-[95%] mx-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5"
+              style={{ direction: "rtl" }}
+            >
+              <>
+                {Array.isArray(leadsData) &&
+                  leadsData.length > 0 &&
+                  leadsData.map(
+                    (item: { id: string; status: string }, index) => {
+                      return (
+                        <RequestCard
+                          key={item.id} // don't forget to add a unique key when mapping over arrays in React
+                          bgColor={
+                            item?.status == "7"
+                              ? "bg-[#FEDCD7]"
+                              : item.status == "6"
+                              ? "bg-[#D6FAEE]"
+                              : "bg-[#FAFAFF]"
+                          }
+                          contentBg={
+                            item?.status == "7"
+                              ? "bg-[#f84f3948]"
+                              : item.status == "6"
+                              ? "bg-[#34e5a755]"
+                              : "bg-[#6c66da4d]"
+                          }
+                          contentColor={
+                            item?.status == "7"
+                              ? "#F84F39"
+                              : item.status == "6"
+                              ? "#34E5A8"
+                              : "#6B66DA"
+                          }
+                          // href={{ pathname: "/management", query: { id: item?.id } }}
+                          onClick={() => onLeadCLick(item?.id)}
+                          data={item}
+                          textColor={item?.status == "2" ? "#000000" : ""}
+                        />
+                      );
+                    }
+                  )}
+              </>
+            </div>
+            {leadsData?.length < 1 && (
+              <div
+                className="w-[100%] my-5 px-5 items-center flex justify-center"
+                dir="rtl"
+              >
+                <label className="text-[#656161] text-[16px] font-rbRegular bg-[#f5f4f4] py-1 px-4 rounded-full">
+                  لا توجد طلبات متاحة.
+                </label>
+              </div>
+            )}
+          </div>
+        )}
+        <ElectronicSupplierPlatform />
+        <DownloadAppBanner />
+        <SupplierPlatform />
+      </div>
       <Partners />
       <Footer />ٖ
     </div>

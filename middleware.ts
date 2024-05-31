@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { store } from "./redux/Store";
 
 const protectedRoutes = [
-  "addRequest",
+  // "addRequest",
 ];
 
 const protectedRoutePaths = protectedRoutes.map((route) => `/${route}/:path*`);

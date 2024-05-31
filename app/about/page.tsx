@@ -55,6 +55,7 @@ const Page = (props: Props) => {
         </div>
       </div>
       <ElectronicSupplierPlatform />
+      <DownloadAppBanner />
       <div className=" md:py-14 sm:py-10 lg:py-20 py-6 supplier-banner-gradient">
         <div className="w-[95%] mx-auto ">
           <div className="my-10 text-center">

@@ -17,7 +17,7 @@ import { IoMdArrowDropdown, IoMdLogOut } from "react-icons/io";
 import { MdCollectionsBookmark } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import WarningModal from "@/common-modals/WarningModal";
-
+import logoImage from '/public/logo.png'
 type Props = {
   activeItem?: number;
 };
@@ -97,7 +97,7 @@ const Header = ({ activeItem }: Props) => {
         <div>
           <Link href={"/"}>
             <Image
-              src={"/logo.png"}
+              src={logoImage}
               width={150}
               height={150}
               className="lg:w-[150px] w-[120px]"
@@ -166,7 +166,7 @@ const Header = ({ activeItem }: Props) => {
       <div className=" w-[95%] mx-auto lg:hidden flex items-center justify-between">
         <div>
           <Link href={"/"}>
-            <Image src={"/logo.png"} width={150} height={150} alt="Logo" />
+            <Image src={logoImage} width={150} height={150} alt="Logo" />
           </Link>
         </div>
         <div>
