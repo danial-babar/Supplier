@@ -6,7 +6,7 @@ import { FaCircle } from "react-icons/fa";
 import { LuArrowDownToLine, LuArrowUpToLine } from "react-icons/lu";
 
 type Props = {
-  bidsData?: [];
+  bidsData: [];
   onComplete?: (id: string) => void;
   disable?: boolean;
 };
@@ -40,51 +40,38 @@ const UserDemandMng = ({ bidsData, onComplete, disable }: Props) => {
       <div className="my-5 w-[95%] mx-auto">
         <div className="md:flex justify-between">
           <div className="bg-white shadow-md md:mb-0 mb-5 border-1 md:w-1/3 rounded-lg px-4 py-2 m-2 h-48">
-            <p className="text-end font-rbRegular text-gray-800">
+            <p className="md:text-[20px] lg:text-[24px] font-rbRegular text-gray-800">
               احصائيات علي الطلب
             </p>
             <div className="flex mt-3 items-center gap-5 justify-between">
-              <div>
-                <div className="text-[10px] my-2 flex items-center gap-7">
-                  <p>123.00.00 ريال سعودي</p>
-                  <div className="flex items-center gap-2">
-                    <p>المورد الاول</p>
-                    <FaCircle className="text-green-500" />
-                  </div>
-                </div>
-                <div className="text-[10px] mb-2 flex items-center gap-7">
-                  <p>123.00.00 ريال سعودي</p>
-                  <div className="flex items-center gap-2">
-                    <p>المورد الاول</p>
-                    <FaCircle className="text-red-500" />
-                  </div>
-                </div>
-                <div className="text-[10px] mb-2 flex items-center gap-7">
-                  <p>123.00.00 ريال سعودي</p>
-                  <div className="flex items-center gap-2">
-                    <p>المورد الاول</p>
-                    <FaCircle className="text-purple-500" />
-                  </div>
-                </div>
+              <div className="">
+                {bidsData.slice(0, 3).map((item, index) => {
+                  const colors = ["#45e5aa", "#F54F37", "#6b65db"];
+                  return (
+                    <BestPrices
+                      amount={item?.amount}
+                      index={index}
+                      color={colors[index]}
+                    />
+                  );
+                })}
               </div>
               <Image src="/chart.png" width={90} height={90} alt="" />
             </div>
           </div>
           <div className="bg-white shadow-md md:w-1/3 md:mb-0 mb-5 border-1 rounded-lg px-4 pt-2 m-2 h-48">
-            <p className="text-end font-rbRegular mb-3 text-gray-800">
+            <p className="md:text-[20px] lg:text-[24px] text-[16px] text-end font-rbRegular mb-3 text-gray-800">
               اعلي سعر حتي الان
             </p>
             <div className="bg-[#34E5A8] font-rbBold mx-auto py-5 rounded-xl text-center bg-opacity-20">
               <div className="w-[125px] mx-auto">
-                <p className="text-[7px] text-start">ريال سعودي</p>
+                <p className="text-[14px] font-rbRegular text-start">ريال سعودي</p>
                 <div className="justify-center text-[30px] flex items-center">
-                  <span>123</span>
-                  <span>.00.</span>
-                  <span>00</span>
+                  {parseFloat(bidsData[0]?.amount).toFixed(2)}
                 </div>
               </div>
-              <span className="text-[7px] rounded-full bg-[#34E5A8] px-2 py-1 bg-opacity-5">
-                ريال سعودي
+              <span className="text-[14px] font-rbRegular rounded-full bg-[#34E5A8] px-4 py-1 bg-opacity-40">
+              اتمام الصفقة
               </span>
             </div>
           </div>
@@ -98,38 +85,9 @@ const UserDemandMng = ({ bidsData, onComplete, disable }: Props) => {
               </p>
             </div>
             <div className="flex bg-[#6B66DA] p-2 rounded-xl items-center justify-between">
-              <div className="flex">
-                <Image
-                  src={"/person1.png"}
-                  className="rounded-full groupOfImage object-contain border-2 border-[#fff] z-[9]"
-                  width={30}
-                  height={30}
-                  alt=""
-                />
-                <Image
-                  src={"/person2.png"}
-                  className="rounded-full groupOfImage object-contain border-2 border-[#fff] ml-[-10px] z-[8]"
-                  width={30}
-                  height={30}
-                  alt=""
-                />
-                <Image
-                  src={"/person3.png"}
-                  className="rounded-full groupOfImage object-contain border-2 border-[#fff] ml-[-10px] z-[7]"
-                  width={30}
-                  height={30}
-                  alt=""
-                />
-                <Image
-                  src={"/person4.png"}
-                  className="rounded-full groupOfImage object-contain border-2 border-[#fff] ml-[-10px] z-[6]"
-                  width={30}
-                  height={30}
-                  alt=""
-                />
-              </div>
+              <div className="flex"></div>
               <p className="text-white">
-                <strong>400</strong> اجراء
+                <strong>{bidsData?.length}</strong> اجراء
               </p>
             </div>
           </div>
@@ -262,3 +220,18 @@ const UserDemandMng = ({ bidsData, onComplete, disable }: Props) => {
 };
 
 export default UserDemandMng;
+const BestPrices = ({ amount, index, color }) => {
+  return (
+    <div className="text-[10px] my-2 flex items-center gap-7 justify-between">
+      <p className="text-[10px] text-[#14213D] font-rbRegular">
+        {amount} ريال سعودي
+      </p>
+      <div className="flex items-center gap-2">
+        <p className="text-[10px] text-[#14213D] font-rbRegular">
+          {arabicNumbers[index]}
+        </p>
+        <FaCircle color={color} />
+      </div>
+    </div>
+  );
+};

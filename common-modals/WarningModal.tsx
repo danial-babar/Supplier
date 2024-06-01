@@ -26,7 +26,7 @@ const WarningModal = ({
       isOpen={isOpen}
       onOpenChange={onClose}
       hideCloseButton
-      className="p-4 items-center"
+      className="p-4 items-center self-center"
     >
       <ModalContent>
         <>

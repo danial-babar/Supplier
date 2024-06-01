@@ -41,7 +41,7 @@ const DropDownComp = <T,>({
         <DropdownTrigger className="bg-blue-400">
           <Button
             variant={variant || "light"}
-            className="sm:w-[130px] md:w-[110px] lg:w-[180px] justify-start pr-2  sm:text-[12px] md:text-[9px] lg:text-[14px] text-[10px]"
+            className="sm:w-[130px] md:w-[110px] lg:w-[180px] justify-start pr-2  sm:text-[12px] md:text-[12px] lg:text-[14px] text-[10px]"
           >
             {selectedItem}
           </Button>

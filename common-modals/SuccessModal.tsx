@@ -17,7 +17,7 @@ const SuccessModal = ({ isOpen,buttonText, header, message, onClose, onConfirm }
       isOpen={isOpen}
       onOpenChange={onClose}
       hideCloseButton
-      className="p-4 items-center"
+      className="p-4 items-center self-center"
     >
       <ModalContent>
         <>

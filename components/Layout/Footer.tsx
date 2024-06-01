@@ -13,6 +13,7 @@ const Footer = ({ styles }: props) => {
   return (
     <div
       className={`bg-[#272737] xl:pt-24 lg:pt-20 md:pt-16 pt-12 pb-5 ${styles}`}
+      dir="rtl"
     >
       <div className="w-[95%] mx-auto xl:w-[85%] lg:w-[90%]">
         <div className="flex lg:col-span-7 flex-col md:flex-row justify-between">

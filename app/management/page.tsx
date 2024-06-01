@@ -229,7 +229,7 @@ const Page = ({ searchParams }: Props) => {
                     <>
                       <button
                         type="button"
-                        className="absolute bottom-[50%] start-0 z-30 flex items-center justify-center px-4 cursor-pointer group focus:outline-none"
+                        className="absolute bottom-[50%] start-0 z-[1] flex items-center justify-center px-4 cursor-pointer group focus:outline-none"
                         data-carousel-prev
                         onClick={handlePrevSlide}
                       >
@@ -239,7 +239,7 @@ const Page = ({ searchParams }: Props) => {
 
                       <button
                         type="button"
-                        className="absolute bottom-[50%] end-0 z-30 flex items-center justify-center px-4 cursor-pointer group focus:outline-none"
+                        className="absolute bottom-[50%] end-0 z-[1]flex items-center justify-center px-4 cursor-pointer group focus:outline-none"
                         data-carousel-next
                         onClick={handleNextSlide}
                       >
@@ -257,10 +257,11 @@ const Page = ({ searchParams }: Props) => {
                         لقد قمت بالفعل بتقديم عرض على هذا الطلب
                       </p>
                       <p className="text-[#fff] font-rbRegular text-[14px] sm:text-[16px] my-1 ">
-                      سعر العرض المقدم :  
-                      
-                      <span className="font-rbBold ps-1">{leadData?.user_bid_amount} </span>
-                      ريال سعودي
+                        سعر العرض المقدم :
+                        <span className="font-rbBold ps-1">
+                          {leadData?.user_bid_amount}{" "}
+                        </span>
+                        ريال سعودي
                       </p>
                     </div>
                   ) : (
@@ -429,7 +430,7 @@ const Page = ({ searchParams }: Props) => {
             isOpen={isOpen}
             onOpenChange={onOpenChange}
             hideCloseButton
-            className="pb-4 self-center"
+            className="pb-4 self-center z-[999]"
           >
             <ModalContent>
               {(onClose) => (
@@ -521,6 +522,7 @@ const Page = ({ searchParams }: Props) => {
                       onPress={() => {
                         setReqPrice("");
                         onClose();
+                        setBidError("");
                       }}
                       textColor="#000"
                       marginTop={"mt-[0px]"}

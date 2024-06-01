@@ -174,11 +174,11 @@ const Header = ({ activeItem }: Props) => {
         </div>
         {open && (
           <div
-            className="fixed lg:hidden w-full h-screen top-0 left-0 z-[9999] bg-[unset]"
+            className="fixed lg:hidden w-full h-screen top-0 left-0 z-[20] bg-[unset]"
             onClick={handleClose}
             id="screen"
           >
-            <div className="fixed bg-[#000] w-[60%] h-screen top-0 right-0 z-[9999]">
+            <div className="fixed bg-[#000] w-[60%] h-screen top-0 right-0 z-[20]">
               <div className="mt-8 px-5">
                 {userToken && isUser ? (
                   <div className="flex items-center gap-2">
