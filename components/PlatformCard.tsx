@@ -13,10 +13,10 @@ const PlatformCard = ({ icon, title, description }: Props) => {
       <div className="flex w-[50px] h-[50px] bg-white border border-[#F84F39] rounded-full items-center justify-center">
         <Image src={icon} alt="" width={25} height={25} />
       </div>
-      <h4 className="text-black text-[18px] sm:text-[20px] lg:text-[22px] xl:text-[22px] text-center w-[100%] md:w-[90%] lg:w-[85%] xl:w-[80%] sm:mt-4 mt-5 tracking-wide font-rbBold">
+      <h4 className="text-black text-[16px] sm:text-[18px] lg:text-[20px] xl:text-[22px] text-center w-[100%] md:w-[90%] lg:w-[85%] xl:w-[80%] sm:mt-4 mt-5 tracking-wide font-rbBold">
         {title}
       </h4>
-      <p className="text-[#475467] text-[16px] sm:text-[18px] lg:text-[20px] font-rbLight sm:font-rbRegular text-center w-[100%] md:w-[90%] lg:w-[85%] xl:w-[80%] my-3">
+      <p className="text-[#475467] text-[14px] sm:text-[16px] lg:text-[18px] font-rbLight sm:font-rbRegular text-center w-[100%] md:w-[90%] lg:w-[85%] xl:w-[80%] my-3">
         {description}
       </p>
     </div>
