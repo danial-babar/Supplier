@@ -85,11 +85,11 @@ const Page = (props: Props) => {
 
   return (
     <div dir="rtl">
+      <Header activeItem={3} />
       {loading ? (
         <Loader />
       ) : (
         <>
-          <Header activeItem={3} />
           <Banner
             onClick={(data) => {
               setFilterParams(data);
