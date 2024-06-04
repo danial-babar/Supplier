@@ -127,7 +127,7 @@ const Footer = ({ styles }: props) => {
         <div className="sm:flex sm:text-start text-center items-center justify-between mt-5 my-5">
           <div className="text-white text-[14px] tracking-wide font-rbLight sm:font-rbRegular">
             <p className="sm:whitespace-pre">
-              {"سياسة الخصوصية" + "     " + "الشروط والأحكام"}
+              {"الشروط والأحكام" + "     " + "سياسة الخصوصية"}
             </p>
           </div>
           <div className="text-white text-[14px] tracking-wide sm:font-rbBold">
