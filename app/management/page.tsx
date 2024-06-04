@@ -175,6 +175,33 @@ const Page = ({ searchParams }: Props) => {
       ) : (
         <>
           <div>
+            {user?.id != leadData?.created_by && (
+              <div
+                className="w-full sm:flex sm:flex-row flex-col justify-center items-center sm:justify-between p-5 bg-[#D6FAEE]"
+                dir="rtl"
+              >
+                <div className="flex items-center">
+                  <Image
+                    src={"/message.png"}
+                    alt="icon"
+                    width={80}
+                    height={80}
+                    className="object-contain"
+                  />
+                  <label className="text-[#000000] text-[16px] font-rbBold">
+                    اقل سعر حتي الان{" "}
+                  </label>
+                </div>
+                <div className="flex flex-col w-[220px] justify-between items-center  bg-[#34E5A8]  rounded-xl px-3 md:px-7 py-1 sm:py-2 text-center bg-opacity-20">
+                  <label className="text-[#000000] text-[16px] font-rbBold">
+                    {parseFloat(allBids[0]?.amount)}
+                  </label>
+                  <label className="text-[#000000] text-[10px] font-rbRegular">
+                    ريال سعودي
+                  </label>
+                </div>
+              </div>
+            )}
             <div className="mt-5">
               <div className="lg:flex flex-row items-start lg:gap-12 gap-6 w-[95%] mx-auto ">
                 <div
@@ -421,6 +448,8 @@ const Page = ({ searchParams }: Props) => {
                 setCompleteDealId(id);
                 setCompleteDealModal(true);
               }}
+              start={leadData?.date_start}
+              end={leadData?.date_expire}
               disable={leadData?.is_won}
             />
           ) : (

@@ -1,19 +1,51 @@
 import { arabicNumbers } from "@/constants/DummyData";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
-import React from "react";
+import React, { useRef } from "react";
 import { FaCircle } from "react-icons/fa";
 import { LuArrowDownToLine, LuArrowUpToLine } from "react-icons/lu";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type Props = {
   bidsData: [];
   onComplete?: (id: string) => void;
   disable?: boolean;
+  start?: string;
+  end?: string;
 };
 
-const UserDemandMng = ({ bidsData, onComplete, disable }: Props) => {
+const UserDemandMng = ({
+  bidsData,
+  onComplete,
+  disable,
+  start,
+  end,
+}: Props) => {
+  const tableRef = useRef(null);
+
+  const handleScrollToTable = () => {
+    if (tableRef.current) {
+      tableRef.current.scrollIntoView({ behavior: "smooth" });
+      toast.info("أكمل الصفقة هنا");
+    }
+  };
+
   return (
     <div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+
       <div
         className="md:my-24 sm:my-10 mt-10 w-[95%] mx-auto md:flex justify-between items-center "
         dir="rtl"
@@ -29,7 +61,10 @@ const UserDemandMng = ({ bidsData, onComplete, disable }: Props) => {
           </p>
         </h1>
         <div className="flex flex-col sm:flex-row items-center gap-5 sm:mb-auto mb-4 sm:justify-start justify-end md:mt-auto mt-5">
-          <Button className="border-[#F84F39] bg-white sm:w-auto w-full px-8 sm:px-14 border-1 rounded-full text-[#F84F39]">
+          <Button
+            className="border-[#F84F39] bg-white sm:w-auto w-full px-8 sm:px-14 border-1 rounded-full text-[#F84F39]"
+            onClick={handleScrollToTable}
+          >
             ايقاف الطلب
           </Button>
           <Button className="text-[#fff] sm:w-auto w-full rounded-full px-8 sm:px-14 bg-[#F84F39]">
@@ -40,7 +75,7 @@ const UserDemandMng = ({ bidsData, onComplete, disable }: Props) => {
       <div className="my-5 w-[95%] mx-auto">
         <div className="md:flex justify-between">
           <div className="bg-white shadow-md md:mb-0 mb-5 border-1 md:w-1/3 rounded-lg px-4 py-2 m-2 h-48">
-            <p className="md:text-[20px] lg:text-[24px] font-rbRegular text-gray-800">
+            <p className="md:text-[20px] text-end lg:text-[24px] font-rbRegular text-gray-800">
               احصائيات علي الطلب
             </p>
             <div className="flex mt-3 items-center gap-5 justify-between">
@@ -65,23 +100,32 @@ const UserDemandMng = ({ bidsData, onComplete, disable }: Props) => {
             </p>
             <div className="bg-[#34E5A8] font-rbBold mx-auto py-5 rounded-xl text-center bg-opacity-20">
               <div className="w-[125px] mx-auto">
-                <p className="text-[14px] font-rbRegular text-start">ريال سعودي</p>
+                <p className="text-[14px] font-rbRegular text-start">
+                  ريال سعودي
+                </p>
                 <div className="justify-center text-[30px] flex items-center">
-                  {parseFloat(bidsData[0]?.amount).toFixed(2)}
+                  {bidsData.length > 0
+                    ? parseFloat(bidsData[0]?.amount).toFixed(2)
+                    : "0"}
                 </div>
               </div>
-              <span className="text-[14px] font-rbRegular rounded-full bg-[#34E5A8] px-4 py-1 bg-opacity-40">
-              اتمام الصفقة
+              <span
+                className={`text-[14px] font-rbRegular rounded-full bg-[#34E5A8] px-4 py-1 bg-opacity-40 cursor-pointer ${
+                  disable && "pointer-events-none"
+                }`}
+                onClick={() => onComplete(bidsData[0]?.id)}
+              >
+                {disable ? "الفائز" : "اتمام الصفقة"}
               </span>
             </div>
           </div>
           <div className="bg-[#6B66DA] bg-opacity-20 md:mb-0 mb-5 border-1 md:w-1/3 flex justify-between flex-col shadow-md rounded-lg p-4 m-2 h-48">
             <div>
-              <p className="text-end font-rbRegular mb-3 text-gray-800">
+              <p className="md:text-[20px] text-end lg:text-[24px] font-rbRegular text-gray-800">
                 إجراءات علي الطلب
               </p>
-              <p className="text-end text-[7px]">
-                من تاريخ 12/03/2024 الي تاريخ 14/03/2024
+              <p className="text-end mt-1 text-[12px] text-[#71778d] font-rbRegular">
+                من تاريخ {start} الي تاريخ {end}
               </p>
             </div>
             <div className="flex bg-[#6B66DA] p-2 rounded-xl items-center justify-between">
@@ -95,6 +139,7 @@ const UserDemandMng = ({ bidsData, onComplete, disable }: Props) => {
         <div
           className="md:my-24 sm:my-10 mt-10 w-[95%] mx-auto md:flex justify-between items-center "
           dir="rtl"
+          ref={tableRef}
         >
           <h1 className="text-black text-[18px] sm:text-[20px] md:text-[25px] lg:text-[50px] relative font-rbBold">
             <span> عروض</span>{" "}

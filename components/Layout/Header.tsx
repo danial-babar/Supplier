@@ -120,7 +120,7 @@ const Header = ({ activeItem }: Props) => {
                   <p className="text-[#979797] text-[10px] font-rbLight">
                     مرحبا بك{" "}
                   </p>
-                  <div className="flex items-center">
+                  <div className="flex items-center cursor-pointer">
                     <p className="text-[#161414] text-[14px] font-rbBold">
                       {user?.facilityName || user?.negotiatorName}
                     </p>
@@ -135,7 +135,7 @@ const Header = ({ activeItem }: Props) => {
               >
                 <DropdownItem onClick={() => router.push("allRequest")}>
                   <div className="flex items-center w-full">
-                    <MdCollectionsBookmark className="text-black text-2xl ml-2" />
+                    <MdCollectionsBookmark className="text-black text-2xl ml-2" size={16}/>
                     <span className={`text-black text-[16px] pl-2`}>
                       طلباتي
                     </span>
@@ -143,7 +143,7 @@ const Header = ({ activeItem }: Props) => {
                 </DropdownItem>
                 <DropdownItem onClick={handleLogout}>
                   <div className="flex items-center w-full">
-                    <IoMdLogOut className="text-black text-2xl ml-2" />
+                    <IoMdLogOut className="text-black text-2xl ml-2" size={16}/>
                     <span className={`text-black text-[16px] pl-2`}>
                       تسجيل خروج
                     </span>
@@ -194,7 +194,7 @@ const Header = ({ activeItem }: Props) => {
                           <p className="text-[#fff] text-[10px] font-rbLight">
                             مرحبا بك{" "}
                           </p>
-                          <div className="flex items-center">
+                          <div className="flex items-center cursor-pointer">
                             <p className="text-[#fff] text-[14px] font-rbBold">
                               {user?.facilityName}
                             </p>
@@ -209,7 +209,7 @@ const Header = ({ activeItem }: Props) => {
                       >
                         <DropdownItem onClick={() => router.push("allRequest")}>
                           <div className="flex items-center w-full">
-                            <MdCollectionsBookmark className="text-black text-2xl ml-2" />
+                            <MdCollectionsBookmark className="text-black text-2xl ml-2" size={16}/>
                             <span className={`text-black text-[16px] pl-2`}>
                               طلباتي
                             </span>
@@ -217,7 +217,7 @@ const Header = ({ activeItem }: Props) => {
                         </DropdownItem>
                         <DropdownItem onClick={handleLogout}>
                           <div className="flex items-center w-full">
-                            <IoMdLogOut className="text-black text-2xl ml-2" />
+                            <IoMdLogOut className="text-black text-2xl ml-2" size={16}/>
                             <span className={`text-black text-[16px] pl-2`}>
                               تسجيل خروج
                             </span>
