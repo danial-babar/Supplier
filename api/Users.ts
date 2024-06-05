@@ -2,7 +2,7 @@ import Page from "@/Dummy/page";
 import axios from "axios";
 
 // const BASE_URL = "http://projects.microrage.com/moward/api";
-export const BASE_URL = "http://165.73.252.160/manage/index.php/api";
+export const BASE_URL = "http://manage.mowarrd.sa/index.php/api/";
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -165,6 +165,15 @@ export const bidsFLow = {
       return response.data;
     } catch (error) {
       console.error("Error while completing deal", error);
+      throw error;
+    }
+  },
+  cancelLead: async (data: any) => {
+    try {
+      const response = await api.post(`/cancel_lead`, data);
+      return response.data;
+    } catch (error) {
+      console.error("Error while cancel lead", error);
       throw error;
     }
   },

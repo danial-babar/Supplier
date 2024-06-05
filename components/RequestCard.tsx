@@ -205,18 +205,22 @@ const RequestCard = ({
           </span>
         </div>
         <hr className="mb-3" />
-
-        <div className="flex mx-auto text-[#42526B] my-4 text-[12px] w-full justify-end items-center">
-          <div className="flex items-center cursor-pointer" onClick={onClick}>
-            <label className="font-rbBold cursor-pointer">
-              المزيد من التفاصيل
-            </label>
-            <IoAdd
-              className={`text-[16px] bg-white rounded-full ms-2`}
-              color={"#F84F39"}
-            />
+        <Link href={href}>
+          <div className="flex mx-auto text-[#42526B] my-4 text-[12px] w-full justify-end items-center">
+            <div
+              className="flex items-center cursor-pointer"
+              // onClick={onClick}
+            >
+              <label className="font-rbBold cursor-pointer">
+                المزيد من التفاصيل
+              </label>
+              <IoAdd
+                className={`text-[16px] bg-white rounded-full ms-2`}
+                color={"#F84F39"}
+              />
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
       {/* </Link> */}
     </div>

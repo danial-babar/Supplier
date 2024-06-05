@@ -1,11 +1,11 @@
 "use client";
 import Footer from "@/components/Layout/Footer";
 import Header from "@/components/Layout/Header";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import Banner from "@/components/Layout/Banner";
 import RequestCard from "@/components/RequestCard";
 import { filterLeads } from "@/api/Users";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "@nextui-org/react";
 import Loader from "@/components/Loader";
@@ -49,10 +49,12 @@ const Page = (props: Props) => {
     if (!resetPage) setPage(page + 1);
     try {
       const response = await filterLeads(finalData);
+      console.log('response while filtering', response);
+      
       setLeadsData((prevLeads) =>
         resetPage ? response : [...prevLeads, ...response]
       );
-      setFinishFlag(response.length >= 12);
+      setFinishFlag(response.length >= 15);
     } catch (error) {
       console.error("Error while filtering", error);
     } finally {
@@ -80,14 +82,24 @@ const Page = (props: Props) => {
     });
     router.push("/management");
   };
+  const queryParams = useSearchParams();
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(queryParams.toString());
+      params.set(name, value);
 
+      return params.toString();
+    },
+    [queryParams]
+  );
   return (
     <div dir="rtl">
+      <Header />
       {loading ? (
         <Loader />
       ) : (
         <>
-          <Header />
+          
           <Banner
             onClick={(data) => {
               setFilterParams(data);
@@ -98,7 +110,7 @@ const Page = (props: Props) => {
               Object.keys(filterParams).length > 0 &&
               Object.values(filterParams).some((value) => value !== 0)
             }
-            results={leadsData.length}
+            results={leadsData[0]?.total}
             onReSearchClick={(data) => {
               handleSearchClick(filterParams, true);
             }}
@@ -135,7 +147,7 @@ const Page = (props: Props) => {
                           ? "#34E5A8"
                           : "#6B66DA"
                       }
-                      onClick={() => onLeadClick(item.id)}
+                      href={`management?${createQueryString("id", item?.id)}`}
                       data={item}
                       textColor={item.status == "2" ? "#000000" : ""}
                     />
@@ -172,7 +184,7 @@ const Page = (props: Props) => {
               )}
             </>
           )}
-          <Footer />
+         <Footer styles="mt-6" />
         </>
       )}
     </div>

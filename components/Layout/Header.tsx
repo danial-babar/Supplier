@@ -136,7 +136,7 @@ const Header = ({ activeItem }: Props) => {
                 <DropdownItem onClick={() => router.push("allRequest")}>
                   <div className="flex items-center w-full">
                     <MdCollectionsBookmark className="text-black text-2xl ml-2" size={16}/>
-                    <span className={`text-black text-[16px] pl-2`}>
+                    <span className={`text-black text-[16px] pl-2 font-rbRegular`}>
                       طلباتي
                     </span>
                   </div>
@@ -144,7 +144,7 @@ const Header = ({ activeItem }: Props) => {
                 <DropdownItem onClick={handleLogout}>
                   <div className="flex items-center w-full">
                     <IoMdLogOut className="text-black text-2xl ml-2" size={16}/>
-                    <span className={`text-black text-[16px] pl-2`}>
+                    <span className={`text-black text-[16px] pl-2 font-rbRegular`}>
                       تسجيل خروج
                     </span>
                   </div>
@@ -210,7 +210,7 @@ const Header = ({ activeItem }: Props) => {
                         <DropdownItem onClick={() => router.push("allRequest")}>
                           <div className="flex items-center w-full">
                             <MdCollectionsBookmark className="text-black text-2xl ml-2" size={16}/>
-                            <span className={`text-black text-[16px] pl-2`}>
+                            <span className={`text-black text-[16px] pl-2 font-rbRegular`}>
                               طلباتي
                             </span>
                           </div>
@@ -218,7 +218,7 @@ const Header = ({ activeItem }: Props) => {
                         <DropdownItem onClick={handleLogout}>
                           <div className="flex items-center w-full">
                             <IoMdLogOut className="text-black text-2xl ml-2" size={16}/>
-                            <span className={`text-black text-[16px] pl-2`}>
+                            <span className={`text-black text-[16px] pl-2 font-rbRegular`}>
                               تسجيل خروج
                             </span>
                           </div>
@@ -229,7 +229,7 @@ const Header = ({ activeItem }: Props) => {
                 ) : null}
                 <Navigation activeItem={activeItem} active={active} />
                 <div
-                  className="text-white cursor-pointer p-2 bg-[#F84F39] rounded-full mt-4"
+                  className="text-white cursor-pointer items-center justify-center flex w-[100px] p-2 bg-[#F84F39] rounded-full mt-4"
                   onClick={onLoginAddReqClicked}
                 >
                   <h4 className="text-[14px] lg:text-[16px] font-rbRegular">

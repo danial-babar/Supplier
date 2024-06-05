@@ -8,12 +8,12 @@ import RequestCard from "@/components/RequestCard";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import DownloadAppBanner from "@/components/DownloadAppBanner";
 import SupplierPlatform from "@/components/SupplierPlatform";
 import Partners from "@/components/Partners";
 import { filterLeads, getAllLeads, getCategories } from "@/api/Users";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { Spinner } from "@nextui-org/react";
 import ElectronicSupplierPlatform from "@/components/ElectronicSupplierPlatform";
@@ -37,10 +37,6 @@ const Page = (props: Props) => {
   useEffect(() => {
     getLeads(currentPage);
   }, []);
-
-  // const indexOfLastLead = currentPage * leadsPerPage;
-  // const indexOfFirstLead = indexOfLastLead - leadsPerPage;
-  // const currentLeads = leadsData.slice(indexOfFirstLead, indexOfLastLead);
 
   const handleNextPage = () => {
     console.log("enter in next");
@@ -72,16 +68,16 @@ const Page = (props: Props) => {
       })
       .finally(() => setLoading(false));
   };
+  const searchParams = useSearchParams();
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
 
-  // const getCategoriesList = () => {
-  //   getCategories()
-  //     .then((res) => {
-  //       console.log("res while getting categories", res);
-  //     })
-  //     .catch((err) => {
-  //       console.log("err while getting categories", err);
-  //     });
-  // };
+      return params.toString();
+    },
+    [searchParams]
+  );
   const handleSearchClick = (data: any) => {
     console.log("data filtered", data);
     dispatch({
@@ -180,7 +176,10 @@ const Page = (props: Props) => {
                               : "#6B66DA"
                           }
                           // href={{ pathname: "/management", query: { id: item?.id } }}
-                          onClick={() => onLeadCLick(item?.id)}
+                         
+                          href={`management?${createQueryString("id", item?.id)}`}
+                       
+                          // onClick={() => onLeadCLick(item?.id)}
                           data={item}
                           textColor={item?.status == "2" ? "#000000" : ""}
                         />
