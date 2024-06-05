@@ -395,30 +395,44 @@ const Page = ({ searchParams }: Props) => {
                           className="flex w-[220px] justify-between items-center text-[#6B66DA] bg-[#6B66DA] font-rbRegular sm:font-rbBold rounded-xl px-3 md:px-7 py-1 sm:py-2 text-center bg-opacity-20"
                           dir="ltr"
                         >
-                          <div className="justify-center text-[20px] items-center">
-                            <p className="text-[18px]">{remainingTime?.days}</p>
-                            <p className="text-[10px] font-rbRegular">يوم</p>
-                          </div>
-                          <div className="">
-                            <RxDotFilled className="text-white" />
-                            <RxDotFilled className="text-white" />
-                          </div>
-                          <div className="justify-center text-[20px] items-center">
-                            <p className="text-[18px]">
-                              {remainingTime?.hours}
-                            </p>
-                            <p className="text-[10px] font-rbRegular">ساعة</p>
-                          </div>
-                          <div className="">
-                            <RxDotFilled className="text-white" />
-                            <RxDotFilled className="text-white" />
-                          </div>
-                          <div className="justify-center text-[20px] items-center">
-                            <p className="text-[18px]">
-                              {remainingTime?.minutes}
-                            </p>
-                            <p className="text-[10px] font-rbRegular">دقيقة</p>
-                          </div>
+                          {leadData?.is_won ? (
+                            <p className="text-[10px] font-rbRegular">الفائز</p>
+                          ) : (
+                            <>
+                              <div className="justify-center text-[20px] items-center">
+                                <p className="text-[18px]">
+                                  {remainingTime?.days}
+                                </p>
+                                <p className="text-[10px] font-rbRegular">
+                                  يوم
+                                </p>
+                              </div>
+                              <div className="">
+                                <RxDotFilled className="text-white" />
+                                <RxDotFilled className="text-white" />
+                              </div>
+                              <div className="justify-center text-[20px] items-center">
+                                <p className="text-[18px]">
+                                  {remainingTime?.hours}
+                                </p>
+                                <p className="text-[10px] font-rbRegular">
+                                  ساعة
+                                </p>
+                              </div>
+                              <div className="">
+                                <RxDotFilled className="text-white" />
+                                <RxDotFilled className="text-white" />
+                              </div>
+                              <div className="justify-center text-[20px] items-center">
+                                <p className="text-[18px]">
+                                  {remainingTime?.minutes}
+                                </p>
+                                <p className="text-[10px] font-rbRegular">
+                                  دقيقة
+                                </p>
+                              </div>
+                            </>
+                          )}
                         </div>
                       ) : (
                         <label className="text-[20px] text-[#F84F39] font-rbBold">
