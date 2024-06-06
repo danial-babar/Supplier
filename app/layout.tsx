@@ -5,6 +5,7 @@ import Provider from "./(Providers)/NextUiProvider";
 import localFont from "next/font/local";
 import Head from "next/head";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 const rbBold = localFont({
@@ -62,6 +63,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
     <html
       lang="en"

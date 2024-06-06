@@ -90,36 +90,66 @@ const Footer = ({ styles }: props) => {
               className="flex gap-8 items-center sm:justify-start justify-center md:my-10 my-8 px-2"
               dir="ltr"
             >
-              <Image
-                src={"/Facebook.png"}
-                alt="Facebook"
-                width={16}
-                height={16}
-              />
-              <Image
-                src={"/twitter.png"}
-                alt="Twitter"
-                width={16}
-                height={16}
-              />
-              <Image
-                src={"/Instagram.png"}
-                alt="Instagram"
-                width={16}
-                height={16}
-              />
-              <Image
-                src={"/linkedin.png"}
-                alt="LinkedIn"
-                width={16}
-                height={16}
-              />
-              <Image
-                src={"/youtube.png"}
-                alt="YouTube"
-                width={16}
-                height={16}
-              />
+              <Link
+                href="https://www.facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src={"/Facebook.png"}
+                  alt="Facebook"
+                  width={16}
+                  height={16}
+                />
+              </Link>
+              <Link
+                href="https://www.twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src={"/twitter.png"}
+                  alt="Twitter"
+                  width={16}
+                  height={16}
+                />
+              </Link>
+              <Link
+                href="https://www.instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src={"/Instagram.png"}
+                  alt="Instagram"
+                  width={16}
+                  height={16}
+                />
+              </Link>
+              <Link
+                href="https://www.linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src={"/linkedin.png"}
+                  alt="LinkedIn"
+                  width={16}
+                  height={16}
+                />
+              </Link>
+              <Link
+                href="https://www.youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src={"/youtube.png"}
+                  alt="YouTube"
+                  width={16}
+                  height={16}
+                />
+              </Link>
             </div>
           </div>
         </div>

@@ -18,7 +18,8 @@ import { useDispatch } from "react-redux";
 import { Spinner } from "@nextui-org/react";
 import ElectronicSupplierPlatform from "@/components/ElectronicSupplierPlatform";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
-
+import { generateToken } from "@/firebase/page";
+import { getMessaging, onMessage } from "firebase/messaging";
 type Props = {};
 interface Lead {
   id: string;
@@ -33,9 +34,14 @@ const Page = (props: Props) => {
   const leadsPerPage = 6;
   const router = useRouter();
   const dispatch = useDispatch();
-
+  const messaging = getMessaging();
   useEffect(() => {
     getLeads(currentPage);
+    generateToken();
+
+    onMessage(messaging, (payload) => {
+      console.log("Message received. ", payload);
+    });
   }, []);
 
   const handleNextPage = () => {
@@ -176,9 +182,11 @@ const Page = (props: Props) => {
                               : "#6B66DA"
                           }
                           // href={{ pathname: "/management", query: { id: item?.id } }}
-                         
-                          href={`management?${createQueryString("id", item?.id)}`}
-                       
+
+                          href={`management?${createQueryString(
+                            "id",
+                            item?.id
+                          )}`}
                           // onClick={() => onLeadCLick(item?.id)}
                           data={item}
                           textColor={item?.status == "2" ? "#000000" : ""}
