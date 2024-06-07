@@ -57,7 +57,7 @@ export const getUnits = async () => {
   }
 };
 export const getAllLeads = async (page: any) => {
-  console.log("query", `/get_leads?page=${page}`);
+  // console.log("query", `/get_leads?page=${page}`);
 
   try {
     const response = await api.get(`/get_leads?page=${page}`);
@@ -68,15 +68,6 @@ export const getAllLeads = async (page: any) => {
   }
 };
 export const filterLeads = async (data: any) => {
-  console.log(
-    "query",
-    `/get_leads_filter?category=${data.category || ""}&city=${
-      data?.city || ""
-    }&order_status=${data?.status || ""}&sort_by=${data?.sortBy || "0"}&page=${
-      data?.page
-    }`
-  );
-
   try {
     const response = await api.get(
       `/get_leads_filter?category=${data.category || ""}&city=${

@@ -1,5 +1,4 @@
 "use client";
-
 import Banner from "@/components/Layout/Banner";
 import Footer from "@/components/Layout/Footer";
 import Header from "@/components/Layout/Header";
@@ -14,12 +13,14 @@ import SupplierPlatform from "@/components/SupplierPlatform";
 import Partners from "@/components/Partners";
 import { filterLeads, getAllLeads, getCategories } from "@/api/Users";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "@nextui-org/react";
 import ElectronicSupplierPlatform from "@/components/ElectronicSupplierPlatform";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
-import { generateToken } from "@/firebase/page";
+import { initFirebaseMessaging } from "@/firebase/page";
 import { getMessaging, onMessage } from "firebase/messaging";
+import useFcmToken from "@/utils/hooks/useFCMToken";
+import FcmTokenComp from "../../firebaseForeground";
 type Props = {};
 interface Lead {
   id: string;
@@ -27,6 +28,7 @@ interface Lead {
   // Add other properties if needed
 }
 const Page = (props: Props) => {
+  const { notifications } = useSelector((state: any) => state.notification);
   const [leadsData, setLeadsData] = useState<Array<any>>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -35,13 +37,19 @@ const Page = (props: Props) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const messaging = getMessaging();
+  const { token, notificationPermissionStatus } = useFcmToken();
+console.log('notifications', notifications);
+
   useEffect(() => {
-    getLeads(currentPage);
-    generateToken();
+    if (typeof window !== "undefined") {
+      initFirebaseMessaging();
+    }
 
     onMessage(messaging, (payload) => {
       console.log("Message received. ", payload);
+      // ...
     });
+    getLeads(currentPage);
   }, []);
 
   const handleNextPage = () => {
@@ -103,6 +111,7 @@ const Page = (props: Props) => {
   };
   return (
     <div>
+      {/* <FcmTokenComp /> */}
       <div dir="rtl" className="">
         <Header activeItem={0} />
         <Banner onClick={handleSearchClick} />

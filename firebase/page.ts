@@ -1,28 +1,47 @@
-import firebase, { initializeApp } from "firebase/app";
-import "firebase/messaging";
-import { getMessaging, getToken } from "firebase/messaging";
-// import { getMessaging } from "firebase/app";
+import { initializeApp } from "firebase/app";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+
+// Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDZMaWACaH-ADDeGDqzTml6amqnJPIbOrg",
-  authDomain: "mowarrd-8e7c0.firebaseapp.com",
-  projectId: "mowarrd-8e7c0",
-  storageBucket: "mowarrd-8e7c0.appspot.com",
-  messagingSenderId: "45376886908",
-  appId: "1:45376886908:web:2a7636dca32165ba9991f9",
-  measurementId: "G-G0G3E93FSK",
+  apiKey: "AIzaSyBmljYoQxQ_Wwx9mRjVA-cyG-pWVxhc84A",
+  authDomain: "mowarrdsa.firebaseapp.com",
+  projectId: "mowarrdsa",
+  storageBucket: "mowarrdsa.appspot.com",
+  messagingSenderId: "642041299783",
+  appId: "1:642041299783:web:bf79c21f474f5c626b4262"
 };
 
+// Initialize Firebase app
 const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
 
-export const generateToken = async () => {
-  const permissions = await Notification.requestPermission();
-  console.log("Generating token", permissions);
-  if (permissions == "granted") {
-    const token = await getToken(messaging, {
-      vapidKey:
-        "BK8jFmI59XgwjbVrJh85G_rCv4b9qRpsO_FqwbZu6Z4bNsEP9_u3WYBFV4-X5q0EtyqyOIbg4O5PaHgECaEM7CE",
+export const initFirebaseMessaging = () => {
+  if (typeof window !== "undefined") {
+    // Only run in the browser
+    const messaging = getMessaging(app);
+
+    const requestPermissionAndGenerateToken = async () => {
+      try {
+        const permission = await Notification.requestPermission();
+        console.log("Notification permission status:", permission);
+
+        if (permission === "granted") {
+          const token = await getToken(messaging, {
+            vapidKey: "BNOfrmjN_MYm_h0AzIMivNfUhKnD1KFfo8HHa1dDi3h1DbUmKhMCkzEa95N-cl_iu7c-_yz49xTcEORs7zUDh4k",
+          });
+          console.log("FCM Token:", token);
+          return token;
+        } else {
+          console.warn("Notification permission denied");
+        }
+      } catch (error) {
+        console.error("Error generating FCM token:", error);
+      }
+    };
+
+    onMessage(messaging, (payload) => {
+      console.log("Message received. ", payload);
     });
-    console.log("token", token);
+
+    requestPermissionAndGenerateToken();
   }
 };
