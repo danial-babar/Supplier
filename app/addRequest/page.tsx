@@ -95,7 +95,7 @@ const Page = (props: Props) => {
   useEffect(() => {
     getCategories()
       .then((res) => {
-        // console.log("res while getting categories", res);
+        console.log("res while getting categories", res);
         setCategories(res?.data);
       })
       .catch((err) => {
@@ -300,7 +300,7 @@ const Page = (props: Props) => {
             >
               {categories?.map((item) => (
                 <SelectItem
-                  textValue={item?.id.toString()}
+                  textValue={item?.title.toString()}
                   key={item.id}
                   value={item.id}
                   onClick={() => {
@@ -336,7 +336,7 @@ const Page = (props: Props) => {
             >
               {cities?.map((item) => (
                 <SelectItem
-                  textValue={item?.id.toString()}
+                  textValue={item?.city_name.toString()}
                   key={item.id}
                   value={item.id}
                   onClick={() => setInputData({ ...inputData, city: item })}
@@ -370,7 +370,7 @@ const Page = (props: Props) => {
                 products?.length > 0
                   ? products?.map((item) => (
                       <SelectItem
-                        textValue={item?.id.toString()}
+                        textValue={item?.title.toString()}
                         key={item.id}
                         value={item.id}
                         onClick={() =>
@@ -433,7 +433,7 @@ const Page = (props: Props) => {
               {units?.length > 0 &&
                 units?.map((item) => (
                   <SelectItem
-                    textValue={item?.id.toString()}
+                    textValue={item?.title.toString()}
                     key={item.id}
                     value={item.id}
                     onClick={() => setInputData({ ...inputData, unit: item })}

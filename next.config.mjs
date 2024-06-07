@@ -9,7 +9,7 @@ const nextConfig = {
         },
         {
           protocol: 'http',
-          hostname: '165.73.252.160',
+          hostname: 'manage.mowarrd.sa',
           pathname: '**',
         },
       ],

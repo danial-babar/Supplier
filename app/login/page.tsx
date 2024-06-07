@@ -3,7 +3,6 @@ import { userFlow } from "@/api/Users";
 import WarningModal from "@/common-modals/WarningModal";
 import Header from "@/components/Layout/Header";
 import CommonButton from "@/components/commonButton";
-import InputForm from "@/components/inputForm";
 import InputWithIcon from "@/components/inputWithIcon";
 import { localstorageService } from "@/utils/LocalStorage.service";
 import Image from "next/image";
@@ -11,8 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { GoPeople } from "react-icons/go";
-
-import { MdLogin, MdPeopleAlt } from "react-icons/md";
+import { MdLogin } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
 type Props = {};
@@ -60,16 +58,16 @@ const Page = (props: Props) => {
         .then((response) => {
           console.log("response while login account", response);
           if (response?.code == "1") {
-            router.push(`/`);
-
             localstorageService.setToken(response?.data?.token);
             dispatch({
               type: "saveUser",
               payload: response?.data,
             });
+
+            const redirectTo = new URLSearchParams(window.location.search).get("redirectTo") || "/";
+            router.push(redirectTo);
           } else {
             setErrorMsg(response?.message);
-            // setWarningModal(true);
             setShowError(true);
           }
         })
@@ -152,13 +150,6 @@ const Page = (props: Props) => {
                     </div>
                   )}
                 </div>
-                {/* {showError && errorMsg && (
-                  <div>
-                    <label className="font-rbRegular hover:underline text-[#F84F39]">
-                      {errorMsg}
-                    </label>
-                  </div>
-                )} */}
                 <div className="mt-4 flex items-center justify-end">
                   <Link
                     href="#"
@@ -177,12 +168,8 @@ const Page = (props: Props) => {
                   <div className="flex items-center mt-4 justify-center">
                     <hr className="w-full border-t border-red-300 before:w-1/4 before:border-t before:border-r before:border-gray-300 after:w-1/4 after:border-t after:border-l after:border-gray-300 border-dotted" />
                     <div className="mx-2">او</div>
-                    <hr className="w-full border-t border-red-300 before:w-1/4 before:border-t before:border-l before:border-gray-300 after:w-1/4 after:border-t after:border-r after:border-gray-300 border-dotted" />
+                    <hr className="w-full border-t border-red-300 before:w-1/4 before:border-t before:border-l before:border-gray-300 after:w-1/4 after:border-t after:border-r border-dotted" />
                   </div>
-                  {/* <CommonButton
-                    text="الدخول عبر بوابة نفاذ"
-                    bgColor="#11998E"
-                  /> */}
                 </div>
 
                 <div className="text-center mt-4">
@@ -209,4 +196,5 @@ const Page = (props: Props) => {
     </div>
   );
 };
+
 export default Page;

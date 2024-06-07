@@ -1,7 +1,10 @@
+import { bidsFLow } from "@/api/Users";
+import WarningModal from "@/common-modals/WarningModal";
 import { arabicNumbers } from "@/constants/DummyData";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
-import React, { useRef } from "react";
+import { useRouter } from "next/navigation";
+import React, { useRef, useState } from "react";
 import { FaCircle } from "react-icons/fa";
 import { LuArrowDownToLine, LuArrowUpToLine } from "react-icons/lu";
 import { toast, ToastContainer } from "react-toastify";
@@ -13,6 +16,7 @@ type Props = {
   disable?: boolean;
   start?: string;
   end?: string;
+  lead_id?: string;
 };
 
 const UserDemandMng = ({
@@ -21,14 +25,39 @@ const UserDemandMng = ({
   disable,
   start,
   end,
+  lead_id,
 }: Props) => {
   const tableRef = useRef(null);
+  const [cancelLead, setCancelLead] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const route = useRouter();
 
   const handleScrollToTable = () => {
     if (tableRef.current) {
       tableRef.current.scrollIntoView({ behavior: "smooth" });
       toast.info("أكمل الصفقة هنا");
     }
+  };
+
+  const cancelOrder = () => {
+    setLoading(true);
+    const data = new FormData();
+    data.append("lead_id", lead_id);
+    bidsFLow
+      .cancelLead(data)
+      .then((response) => {
+        console.log("response while cancel order", response);
+        if (response?.code == "1") {
+          route.push("allRequest");
+        }
+      })
+      .catch((error) => {
+        console.log("error while cancel order", error);
+      })
+      .finally(() => {
+        setLoading(false);
+        setCancelLead(false);
+      });
   };
 
   return (
@@ -67,7 +96,10 @@ const UserDemandMng = ({
           >
             ايقاف الطلب
           </Button>
-          <Button className="text-[#fff] sm:w-auto w-full rounded-full px-8 sm:px-14 bg-[#F84F39]">
+          <Button
+            className="text-[#fff] sm:w-auto w-full rounded-full px-8 sm:px-14 bg-[#F84F39]"
+            onClick={() => setCancelLead(true)}
+          >
             الغاء الطلب
           </Button>
         </div>
@@ -260,6 +292,15 @@ const UserDemandMng = ({
           </label>
         </div>
       )}
+      <WarningModal
+        header="تحذير"
+        message={"هل تريد إلغاء هذا الطلب؟"}
+        buttonText="تأكيد"
+        isOpen={cancelLead}
+        onClose={() => setCancelLead(false)}
+        onConfirm={cancelOrder}
+        loading={loading}
+      />
     </div>
   );
 };

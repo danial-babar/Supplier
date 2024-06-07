@@ -1,11 +1,11 @@
 "use client";
 import Footer from "@/components/Layout/Footer";
 import Header from "@/components/Layout/Header";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import Banner from "@/components/Layout/Banner";
 import RequestCard from "@/components/RequestCard";
 import { filterLeads } from "@/api/Users";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "@nextui-org/react";
 import Loader from "@/components/Loader";
@@ -82,7 +82,16 @@ const Page = (props: Props) => {
     });
     router.push("/management");
   };
+  const queryParams = useSearchParams();
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(queryParams.toString());
+      params.set(name, value);
 
+      return params.toString();
+    },
+    [queryParams]
+  );
   return (
     <div dir="rtl">
       <Header activeItem={3} />
@@ -100,7 +109,7 @@ const Page = (props: Props) => {
               Object.keys(filterParams).length > 0 &&
               Object.values(filterParams).some((value) => value !== 0)
             }
-            results={leadsData.length}
+            results={leadsData[0]?.total}
             onReSearchClick={(data) => {
               // setFilterParams(data);
               handleSearchClick(filterParams, true);
@@ -140,7 +149,8 @@ const Page = (props: Props) => {
                           ? "#34E5A8"
                           : "#6B66DA"
                       }
-                      onClick={() => onLeadClick(item.id)}
+                      // onClick={() => onLeadClick(item.id)}
+                      href={`management?${createQueryString("id", item?.id)}`}
                       data={item}
                       textColor={item.status == "2" ? "#000000" : ""}
                     />

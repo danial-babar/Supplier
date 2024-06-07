@@ -49,6 +49,7 @@ const Banner = ({
     };
     onClick(data);
   };
+console.log('categories', categories);
 
   useEffect(() => {
     getCategories()

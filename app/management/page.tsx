@@ -33,15 +33,18 @@ import { useSelector } from "react-redux";
 import Loader from "@/components/Loader";
 import WarningModal from "@/common-modals/WarningModal";
 import SuccessModal from "@/common-modals/SuccessModal";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 type Props = {
   searchParams: any;
 };
-const Page = ({ searchParams }: Props) => {
+const Page = ({  }: Props) => {
   const router = useRouter();
-  const { leadId } = useSelector((state: any) => state.user);
+  // const { leadId } = useSelector((state: any) => state.user);
   const { user } = useSelector((state: any) => state.user);
-  console.log("user", user);
+  const searchParams = useSearchParams()
+  console.log('searchParams', searchParams.get('id'));
+  
+  const leadId = searchParams.get('id')
   const [loading, setLoading] = useState(true);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isBidWaringOpen, setIsBidWaringOpen] = useState(false);
@@ -175,7 +178,7 @@ const Page = ({ searchParams }: Props) => {
       ) : (
         <>
           <div>
-            {user?.id != leadData?.created_by && (
+            {user?.id != leadData?.created_by && allBids?.length > 0 && (
               <div
                 className="w-full sm:flex sm:flex-row flex-col justify-center items-center sm:justify-between p-5 bg-[#D6FAEE]"
                 dir="rtl"
@@ -221,7 +224,7 @@ const Page = ({ searchParams }: Props) => {
                         >
                           <Image
                             src={
-                              "http://165.73.252.160/manage/resources/uploads/lead_images/" +
+                              "http://manage.mowarrd.sa/resources/uploads/lead_images/" +
                               image.filepath
                             }
                             width={600}
@@ -386,58 +389,62 @@ const Page = ({ searchParams }: Props) => {
                           الوقت المتبقي حتى نهاية الطلب
                         </button>
                       </div>
-                      {!(
-                        remainingTime?.days <= 0 &&
-                        remainingTime?.hours <= 0 &&
-                        remainingTime?.minutes <= 0
-                      ) ? (
-                        <div
-                          className="flex w-[220px] justify-between items-center text-[#6B66DA] bg-[#6B66DA] font-rbRegular sm:font-rbBold rounded-xl px-3 md:px-7 py-1 sm:py-2 text-center bg-opacity-20"
-                          dir="ltr"
-                        >
-                          {leadData?.is_won ? (
-                            <p className="text-[10px] font-rbRegular">الفائز</p>
-                          ) : (
-                            <>
-                              <div className="justify-center text-[20px] items-center">
-                                <p className="text-[18px]">
-                                  {remainingTime?.days}
-                                </p>
-                                <p className="text-[10px] font-rbRegular">
-                                  يوم
-                                </p>
-                              </div>
-                              <div className="">
-                                <RxDotFilled className="text-white" />
-                                <RxDotFilled className="text-white" />
-                              </div>
-                              <div className="justify-center text-[20px] items-center">
-                                <p className="text-[18px]">
-                                  {remainingTime?.hours}
-                                </p>
-                                <p className="text-[10px] font-rbRegular">
-                                  ساعة
-                                </p>
-                              </div>
-                              <div className="">
-                                <RxDotFilled className="text-white" />
-                                <RxDotFilled className="text-white" />
-                              </div>
-                              <div className="justify-center text-[20px] items-center">
-                                <p className="text-[18px]">
-                                  {remainingTime?.minutes}
-                                </p>
-                                <p className="text-[10px] font-rbRegular">
-                                  دقيقة
-                                </p>
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      ) : (
-                        <label className="text-[20px] text-[#F84F39] font-rbBold">
-                          مغلق
-                        </label>
+                      {
+                        !(
+                          remainingTime?.days <= 0 &&
+                          remainingTime?.hours <= 0 &&
+                          remainingTime?.minutes <= 0
+                        ) ? (
+                          <div
+                            className="flex w-[220px] justify-between items-center text-[#6B66DA] bg-[#6B66DA] font-rbRegular sm:font-rbBold rounded-xl px-3 md:px-7 py-1 sm:py-2 text-center bg-opacity-20"
+                            dir="ltr"
+                          >
+                            {leadData?.is_won ? (
+                              <label className="text-[20px] text-[#6B66DA] font-rbBold">
+                                فاز
+                              </label>
+                            ) : (
+                              <>
+                                <div className="justify-center text-[20px] items-center">
+                                  <p className="text-[18px]">
+                                    {remainingTime?.days}
+                                  </p>
+                                  <p className="text-[10px] font-rbRegular">
+                                    يوم
+                                  </p>
+                                </div>
+                                <div className="">
+                                  <RxDotFilled className="text-white" />
+                                  <RxDotFilled className="text-white" />
+                                </div>
+                                <div className="justify-center text-[20px] items-center">
+                                  <p className="text-[18px]">
+                                    {remainingTime?.hours}
+                                  </p>
+                                  <p className="text-[10px] font-rbRegular">
+                                    ساعة
+                                  </p>
+                                </div>
+                                <div className="">
+                                  <RxDotFilled className="text-white" />
+                                  <RxDotFilled className="text-white" />
+                                </div>
+                                <div className="justify-center text-[20px] items-center">
+                                  <p className="text-[18px]">
+                                    {remainingTime?.minutes}
+                                  </p>
+                                  <p className="text-[10px] font-rbRegular">
+                                    دقيقة
+                                  </p>
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        ) : (
+                          <label className="text-[20px] text-[#F84F39] font-rbBold">
+                            مغلق
+                          </label>
+                        )
                         // <div className=" text-[#6B66DA] bg-[#6B66DA] font-rbRegular sm:font-rbBold rounded-xl px-3 md:px-7 py-1 sm:py-2 text-center bg-opacity-20">
                         //   <div className="justify-center gap-4 md:gap-6 text-[16px] md:text-[20px] flex items-center">
                         //     <span>00</span>
@@ -448,7 +455,7 @@ const Page = ({ searchParams }: Props) => {
                         //     ريال سعودي
                         //   </p>
                         // </div>
-                      )}
+                      }
                     </div>
                   </div>
                 </div>
@@ -465,13 +472,18 @@ const Page = ({ searchParams }: Props) => {
               start={leadData?.date_start}
               end={leadData?.date_expire}
               disable={leadData?.is_won}
+              lead_id={leadData?.id}
             />
           ) : (
             <LeadDetails text="" />
           )}
           <Modal
             isOpen={isOpen}
-            onOpenChange={onOpenChange}
+            onOpenChange={() => {
+              setReqPrice("");
+              setBidError("");
+              onOpenChange();
+            }}
             hideCloseButton
             className="pb-4 self-center z-[999]"
           >
@@ -494,7 +506,11 @@ const Page = ({ searchParams }: Props) => {
                     <IoCloseCircle
                       color="#F84F39"
                       size={25}
-                      onClick={onClose}
+                      onClick={() => {
+                        setReqPrice("");
+                        setBidError("");
+                        onClose();
+                      }}
                       className="cursor-pointer"
                     />
                   </ModalHeader>
@@ -564,8 +580,8 @@ const Page = ({ searchParams }: Props) => {
                       bgColor="#FEDCD7"
                       onPress={() => {
                         setReqPrice("");
-                        onClose();
                         setBidError("");
+                        onClose();
                       }}
                       textColor="#000"
                       marginTop={"mt-[0px]"}
@@ -591,6 +607,7 @@ const Page = ({ searchParams }: Props) => {
         onClose={() => setIsBidWaringOpen(false)}
         onConfirm={() => setIsBidWaringOpen(false)}
       />
+
       <WarningModal
         header="تأكيد"
         message={

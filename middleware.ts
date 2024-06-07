@@ -1,35 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
-import { useSelector } from "react-redux";
 import { store } from "./redux/Store";
 
-const protectedRoutes = [
-  // "addRequest",
-];
+const protectedRoutes = ["/addRequest", "/allRequest"];
 
-const protectedRoutePaths = protectedRoutes.map((route) => `/${route}/:path*`);
-
-export default function middleware(req: NextRequest) {
-  const state = store.getState();
-  const user = state.user;
+export default async function middleware(req: NextRequest) {
   const token = req.cookies.get("token");
   console.log("token", token);
 
   const isProtectedRoute = protectedRoutes.some((route) =>
-    req.nextUrl.pathname.includes(`/${route}`)
+    req.nextUrl.pathname.startsWith(route)
   );
 
-  if (req.nextUrl.pathname.includes("/login")) {
-    if (token && user?.token) {
-      return NextResponse.redirect(new URL("/", req.url));
-    } else if (!token && isProtectedRoute) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    } else {
-      return NextResponse.next();
+  if (req.nextUrl.pathname.startsWith("/login")) {
+    if (token) {
+      const redirectTo = req.nextUrl.searchParams.get("redirectTo") || "/";
+      return NextResponse.redirect(new URL(redirectTo, req.url));
     }
+    return NextResponse.next();
   }
 
   if (!token && isProtectedRoute) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    const loginUrl = new URL("/login", req.url);
+    loginUrl.searchParams.set("redirectTo", req.nextUrl.pathname + req.nextUrl.search);
+    return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next();
@@ -42,5 +35,6 @@ export const config = {
     "/requests/:path*", // Example of a protected route path
     "/requestDetail/:path*", // Example of a protected route path
     "/addRequest/:path*", // Example of a protected route path
+    "/allRequest/:path*"  // Example of a protected route path
   ],
 };

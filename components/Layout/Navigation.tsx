@@ -15,7 +15,7 @@ const Navigation = ({ activeItem, active }: Props) => {
           <div key={item.title}>
             <Link href={item?.href || "/"}>
               <p
-                className={`inline-block cursor-pointer lg:px-3 md:px-2 md:text-[14px] xl:text-[16px] xl:px-5 py-5 lg:py-0 ${
+                className={`inline-block cursor-pointer lg:px-3 md:px-2 sm:text-[12px] md:text-[14px] xl:text-[16px] xl:px-5 py-5 lg:py-0 ${
                   activeItem === index
                     ? "text-[#F84F39] font-rbBold"
                     : "lg:text-black text-white lg:font-rbRegular"

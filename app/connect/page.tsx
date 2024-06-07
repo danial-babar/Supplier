@@ -23,7 +23,7 @@ const Page = (props: Props) => {
             <p>لا تتردد في الاتصال بنا مع أي أسئلة أو تعليقات</p>
             <p>
               او التواصل علي البريد الاكتروني
-              <strong className="text-[#F84F39] sm:font-rbBold font-rbRegular uppercase underline ps-1">
+              <strong className="text-[#F84F39] sm:font-rbBold font-rbRegular uppercase underline ps-1 cursor-pointer">
                 info@mowarrd.sa
               </strong>
             </p>
