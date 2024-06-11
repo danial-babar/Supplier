@@ -19,13 +19,13 @@ const Page = (props: Props) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [leadsData, setLeadsData] = useState<Array<any>>([]);
-  const [filterParams, setFilterParams] = useState({});
+  const [filterParams, setFilterParams] = useState(searchParams);
   const [loading, setLoading] = useState(true);
   const [searchLoading, setSearchLoading] = useState(false);
   const [moreLoading, setMoreLoading] = useState(false);
   const [finishFlag, setFinishFlag] = useState(true);
   const [page, setPage] = useState(1);
-
+  console.log("search ", filterParams);
   const isFetching = useRef(false);
 
   useEffect(() => {
@@ -49,8 +49,8 @@ const Page = (props: Props) => {
     if (!resetPage) setPage(page + 1);
     try {
       const response = await filterLeads(finalData);
-      console.log('response while filtering', response);
-      
+      console.log("response while filtering", response);
+
       setLeadsData((prevLeads) =>
         resetPage ? response : [...prevLeads, ...response]
       );
@@ -99,7 +99,6 @@ const Page = (props: Props) => {
         <Loader />
       ) : (
         <>
-          
           <Banner
             onClick={(data) => {
               setFilterParams(data);
@@ -114,6 +113,7 @@ const Page = (props: Props) => {
             onReSearchClick={(data) => {
               handleSearchClick(filterParams, true);
             }}
+            searchParams={filterParams}
           />
           {searchLoading ? (
             <div className="flex w-full justify-center mb-10">
@@ -184,7 +184,7 @@ const Page = (props: Props) => {
               )}
             </>
           )}
-         <Footer styles="mt-6" />
+          <Footer styles="mt-6" />
         </>
       )}
     </div>

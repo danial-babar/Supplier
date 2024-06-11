@@ -4,10 +4,14 @@ import Header from "@/components/Layout/Header";
 import Footer from "@/components/Layout/Footer";
 import Image from "next/image";
 import { FaPlus } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 type Props = {};
 
 const Page = (props: Props) => {
+  const { notifications } = useSelector((state: any) => state.notification);
+  console.log('notifications', notifications);
+  
   return (
     <div dir="rtl">
       <Header />
@@ -31,6 +35,7 @@ const Page = (props: Props) => {
           </div>
         </div>
       </div>
+
       <div className="bg-gradient-radial from-blue-100 to-pink-50 via-gray-100">
         <div className="w-[95%] mx-auto ">
           <div className="xl:flex mb-8 xl:justify-between justify-center items-center p-6 bg-white rounded-xl shadow-lg hover:bg-gray-100">
@@ -59,106 +64,10 @@ const Page = (props: Props) => {
                 </span>
               </div>
             </div>
-            <div className="flex xl:justify-start justify-center items-center xl:mt-0 mt-4 gap-1">
+            <div className="flex xl:justify-start justify-center items-center xl:mt-0 mt-4 gap-1 cursor-pointer">
               عرض التفاصيل الطلب{" "}
               <FaPlus className="text-[#F84F39] bg-[#F84F39] p-1 bg-opacity-20 rounded-full font-light text-[16px]" />
             </div>{" "}
-          </div>
-          <div className="xl:flex mb-8 justify-between items-center p-6 bg-white rounded-xl shadow-lg hover:bg-gray-100">
-            <div className="flex flex-wrap gap-4 md:gap-12 items-center">
-              <div
-                className="flex py-2 items-center md:px-5 px-3 justify-center text-[16px] xl:justify-end border bg-[#F84F39] bg-opacity-20 rounded-full"
-                dir="ltr"
-              >
-                <p className="text-[#F84F39] block me-1 text-[12px] font-rbRegular">
-                  11/03/2024 : 11:10 am
-                </p>
-                <Image src={"/calender.png"} alt="" width={14} height={14} />
-              </div>
-              <div className="font-rbRegular md:font-rbBold md:text-lg sm:text-base">
-                رسالة جديدة
-              </div>
-              <div className="font-rbRegular text-gray-600 md:text-lg sm:text-xs sm:text-xs">
-                لقد حصلت علي رساله جديدة
-              </div>
-              <div className="lg:font-rbRegular sm:text-[16px] xl:text-[18px] text-[14px]">
-                رقم الطلب{" "}
-                <span className="text-[#F84F39] lg:font-rbBold">991999 </span>{" "}
-                تاريخ الانتهاء{" "}
-                <span className="text-[#F84F39] lg:font-rbBold font-rbRegular">
-                  12/03/2028
-                </span>
-              </div>
-            </div>
-            <div className="flex items-center xl:mt-0 mt-4 gap-1">
-              عرض التفاصيل الطلب{" "}
-              <FaPlus className="text-[#F84F39] bg-[#F84F39] p-1 bg-opacity-20 rounded-full font-light text-[16px]" />
-            </div>{" "}
-            {/* Show 'aa' on large screens, hide on others */}
-          </div>
-          <div className="xl:flex mb-8 justify-between items-center p-6 bg-white rounded-xl shadow-lg hover:bg-gray-100">
-            <div className="flex flex-wrap gap-4 md:gap-12 items-center">
-              <div
-                className="flex py-2 items-center md:px-5 px-3 justify-center text-[16px] xl:justify-end border bg-[#F84F39] bg-opacity-20 rounded-full"
-                dir="ltr"
-              >
-                <p className="text-[#F84F39] block me-1 text-[12px] font-rbRegular">
-                  11/03/2024 : 11:10 am
-                </p>
-                <Image src={"/calender.png"} alt="" width={14} height={14} />
-              </div>
-              <div className="font-rbRegular md:font-rbBold md:text-lg sm:text-base">
-                رسالة جديدة
-              </div>
-              <div className="font-rbRegular text-gray-600 md:text-lg sm:text-xs sm:text-xs">
-                لقد حصلت علي رساله جديدة
-              </div>
-              <div className="lg:font-rbRegular sm:text-[16px] xl:text-[18px] text-[14px]">
-                رقم الطلب{" "}
-                <span className="text-[#F84F39] lg:font-rbBold">991999 </span>{" "}
-                تاريخ الانتهاء{" "}
-                <span className="text-[#F84F39] lg:font-rbBold font-rbRegular">
-                  12/03/2028
-                </span>
-              </div>
-            </div>
-            <div className="flex items-center xl:mt-0 mt-4 gap-1">
-              عرض التفاصيل الطلب{" "}
-              <FaPlus className="text-[#F84F39] bg-[#F84F39] p-1 bg-opacity-20 rounded-full font-light text-[16px]" />
-            </div>{" "}
-            {/* Show 'aa' on large screens, hide on others */}
-          </div>
-          <div className="xl:flex mb-8 justify-between items-center p-6 bg-white rounded-xl shadow-lg hover:bg-gray-100">
-            <div className="flex flex-wrap gap-4 md:gap-12 items-center">
-              <div
-                className="flex py-2 items-center md:px-5 px-3 justify-center text-[16px] xl:justify-end border bg-[#F84F39] bg-opacity-20 rounded-full"
-                dir="ltr"
-              >
-                <p className="text-[#F84F39] block me-1 text-[12px] font-rbRegular">
-                  11/03/2024 : 11:10 am
-                </p>
-                <Image src={"/calender.png"} alt="" width={14} height={14} />
-              </div>
-              <div className="font-rbRegular md:font-rbBold md:text-lg sm:text-base">
-                رسالة جديدة
-              </div>
-              <div className="font-rbRegular text-gray-600 md:text-lg sm:text-xs sm:text-xs">
-                لقد حصلت علي رساله جديدة
-              </div>
-              <div className="lg:font-rbRegular sm:text-[16px] xl:text-[18px] text-[14px]">
-                رقم الطلب{" "}
-                <span className="text-[#F84F39] lg:font-rbBold">991999 </span>{" "}
-                تاريخ الانتهاء{" "}
-                <span className="text-[#F84F39] lg:font-rbBold font-rbRegular">
-                  12/03/2028
-                </span>
-              </div>
-            </div>
-            <div className="flex items-center xl:mt-0 mt-4 gap-1">
-              عرض التفاصيل الطلب{" "}
-              <FaPlus className="text-[#F84F39] bg-[#F84F39] p-1 bg-opacity-20 rounded-full font-light text-[16px]" />
-            </div>{" "}
-            {/* Show 'aa' on large screens, hide on others */}
           </div>
         </div>
       </div>

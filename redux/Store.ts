@@ -12,7 +12,7 @@ import { notificationReducer } from "./reducers/NotificationReducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"],
+  whitelist: ["user","notification"],
 };
 
 const rootReducer = combineReducers({
