@@ -37,14 +37,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 type Props = {
   searchParams: any;
 };
-const Page = ({  }: Props) => {
+const Page = ({}: Props) => {
   const router = useRouter();
   // const { leadId } = useSelector((state: any) => state.user);
   const { user } = useSelector((state: any) => state.user);
-  const searchParams = useSearchParams()
-  console.log('searchParams', searchParams.get('id'));
-  
-  const leadId = searchParams.get('id')
+  const searchParams = useSearchParams();
+  console.log("searchParams", searchParams.get("id"));
+
+  const leadId = searchParams.get("id");
   const [loading, setLoading] = useState(true);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isBidWaringOpen, setIsBidWaringOpen] = useState(false);
@@ -395,16 +395,20 @@ const Page = ({  }: Props) => {
                           remainingTime?.hours <= 0 &&
                           remainingTime?.minutes <= 0
                         ) ? (
-                          <div
-                            className="flex w-[220px] justify-between items-center text-[#6B66DA] bg-[#6B66DA] font-rbRegular sm:font-rbBold rounded-xl px-3 md:px-7 py-1 sm:py-2 text-center bg-opacity-20"
-                            dir="ltr"
-                          >
+                          <>
                             {leadData?.is_won ? (
                               <label className="text-[20px] text-[#6B66DA] font-rbBold">
                                 فاز
                               </label>
+                            ) : leadData?.status == "7" ? (
+                              <label className="text-[20px] text-[#6B66DA] font-rbBold">
+                                {leadData?.status_name}
+                              </label>
                             ) : (
-                              <>
+                              <div
+                                className="flex w-[220px] justify-between items-center text-[#6B66DA] bg-[#6B66DA] font-rbRegular sm:font-rbBold rounded-xl px-3 md:px-7 py-1 sm:py-2 text-center bg-opacity-20"
+                                dir="ltr"
+                              >
                                 <div className="justify-center text-[20px] items-center">
                                   <p className="text-[18px]">
                                     {remainingTime?.days}
@@ -437,9 +441,9 @@ const Page = ({  }: Props) => {
                                     دقيقة
                                   </p>
                                 </div>
-                              </>
+                              </div>
                             )}
-                          </div>
+                          </>
                         ) : (
                           <label className="text-[20px] text-[#F84F39] font-rbBold">
                             مغلق

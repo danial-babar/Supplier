@@ -70,9 +70,9 @@ export const getAllLeads = async (page: any) => {
 export const filterLeads = async (data: any) => {
   try {
     const response = await api.get(
-      `/get_leads_filter?category=${data.category || ""}&city=${
-        data?.city || ""
-      }&order_status=${data?.status || ""}&sort_by=${data?.sortBy}&page=${
+      `/get_leads_filter?category=${data.category?.id || ""}&city=${
+        data?.city?.id || ""
+      }&order_status=${data?.status?.id || ""}&sort_by=${data?.sortBy?.id}&page=${
         data?.page
       }`
     );

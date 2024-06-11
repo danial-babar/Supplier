@@ -19,6 +19,7 @@ type Props = {
   results?: number;
   text1?: string;
   text2?: string;
+  searchParams?: any;
 };
 
 const Banner = ({
@@ -28,6 +29,7 @@ const Banner = ({
   onReSearchClick,
   text1,
   text2,
+  searchParams
 }: Props) => {
   const [categories, setCategories] = useState([{ id: 0, title: "" }]);
   const [cities, setCities] = useState([{ id: 0, city_name: "" }]);
@@ -42,14 +44,14 @@ const Banner = ({
 
   const onSearchPress = () => {
     const data = {
-      category: dropdownData?.category?.id,
-      city: dropdownData?.city?.id,
-      sortBy: dropdownData?.sortBy?.id,
-      status: dropdownData?.status?.id,
+      category: dropdownData?.category,
+      city: dropdownData?.city,
+      sortBy: dropdownData?.sortBy,
+      status: dropdownData?.status,
     };
     onClick(data);
   };
-console.log('categories', categories);
+
 
   useEffect(() => {
     getCategories()
@@ -100,7 +102,7 @@ console.log('categories', categories);
                 onClick={(item) =>
                   setDropdownData({ ...dropdownData, category: item })
                 }
-                selectedItem={dropdownData?.category?.title || "اختر التصنيف"}
+                selectedItem={searchParams?.category?.title || dropdownData?.category?.title || "اختر التصنيف"}
                 dropdownBtnClass="max-w-[220px] justify-start"
               />
             </div>
@@ -114,7 +116,7 @@ console.log('categories', categories);
                 onClick={(item) =>
                   setDropdownData({ ...dropdownData, city: item })
                 }
-                selectedItem={dropdownData?.city?.city_name || "اختر المدينة"}
+                selectedItem={searchParams?.city?.city_name || dropdownData?.city?.city_name || "اختر المدينة"}
                 dropdownBtnClass="max-w-[220px] justify-start"
               />
             </div>
@@ -131,7 +133,7 @@ console.log('categories', categories);
                 onClick={(item) =>
                   setDropdownData({ ...dropdownData, sortBy: item })
                 }
-                selectedItem={dropdownData?.sortBy?.name || "الأحدث إلى الأقدم"}
+                selectedItem={searchParams?.sortBy?.name || dropdownData?.sortBy?.name || "الأحدث إلى الأقدم"}
                 dropdownBtnClass="max-w-[220px] justify-start"
               />
             </div>
@@ -145,7 +147,7 @@ console.log('categories', categories);
                 onClick={(item) =>
                   setDropdownData({ ...dropdownData, status: item })
                 }
-                selectedItem={dropdownData?.status?.name || "اختر حالة الطلب"}
+                selectedItem={searchParams?.status?.name || dropdownData?.status?.name || "اختر حالة الطلب"}
                 dropdownBtnClass="max-w-[220px] justify-start"
               />
             </div>
