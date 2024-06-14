@@ -224,7 +224,7 @@ const Page = ({}: Props) => {
                         >
                           <Image
                             src={
-                              "http://manage.mowarrd.sa/resources/uploads/lead_images/" +
+                              "https://manage.mowarrd.sa/resources/uploads/lead_images/" +
                               image.filepath
                             }
                             width={600}

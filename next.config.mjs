@@ -8,7 +8,7 @@ const nextConfig = {
           pathname: '**',
         },
         {
-          protocol: 'http',
+          protocol: 'https',
           hostname: 'manage.mowarrd.sa',
           pathname: '**',
         },
