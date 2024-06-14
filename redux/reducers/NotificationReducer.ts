@@ -7,5 +7,5 @@ const initialState = {
 export const notificationReducer = createReducer(initialState, (builder) => {
   builder.addCase("addNotification", (state, action: any) => {
     state.notifications += 1;
-  });
+  })
 });

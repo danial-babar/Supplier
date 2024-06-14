@@ -1,8 +1,6 @@
-import { useDispatch } from "react-redux";
-
 importScripts('https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.5.0/firebase-messaging-compat.js');
-const dispatch = useDispatch()
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBmljYoQxQ_Wwx9mRjVA-cyG-pWVxhc84A",
@@ -18,7 +16,6 @@ firebase.initializeApp(firebaseConfig);
 class CustomPushEvent extends Event {
     constructor(data) {
         super('push');
-
         Object.assign(this, data);
         this.custom = true;
     }
@@ -32,14 +29,13 @@ self.addEventListener('push', (e) => {
     // Skip if event is our own custom event
     if (e.custom) return;
 
-    // Kep old event data to override
+    // Keep old event data to override
     const oldData = e.data;
 
     // Create a new event to dispatch, pull values from notification key and put it in data key,
     // and then remove notification key
     const newEvent = new CustomPushEvent({
         data: {
-            ehheh: oldData.json(),
             json() {
                 const newData = oldData.json();
                 newData.data = {
@@ -64,15 +60,24 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
-    dispatch({
-      type: "addNotification",
-    });
+
     const { title, body, image, icon, ...restPayload } = payload.data;
     const notificationOptions = {
         body,
         icon: image || '/icons/firebase-logo.png', // path to your "fallback" firebase notification logo
         data: restPayload,
     };
+
+    // Use postMessage to communicate with the main thread
+    self.clients.matchAll({ includeUncontrolled: true, type: 'window' }).then(clients => {
+        clients.forEach(client => {
+            client.postMessage({
+                type: "addNotification",
+                payload: payload.data
+            });
+        });
+    });
+
     return self.registration.showNotification(title, notificationOptions);
 });
 
@@ -81,6 +86,6 @@ self.addEventListener('notificationclick', (event) => {
         self.clients.openWindow(event.notification.data.link);
     }
 
-    // close notification after click
+    // Close notification after click
     event.notification.close();
 });

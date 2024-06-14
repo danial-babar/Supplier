@@ -15,6 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const initFirebaseMessaging = () => {
+  let fcmToken
   if (typeof window !== "undefined") {
     // Only run in the browser
     const messaging = getMessaging(app);
@@ -29,6 +30,7 @@ export const initFirebaseMessaging = () => {
             vapidKey: "BNOfrmjN_MYm_h0AzIMivNfUhKnD1KFfo8HHa1dDi3h1DbUmKhMCkzEa95N-cl_iu7c-_yz49xTcEORs7zUDh4k",
           });
           console.log("FCM Token:", token);
+         
           return token;
         } else {
           console.warn("Notification permission denied");
@@ -42,6 +44,8 @@ export const initFirebaseMessaging = () => {
       console.log("Message received. ", payload);
     });
 
-    requestPermissionAndGenerateToken();
+    fcmToken = requestPermissionAndGenerateToken();
+    
   }
+return fcmToken
 };

@@ -109,6 +109,18 @@ console.log('notifications', notifications);
     });
     router.push("/management");
   };
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.addEventListener('message', (event) => {
+            if (event.data && event.data.type === "addNotification") {
+                dispatch({
+                    type: 'addNotification',
+                    // payload: event.data.payload
+                });
+            }
+        });
+    }
+}, []);
   return (
     <div>
       {/* <FcmTokenComp /> */}
