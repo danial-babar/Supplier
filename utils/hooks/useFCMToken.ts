@@ -1,36 +1,40 @@
-'use client'
-import { useEffect, useState } from 'react';
-import { getMessaging, getToken } from 'firebase/messaging';
-import firebaseApp from '../../firebase';
+"use client";
+import { useEffect, useState } from "react";
+import { getMessaging, getToken } from "firebase/messaging";
+import firebaseApp from "@/firebase";
 
-const vapidKey = 'BNOfrmjN_MYm_h0AzIMivNfUhKnD1KFfo8HHa1dDi3h1DbUmKhMCkzEa95N-cl_iu7c-_yz49xTcEORs7zUDh4k'
+const vapidKey =
+  "BF0yKA-m41LZO9W8Kc5mf-Itmr3d1azqAmMpU_Cg2oXTPislKILZrfS0Uu6f2QgI2j4TK3g3veo5F56p-F2s4Hc";
 const useFcmToken = () => {
-  const [token, setToken] = useState('');
-  const [notificationPermissionStatus, setNotificationPermissionStatus] = useState('');
+  const [token, setToken] = useState("");
+  const [notificationPermissionStatus, setNotificationPermissionStatus] =
+    useState("");
 
   useEffect(() => {
     const retrieveToken = async () => {
       try {
-        if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+        if (typeof window !== "undefined" && "serviceWorker" in navigator) {
           const messaging = getMessaging(firebaseApp);
 
           // Request notification permission
           const permission = await Notification.requestPermission();
           setNotificationPermissionStatus(permission);
 
-          if (permission === 'granted') {
+          if (permission === "granted") {
             const currentToken = await getToken(messaging, {
-              vapidKey: vapidKey, 
+              vapidKey: vapidKey,
             });
             if (currentToken) {
               setToken(currentToken);
             } else {
-              console.log('No registration token available. Request permission to generate one.');
+              console.log(
+                "No registration token available. Request permission to generate one."
+              );
             }
           }
         }
       } catch (error) {
-        console.log('Error retrieving token:', error);
+        console.log("Error retrieving token:", error);
       }
     };
 
@@ -40,4 +44,4 @@ const useFcmToken = () => {
   return { token, notificationPermissionStatus };
 };
 
-export default useFcmToken
+export default useFcmToken;
