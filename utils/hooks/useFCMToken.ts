@@ -4,7 +4,7 @@ import { getMessaging, getToken } from "firebase/messaging";
 import firebaseApp from "@/firebase";
 
 const vapidKey =
-  "BF0yKA-m41LZO9W8Kc5mf-Itmr3d1azqAmMpU_Cg2oXTPislKILZrfS0Uu6f2QgI2j4TK3g3veo5F56p-F2s4Hc";
+  "BCs-1f1LTJe0K0bnCoLCUOgYj77Fr_HvE5Yfe8SGQNYxMiIg2CYwvb-f83jnwkxUVs8AU_yKyI9jvoeSc1ZAsk0";
 const useFcmToken = () => {
   const [token, setToken] = useState("");
   const [notificationPermissionStatus, setNotificationPermissionStatus] =

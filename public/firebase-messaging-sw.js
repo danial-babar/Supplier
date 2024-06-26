@@ -7,8 +7,9 @@ importScripts(
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBfTOwhkLfd4CVmfiZAZqq1QqAa0XABhGw",
+  apiKey: "AIzaSyBfTOwhkLfd4CVmfiZAZqq1QqAa0XABhGw",
   authDomain: "mowarrdsa-dedda.firebaseapp.com",
+  databaseURL: "https://mowarrdsa-dedda-default-rtdb.firebaseio.com",
   projectId: "mowarrdsa-dedda",
   storageBucket: "mowarrdsa-dedda.appspot.com",
   messagingSenderId: "1097327287347",

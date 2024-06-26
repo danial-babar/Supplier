@@ -5,6 +5,7 @@ import { getMessaging, getToken, onMessage } from "firebase/messaging";
 const firebaseConfig = {
   apiKey: "AIzaSyBfTOwhkLfd4CVmfiZAZqq1QqAa0XABhGw",
   authDomain: "mowarrdsa-dedda.firebaseapp.com",
+  databaseURL: "https://mowarrdsa-dedda-default-rtdb.firebaseio.com",
   projectId: "mowarrdsa-dedda",
   storageBucket: "mowarrdsa-dedda.appspot.com",
   messagingSenderId: "1097327287347",
@@ -29,7 +30,7 @@ export const initFirebaseMessaging = () => {
         if (permission === "granted") {
           const token = await getToken(messaging, {
             vapidKey:
-              "BF0yKA-m41LZO9W8Kc5mf-Itmr3d1azqAmMpU_Cg2oXTPislKILZrfS0Uu6f2QgI2j4TK3g3veo5F56p-F2s4Hc",
+              "BCs-1f1LTJe0K0bnCoLCUOgYj77Fr_HvE5Yfe8SGQNYxMiIg2CYwvb-f83jnwkxUVs8AU_yKyI9jvoeSc1ZAsk0",
           });
           console.log("FCM Token:", token);
 
