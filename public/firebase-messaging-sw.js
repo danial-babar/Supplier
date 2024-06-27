@@ -74,7 +74,10 @@ messaging.onBackgroundMessage((payload) => {
   const notificationOptions = {
     body,
     icon: image || "/icons/firebase-logo.png", // path to your "fallback" firebase notification logo
-    data: restPayload,
+    data: {
+      ...restPayload,
+      id: restPayload.id || Date.now(), // Ensure unique ID if not provided
+    },
   };
 
   // Use postMessage to communicate with the main thread
@@ -84,7 +87,10 @@ messaging.onBackgroundMessage((payload) => {
       clients.forEach((client) => {
         client.postMessage({
           type: "addNotification",
-          payload: payload.data,
+          payload: {
+            ...payload.data,
+            id: restPayload.id || Date.now(), // Ensure unique ID if not provided
+          },
         });
       });
     });

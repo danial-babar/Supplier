@@ -9,8 +9,8 @@ import { useSelector } from "react-redux";
 type Props = {};
 
 const Page = (props: Props) => {
-  const { notifications } = useSelector((state: any) => state.notification);
-  console.log('notifications', notifications);
+
+
   
   return (
     <div dir="rtl">
