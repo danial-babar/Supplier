@@ -4,6 +4,7 @@ import WarningModal from "@/common-modals/WarningModal";
 import Header from "@/components/Layout/Header";
 import CommonButton from "@/components/commonButton";
 import InputWithIcon from "@/components/inputWithIcon";
+import { initFirebaseMessaging } from "@/firebase/page";
 import { localstorageService } from "@/utils/LocalStorage.service";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +12,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { GoPeople } from "react-icons/go";
 import { MdLogin } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 type Props = {};
 
@@ -23,9 +24,20 @@ const Page = (props: Props) => {
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [fcmToken, setFcmToken] = useState("");
   const dispatch = useDispatch();
   const [warningModal, setWarningModal] = useState(false);
 
+  useEffect(() => {
+    initFirebaseMessaging()
+      .then((res: any) => {
+        console.log("res while getting token", res);
+        setFcmToken(res);
+      })
+      .catch((err: any) => {
+        console.log("err while getting token", err);
+      });
+  }, []);
   const handleClick = () => {
     router.push(`/create`);
   };
@@ -52,6 +64,7 @@ const Page = (props: Props) => {
       const data = new FormData();
       data.append("email", email);
       data.append("password", password);
+      data.append("fcm_token", fcmToken);
 
       userFlow
         .login(data)
@@ -64,7 +77,9 @@ const Page = (props: Props) => {
               payload: response?.data,
             });
 
-            const redirectTo = new URLSearchParams(window.location.search).get("redirectTo") || "/";
+            const redirectTo =
+              new URLSearchParams(window.location.search).get("redirectTo") ||
+              "/";
             router.push(redirectTo);
           } else {
             setErrorMsg(response?.message);

@@ -17,12 +17,13 @@ import { IoMdArrowDropdown, IoMdLogOut } from "react-icons/io";
 import { MdCollectionsBookmark } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import WarningModal from "@/common-modals/WarningModal";
-import logoImage from '/public/logo.png'
+import logoImage from "/public/logo.png";
 type Props = {
   activeItem?: number;
 };
 
 const Header = ({ activeItem }: Props) => {
+  const { notifications } = useSelector((state: any) => state.notification);
   const { user } = useSelector((state: any) => state.user);
   const userToken = localstorageService.getToken();
   const router = useRouter();
@@ -32,7 +33,7 @@ const Header = ({ activeItem }: Props) => {
   const [isUser, setIsUser] = useState(false);
   const [activeProfile, setActiveProfile] = useState(false);
   const [warningModal, setWarningModal] = useState(false);
-
+  console.log("notifications", notifications);
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 300) {
@@ -108,11 +109,19 @@ const Header = ({ activeItem }: Props) => {
         <Navigation activeItem={activeItem} active={active} />
         {isUser && userToken && (
           <div className="flex items-center gap-2">
-            <div>
-              <FaRegEnvelope className="text-[#F84F39] ml-4" />
+            <div className="relative cursor-pointer ">
+              <Link href={"/message"}>
+                <FaRegEnvelope className="text-[#F84F39] ml-4" />
+              </Link>
+              <div className="bg-[#000] flex w-[14px] h-[14px] rounded-full items-center justify-center absolute top-[-7px] right-[-7px]">
+                <label className=" text-[#fff] text-[8px] font-rbRegular">
+                  {" "}
+                  {notifications}
+                </label>
+              </div>
             </div>
             <div className="">
-              <GoPeople className="text-[#F84F39]" />
+              <GoPeople className="text-[#d9b6b1]" />
             </div>
             <Dropdown>
               <DropdownTrigger>
@@ -135,16 +144,26 @@ const Header = ({ activeItem }: Props) => {
               >
                 <DropdownItem onClick={() => router.push("allRequest")}>
                   <div className="flex items-center w-full">
-                    <MdCollectionsBookmark className="text-black text-2xl ml-2" size={16}/>
-                    <span className={`text-black text-[16px] pl-2 font-rbRegular`}>
+                    <MdCollectionsBookmark
+                      className="text-black text-2xl ml-2"
+                      size={16}
+                    />
+                    <span
+                      className={`text-black text-[16px] pl-2 font-rbRegular`}
+                    >
                       طلباتي
                     </span>
                   </div>
                 </DropdownItem>
                 <DropdownItem onClick={handleLogout}>
                   <div className="flex items-center w-full">
-                    <IoMdLogOut className="text-black text-2xl ml-2" size={16}/>
-                    <span className={`text-black text-[16px] pl-2 font-rbRegular`}>
+                    <IoMdLogOut
+                      className="text-black text-2xl ml-2"
+                      size={16}
+                    />
+                    <span
+                      className={`text-black text-[16px] pl-2 font-rbRegular`}
+                    >
                       تسجيل خروج
                     </span>
                   </div>
@@ -209,16 +228,26 @@ const Header = ({ activeItem }: Props) => {
                       >
                         <DropdownItem onClick={() => router.push("allRequest")}>
                           <div className="flex items-center w-full">
-                            <MdCollectionsBookmark className="text-black text-2xl ml-2" size={16}/>
-                            <span className={`text-black text-[16px] pl-2 font-rbRegular`}>
+                            <MdCollectionsBookmark
+                              className="text-black text-2xl ml-2"
+                              size={16}
+                            />
+                            <span
+                              className={`text-black text-[16px] pl-2 font-rbRegular`}
+                            >
                               طلباتي
                             </span>
                           </div>
                         </DropdownItem>
                         <DropdownItem onClick={handleLogout}>
                           <div className="flex items-center w-full">
-                            <IoMdLogOut className="text-black text-2xl ml-2" size={16}/>
-                            <span className={`text-black text-[16px] pl-2 font-rbRegular`}>
+                            <IoMdLogOut
+                              className="text-black text-2xl ml-2"
+                              size={16}
+                            />
+                            <span
+                              className={`text-black text-[16px] pl-2 font-rbRegular`}
+                            >
                               تسجيل خروج
                             </span>
                           </div>

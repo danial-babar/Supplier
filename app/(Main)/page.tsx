@@ -21,6 +21,7 @@ import { initFirebaseMessaging } from "@/firebase/page";
 import { getMessaging, onMessage } from "firebase/messaging";
 import useFcmToken from "@/utils/hooks/useFCMToken";
 import FcmTokenComp from "../../firebaseForeground";
+import { toast } from "react-toastify";
 type Props = {};
 interface Lead {
   id: string;
@@ -28,7 +29,6 @@ interface Lead {
   // Add other properties if needed
 }
 const Page = (props: Props) => {
-  const { notifications } = useSelector((state: any) => state.notification);
   const [leadsData, setLeadsData] = useState<Array<any>>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -38,7 +38,6 @@ const Page = (props: Props) => {
   const dispatch = useDispatch();
   const messaging = getMessaging();
   const { token, notificationPermissionStatus } = useFcmToken();
-console.log('notifications', notifications);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -47,6 +46,7 @@ console.log('notifications', notifications);
 
     onMessage(messaging, (payload) => {
       console.log("Message received. ", payload);
+      toast("Message received");
       // ...
     });
     getLeads(currentPage);
@@ -109,6 +109,18 @@ console.log('notifications', notifications);
     });
     router.push("/management");
   };
+  //   useEffect(() => {
+  //     if ('serviceWorker' in navigator) {
+  //         navigator.serviceWorker.addEventListener('message', (event) => {
+  //             if (event.data && event.data.type === "addNotification") {
+  //                 dispatch({
+  //                     type: 'addNotification',
+  //                     // payload: event.data.payload
+  //                 });
+  //             }
+  //         });
+  //     }
+  // }, []);
   return (
     <div>
       {/* <FcmTokenComp /> */}

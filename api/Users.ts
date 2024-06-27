@@ -2,7 +2,7 @@ import Page from "@/Dummy/page";
 import axios from "axios";
 
 // const BASE_URL = "http://projects.microrage.com/moward/api";
-export const BASE_URL = "http://manage.mowarrd.sa/index.php/api/";
+export const BASE_URL = "https://manage.mowarrd.sa/index.php/api/";
 
 const api = axios.create({
   baseURL: BASE_URL,
