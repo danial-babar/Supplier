@@ -32,6 +32,7 @@ const RequestCard = ({
     hours: 0,
     minutes: 0,
   });
+  const [dealRunning, setDealRunning] = useState(false);
 
   useEffect(() => {
     calculateRemainingTime(data?.date_expire);
@@ -60,6 +61,15 @@ const RequestCard = ({
       hours: remainingHours,
       minutes: remainingMinutes,
     });
+    if (
+      !(
+        remainingTime?.days <= 0 &&
+        remainingTime?.hours <= 0 &&
+        remainingTime?.minutes <= 0
+      )
+    ) {
+      setDealRunning(true);
+    }
   };
 
   // console.log('remainingDays: ' + remainingTime);
@@ -102,15 +112,9 @@ const RequestCard = ({
         </h1>
 
         <p className="font-rbBold text-[16px] text-center line-clamp-1 mt-6 mb-3">
-          {data?.status == "1"
-            ? "تم انتهاء الطلب"
-            : "الوقت المتبقي حتى نهاية الطلب"}
+          {dealRunning ? "الوقت المتبقي حتى نهاية الطلب" : "تم انتهاء الطلب"}
         </p>
-        {!(
-          remainingTime?.days <= 0 &&
-          remainingTime?.hours <= 0 &&
-          remainingTime?.minutes <= 0
-        ) ? (
+        {dealRunning ? (
           <div
             className={`${contentBg} text-[${
               textColor || contentColor
@@ -149,7 +153,7 @@ const RequestCard = ({
                 textColor || contentColor
               }] font-rbBold`}
             >
-              مغلق
+              {data?.status_name}
             </label>
             {/* <div className="justify-center text-[20px] flex items-center">
                 <span>00</span>

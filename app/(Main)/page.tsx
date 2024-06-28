@@ -182,23 +182,23 @@ const Page = (props: Props) => {
                         <RequestCard
                           key={item.id} // don't forget to add a unique key when mapping over arrays in React
                           bgColor={
-                            item?.status == "7"
+                            item?.status == "6" || item?.status == "1"
                               ? "bg-[#FEDCD7]"
-                              : item.status == "6"
+                              : item.status == "4"
                               ? "bg-[#D6FAEE]"
                               : "bg-[#FAFAFF]"
                           }
                           contentBg={
-                            item?.status == "7"
+                            item?.status == "6" || item?.status == "1"
                               ? "bg-[#f84f3948]"
-                              : item.status == "6"
+                              : item.status == "4"
                               ? "bg-[#34e5a755]"
                               : "bg-[#6c66da4d]"
                           }
                           contentColor={
-                            item?.status == "7"
+                            item?.status == "6" || item?.status == "1"
                               ? "#F84F39"
-                              : item.status == "6"
+                              : item.status == "4"
                               ? "#34E5A8"
                               : "#6B66DA"
                           }
