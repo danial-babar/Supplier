@@ -682,13 +682,13 @@ const Page = (props: Props) => {
                 type="file"
                 accept="image/*"
                 id="file"
-                className="w-full hidden"
+                className="w-full hidden cursor-pointer"
                 onChange={handelDefaultImage}
                 title="ارفاق الملف"
               />
               <label
                 htmlFor="file"
-                className="p-1 px-3 bg-white shadow text-[#000] text-[16px] font-rbRegular"
+                className="p-1 px-3 bg-white shadow text-[#000] text-[16px] font-rbRegular cursor-pointer"
               >
                 ارفاق الملف
               </label>
@@ -700,7 +700,7 @@ const Page = (props: Props) => {
           {defaultImage && (
             <div className="">
               <IoMdCloseCircle
-                className="absolute bg-white rounded-full"
+                className="absolute bg-white rounded-full cursor-pointer"
                 color="#F84F39"
                 size={20}
                 onClick={() => setDefaultImage(null)}
@@ -732,7 +732,7 @@ const Page = (props: Props) => {
               />
               <label
                 htmlFor="files"
-                className="p-1 px-3 bg-white shadow text-[#000] text-[16px] font-rbRegular"
+                className="p-1 px-3 bg-white shadow text-[#000] text-[16px] font-rbRegular cursor-pointer"
               >
                 إرفاق الملفات
               </label>
@@ -743,7 +743,7 @@ const Page = (props: Props) => {
               images?.map((item: any, index: number) => (
                 <div className="mb-5" key={index}>
                   <IoMdCloseCircle
-                    className="absolute bg-white rounded-full"
+                    className="absolute bg-white rounded-full cursor-pointer"
                     color="#F84F39"
                     size={20}
                     onClick={() => handleRemoveImage(index)}
