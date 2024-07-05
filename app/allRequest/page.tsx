@@ -21,7 +21,7 @@ const Page = (props: Props) => {
     leadsFLow
       .userLeads(user?.id)
       .then((response) => {
-        console.log("response while getting user leads", response);
+        // console.log("response while getting user leads", response);
         setMyLeads(response);
       })
       .catch((error) => {

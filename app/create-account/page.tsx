@@ -50,7 +50,7 @@ const Page = ({ searchParams }: Props) => {
   const validateForm = () => {
     const errors = {};
 
-    console.log("email validation", emailRegex.test(formData?.email));
+    
     const emailValidation = emailRegex.test(formData.email);
     const phoneValidation = phoneRegex.test(formData.phone);
     if (!formData.email) {
@@ -99,7 +99,7 @@ const Page = ({ searchParams }: Props) => {
       userFlow
         .createAccount(data)
         .then((response) => {
-          console.log("response while creating account", response);
+          // console.log("response while creating account", response);
           if (response?.code === "1") {
             onOpen();
           } else {
@@ -125,7 +125,7 @@ const Page = ({ searchParams }: Props) => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-  console.log("errors", errors);
+
 
   return (
     <div dir="rtl">

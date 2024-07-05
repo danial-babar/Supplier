@@ -15,9 +15,7 @@ export const userReducer = createReducer(initialState, (builder) => {
     .addCase("clearUser", (state) => {
       state.user = null;
     })
-    .addCase("saveLeadId", (state, action:any) => {
-      console.log('id in reducer', action.payload);
-      
+    .addCase("saveLeadId", (state, action:any) => {   
       state.leadId = action.payload;
     });
 }); 

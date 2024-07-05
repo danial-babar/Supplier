@@ -31,7 +31,7 @@ const Page = (props: Props) => {
   useEffect(() => {
     initFirebaseMessaging()
       .then((res: any) => {
-        console.log("res while getting token", res);
+        // console.log("res while getting token", res);
         setFcmToken(res);
       })
       .catch((err: any) => {
@@ -52,7 +52,7 @@ const Page = (props: Props) => {
       errors.password = "يرجى إدخال كلمة المرور";
     }
     setErrors(errors);
-    console.log(Object.keys(errors).length === 0);
+    
 
     return Object.keys(errors).length === 0;
   };
@@ -69,7 +69,7 @@ const Page = (props: Props) => {
       userFlow
         .login(data)
         .then((response) => {
-          console.log("response while login account", response);
+          // console.log("response while login account", response);
           if (response?.code == "1") {
             localstorageService.setToken(response?.data?.token);
             dispatch({

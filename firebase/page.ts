@@ -26,14 +26,14 @@ export const initFirebaseMessaging = () => {
     const requestPermissionAndGenerateToken = async () => {
       try {
         const permission = await Notification.requestPermission();
-        console.log("Notification permission status:", permission);
+        // console.log("Notification permission status:", permission);
 
         if (permission === "granted") {
           const token = await getToken(messaging, {
             vapidKey:
               "BCs-1f1LTJe0K0bnCoLCUOgYj77Fr_HvE5Yfe8SGQNYxMiIg2CYwvb-f83jnwkxUVs8AU_yKyI9jvoeSc1ZAsk0",
           });
-          console.log("FCM Token:", token);
+          // console.log("FCM Token:", token);
 
           return token;
         } else {
