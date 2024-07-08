@@ -33,7 +33,7 @@ export const initFirebaseMessaging = () => {
             vapidKey:
               "BCs-1f1LTJe0K0bnCoLCUOgYj77Fr_HvE5Yfe8SGQNYxMiIg2CYwvb-f83jnwkxUVs8AU_yKyI9jvoeSc1ZAsk0",
           });
-          // console.log("FCM Token:", token);
+          console.log("FCM Token:", token);
 
           return token;
         } else {

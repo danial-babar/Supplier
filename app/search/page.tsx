@@ -19,17 +19,17 @@ const Page = (props: Props) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [leadsData, setLeadsData] = useState<Array<any>>([]);
-  const [filterParams, setFilterParams] = useState(searchParams);
+  const [filterParams, setFilterParams] = useState(searchParams || {});
   const [loading, setLoading] = useState(true);
   const [searchLoading, setSearchLoading] = useState(false);
   const [moreLoading, setMoreLoading] = useState(false);
   const [finishFlag, setFinishFlag] = useState(true);
   const [page, setPage] = useState(1);
- 
+
   const isFetching = useRef(false);
 
   useEffect(() => {
-    handleSearchClick(searchParams);
+    handleSearchClick(searchParams || {});
     return () => {
       dispatch({ type: "clearSearchParams" });
     };
@@ -39,7 +39,6 @@ const Page = (props: Props) => {
     if (isFetching.current) return;
     isFetching.current = true;
 
-    // setLoading(true);
     if (resetPage) {
       setSearchLoading(true);
       setPage(1);
@@ -49,8 +48,6 @@ const Page = (props: Props) => {
     if (!resetPage) setPage(page + 1);
     try {
       const response = await filterLeads(finalData);
-      // console.log("response while filtering", response);
-
       setLeadsData((prevLeads) =>
         resetPage ? response : [...prevLeads, ...response]
       );
@@ -62,7 +59,6 @@ const Page = (props: Props) => {
       setLoading(false);
       setMoreLoading(false);
       isFetching.current = false;
-      // setPage(page + 1);
     }
   };
 
@@ -70,8 +66,6 @@ const Page = (props: Props) => {
     if (isFetching.current) return;
 
     setMoreLoading(true);
-    const newPage = page + 1;
-    setPage(newPage);
     handleSearchClick({ ...filterParams, page: page });
   };
 
@@ -82,6 +76,7 @@ const Page = (props: Props) => {
     });
     router.push("/management");
   };
+
   const queryParams = useSearchParams();
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -92,6 +87,7 @@ const Page = (props: Props) => {
     },
     [queryParams]
   );
+
   return (
     <div dir="rtl">
       <Header />
@@ -110,7 +106,7 @@ const Page = (props: Props) => {
               Object.values(filterParams).some((value) => value !== 0)
             }
             results={leadsData[0]?.total}
-            onReSearchClick={(data) => {
+            onReSearchClick={() => {
               handleSearchClick(filterParams, true);
             }}
             searchParams={filterParams}
@@ -127,29 +123,29 @@ const Page = (props: Props) => {
                     <RequestCard
                       key={index}
                       bgColor={
-                        item.status == "7"
+                        item?.status === "6" || item?.status === "1"
                           ? "bg-[#FEDCD7]"
-                          : item.status == "6"
+                          : item.status === "4"
                           ? "bg-[#D6FAEE]"
                           : "bg-[#FAFAFF]"
                       }
                       contentBg={
-                        item.status == "7"
+                        item?.status === "6" || item?.status === "1"
                           ? "bg-[#f84f3948]"
-                          : item.status == "6"
+                          : item.status === "4"
                           ? "bg-[#34e5a755]"
                           : "bg-[#6c66da4d]"
                       }
                       contentColor={
-                        item.status == "7"
+                        item?.status === "6" || item?.status === "1"
                           ? "#F84F39"
-                          : item.status == "6"
+                          : item.status === "4"
                           ? "#34E5A8"
                           : "#6B66DA"
                       }
                       href={`management?${createQueryString("id", item?.id)}`}
                       data={item}
-                      textColor={item.status == "2" ? "#000000" : ""}
+                      textColor={item.status === "2" ? "#000000" : ""}
                     />
                   ))}
                 </div>
@@ -169,18 +165,6 @@ const Page = (props: Props) => {
                   onclick={handleMoreClick}
                   loading={moreLoading}
                 />
-                // <div
-                //   className="md:mt-20 text-center mt-8 mb-8"
-                //   onClick={handleMoreClick}
-                // >
-                //   <a className="bg-[#F84F39] px-4 py-2 rounded-medium md:rounded-full text-white font-rbRegular">
-                //     {moreLoading ? (
-                //       <Spinner color="white" size="sm" />
-                //     ) : (
-                //       " المزيد من التنصيفات..."
-                //     )}
-                //   </a>
-                // </div>
               )}
             </>
           )}
