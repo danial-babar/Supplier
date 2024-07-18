@@ -46,7 +46,7 @@ const UserDemandMng = ({
     bidsFLow
       .cancelLead(data)
       .then((response) => {
-        console.log("response while cancel order", response);
+        // console.log("response while cancel order", response);
         if (response?.code == "1") {
           route.push("allRequest");
         }

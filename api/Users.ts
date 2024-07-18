@@ -173,7 +173,7 @@ export const leadsFLow = {
   addLead: async (data: any) => {
     try {
       const response = await api.post(`/add_lead`, data);
-      console.log("response while add lead in api calling", response);
+      // console.log("response while add lead in api calling", response);
 
       return response.data;
     } catch (error) {

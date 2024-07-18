@@ -33,7 +33,7 @@ const Header = ({ activeItem }: Props) => {
   const [isUser, setIsUser] = useState(false);
   const [activeProfile, setActiveProfile] = useState(false);
   const [warningModal, setWarningModal] = useState(false);
-  console.log("notifications", notifications);
+  
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 300) {
@@ -63,7 +63,7 @@ const Header = ({ activeItem }: Props) => {
     }
   };
   const handleLogout = () => {
-    console.log("handleLogoute clicked");
+    
     dispatch({
       type: "clearUser",
     });
@@ -113,7 +113,7 @@ const Header = ({ activeItem }: Props) => {
               <Link href={"/message"}>
                 <FaRegEnvelope className="text-[#F84F39] ml-4" />
               </Link>
-              <div className="bg-[#000] flex w-[14px] h-[14px] rounded-full items-center justify-center absolute top-[-7px] right-[-7px]">
+              <div className="bg-[#935151] flex w-[14px] h-[14px] rounded-full items-center justify-center absolute top-[-7px] right-[-7px]">
                 <label className=" text-[#fff] text-[8px] font-rbRegular">
                   {" "}
                   {notifications}
@@ -202,7 +202,9 @@ const Header = ({ activeItem }: Props) => {
                 {userToken && isUser ? (
                   <div className="flex items-center gap-2">
                     <div>
-                      <FaRegEnvelope className="text-[#F84F39] ml-4" />
+                      <Link href={"/message"}>
+                        <FaRegEnvelope className="text-[#F84F39] ml-4" />
+                      </Link>
                     </div>
                     <div className="">
                       <GoPeople className="text-[#F84F39]" />

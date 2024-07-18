@@ -74,7 +74,7 @@ const Page = (props: Props) => {
     expiryDate: null,
     startDate: null,
   });
-  console.log("selcted Date", inputData.postedDate);
+
   const handelDefaultImage = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0]; // Get the first selected file
     setDefaultImage(file); // Set the selected file as the default image
@@ -95,7 +95,7 @@ const Page = (props: Props) => {
   useEffect(() => {
     getCategories()
       .then((res) => {
-        console.log("res while getting categories", res);
+        // console.log("res while getting categories", res);
         setCategories(res?.data);
       })
       .catch((err) => {
@@ -103,7 +103,7 @@ const Page = (props: Props) => {
       });
     getCities()
       .then((res) => {
-        console.log("res while getting cities", res);
+        // console.log("res while getting cities", res);
         setCities(res?.data);
       })
       .catch((err) => {
@@ -111,7 +111,7 @@ const Page = (props: Props) => {
       });
     getStatus()
       .then((res) => {
-        console.log("res while getting status", res);
+        // console.log("res while getting status", res);
         setStatus(res?.data);
       })
       .catch((err) => {
@@ -119,7 +119,7 @@ const Page = (props: Props) => {
       });
     getUnits()
       .then((res) => {
-        console.log("res while getting units", res);
+        // console.log("res while getting units", res);
         setUnits(res?.data);
       })
       .catch((err) => {
@@ -132,7 +132,7 @@ const Page = (props: Props) => {
       await api
         .get(`/get_products/${id}`)
         .then((res) => {
-          console.log("res while getting products", res);
+          // console.log("res while getting products", res);
           setProducts(res?.data?.data);
         })
         .catch((err) => {
@@ -186,7 +186,7 @@ const Page = (props: Props) => {
     return Object.keys(errors).length === 0;
   };
 
-  console.log("input errors", errors);
+
 
   const submitLead = () => {
     if (validateForm()) {
@@ -213,12 +213,12 @@ const Page = (props: Props) => {
       }
 
       data.append("is_show_price_data", "1");
-      console.log("form data", data);
+      
 
       leadsFLow
         .addLead(data)
         .then((res) => {
-          console.log("res while submiting lead data", res);
+          // console.log("res while submiting lead data", res);
           if (res?.code == "1") {
             route.push("/allRequest");
           }
@@ -682,13 +682,13 @@ const Page = (props: Props) => {
                 type="file"
                 accept="image/*"
                 id="file"
-                className="w-full hidden"
+                className="w-full hidden cursor-pointer"
                 onChange={handelDefaultImage}
                 title="ارفاق الملف"
               />
               <label
                 htmlFor="file"
-                className="p-1 px-3 bg-white shadow text-[#000] text-[16px] font-rbRegular"
+                className="p-1 px-3 bg-white shadow text-[#000] text-[16px] font-rbRegular cursor-pointer"
               >
                 ارفاق الملف
               </label>
@@ -700,7 +700,7 @@ const Page = (props: Props) => {
           {defaultImage && (
             <div className="">
               <IoMdCloseCircle
-                className="absolute bg-white rounded-full"
+                className="absolute bg-white rounded-full cursor-pointer"
                 color="#F84F39"
                 size={20}
                 onClick={() => setDefaultImage(null)}
@@ -732,7 +732,7 @@ const Page = (props: Props) => {
               />
               <label
                 htmlFor="files"
-                className="p-1 px-3 bg-white shadow text-[#000] text-[16px] font-rbRegular"
+                className="p-1 px-3 bg-white shadow text-[#000] text-[16px] font-rbRegular cursor-pointer"
               >
                 إرفاق الملفات
               </label>
@@ -743,7 +743,7 @@ const Page = (props: Props) => {
               images?.map((item: any, index: number) => (
                 <div className="mb-5" key={index}>
                   <IoMdCloseCircle
-                    className="absolute bg-white rounded-full"
+                    className="absolute bg-white rounded-full cursor-pointer"
                     color="#F84F39"
                     size={20}
                     onClick={() => handleRemoveImage(index)}

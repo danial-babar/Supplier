@@ -49,7 +49,7 @@ const Page = (props: Props) => {
     if (!resetPage) setPage(page + 1);
     try {
       const response = await filterLeads(finalData);
-      console.log("leads response", response);
+      // console.log("leads response", response);
 
       setLeadsData((prevLeads) =>
         resetPage ? response : [...prevLeads, ...response]
@@ -129,23 +129,23 @@ const Page = (props: Props) => {
                     <RequestCard
                       key={index}
                       bgColor={
-                        item.status == "7"
+                        item?.status == "6" || item?.status == "1"
                           ? "bg-[#FEDCD7]"
-                          : item.status == "6"
+                          : item.status == "4"
                           ? "bg-[#D6FAEE]"
                           : "bg-[#FAFAFF]"
                       }
                       contentBg={
-                        item.status == "7"
+                        item?.status == "6" || item?.status == "1"
                           ? "bg-[#f84f3948]"
-                          : item.status == "6"
+                          : item.status == "4"
                           ? "bg-[#34e5a755]"
                           : "bg-[#6c66da4d]"
                       }
                       contentColor={
-                        item.status == "7"
+                        item?.status == "6" || item?.status == "1"
                           ? "#F84F39"
-                          : item.status == "6"
+                          : item.status == "4"
                           ? "#34E5A8"
                           : "#6B66DA"
                       }

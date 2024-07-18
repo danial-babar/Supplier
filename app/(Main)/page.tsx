@@ -44,16 +44,16 @@ const Page = (props: Props) => {
       initFirebaseMessaging();
     }
 
-    onMessage(messaging, (payload) => {
-      console.log("Message received. ", payload);
-      toast("Message received");
-      // ...
-    });
+    // onMessage(messaging, (payload) => {
+    //   // console.log("Message received. ", payload);
+    //   toast("Message received");
+    //   // ...
+    // });
     getLeads(currentPage);
   }, []);
 
   const handleNextPage = () => {
-    console.log("enter in next");
+    
     if (nextPage) {
       getLeads(currentPage + 1);
       setCurrentPage((prevPage) => prevPage + 1);
@@ -61,7 +61,7 @@ const Page = (props: Props) => {
   };
 
   const handlePrevPage = () => {
-    console.log("enter in prev");
+    
     if (currentPage > 1) {
       getLeads(currentPage - 1);
       setCurrentPage((prevPage: any) => prevPage - 1);
@@ -72,13 +72,13 @@ const Page = (props: Props) => {
     setLoading(true);
     getAllLeads(page)
       .then((res: Lead[]) => {
-        console.log("res while getting leads", res);
+        // console.log("res while getting leads", res);
         setLeadsData(res);
         if (res.length < 6) setNextPage(false);
         else setNextPage(true);
       })
       .catch((err) => {
-        console.log("err while getting leads", err);
+        // console.log("err while getting leads", err);
       })
       .finally(() => setLoading(false));
   };
@@ -93,7 +93,7 @@ const Page = (props: Props) => {
     [searchParams]
   );
   const handleSearchClick = (data: any) => {
-    console.log("data filtered", data);
+    // console.log("data filtered", data);
     dispatch({
       type: "addSearchParams",
       payload: data,
@@ -182,23 +182,23 @@ const Page = (props: Props) => {
                         <RequestCard
                           key={item.id} // don't forget to add a unique key when mapping over arrays in React
                           bgColor={
-                            item?.status == "7"
+                            item?.status == "6" || item?.status == "1"
                               ? "bg-[#FEDCD7]"
-                              : item.status == "6"
+                              : item.status == "4"
                               ? "bg-[#D6FAEE]"
                               : "bg-[#FAFAFF]"
                           }
                           contentBg={
-                            item?.status == "7"
+                            item?.status == "6" || item?.status == "1"
                               ? "bg-[#f84f3948]"
-                              : item.status == "6"
+                              : item.status == "4"
                               ? "bg-[#34e5a755]"
                               : "bg-[#6c66da4d]"
                           }
                           contentColor={
-                            item?.status == "7"
+                            item?.status == "6" || item?.status == "1"
                               ? "#F84F39"
-                              : item.status == "6"
+                              : item.status == "4"
                               ? "#34E5A8"
                               : "#6B66DA"
                           }

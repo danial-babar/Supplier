@@ -5,7 +5,7 @@ const protectedRoutes = ["/addRequest", "/allRequest"];
 
 export default async function middleware(req: NextRequest) {
   const token = req.cookies.get("token");
-  console.log("token", token);
+  // console.log("token", token);
 
   const isProtectedRoute = protectedRoutes.some((route) =>
     req.nextUrl.pathname.startsWith(route)

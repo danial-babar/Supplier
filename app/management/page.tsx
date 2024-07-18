@@ -42,7 +42,7 @@ const Page = ({}: Props) => {
   // const { leadId } = useSelector((state: any) => state.user);
   const { user } = useSelector((state: any) => state.user);
   const searchParams = useSearchParams();
-  console.log("searchParams", searchParams.get("id"));
+  // console.log("searchParams", searchParams.get("id"));
 
   const leadId = searchParams.get("id");
   const [loading, setLoading] = useState(true);
@@ -87,7 +87,7 @@ const Page = ({}: Props) => {
   const GetSinlgeLead = () => {
     singleLeadById(leadId, user?.id)
       .then((response) => {
-        console.log("response while getting single lead", response);
+        // console.log("response while getting single lead", response);
         if (response?.bids?.length > 0) {
           const sortedBids = response?.bids.sort((a, b) => {
             // Convert the amount strings to numbers for comparison
@@ -140,7 +140,7 @@ const Page = ({}: Props) => {
     bidsFLow
       .addBid(data)
       .then((reponse) => {
-        console.log("response while adding bid", reponse);
+        // console.log("response while adding bid", reponse);
         onBidSuccess();
         onOpenChange();
       })
@@ -160,7 +160,7 @@ const Page = ({}: Props) => {
     bidsFLow
       .completeDeal(data)
       .then((reponse) => {
-        console.log("response while completing bid", reponse);
+        // console.log("response while completing bid", reponse);
         setCompleted(true);
       })
       .catch((error) => {
