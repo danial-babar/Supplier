@@ -45,7 +45,7 @@ const Footer = ({ styles }: props) => {
                 <Link href={"/questions"}>
                   <p className="cursor-pointer">اسئلة شائعه</p>
                 </Link>
-                <Link href={"/connect"}>
+                <Link href={"/contact"}>
                   <p className="cursor-pointer">تواصل معنا</p>
                 </Link>
               </div>

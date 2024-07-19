@@ -6,10 +6,34 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsThreeDots } from "react-icons/bs";
 import ThreeDotedBtn from "@/components/ThreeDotedBtn";
+import InputForm from "@/components/inputForm";
+import { Select, SelectItem } from "@nextui-org/react";
 type Props = {};
-
+const categories = [
+  { id: "1", title: "option1" },
+  { id: "2", title: "option2" },
+  { id: "3", title: "option3" },
+];
 const Page = (props: Props) => {
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState({
+    firstName: "",
+    familyName: "",
+    phone: "",
+    email: "",
+    category: {id:'',title:''},
+    description: "",
+  });
+
+  const submitRequest = () => {
+    const data = new FormData();
+    data.append("first_name", inputs.firstName);
+    data.append("family_name", inputs.familyName);
+    data.append("phone", inputs.phone);
+    data.append("email", inputs.email);
+    data.append("category", inputs.category.title);
+    data.append("description", inputs.description);
+  };
+
   return (
     <div dir="rtl">
       <Header activeItem={5} />
@@ -89,8 +113,9 @@ const Page = (props: Props) => {
         <div className="md:w-[60%] w-[95%] md:pt-16 pt-8 mx-auto">
           <form>
             <div className="grid md:grid-cols-2 gap-5 mx-auto">
-              <ContactUsInput
-                label="الاسم الأول"
+              <InputForm
+                placeholder="الاسم الأول"
+                title="الاسم الأول"
                 required
                 type={"text"}
                 value={inputs?.firstName}
@@ -98,8 +123,9 @@ const Page = (props: Props) => {
                   setInputs({ ...inputs, firstName: e.target.value })
                 }
               />
-              <ContactUsInput
-                label="الاسم العائلة"
+              <InputForm
+                placeholder="الاسم العائلة"
+                title="الاسم العائلة"
                 required
                 type={"text"}
                 value={inputs?.familyName}
@@ -107,8 +133,9 @@ const Page = (props: Props) => {
                   setInputs({ ...inputs, familyName: e.target.value })
                 }
               />
-              <ContactUsInput
-                label="رقم الجوال"
+              <InputForm
+                placeholder="رقم الجوال"
+                title="رقم الجوال"
                 required
                 type={"text"}
                 value={inputs?.phone}
@@ -116,8 +143,9 @@ const Page = (props: Props) => {
                   setInputs({ ...inputs, phone: e.target.value })
                 }
               />
-              <ContactUsInput
-                label="البريد الإلكتروني"
+              <InputForm
+                placeholder="البريد الإلكتروني"
+                title="البريد الإلكتروني"
                 required
                 type={"text"}
                 value={inputs?.email}
@@ -125,7 +153,40 @@ const Page = (props: Props) => {
                   setInputs({ ...inputs, email: e.target.value })
                 }
               />
-              <ContactUsInput
+              <div className="" >
+                <label className="text-[#000] font-rbRegular text-[16px]">
+                  التصنيف
+                  <span className="text-[#F84F39] font-rbRegular text-[16px]">
+                    {" "}
+                    *
+                  </span>
+                </label>
+                <Select
+                  placeholder="إختر ...."
+                  aria-label="إختر"
+                  className="rounded-none bg-lime-500 selectboxForRTL font-rbRegular"
+
+                  // dir="rtl"
+                >
+                  {categories?.map((item) => (
+                    <SelectItem
+                      textValue={item?.title.toString()}
+                      key={item.id}
+                      value={item.id}
+                      onClick={() => {
+                        setInputs({ ...inputs, category: item });
+                       
+                      }}
+                      className="flex justify-start font-rbRegular text-right  text-[#475467] text-[12px]"
+                      dir="rtl"
+                    >
+                      {item.title}
+                    </SelectItem>
+                  ))}
+                </Select>
+                
+              </div>
+              {/* <ContactUsInput
                 label="التصنيف"
                 required
                 type={"text"}
@@ -133,7 +194,7 @@ const Page = (props: Props) => {
                 onchange={(e) =>
                   setInputs({ ...inputs, category: e.target.value })
                 }
-              />
+              /> */}
             </div>
             <div className="mb-5">
               <p className="block mb-2 text-sm font-rbRegular text-gray-900 dark:text-white">

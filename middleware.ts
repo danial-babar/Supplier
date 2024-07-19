@@ -4,7 +4,7 @@ import { store } from "./redux/Store";
 const protectedRoutes = ["/addRequest", "/allRequest"];
 
 export default async function middleware(req: NextRequest) {
-  const token = req.cookies.get("token");
+  const token = req.cookies.get("mowarrd_token");
   // console.log("token", token);
 
   const isProtectedRoute = protectedRoutes.some((route) =>

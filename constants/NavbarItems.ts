@@ -21,7 +21,7 @@ export const NavItems = [
     },
     {
       title: "تواصل معنا",
-      href: "/connect",
+      href: "/contact",
     },
 
 
