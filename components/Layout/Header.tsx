@@ -33,7 +33,7 @@ const Header = ({ activeItem }: Props) => {
   const [isUser, setIsUser] = useState(false);
   const [activeProfile, setActiveProfile] = useState(false);
   const [warningModal, setWarningModal] = useState(false);
-  
+
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 300) {
@@ -63,7 +63,6 @@ const Header = ({ activeItem }: Props) => {
     }
   };
   const handleLogout = () => {
-    
     dispatch({
       type: "clearUser",
     });
@@ -86,6 +85,7 @@ const Header = ({ activeItem }: Props) => {
       setIsUser(true);
     }
   }, [user]);
+  console.log("user", isUser, userToken);
 
   return (
     <div

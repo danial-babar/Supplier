@@ -3,14 +3,14 @@ import Router from 'next/router';
 
 export const localstorageService = (() => {
   const _setToken = (value: string) => {
-    Cookies.set('token', value);
+    Cookies.set('mowarrd_token', value);
   };
 
   const _getToken = () =>
-    typeof window !== 'undefined' ? Cookies.get('token') : false;
+    typeof window !== 'undefined' ? Cookies.get('mowarrd_token') : false;
 
   const _logout = (url?: string) => {
-    Cookies.remove('token');
+    Cookies.remove('mowarrd_token');
     Router.push(url ?? '/login');
   };
 

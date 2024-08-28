@@ -69,7 +69,7 @@ const Page = (props: Props) => {
       userFlow
         .login(data)
         .then((response) => {
-          // console.log("response while login account", response);
+          console.log("response while login account", response);
           if (response?.code == "1") {
             localstorageService.setToken(response?.data?.token);
             dispatch({
