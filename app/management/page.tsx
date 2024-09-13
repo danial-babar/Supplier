@@ -87,7 +87,7 @@ const Page = ({}: Props) => {
   const GetSinlgeLead = () => {
     singleLeadById(leadId, user?.id)
       .then((response) => {
-        // console.log("response while getting single lead", response);
+        console.log("response while getting single lead", response);
         if (response?.bids?.length > 0) {
           const sortedBids = response?.bids.sort((a, b) => {
             // Convert the amount strings to numbers for comparison

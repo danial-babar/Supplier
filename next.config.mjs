@@ -21,6 +21,7 @@ const nextConfig = {
       // !! WARN !!
       ignoreBuildErrors: true,
     },
+    // output:'export'
 };
 
 export default nextConfig;

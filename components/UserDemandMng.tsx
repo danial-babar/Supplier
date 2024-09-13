@@ -119,6 +119,7 @@ const UserDemandMng = ({
                       amount={item?.amount}
                       index={index}
                       color={colors[index]}
+                      key={index}
                     />
                   );
                 })}
