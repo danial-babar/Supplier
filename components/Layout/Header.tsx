@@ -17,7 +17,7 @@ import { IoMdArrowDropdown, IoMdLogOut } from "react-icons/io";
 import { MdCollectionsBookmark } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import WarningModal from "@/common-modals/WarningModal";
-import logoImage from "/public/logo.png";
+import logoImage from "/public/images/logo.png";
 type Props = {
   activeItem?: number;
 };
